@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>2 Basics | mlr3 book</title>
+<meta name="author" content="Marc Becker">
+<meta name="author" content="Martin Binder">
+<meta name="author" content="Bernd Bischl">
+<meta name="author" content="Michel Lang">
+<meta name="author" content="Florian Pfisterer">
+<meta name="author" content="Nicholas G. Reich">
+<meta name="author" content="Jakob Richter">
+<meta name="author" content="Patrick Schratz">
+<meta name="author" content="Raphael Sonabend">
+<meta name="author" content="Damir Pulatov">
+<meta name="description" content="This chapter will teach you the essential building blocks of mlr3, as well as its R6 classes and operations used for machine learning. A typical machine learning workflow looks like this: The...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="2 Basics | mlr3 book">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://mlr3book.mlr-org.com/basics.html">
+<meta property="og:image" content="https://mlr3book.mlr-org.com//block.png">
+<meta property="og:description" content="This chapter will teach you the essential building blocks of mlr3, as well as its R6 classes and operations used for machine learning. A typical machine learning workflow looks like this: The...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2 Basics | mlr3 book">
+<meta name="twitter:description" content="This chapter will teach you the essential building blocks of mlr3, as well as its R6 classes and operations used for machine learning. A typical machine learning workflow looks like this: The...">
+<meta name="twitter:image" content="https://mlr3book.mlr-org.com//block.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">mlr3 book</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Citation Info</a></li>
+<li><a class="" href="quickstart.html">Quickstart</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction and Overview</a></li>
+<li><a class="active" href="basics.html"><span class="header-section-number">2</span> Basics</a></li>
+<li><a class="" href="optimization.html"><span class="header-section-number">3</span> Model Optimization</a></li>
+<li><a class="" href="pipelines.html"><span class="header-section-number">4</span> Pipelines</a></li>
+<li><a class="" href="technical.html"><span class="header-section-number">5</span> Technical</a></li>
+<li><a class="" href="extending.html"><span class="header-section-number">6</span> Extending</a></li>
+<li><a class="" href="special-tasks.html"><span class="header-section-number">7</span> Special Tasks</a></li>
+<li><a class="" href="interpretation.html"><span class="header-section-number">8</span> Model Interpretation</a></li>
+<li><a class="" href="appendix.html"><span class="header-section-number">9</span> Appendix</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/mlr-org/mlr3book">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="basics" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Basics<a class="anchor" aria-label="anchor" href="#basics"><i class="fas fa-link"></i></a>
+</h1>
+<p>This chapter will teach you the essential building blocks of <a href="https://mlr3.mlr-org.com">mlr3</a>, as well as its <a href="https://cran.r-project.org/package=R6">R6</a> classes and operations used for machine learning.
+A typical machine learning workflow looks like this:</p>
+<div class="inline-figure"><img src="images/ml_abstraction.svg" style="display: block; margin: auto;"></div>
+<p>The data, which <a href="https://mlr3.mlr-org.com">mlr3</a> encapsulates in <a href="basics.html#tasks">tasks</a>, is split into non-overlapping training and test sets.
+Since we are interested in models that extrapolate to new data rather than just memorizing the training data, the separate test data allows to objectively evaluate models with respect to generalization.
+The training data is given to a machine learning algorithm, which we call a <a href="basics.html#learners">learner</a> in <a href="https://mlr3.mlr-org.com">mlr3</a>.
+The <a href="basics.html#learners">learner</a> uses the training data to build a model of the relationship of the input features to the output target values.
+This model is then used to produce <a href="basics.html#predicting">predictions</a> on the test data, which are compared to the ground truth values to assess the quality of the model.
+<a href="https://mlr3.mlr-org.com">mlr3</a> offers a number of different <a href="basics.html#measure">measures</a> to quantify how well a model performs based on the difference between predicted and actual values.
+Usually this <a href="basics.html#measure">measure</a> is a numeric score.</p>
+<p>The process of splitting up data into training and test sets, building a model, and evaluating it may be repeated several times, <a href="basics.html#resampling">resampling</a> different training and test sets from the original data each time.
+Multiple <a href="basics.html#resampling">resampling iterations</a> allow us to get a better, more generalizable performance estimate for a particular type of model as it is tested under different conditions and less likely to get lucky or unlucky because of a particular way the data was resampled.</p>
+<p>In many cases, this simple workflow is not sufficient to deal with real-world data, which may require normalization, imputation of missing values, or feature selection.
+We will cover more complex workflows that allow to do this and even more later in the book.</p>
+<p>This chapter covers the following subtopics:</p>
+<p><strong>Tasks</strong></p>
+<p>Tasks encapsulate the data with meta-information, such as the name of the prediction target column.
+We cover how to:</p>
+<ul>
+<li>access <a href="basics.html#tasks-predefined">predefined tasks</a>,</li>
+<li>specify a <a href="basics.html#tasks-types">task type</a>,</li>
+<li>create a <a href="basics.html#tasks-creation">task</a>,</li>
+<li>work with a task’s <a href="basics.html#tasks-api">API</a>,</li>
+<li>assign roles to <a href="basics.html#tasks-roles">rows and columns</a> of a task,</li>
+<li>implement <a href="basics.html#tasks-mutators">task mutators</a>, and</li>
+<li>
+<a href="basics.html#tasks-retrieving">retrieve the data</a> that is stored in a task.</li>
+</ul>
+<p><strong>Learners</strong></p>
+<p><a href="basics.html#learners">Learners</a> encapsulate machine learning algorithms to train models and make predictions for a <a href="basics.html#tasks">task</a>.
+They are provided by R and other packages.
+We cover how to:</p>
+<ul>
+<li>access the set of <a href="basics.html#predefined-learners">classification and regression learners</a> that come with mlr3 and retrieve a specific learner,</li>
+<li>access the set of <a href="basics.html#predefined-learners">hyperparameter values</a> of a learner and modify them.</li>
+</ul>
+<p>How to modify and extend learners is covered in a supplemental <a href="extending.html#extending-learners">advanced technical section</a>.</p>
+<p><strong>Train and predict</strong></p>
+<p>The section on the <a href="basics.html#train-predict">train and predict methods</a> illustrates how to use <a href="basics.html#tasks">tasks</a> and <a href="basics.html#learners">learners</a> to train a model and make <a href="basics.html#predicting">predictions</a> on a new data set.
+In particular, we cover how to:</p>
+<ul>
+<li>properly set up <a href="basics.html#train-predict-objects">tasks</a> and <a href="basics.html#train-predict-objects">learners</a>,</li>
+<li>set up <a href="basics.html#split-data">train and test splits</a> for a task,</li>
+<li>
+<a href="basics.html#training">train</a> the learner on the training set to produce a model,</li>
+<li>generate <a href="basics.html#predicting">predictions</a> on the test set, and</li>
+<li>assess the <a href="basics.html#measure">performance</a> of the model by comparing predicted and actual values.</li>
+</ul>
+<p><strong>Resampling</strong></p>
+<p>A <a href="basics.html#resampling">resampling</a> is a method to create training and test splits.
+We cover how to</p>
+<ul>
+<li>access and select <a href="basics.html#resampling-settings">resampling strategies</a>,</li>
+<li>instantiate the <a href="basics.html#resampling-inst">split into training and test sets</a> by applying the resampling, and</li>
+<li>execute the resampling to obtain <a href="basics.html#resampling-exec">results</a>.</li>
+</ul>
+<p>Additional information on resampling can be found in the section about <a href="optimization.html#nested-resampling">nested resampling</a> and in the chapter on <a href="optimization.html#optimization">model optimization</a>.</p>
+<p><strong>Benchmarking</strong></p>
+<p><a href="basics.html#benchmarking">Benchmarking</a> is used to compare the performance of different models, for example models trained with different learners, on different tasks, or with different resampling methods.
+We cover how to</p>
+<ul>
+<li>create a <a href="basics.html#bm-design">benchmarking design</a>,</li>
+<li>
+<a href="basics.html#bm-exec">execute a design</a> and aggregate results, and</li>
+<li>convert benchmarking objects to <a href="basics.html#bm-resamp">resample objects</a>.</li>
+</ul>
+<p><strong>Binary classification</strong></p>
+<p><a href="basics.html#binary-classification">Binary classification</a> is a special case of classification where the target variable to predict has only two possible values.
+In this case, additional considerations apply; in particular:</p>
+<ul>
+<li>
+<a href="basics.html#binary-roc">ROC curves</a> and the threshold where to predict one class versus the other, and</li>
+<li>threshold tuning (WIP).</li>
+</ul>
+<p>Before we get into the details of how to use <a href="https://mlr3.mlr-org.com">mlr3</a> for machine learning, we give a brief introduction to R6 as it is a relatively new part of R.
+<a href="https://mlr3.mlr-org.com">mlr3</a> heavily relies on R6 and all basic building blocks it provides are R6 classes:</p>
+<ul>
+<li>
+<a href="basics.html#tasks">tasks</a>,</li>
+<li>
+<a href="basics.html#learners">learners</a>,</li>
+<li>
+<a href="appendix.html#list-measures">measures</a>, and</li>
+<li>
+<a href="basics.html#resampling">resamplings</a>.</li>
+</ul>
+<div id="r6" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Quick R6 Intro for Beginners<a class="anchor" aria-label="anchor" href="#r6"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="https://cran.r-project.org/package=R6">R6</a> is one of R’s more recent dialects for object-oriented programming (OO).
+It addresses shortcomings of earlier OO implementations in R, such as S3, which we used in <a href="https://mlr.mlr-org.com">mlr</a>.
+If you have done any object-oriented programming before, R6 should feel familiar.
+We focus on the parts of R6 that you need to know to use <a href="https://mlr3.mlr-org.com">mlr3</a> here.</p>
+<ul>
+<li>Objects are created by calling the constructor of an <a href="https://www.rdocumentation.org/packages/R6/topics/R6Class"><code>R6::R6Class()</code></a> object, specifically the initialization method <code>$new()</code>.
+For example, <code>foo = Foo$new(bar = 1)</code> creates a new object of class <code>Foo</code>, setting the <code>bar</code> argument of the constructor to the value <code>1</code>.
+Most objects in mlr3 are created through special functions (e.g. ‘lrn(“regr.rpart”)’) that are also referred to as <em>sugar functions</em>.</li>
+<li>Objects have mutable state, which is encapsulated in their fields, which can be accessed through the dollar operator.
+We can access the <code>bar</code> value in the <code>Foo</code> class through <code>foo$bar</code> and set its value by assigning the field, e.g. <code>foo$bar = 2</code>.</li>
+<li>In addition to fields, objects expose methods that may allow to inspect the object’s state, retrieve information, or perform an action that may change the internal state of the object.
+For example, the <code>$train</code> method of a learner changes the internal state of the learner by building and storing a trained model, which can then be used to make predictions given data.</li>
+<li>Objects can have public and private fields and methods.
+The public fields and methods define the API to interact with the object.
+Private methods are only relevant for you if you want to extend mlr3, e.g. with new learners.</li>
+<li>R6 objects are internally environments, and as such have reference semantics.
+For example, <code>foo2 = foo</code> does not create a copy of <code>foo</code> in <code>foo2</code>, but another reference to the same actual object.
+Setting <code>foo$bar = 3</code> will also change <code>foo2$bar</code> to <code>3</code> and vice versa.</li>
+<li>To copy an object, use the <code>$clone()</code> method and the <code>deep = TRUE</code> argument for nested objects, for example, <code>foo2 = foo$clone(deep = TRUE)</code>.</li>
+</ul>
+<p>For more details on R6, have a look at the excellent <a href="https://r6.r-lib.org/">R6 vignettes</a>, especially the <a href="https://r6.r-lib.org/articles/Introduction.html">introduction</a>.</p>
+
+</div>
+<div id="tasks" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Tasks<a class="anchor" aria-label="anchor" href="#tasks"><i class="fas fa-link"></i></a>
+</h2>
+<p>Tasks are objects that contain the (usually tabular) data and additional meta-data to define a machine learning problem.
+The meta-data is, for example, the name of the target variable for supervised machine learning problems, or the type of the dataset (e.g. a <em>spatial</em> or <em>survival</em>).
+This information is used for specific operations that can be performed on a task.</p>
+<div id="tasks-types" class="section level3" number="2.2.1">
+<h3>
+<span class="header-section-number">2.2.1</span> Task Types<a class="anchor" aria-label="anchor" href="#tasks-types"><i class="fas fa-link"></i></a>
+</h3>
+<p>To create a task from a <a href="https://www.rdocumentation.org/packages/base/topics/data.frame"><code>data.frame()</code></a>, <a href="https://www.rdocumentation.org/packages/data.table/topics/data.table-package"><code>data.table()</code></a> or <a href="https://www.rdocumentation.org/packages/Matrix/topics/Matrix"><code>Matrix()</code></a>, you first need to select the right task type:</p>
+<ul>
+<li><p><strong>Classification Task</strong>: The target is a label (stored as <code><a href="https://rdrr.io/r/base/character.html">character()</a></code>or<code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code>) with only few distinct values.
+<br>→ <a href="https://mlr3.mlr-org.com/reference/TaskClassif.html"><code>TaskClassif</code></a>.</p></li>
+<li><p><strong>Regression Task</strong>: The target is a numeric quantity (stored as <code><a href="https://rdrr.io/r/base/integer.html">integer()</a></code> or <code><a href="https://rdrr.io/r/base/double.html">double()</a></code>).
+<br>→ <a href="https://mlr3.mlr-org.com/reference/TaskRegr.html"><code>TaskRegr</code></a>.</p></li>
+<li><p><strong>Survival Task</strong>: The target is the (right-censored) time to an event. More censoring types are currently in development.
+<br>→ <a href="https://mlr3proba.mlr-org.com/reference/TaskSurv.html"><code>mlr3proba::TaskSurv</code></a> in add-on package <a href="https://mlr3proba.mlr-org.com">mlr3proba</a>.</p></li>
+<li><p><strong>Density Task</strong>: An unsupervised task to estimate the density.
+<br>→ <a href="https://mlr3proba.mlr-org.com/reference/TaskDens.html"><code>mlr3proba::TaskDens</code></a> in add-on package <a href="https://mlr3proba.mlr-org.com">mlr3proba</a>.</p></li>
+<li><p><strong>Cluster Task</strong>: An unsupervised task type; there is no target and the aim is to identify similar groups within the feature space.
+<br>→ <a href="https://mlr3cluster.mlr-org.com/reference/TaskClust.html"><code>mlr3cluster::TaskClust</code></a> in add-on package <a href="https://mlr3cluster.mlr-org.com">mlr3cluster</a>.</p></li>
+<li><p><strong>Spatial Task</strong>: Observations in the task have spatio-temporal information (e.g. coordinates).
+<br>→ <a href="https://www.rdocumentation.org/packages/mlr3spatiotempcv/topics/TaskRegrST"><code>mlr3spatiotempcv::TaskRegrST</code></a> or <a href="https://www.rdocumentation.org/packages/mlr3spatiotempcv/topics/TaskClassifST"><code>mlr3spatiotempcv::TaskClassifST</code></a> in add-on package <a href="https://mlr3spatiotempcv.mlr-org.com">mlr3spatiotempcv</a>.</p></li>
+<li><p><strong>Ordinal Regression Task</strong>: The target is ordinal.
+<br>→ <code>TaskOrdinal</code> in add-on package <a href="https://github.com/mlr-org/mlr3ordinal">mlr3ordinal</a> (still in development).</p></li>
+</ul>
+</div>
+<div id="tasks-creation" class="section level3" number="2.2.2">
+<h3>
+<span class="header-section-number">2.2.2</span> Task Creation<a class="anchor" aria-label="anchor" href="#tasks-creation"><i class="fas fa-link"></i></a>
+</h3>
+<p>As an example, we will create a regression task using the <a href="https://www.rdocumentation.org/packages/datasets/topics/mtcars"><code>mtcars</code></a> data set from the package <code>datasets</code> and predict the numeric target variable <code>"mpg"</code> (miles per gallon).
+We only consider the first two features in the dataset for brevity.</p>
+<p>First, we load and prepare the data.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"mtcars"</span>, package <span class="op">=</span> <span class="st">"datasets"</span><span class="op">)</span>
+<span class="va">data</span> <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
+<pre><code>## 'data.frame':    32 obs. of  3 variables:
+##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+##  $ disp: num  160 160 108 258 360 ...</code></pre>
+<p>Next, we create a regression task, i.e. we construct a new instance of the R6 class <a href="https://mlr3.mlr-org.com/reference/TaskRegr.html"><code>TaskRegr</code></a>.
+Usually, this is done by calling the constructor <code>TaskRegr$new()</code>.
+Instead, we are calling the converter <a href="https://mlr3.mlr-org.com/reference/as_task_regr.html"><code>as_task_regr()</code></a> to convert our <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> stored as <code>data</code> to a task and provide the following information:</p>
+<ol start="2" style="list-style-type: decimal">
+<li>
+<code>x</code>: Object to convert. Works for <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code>/<code><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table()</a></code>/<code>tibble()</code> abstract data backends implemented in the class <a href="https://mlr3.mlr-org.com/reference/DataBackendDataTable.html"><code>DataBackendDataTable</code></a>.
+The latter allows to connect to out-of-memory storage systems like SQL servers via the extension package <a href="https://mlr3db.mlr-org.com">mlr3db</a>.</li>
+<li>
+<code>target</code>: The name of the target column for the regression problem.</li>
+<li>
+<code>id</code> (optional): An arbitrary identifier for the task, used in plots and summaries.
+If not provided, the deparsed and substituted name of <code>x</code> will be used.</li>
+</ol>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
+
+<span class="va">task_mtcars</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_task_regr.html">as_task_regr</a></span><span class="op">(</span><span class="va">data</span>, target <span class="op">=</span> <span class="st">"mpg"</span>, id <span class="op">=</span> <span class="st">"cars"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">task_mtcars</span><span class="op">)</span></code></pre></div>
+<pre><code>## &lt;TaskRegr:cars&gt; (32 x 3)
+## * Target: mpg
+## * Properties: -
+## * Features (2):
+##   - dbl (2): cyl, disp</code></pre>
+<p>The <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> method gives a short summary of the task:
+It has 32 observations and 3 columns, of which 2 are features.</p>
+<p>We can also plot the task using the <a href="https://mlr3viz.mlr-org.com">mlr3viz</a> package, which gives a graphical summary of its properties:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3viz.mlr-org.com">"mlr3viz"</a></span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">task_mtcars</span>, type <span class="op">=</span> <span class="st">"pairs"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-basics-tasks_files/figure-html/02-basics-tasks-003-1.svg" width="672" style="display: block; margin: auto;"></div>
+<p>Note that instead of loading all the extension packages individually, it is often more convenient to load the <a href="https://mlr3verse.mlr-org.com">mlr3verse</a> package instead.
+<code>mlr3verse</code> imports most <code>mlr3</code> packages and re-exports functions which are used for regular machine learning and data science tasks.</p>
+</div>
+<div id="tasks-predefined" class="section level3" number="2.2.3">
+<h3>
+<span class="header-section-number">2.2.3</span> Predefined tasks<a class="anchor" aria-label="anchor" href="#tasks-predefined"><i class="fas fa-link"></i></a>
+</h3>
+<p><a href="https://mlr3.mlr-org.com">mlr3</a> ships with a few predefined machine learning tasks.
+All tasks are stored in an R6 <a href="https://mlr3misc.mlr-org.com/reference/Dictionary.html"><code>Dictionary</code></a> (a key-value store) named <a href="https://mlr3.mlr-org.com/reference/mlr_tasks.html"><code>mlr_tasks</code></a>.
+Printing it gives the keys (the names of the datasets):</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mlr_tasks</span></code></pre></div>
+<pre><code>## &lt;DictionaryTask&gt; with 11 stored values
+## Keys: boston_housing, breast_cancer, german_credit, iris, mtcars,
+##   penguins, pima, sonar, spam, wine, zoo</code></pre>
+<p>We can get a more informative summary of the example tasks by converting the dictionary to a <a href="https://www.rdocumentation.org/packages/data.table/topics/data.table-package"><code>data.table()</code></a> object:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">mlr_tasks</span><span class="op">)</span></code></pre></div>
+<pre><code>##                key task_type nrow ncol properties lgl int dbl chr fct ord pxc
+##  1: boston_housing      regr  506   19              0   3  13   0   2   0   0
+##  2:  breast_cancer   classif  683   10   twoclass   0   0   0   0   0   9   0
+##  3:  german_credit   classif 1000   21   twoclass   0   3   0   0  14   3   0
+##  4:           iris   classif  150    5 multiclass   0   0   4   0   0   0   0
+##  5:         mtcars      regr   32   11              0   0  10   0   0   0   0
+##  6:       penguins   classif  344    8 multiclass   0   3   2   0   2   0   0
+##  7:           pima   classif  768    9   twoclass   0   0   8   0   0   0   0
+##  8:          sonar   classif  208   61   twoclass   0   0  60   0   0   0   0
+##  9:           spam   classif 4601   58   twoclass   0   0  57   0   0   0   0
+## 10:           wine   classif  178   14 multiclass   0   2  11   0   0   0   0
+## 11:            zoo   classif  101   17 multiclass  15   1   0   0   0   0   0</code></pre>
+<p>In the above display, the columns <code>"lgl"</code> (<a href="https://www.rdocumentation.org/packages/base/topics/logical"><code>logical</code></a>), <code>"int"</code> (<a href="https://www.rdocumentation.org/packages/base/topics/integer"><code>integer</code></a>), <code>"dbl"</code> (<a href="https://www.rdocumentation.org/packages/base/topics/double"><code>double</code></a>), <code>"chr"</code> (<a href="https://www.rdocumentation.org/packages/base/topics/character"><code>character</code></a>), <code>"fct"</code> (<a href="https://www.rdocumentation.org/packages/base/topics/factor"><code>factor</code></a>), <code>"ord"</code> (<a href="https://www.rdocumentation.org/packages/base/topics/factor"><code>ordered factor</code></a>) and <code>"pxc"</code> (<a href="https://www.rdocumentation.org/packages/base/topics/DateTimeClasses"><code>POSIXct</code></a> time) display the number of features in the dataset with the corresponding storage type.</p>
+<p>To get a task from the dictionary, one can use the <code>$get()</code> method from the <code>mlr_tasks</code> class and assign the return value to a new object.
+Since <code>mlr3</code> arranges most of its object instances in dictionaries and extraction is such a common task, there is a shortcut for this: the function <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>tsk()</code></a>.
+Here, we retrieve the <a href="https://mlr3.mlr-org.com/reference/mlr_tasks_penguins.html"><code>palmer penguins task</code></a> originating from the package <a href="https://cran.r-project.org/package=palmerpenguins">palmerpenguins</a>:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">task_penguins</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"penguins"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">task_penguins</span><span class="op">)</span></code></pre></div>
+<pre><code>## &lt;TaskClassif:penguins&gt; (344 x 8)
+## * Target: species
+## * Properties: multiclass
+## * Features (7):
+##   - int (3): body_mass, flipper_length, year
+##   - dbl (2): bill_depth, bill_length
+##   - fct (2): island, sex</code></pre>
+<p>Note that dictionaries such as <a href="https://mlr3.mlr-org.com/reference/mlr_tasks.html"><code>mlr_tasks</code></a> can get populated by extension packages.
+E.g., <a href="https://mlr3data.mlr-org.com">mlr3data</a> comes with some more example and toy tasks for regression and classification, and <a href="https://mlr3proba.mlr-org.com">mlr3proba</a> ships with additional survival and density estimation tasks.
+Both packages will get loaded once we load the <a href="https://mlr3verse.mlr-org.com">mlr3verse</a> package, so we do it here and have a look at the available tasks again:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3verse.mlr-org.com">"mlr3verse"</a></span><span class="op">)</span>
+<span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">mlr_tasks</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></code></pre></div>
+<pre><code>##                key task_type  nrow ncol
+##  1:           actg      surv  1151   13
+##  2:   bike_sharing      regr 17379   14
+##  3: boston_housing      regr   506   19
+##  4:  breast_cancer   classif   683   10
+##  5:       faithful      dens   272    1
+##  6:           gbcs      surv   686   10
+##  7:  german_credit   classif  1000   21
+##  8:          grace      surv  1000    8
+##  9:           ilpd   classif   583   11
+## 10:           iris   classif   150    5
+## 11:     kc_housing      regr 21613   20
+## 12:           lung      surv   228   10
+## 13:      moneyball      regr  1232   15
+## 14:         mtcars      regr    32   11
+## 15:      optdigits   classif  5620   65
+## 16:       penguins   classif   344    8
+## 17:           pima   classif   768    9
+## 18:         precip      dens    70    1
+## 19:           rats      surv   300    5
+## 20:          sonar   classif   208   61
+## 21:           spam   classif  4601   58
+## 22:        titanic   classif  1309   11
+## 23:   unemployment      surv  3343    6
+## 24:      usarrests     clust    50    4
+## 25:           whas      surv   481   11
+## 26:           wine   classif   178   14
+## 27:            zoo   classif   101   17
+##                key task_type  nrow ncol</code></pre>
+<p>To get more information about the respective task, the corresponding man page can be found under <code>mlr_tasks_[id]</code>, e.g. <a href="https://mlr3.mlr-org.com/reference/mlr_tasks_german_credit.html"><code>mlr_tasks_german_credit</code></a>.</p>
+</div>
+<div id="tasks-api" class="section level3" number="2.2.4">
+<h3>
+<span class="header-section-number">2.2.4</span> Task API<a class="anchor" aria-label="anchor" href="#tasks-api"><i class="fas fa-link"></i></a>
+</h3>
+<p>All task properties and characteristics can be queried using the task’s public fields and methods (see <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a>).
+Methods can also be used to change the stored data and the behavior of the task.</p>
+<div id="tasks-retrieving" class="section level4" number="2.2.4.1">
+<h4>
+<span class="header-section-number">2.2.4.1</span> Retrieving Data<a class="anchor" aria-label="anchor" href="#tasks-retrieving"><i class="fas fa-link"></i></a>
+</h4>
+<p>The data stored in a task can be retrieved directly from fields, for example:</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">task_mtcars</span></code></pre></div>
+<pre><code>## &lt;TaskRegr:cars&gt; (32 x 3)
+## * Target: mpg
+## * Properties: -
+## * Features (2):
+##   - dbl (2): cyl, disp</code></pre>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">task_mtcars</span><span class="op">$</span><span class="va">nrow</span></code></pre></div>
+<pre><code>## [1] 32</code></pre>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">task_mtcars</span><span class="op">$</span><span class="va">ncol</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<p>More information can be obtained through methods of the object, for example:</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">task_mtcars</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>##      mpg cyl  disp
+##  1: 21.0   6 160.0
+##  2: 21.0   6 160.0
+##  3: 22.8   4 108.0
+##  4: 21.4   6 258.0
+##  5: 18.7   8 360.0
+##  6: 18.1   6 225.0
+##  7: 14.3   8 360.0
+##  8: 24.4   4 146.7
+##  9: 22.8   4 140.8
+## 10: 19.2   6 167.6
+## 11: 17.8   6 167.6
+## 12: 16.4   8 275.8
+## 13: 17.3   8 275.8
+## 14: 15.2   8 275.8
+## 15: 10.4   8 472.0
+## 16: 10.4   8 460.0
+## 17: 14.7   8 440.0
+## 18: 32.4   4  78.7
+## 19: 30.4   4  75.7
+## 20: 33.9   4  71.1
+## 21: 21.5   4 120.1
+## 22: 15.5   8 318.0
+## 23: 15.2   8 304.0
+## 24: 13.3   8 350.0
+## 25: 19.2   8 400.0
+## 26: 27.3   4  79.0
+## 27: 26.0   4 120.3
+## 28: 30.4   4  95.1
+## 29: 15.8   8 351.0
+## 30: 19.7   6 145.0
+## 31: 15.0   8 301.0
+## 32: 21.4   4 121.0
+##      mpg cyl  disp</code></pre>
+<p>In <a href="https://mlr3.mlr-org.com">mlr3</a>, each row (observation) has a unique identifier, stored as an <code><a href="https://rdrr.io/r/base/integer.html">integer()</a></code>.
+These can be passed as arguments to the <code>$data()</code> method to select specific rows:</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">task_mtcars</span><span class="op">$</span><span class="va">row_ids</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5 6</code></pre>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># retrieve data for rows with ids 1, 5, and 10</span>
+<span class="va">task_mtcars</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span>rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>##     mpg cyl  disp
+## 1: 21.0   6 160.0
+## 2: 18.7   8 360.0
+## 3: 19.2   6 167.6</code></pre>
+<p>Note that although the row ids are typically just the sequence from <code>1</code> to <code><a href="https://rdrr.io/r/base/nrow.html">nrow(data)</a></code>, they are only guaranteed to be unique natural numbers.
+Keep that in mind, especially if you work with data stored in a real data base management system (see <a href="technical.html#backends">backends</a>).</p>
+<p>Similarly to row ids, target and feature columns also have unique identifiers, i.e. names (stored as <code><a href="https://rdrr.io/r/base/character.html">character()</a></code>).
+Their names can be accessed via the public slots <code>$feature_names</code> and <code>$target_names</code>.
+Here, “target” refers to the variable we want to predict and “feature” to the predictors for the task.</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">task_mtcars</span><span class="op">$</span><span class="va">feature_names</span></code></pre></div>
+<pre><code>## [1] "cyl"  "disp"</code></pre>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">task_mtcars</span><span class="op">$</span><span class="va">target_names</span></code></pre></div>
+<pre><code>## [1] "mpg"</code></pre>
+<p>The <code>row_ids</code> and column names can be combined when selecting a subset of the data:</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># retrieve data for rows 1, 5, and 10 and only select column "mpg"</span>
+<span class="va">task_mtcars</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span>rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span>, cols <span class="op">=</span> <span class="st">"mpg"</span><span class="op">)</span></code></pre></div>
+<pre><code>##     mpg
+## 1: 21.0
+## 2: 18.7
+## 3: 19.2</code></pre>
+<p>To extract the complete data from the task, one can also simply convert it to a <code>data.table</code>:</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">task_mtcars</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>##       mpg            cyl            disp      
+##  Min.   :10.4   Min.   :4.00   Min.   : 71.1  
+##  1st Qu.:15.4   1st Qu.:4.00   1st Qu.:120.8  
+##  Median :19.2   Median :6.00   Median :196.3  
+##  Mean   :20.1   Mean   :6.19   Mean   :230.7  
+##  3rd Qu.:22.8   3rd Qu.:8.00   3rd Qu.:326.0  
+##  Max.   :33.9   Max.   :8.00   Max.   :472.0</code></pre>
+</div>
+<div id="tasks-roles" class="section level4" number="2.2.4.2">
+<h4>
+<span class="header-section-number">2.2.4.2</span> Roles (Rows and Columns)<a class="anchor" aria-label="anchor" href="#tasks-roles"><i class="fas fa-link"></i></a>
+</h4>
+<p>It is possible to assign different roles to rows and columns.
+These roles affect the behavior of the task for different operations.
+We already seen this for the target and feature columns which serve a different purpose.</p>
+<p>For example, the previously-constructed <em>mtcars</em> task has the following column roles:</p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">task_mtcars</span><span class="op">$</span><span class="va">col_roles</span><span class="op">)</span></code></pre></div>
+<pre><code>## $feature
+## [1] "cyl"  "disp"
+## 
+## $target
+## [1] "mpg"
+## 
+## $name
+## character(0)
+## 
+## $order
+## character(0)
+## 
+## $stratum
+## character(0)
+## 
+## $group
+## character(0)
+## 
+## $weight
+## character(0)</code></pre>
+<p>Columns can also have no role (they are ignored) or have multiple roles.
+To add the row names of <code>mtcars</code> as an additional feature, we first add them to the data table as regular column and then recreate the task with the new column.</p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># with `keep.rownames`, data.table stores the row names in an extra column "rn"</span>
+<span class="va">data</span> <span class="op">=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="fu">datasets</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/datasets/mtcars.html">mtcars</a></span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, keep.rownames <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">task_mtcars</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_task_regr.html">as_task_regr</a></span><span class="op">(</span><span class="va">data</span>, target <span class="op">=</span> <span class="st">"mpg"</span>, id <span class="op">=</span> <span class="st">"cars"</span><span class="op">)</span>
+
+<span class="co"># there is a new feature called "rn"</span>
+<span class="va">task_mtcars</span><span class="op">$</span><span class="va">feature_names</span></code></pre></div>
+<pre><code>## [1] "cyl"  "disp" "rn"</code></pre>
+<p>The row names are now a feature whose values are stored in the column <code>"rn"</code>.
+We include this column here for educational purposes only.
+Generally speaking, there is no point in having a feature that uniquely identifies each row.
+Furthermore, the character data type will cause problems with many types of machine learning algorithms.</p>
+<p>On the other hand, the identifier may be useful to label points in plots, for example to identify and label outliers.
+Therefore we will change the role of the <code>rn</code> column by removing it from the list of features and assign the new role <code>"name"</code>.
+There are two ways to do this:</p>
+<ol style="list-style-type: decimal">
+<li>Use the <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a> method <code>$set_col_roles()</code> (recommended).</li>
+<li>Simply modify the field <code>$col_roles</code>, which is a named list of vectors of column names.
+Each vector in this list corresponds to a column role, and the column names contained in that vector are designated as having that role.</li>
+</ol>
+<p>Supported column roles can be found in the manual of <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a>, or just by printing the names of the field <code>$col_roles</code>:.</p>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># supported column roles, see ?Task</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">task_mtcars</span><span class="op">$</span><span class="va">col_roles</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "feature" "target"  "name"    "order"   "stratum" "group"   "weight"</code></pre>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># assign column "rn" the role "name", remove from other roles</span>
+<span class="va">task_mtcars</span><span class="op">$</span><span class="fu">set_col_roles</span><span class="op">(</span><span class="st">"rn"</span>, roles <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span>
+
+<span class="co"># note that "rn" not listed as feature anymore</span>
+<span class="va">task_mtcars</span><span class="op">$</span><span class="va">feature_names</span></code></pre></div>
+<pre><code>## [1] "cyl"  "disp"</code></pre>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># "rn" also does not appear anymore when we access the data</span>
+<span class="va">task_mtcars</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span>rows <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<pre><code>##    mpg cyl disp
+## 1:  21   6  160
+## 2:  21   6  160</code></pre>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">task_mtcars</span><span class="op">$</span><span class="fu">head</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<pre><code>##    mpg cyl disp
+## 1:  21   6  160
+## 2:  21   6  160</code></pre>
+<p>Changing the role does not change the underlying data, it just updates the view on it.
+The data is not copied in the code above.
+The view is changed in-place though, i.e. the task object itself is modified.</p>
+<p>Just like columns, it is also possible to assign different roles to rows.</p>
+<p>Rows can have two different roles:</p>
+<ol style="list-style-type: decimal">
+<li><p>Role <code>use</code>:
+Rows that are generally available for model fitting (although they may also be used as test set in resampling).
+This role is the default role.</p></li>
+<li><p>Role <code>validation</code>:
+Rows that are not used for training.
+Rows that have missing values in the target column during task creation are automatically set to the validation role.</p></li>
+</ol>
+<p>There are several reasons to hold some observations back or treat them differently:</p>
+<ol style="list-style-type: decimal">
+<li>It is often good practice to validate the final model on an external validation set to identify possible overfitting.</li>
+<li>Some observations may be unlabeled, e.g. in competitions like <a href="https://www.kaggle.com/">Kaggle</a>.</li>
+</ol>
+<p>These observations cannot be used for training a model, but can be used to get predictions.</p>
+</div>
+<div id="tasks-mutators" class="section level4" number="2.2.4.3">
+<h4>
+<span class="header-section-number">2.2.4.3</span> Task Mutators<a class="anchor" aria-label="anchor" href="#tasks-mutators"><i class="fas fa-link"></i></a>
+</h4>
+<p>As shown above, modifying <code>$col_roles</code> or <code>$row_roles</code> (either via <code>set_col_roles()</code>/<code>set_row_roles()</code> or directly by modifying the named list) changes the view on the data.
+The additional convenience method <code>$filter()</code> subsets the current view based on row ids and <code>$select()</code> subsets the view based on feature names.</p>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">task_penguins</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"penguins"</span><span class="op">)</span>
+<span class="va">task_penguins</span><span class="op">$</span><span class="fu">select</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"body_mass"</span>, <span class="st">"flipper_length"</span><span class="op">)</span><span class="op">)</span> <span class="co"># keep only these features</span>
+<span class="va">task_penguins</span><span class="op">$</span><span class="fu">filter</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="co"># keep only these rows</span>
+<span class="va">task_penguins</span><span class="op">$</span><span class="fu">head</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>##    species body_mass flipper_length
+## 1:  Adelie      3750            181
+## 2:  Adelie      3800            186
+## 3:  Adelie      3250            195</code></pre>
+<p>While the methods discussed above allow to subset the data, the methods <code>$rbind()</code> and <code>$cbind()</code> allow to add extra rows and columns to a task.
+Again, the original data is not changed.
+The additional rows or columns are only added to the view of the data.</p>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">task_penguins</span><span class="op">$</span><span class="fu">cbind</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>letters <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="co"># add column foo</span>
+<span class="va">task_penguins</span><span class="op">$</span><span class="fu">head</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>##    species body_mass flipper_length letters
+## 1:  Adelie      3750            181       a
+## 2:  Adelie      3800            186       b
+## 3:  Adelie      3250            195       c</code></pre>
+</div>
+</div>
+<div id="autoplot-task" class="section level3" number="2.2.5">
+<h3>
+<span class="header-section-number">2.2.5</span> Plotting Tasks<a class="anchor" aria-label="anchor" href="#autoplot-task"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <a href="https://mlr3viz.mlr-org.com">mlr3viz</a> package provides plotting facilities for many classes implemented in <a href="https://mlr3.mlr-org.com">mlr3</a>.
+The available plot types depend on the inherited class, but all plots are returned as <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a> objects which can be easily customized.</p>
+<p>For classification tasks (inheriting from <a href="https://mlr3.mlr-org.com/reference/TaskClassif.html"><code>TaskClassif</code></a>), see the documentation of <a href="https://mlr3viz.mlr-org.com/reference/autoplot.TaskClassif.html"><code>mlr3viz::autoplot.TaskClassif</code></a> for the implemented plot types.
+Here are some examples to get an impression:</p>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3viz.mlr-org.com">"mlr3viz"</a></span><span class="op">)</span>
+
+<span class="co"># get the pima indians task</span>
+<span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"pima"</span><span class="op">)</span>
+
+<span class="co"># subset task to only use the 3 first features</span>
+<span class="va">task</span><span class="op">$</span><span class="fu">select</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">task</span><span class="op">$</span><span class="va">feature_names</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># default plot: class frequencies</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-basics-tasks_files/figure-html/02-basics-tasks-019-1.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># pairs plot (requires package GGally)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">task</span>, type <span class="op">=</span> <span class="st">"pairs"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-basics-tasks_files/figure-html/02-basics-tasks-019-2.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># duo plot (requires package GGally)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">task</span>, type <span class="op">=</span> <span class="st">"duo"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-basics-tasks_files/figure-html/02-basics-tasks-019-3.svg" width="672" style="display: block; margin: auto;"></div>
+<p>Of course, you can do the same for regression tasks (inheriting from <a href="https://mlr3.mlr-org.com/reference/TaskRegr.html"><code>TaskRegr</code></a>) as documented in <a href="https://mlr3viz.mlr-org.com/reference/autoplot.TaskRegr.html"><code>mlr3viz::autoplot.TaskRegr</code></a>:</p>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3viz.mlr-org.com">"mlr3viz"</a></span><span class="op">)</span>
+
+<span class="co"># get the complete mtcars task</span>
+<span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"mtcars"</span><span class="op">)</span>
+
+<span class="co"># subset task to only use the 3 first features</span>
+<span class="va">task</span><span class="op">$</span><span class="fu">select</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">task</span><span class="op">$</span><span class="va">feature_names</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># default plot: boxplot of target variable</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-basics-tasks_files/figure-html/02-basics-tasks-020-1.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># pairs plot (requires package GGally)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">task</span>, type <span class="op">=</span> <span class="st">"pairs"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-basics-tasks_files/figure-html/02-basics-tasks-020-2.svg" width="672" style="display: block; margin: auto;"></div>
+
+</div>
+</div>
+<div id="learners" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Learners<a class="anchor" aria-label="anchor" href="#learners"><i class="fas fa-link"></i></a>
+</h2>
+<p>Objects of class <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a> provide a unified interface to many popular machine learning algorithms in R.
+They consist of methods to train and predict a model for a <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a> and provide meta-information about the learners, such as the hyperparameters you can set.</p>
+<p>The base class of each learner is <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a>, specialized for regression as <a href="https://mlr3.mlr-org.com/reference/LearnerRegr.html"><code>LearnerRegr</code></a> and for classification as <a href="https://mlr3.mlr-org.com/reference/LearnerClassif.html"><code>LearnerClassif</code></a>.
+Extension packages inherit from the <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a> base class, e.g. <a href="https://mlr3proba.mlr-org.com/reference/LearnerSurv.html"><code>mlr3proba::LearnerSurv</code></a> or <a href="https://mlr3cluster.mlr-org.com/reference/LearnerClust.html"><code>mlr3cluster::LearnerClust</code></a>.
+In contrast to the <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a>, the creation of a custom Learner is usually not required and a more advanced topic.
+Hence, we refer the reader to Section <a href="extending.html#extending-learners">6.1</a> and proceed with an overview of the interface of already implemented learners.</p>
+<div class="inline-figure">All Learners work in a two-stage procedure:
+<img src="images/learner.svg" style="display: block; margin: auto;">
+</div>
+<ul>
+<li>
+<strong>training step</strong>: The training data (features and target) is passed to the Learner’s <code>$train()</code> function which trains and stores a model, i.e. the relationship of target an feature.</li>
+<li>
+<strong>predict step</strong>: A new slice of data, the inference data, is passed to the <code>$predict()</code> method of the Learner.
+The model trained in the first step is used to predict the missing target feature, e.g. labels for classification problems or the numerical outcome for regression problems.</li>
+</ul>
+<div id="predefined-learners" class="section level3" number="2.3.1">
+<h3>
+<span class="header-section-number">2.3.1</span> Predefined Learners<a class="anchor" aria-label="anchor" href="#predefined-learners"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code>mlr3</code> package ships with the following minimal set of classification and regression learners to avoid unnecessary dependencies:</p>
+<ul>
+<li>
+<a href="https://mlr3.mlr-org.com/reference/mlr_learners_classif.featureless.html"><code>mlr_learners_classif.featureless</code></a>: Simple baseline classification learner (inheriting from <a href="https://mlr3.mlr-org.com/reference/LearnerClassif.html"><code>LearnerClassif</code></a>).
+In the defaults, it constantly predicts the label that is most frequent in the training set.</li>
+<li>
+<a href="https://mlr3.mlr-org.com/reference/mlr_learners_regr.featureless.html"><code>mlr_learners_regr.featureless</code></a>: Simple baseline regression learner (inheriting from <a href="https://mlr3.mlr-org.com/reference/LearnerRegr.html"><code>LearnerRegr</code></a>).
+In the defaults, it constantly predicts the mean of the outcome in training set.</li>
+<li>
+<a href="https://mlr3.mlr-org.com/reference/mlr_learners_classif.rpart.html"><code>mlr_learners_classif.rpart</code></a>: Single classification tree from package <a href="https://cran.r-project.org/package=rpart">rpart</a>.</li>
+<li>
+<a href="https://mlr3.mlr-org.com/reference/mlr_learners_regr.rpart.html"><code>mlr_learners_regr.rpart</code></a>: Single regression tree from package <a href="https://cran.r-project.org/package=rpart">rpart</a>.</li>
+</ul>
+<p>This set of baseline learners is usually insufficient for a real data analysis.
+Thus, we have cherry-picked one implementation of the most popular machine learning method and connected them in the <a href="https://mlr3learners.mlr-org.com">mlr3learners</a> package:</p>
+<ul>
+<li>Linear and logistic regression</li>
+<li>Penalized Generalized Linear Models</li>
+<li>
+<span class="math inline">\(k\)</span>-Nearest Neighbors regression and classification</li>
+<li>Kriging</li>
+<li>Linear and Quadratic Discriminant Analysis</li>
+<li>Naive Bayes</li>
+<li>Support-Vector machines</li>
+<li>Gradient Boosting</li>
+<li>Random Forests for regression, classification and survival</li>
+</ul>
+<p>More machine learning methods and alternative implementations are collected in the <a href="https://github.com/mlr-org/mlr3extralearners/">mlr3extralearners repository</a>.</p>
+<div class="rmdnote">
+<p>
+A full list of implemented learners across all packages is given in <a href="https://mlr3extralearners.mlr-org.com/articles/learners/list_learners.html">this interactive list</a> and also via <code><a href="https://rdrr.io/pkg/mlr3extralearners/man/list_mlr3learners.html">mlr3extralearners::list_mlr3learners()</a></code>.
+</p>
+</div>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu">mlr3extralearners</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mlr3extralearners/man/list_mlr3learners.html">list_mlr3learners</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>##          name   class                 id      mlr3_package
+## 1: AdaBoostM1 classif classif.AdaBoostM1 mlr3extralearners
+## 2:       bart classif       classif.bart mlr3extralearners
+## 3:        C50 classif        classif.C50 mlr3extralearners
+## 4:   catboost classif   classif.catboost mlr3extralearners
+## 5:    cforest classif    classif.cforest mlr3extralearners
+## 6:      ctree classif      classif.ctree mlr3extralearners
+##         required_packages                                      properties
+## 1:                  RWeka                             multiclass,twoclass
+## 2:                 dbarts                                twoclass,weights
+## 3:                    C50            missings,multiclass,twoclass,weights
+## 4:               catboost importance,missings,multiclass,twoclass,weights
+## 5: partykit,sandwich,coin           multiclass,oob_error,twoclass,weights
+## 6: partykit,sandwich,coin                     multiclass,twoclass,weights
+##                     feature_types predict_types
+## 1:         numeric,factor,ordered response,prob
+## 2: integer,numeric,factor,ordered response,prob
+## 3:         numeric,factor,ordered response,prob
+## 4:         numeric,factor,ordered response,prob
+## 5: integer,numeric,factor,ordered response,prob
+## 6: integer,numeric,factor,ordered response,prob</code></pre>
+<p>The latest build status of all learners is listed <a href="https://mlr3extralearners.mlr-org.com/articles/learners/learner_status.html">here</a>.</p>
+<p>To create an object for one of the predefined learners, you need to access the <a href="https://mlr3.mlr-org.com/reference/mlr_learners.html"><code>mlr_learners</code></a> <a href="https://mlr3misc.mlr-org.com/reference/Dictionary.html"><code>Dictionary</code></a> which, similar to <a href="https://mlr3.mlr-org.com/reference/mlr_tasks.html"><code>mlr_tasks</code></a>, gets automatically populated with more learners by extension packages.</p>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># load most mlr3 packages to populate the dictionary</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3verse.mlr-org.com">"mlr3verse"</a></span><span class="op">)</span>
+<span class="va">mlr_learners</span></code></pre></div>
+<pre><code>## &lt;DictionaryLearner&gt; with 133 stored values
+## Keys: classif.AdaBoostM1, classif.bart, classif.C50, classif.catboost,
+##   classif.cforest, classif.ctree, classif.cv_glmnet, classif.debug,
+##   classif.earth, classif.extratrees, classif.featureless, classif.fnn,
+##   classif.gam, classif.gamboost, classif.gausspr, classif.gbm,
+##   classif.glmboost, classif.glmnet, classif.IBk, classif.J48,
+##   classif.JRip, classif.kknn, classif.ksvm, classif.lda,
+##   classif.liblinear, classif.lightgbm, classif.LMT, classif.log_reg,
+##   classif.mob, classif.multinom, classif.naive_bayes, classif.nnet,
+##   classif.OneR, classif.PART, classif.qda, classif.randomForest,
+##   classif.ranger, classif.rfsrc, classif.rpart, classif.svm,
+##   classif.xgboost, clust.agnes, clust.ap, clust.cmeans, clust.cobweb,
+##   clust.dbscan, clust.diana, clust.em, clust.fanny, clust.featureless,
+##   clust.ff, clust.hclust, clust.kkmeans, clust.kmeans,
+##   clust.MBatchKMeans, clust.meanshift, clust.pam, clust.SimpleKMeans,
+##   clust.xmeans, dens.hist, dens.kde, dens.kde_kd, dens.kde_ks,
+##   dens.locfit, dens.logspline, dens.mixed, dens.nonpar, dens.pen,
+##   dens.plug, dens.spline, regr.bart, regr.catboost, regr.cforest,
+##   regr.ctree, regr.cubist, regr.cv_glmnet, regr.earth, regr.extratrees,
+##   regr.featureless, regr.fnn, regr.gam, regr.gamboost, regr.gausspr,
+##   regr.gbm, regr.glm, regr.glmboost, regr.glmnet, regr.IBk, regr.kknn,
+##   regr.km, regr.ksvm, regr.liblinear, regr.lightgbm, regr.lm,
+##   regr.M5Rules, regr.mars, regr.mob, regr.randomForest, regr.ranger,
+##   regr.rfsrc, regr.rpart, regr.svm, regr.xgboost, surv.akritas,
+##   surv.blackboost, surv.cforest, surv.coxboost, surv.coxph,
+##   surv.coxtime, surv.ctree, surv.cv_coxboost, surv.cv_glmnet,
+##   surv.deephit, surv.deepsurv, surv.dnnsurv, surv.flexible,
+##   surv.gamboost, surv.gbm, surv.glmboost, surv.glmnet, surv.kaplan,
+##   surv.loghaz, surv.mboost, surv.nelson, surv.obliqueRSF,
+##   surv.parametric, surv.pchazard, surv.penalized, surv.ranger,
+##   surv.rfsrc, surv.rpart, surv.svm, surv.xgboost</code></pre>
+<p>To obtain an object from the dictionary we can use <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>lrn()</code></a> or the generic <code>mlr_learners$get()</code> method, e.g. <code><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn("classif.rpart")</a></code>.</p>
+</div>
+<div id="learner-api" class="section level3" number="2.3.2">
+<h3>
+<span class="header-section-number">2.3.2</span> Learner API<a class="anchor" aria-label="anchor" href="#learner-api"><i class="fas fa-link"></i></a>
+</h3>
+<p>Each learner provides the following meta-information:</p>
+<ul>
+<li>
+<code>feature_types</code>: the type of features the learner can deal with.</li>
+<li>
+<code>packages</code>: the packages required to train a model with this learner and make predictions.</li>
+<li>
+<code>properties</code>: additional properties and capabilities.
+For example, a learner has the property “missings” if it is able to handle missing feature values, and “importance” if it computes and allows to extract data on the relative importance of the features.
+A complete list of these is available in the <a href="https://mlr3.mlr-org.com/reference/mlr_reflections.html#examples">mlr3 reference</a>.</li>
+<li>
+<code>predict_types</code>: possible prediction types. For example, a classification learner can predict labels (“response”) or probabilities (“prob”). For a complete list of possible predict types see the <a href="https://mlr3.mlr-org.com/reference/mlr_reflections.html#examples">mlr3 reference</a>.</li>
+</ul>
+<p>You can retrieve a specific learner using its <code>id</code>:</p>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">learner</span><span class="op">)</span></code></pre></div>
+<pre><code>## &lt;LearnerClassifRpart:classif.rpart&gt;
+## * Model: -
+## * Parameters: xval=0
+## * Packages: rpart
+## * Predict Type: response
+## * Feature types: logical, integer, numeric, factor, ordered
+## * Properties: importance, missings, multiclass, selected_features,
+##   twoclass, weights</code></pre>
+<p>The field <code>param_set</code> stores a description of the hyperparameters the learner has, their ranges, defaults, and current values:</p>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">learner</span><span class="op">$</span><span class="va">param_set</span></code></pre></div>
+<pre><code>## &lt;ParamSet&gt;
+##                 id    class lower upper nlevels        default value
+##  1:             cp ParamDbl     0     1     Inf           0.01      
+##  2:     keep_model ParamLgl    NA    NA       2          FALSE      
+##  3:     maxcompete ParamInt     0   Inf     Inf              4      
+##  4:       maxdepth ParamInt     1    30      30             30      
+##  5:   maxsurrogate ParamInt     0   Inf     Inf              5      
+##  6:      minbucket ParamInt     1   Inf     Inf &lt;NoDefault[3]&gt;      
+##  7:       minsplit ParamInt     1   Inf     Inf             20      
+##  8: surrogatestyle ParamInt     0     1       2              0      
+##  9:   usesurrogate ParamInt     0     2       3              2      
+## 10:           xval ParamInt     0   Inf     Inf             10     0</code></pre>
+<p>The set of current hyperparameter values is stored in the <code>values</code> field of the <code>param_set</code> field.
+You can change the current hyperparameter values by assigning a named list to this field:</p>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>cp <span class="op">=</span> <span class="fl">0.01</span>, xval <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
+<span class="va">learner</span></code></pre></div>
+<pre><code>## &lt;LearnerClassifRpart:classif.rpart&gt;
+## * Model: -
+## * Parameters: cp=0.01, xval=0
+## * Packages: rpart
+## * Predict Type: response
+## * Feature types: logical, integer, numeric, factor, ordered
+## * Properties: importance, missings, multiclass, selected_features,
+##   twoclass, weights</code></pre>
+<p>Note that this operation just overwrites all previously set parameters.
+If you just want to add a new hyperparameter, retrieve the current set of parameter values, modify the named list and write it back to the learner:</p>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pv</span> <span class="op">=</span> <span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span>
+<span class="va">pv</span><span class="op">$</span><span class="va">cp</span> <span class="op">=</span> <span class="fl">0.02</span>
+<span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span> <span class="op">=</span> <span class="va">pv</span></code></pre></div>
+<p>This updates <code>cp</code> to <code>0.02</code> and keeps the previously set parameter <code>xval</code>.</p>
+<p>Note that the <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>lrn()</code></a> function also accepts additional arguments which are then used to update hyperparameters or set fields of the learner in one go:</p>
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span>, id <span class="op">=</span> <span class="st">"rp"</span>, cp <span class="op">=</span> <span class="fl">0.001</span><span class="op">)</span>
+<span class="va">learner</span><span class="op">$</span><span class="va">id</span></code></pre></div>
+<pre><code>## [1] "rp"</code></pre>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span></code></pre></div>
+<pre><code>## $xval
+## [1] 0
+## 
+## $cp
+## [1] 0.001</code></pre>
+
+</div>
+</div>
+<div id="train-predict" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Train, Predict, Score<a class="anchor" aria-label="anchor" href="#train-predict"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this section, we explain how <a href="basics.html#tasks">tasks</a> and <a href="basics.html#learners">learners</a> can be used to train a model and predict to a new dataset.
+The concept is demonstrated on a supervised classification using the <a href="https://mlr3.mlr-org.com/reference/mlr_tasks_penguins.html"><code>penguins</code></a> dataset and the <a href="https://mlr3.mlr-org.com/reference/mlr_learners_classif.rpart.html"><code>rpart</code></a> learner, which builds a singe classification tree.</p>
+<p>Training a <a href="basics.html#learners">learner</a> means fitting a model to a given data set.
+Subsequently, we want to <a href="basics.html#predicting">predict</a> the label for new observations.
+These <a href="basics.html#predicting">predictions</a> are compared to the ground truth values in order to assess the predictive performance of the model.</p>
+<div id="train-predict-objects" class="section level3" number="2.4.1">
+<h3>
+<span class="header-section-number">2.4.1</span> Creating Task and Learner Objects<a class="anchor" aria-label="anchor" href="#train-predict-objects"><i class="fas fa-link"></i></a>
+</h3>
+<p>First of all, we load the <a href="https://mlr3verse.mlr-org.com">mlr3verse</a> package.</p>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3verse.mlr-org.com">"mlr3verse"</a></span><span class="op">)</span></code></pre></div>
+<p>Next, we retrieve the task and the learner from <a href="https://mlr3.mlr-org.com/reference/mlr_tasks.html"><code>mlr_tasks</code></a> (with shortcut <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>tsk()</code></a>) and <a href="https://mlr3.mlr-org.com/reference/mlr_learners.html"><code>mlr_learners</code></a> (with shortcut <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>lrn()</code></a>), respectively:</p>
+<ol style="list-style-type: decimal">
+<li>The classification <a href="basics.html#tasks">task</a>:</li>
+</ol>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"penguins"</span><span class="op">)</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>A <a href="basics.html#learners">learner</a> for the classification tree:</li>
+</ol>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="split-data" class="section level3" number="2.4.2">
+<h3>
+<span class="header-section-number">2.4.2</span> Setting up the train/test splits of the data<a class="anchor" aria-label="anchor" href="#split-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>It is common to train on a majority of the data.
+Here we use 80% of all available observations and predict on the remaining 20%.
+For this purpose, we create two index vectors:</p>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">train_set</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">task</span><span class="op">$</span><span class="va">nrow</span>, <span class="fl">0.8</span> <span class="op">*</span> <span class="va">task</span><span class="op">$</span><span class="va">nrow</span><span class="op">)</span>
+<span class="va">test_set</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">task</span><span class="op">$</span><span class="va">nrow</span><span class="op">)</span>, <span class="va">train_set</span><span class="op">)</span></code></pre></div>
+<p>In Section <a href="basics.html#resampling">2.5</a> we will learn how mlr3 can automatically create training and test sets based on different <a href="basics.html#resampling">resampling</a> strategies.</p>
+</div>
+<div id="training" class="section level3" number="2.4.3">
+<h3>
+<span class="header-section-number">2.4.3</span> Training the learner<a class="anchor" aria-label="anchor" href="#training"><i class="fas fa-link"></i></a>
+</h3>
+<p>The field <code>$model</code> stores the model that is produced in the training step.
+Before the <code>$train()</code> method is called on a learner object, this field is <code>NULL</code>:</p>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">learner</span><span class="op">$</span><span class="va">model</span></code></pre></div>
+<pre><code>## NULL</code></pre>
+<p>Next, the classification tree is trained using the train set of the sonar task by calling the <code>$train()</code> method of the <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a>:</p>
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">learner</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span>, row_ids <span class="op">=</span> <span class="va">train_set</span><span class="op">)</span></code></pre></div>
+<p>This operation modifies the learner in-place.
+We can now access the stored model via the field <code>$model</code>:</p>
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">learner</span><span class="op">$</span><span class="va">model</span><span class="op">)</span></code></pre></div>
+<pre><code>## n= 275 
+## 
+## node), split, n, loss, yval, (yprob)
+##       * denotes terminal node
+## 
+## 1) root 275 148 Adelie (0.46182 0.18909 0.34909)  
+##   2) flipper_length&lt; 207.5 173  48 Adelie (0.72254 0.27746 0.00000)  
+##     4) bill_length&lt; 43.35 125   3 Adelie (0.97600 0.02400 0.00000) *
+##     5) bill_length&gt;=43.35 48   3 Chinstrap (0.06250 0.93750 0.00000) *
+##   3) flipper_length&gt;=207.5 102   6 Gentoo (0.01961 0.03922 0.94118)  
+##     6) bill_depth&gt;=17.15 8   4 Chinstrap (0.25000 0.50000 0.25000) *
+##     7) bill_depth&lt; 17.15 94   0 Gentoo (0.00000 0.00000 1.00000) *</code></pre>
+</div>
+<div id="predicting" class="section level3" number="2.4.4">
+<h3>
+<span class="header-section-number">2.4.4</span> Predicting<a class="anchor" aria-label="anchor" href="#predicting"><i class="fas fa-link"></i></a>
+</h3>
+<p>After the model has been trained, we use the remaining part of the data for prediction.
+Remember that we <a href="basics.html#split-data">initially split the data</a> in <code>train_set</code> and <code>test_set</code>.</p>
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">prediction</span> <span class="op">=</span> <span class="va">learner</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, row_ids <span class="op">=</span> <span class="va">test_set</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span></code></pre></div>
+<pre><code>## &lt;PredictionClassif&gt; for 69 observations:
+##     row_ids     truth  response
+##           4    Adelie    Adelie
+##          11    Adelie    Adelie
+##          15    Adelie    Adelie
+## ---                            
+##         331 Chinstrap    Adelie
+##         333 Chinstrap Chinstrap
+##         337 Chinstrap Chinstrap</code></pre>
+<p>The <code>$predict()</code> method of the <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a> returns a <a href="https://mlr3.mlr-org.com/reference/Prediction.html"><code>Prediction</code></a> object.
+More precisely, a <a href="https://mlr3.mlr-org.com/reference/LearnerClassif.html"><code>LearnerClassif</code></a> returns a <a href="https://mlr3.mlr-org.com/reference/PredictionClassif.html"><code>PredictionClassif</code></a> object.</p>
+<p>A prediction objects holds the row ids of the test data, the respective true label of the target column and the respective predictions.
+The simplest way to extract this information is by converting the <a href="https://mlr3.mlr-org.com/reference/Prediction.html"><code>Prediction</code></a> object to a <code><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table()</a></code>:</p>
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>##    row_ids  truth  response
+## 1:       4 Adelie    Adelie
+## 2:      11 Adelie    Adelie
+## 3:      15 Adelie    Adelie
+## 4:      20 Adelie Chinstrap
+## 5:      21 Adelie    Adelie
+## 6:      22 Adelie    Adelie</code></pre>
+<p>For classification, you can also extract the confusion matrix:</p>
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">prediction</span><span class="op">$</span><span class="va">confusion</span></code></pre></div>
+<pre><code>##            truth
+## response    Adelie Chinstrap Gentoo
+##   Adelie        24         2      0
+##   Chinstrap      1        14      2
+##   Gentoo         0         0     26</code></pre>
+</div>
+<div id="predict-type" class="section level3" number="2.4.5">
+<h3>
+<span class="header-section-number">2.4.5</span> Changing the Predict Type<a class="anchor" aria-label="anchor" href="#predict-type"><i class="fas fa-link"></i></a>
+</h3>
+<p>Classification learners default to predicting the class label.
+However, many classifiers additionally also tell you how sure they are about the predicted label by providing posterior probabilities.
+To switch to predicting these probabilities, the <code>predict_type</code> field of a <a href="https://mlr3.mlr-org.com/reference/LearnerClassif.html"><code>LearnerClassif</code></a> must be changed from <code>"response"</code> to <code>"prob"</code> before training:</p>
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">learner</span><span class="op">$</span><span class="va">predict_type</span> <span class="op">=</span> <span class="st">"prob"</span>
+
+<span class="co"># re-fit the model</span>
+<span class="va">learner</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span>, row_ids <span class="op">=</span> <span class="va">train_set</span><span class="op">)</span>
+
+<span class="co"># rebuild prediction object</span>
+<span class="va">prediction</span> <span class="op">=</span> <span class="va">learner</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, row_ids <span class="op">=</span> <span class="va">test_set</span><span class="op">)</span></code></pre></div>
+<p>The prediction object now contains probabilities for all class labels:</p>
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># data.table conversion</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>##    row_ids  truth  response prob.Adelie prob.Chinstrap prob.Gentoo
+## 1:       4 Adelie    Adelie      0.9760         0.0240           0
+## 2:      11 Adelie    Adelie      0.9760         0.0240           0
+## 3:      15 Adelie    Adelie      0.9760         0.0240           0
+## 4:      20 Adelie Chinstrap      0.0625         0.9375           0
+## 5:      21 Adelie    Adelie      0.9760         0.0240           0
+## 6:      22 Adelie    Adelie      0.9760         0.0240           0</code></pre>
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># directly access the predicted labels:</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">$</span><span class="va">response</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] Adelie    Adelie    Adelie    Chinstrap Adelie    Adelie   
+## Levels: Adelie Chinstrap Gentoo</code></pre>
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># directly access the matrix of probabilities:</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">$</span><span class="va">prob</span><span class="op">)</span></code></pre></div>
+<pre><code>##      Adelie Chinstrap Gentoo
+## [1,] 0.9760    0.0240      0
+## [2,] 0.9760    0.0240      0
+## [3,] 0.9760    0.0240      0
+## [4,] 0.0625    0.9375      0
+## [5,] 0.9760    0.0240      0
+## [6,] 0.9760    0.0240      0</code></pre>
+<p>Analogously to predicting probabilities, many <a href="https://mlr3.mlr-org.com/reference/LearnerRegr.html"><code>regression learners</code></a> support the extraction of standard error estimates by setting the predict type to <code>"se"</code>.</p>
+</div>
+<div id="autoplot-prediction" class="section level3" number="2.4.6">
+<h3>
+<span class="header-section-number">2.4.6</span> Plotting Predictions<a class="anchor" aria-label="anchor" href="#autoplot-prediction"><i class="fas fa-link"></i></a>
+</h3>
+<p>Analogously to <a href="basics.html#autoplot-task">plotting tasks</a>, <a href="https://mlr3viz.mlr-org.com">mlr3viz</a> provides a <a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot"><code>autoplot()</code></a> method for <a href="https://mlr3.mlr-org.com/reference/Prediction.html"><code>Prediction</code></a> objects.
+All available types are listed on the manual page of <a href="https://mlr3viz.mlr-org.com/reference/autoplot.PredictionClassif.html"><code>autoplot.PredictionClassif()</code></a> or <a href="https://mlr3viz.mlr-org.com/reference/autoplot.PredictionRegr.html"><code>autoplot.PredictionRegr()</code></a>, respectively.</p>
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"penguins"</span><span class="op">)</span>
+<span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span>, predict_type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
+<span class="va">learner</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
+<span class="va">prediction</span> <span class="op">=</span> <span class="va">learner</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-basics-train-predict_files/figure-html/02-basics-train-predict-013-1.svg" width="672" style="display: block; margin: auto;"></div>
+</div>
+<div id="measure" class="section level3" number="2.4.7">
+<h3>
+<span class="header-section-number">2.4.7</span> Performance assessment<a class="anchor" aria-label="anchor" href="#measure"><i class="fas fa-link"></i></a>
+</h3>
+<p>The last step of modeling is usually the performance assessment.
+To assess the quality of the predictions, the predicted labels are compared with the true labels.
+How this comparison is calculated is defined by a measure, which is given by a <a href="https://mlr3.mlr-org.com/reference/Measure.html"><code>Measure</code></a> object.
+Note that if the prediction was made on a dataset without the target column, i.e. without true labels, then no performance can be calculated.</p>
+<p>Predefined available measures are stored in <a href="https://mlr3.mlr-org.com/reference/mlr_measures.html"><code>mlr_measures</code></a> (with convenience getter <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>msr()</code></a>):</p>
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mlr_measures</span></code></pre></div>
+<pre><code>## &lt;DictionaryMeasure&gt; with 85 stored values
+## Keys: aic, bic, classif.acc, classif.auc, classif.bacc, classif.bbrier,
+##   classif.ce, classif.costs, classif.dor, classif.fbeta, classif.fdr,
+##   classif.fn, classif.fnr, classif.fomr, classif.fp, classif.fpr,
+##   classif.logloss, classif.mbrier, classif.mcc, classif.npv,
+##   classif.ppv, classif.prauc, classif.precision, classif.recall,
+##   classif.sensitivity, classif.specificity, classif.tn, classif.tnr,
+##   classif.tp, classif.tpr, clust.ch, clust.db, clust.dunn,
+##   clust.silhouette, clust.wss, debug, dens.logloss, oob_error,
+##   regr.bias, regr.ktau, regr.mae, regr.mape, regr.maxae, regr.medae,
+##   regr.medse, regr.mse, regr.msle, regr.pbias, regr.rae, regr.rmse,
+##   regr.rmsle, regr.rrse, regr.rse, regr.rsq, regr.sae, regr.smape,
+##   regr.srho, regr.sse, selected_features, surv.brier, surv.calib_alpha,
+##   surv.calib_beta, surv.chambless_auc, surv.cindex, surv.dcalib,
+##   surv.graf, surv.hung_auc, surv.intlogloss, surv.logloss, surv.mae,
+##   surv.mse, surv.nagelk_r2, surv.oquigley_r2, surv.rmse, surv.schmid,
+##   surv.song_auc, surv.song_tnr, surv.song_tpr, surv.uno_auc,
+##   surv.uno_tnr, surv.uno_tpr, surv.xu_r2, time_both, time_predict,
+##   time_train</code></pre>
+<p>We choose <strong>accuracy</strong> (<a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.acc.html"><code>classif.acc</code></a>) as a specific performance measure and call the method <code>$score()</code> of the <a href="https://mlr3.mlr-org.com/reference/Prediction.html"><code>Prediction</code></a> object to quantify the predictive performance.</p>
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">measure</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"classif.acc"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">measure</span><span class="op">)</span></code></pre></div>
+<pre><code>## &lt;MeasureClassifSimple:classif.acc&gt;
+## * Packages: mlr3measures
+## * Range: [0, 1]
+## * Minimize: FALSE
+## * Parameters: list()
+## * Properties: -
+## * Predict type: response</code></pre>
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">prediction</span><span class="op">$</span><span class="fu">score</span><span class="op">(</span><span class="va">measure</span><span class="op">)</span></code></pre></div>
+<pre><code>## classif.acc 
+##      0.9651</code></pre>
+<p>Note that, if no measure is specified, classification defaults to classification error (<a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.ce.html"><code>classif.ce</code></a>) and regression defaults to the mean squared error (<a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.mse.html"><code>regr.mse</code></a>).</p>
+
+</div>
+</div>
+<div id="resampling" class="section level2" number="2.5">
+<h2>
+<span class="header-section-number">2.5</span> Resampling<a class="anchor" aria-label="anchor" href="#resampling"><i class="fas fa-link"></i></a>
+</h2>
+<p>Resampling strategies are usually used to assess the performance of a learning algorithm.
+<code>mlr3</code> entails the following predefined <a href="basics.html#resampling">resampling</a> strategies:</p>
+<ul>
+<li>
+<a href="https://mlr3.mlr-org.com/reference/mlr_resamplings_cv.html"><code>cross validation</code></a> (<code>"cv"</code>),</li>
+<li>
+<a href="https://mlr3.mlr-org.com/reference/mlr_resamplings_loo.html"><code>leave-one-out cross validation</code></a> (<code>"loo"</code>),</li>
+<li>
+<a href="https://mlr3.mlr-org.com/reference/mlr_resamplings_repeated_cv.html"><code>repeated cross validation</code></a> (<code>"repeated_cv"</code>),</li>
+<li>
+<a href="https://mlr3.mlr-org.com/reference/mlr_resamplings_bootstrap.html"><code>bootstrapping</code></a> (<code>"bootstrap"</code>),</li>
+<li>
+<a href="https://mlr3.mlr-org.com/reference/mlr_resamplings_subsampling.html"><code>subsampling</code></a> (<code>"subsampling"</code>),</li>
+<li>
+<a href="https://mlr3.mlr-org.com/reference/mlr_resamplings_holdout.html"><code>holdout</code></a> (<code>"holdout"</code>),</li>
+<li>
+<a href="https://mlr3.mlr-org.com/reference/mlr_resamplings_insample.html"><code>in-sample resampling</code></a> (<code>"insample"</code>), and</li>
+<li>
+<a href="https://mlr3.mlr-org.com/reference/mlr_resamplings_custom.html"><code>custom resampling</code></a> (<code>"custom"</code>).</li>
+</ul>
+<p>The following sections provide guidance on how to set and select a resampling strategy and how to subsequently instantiate the resampling process.</p>
+<p>Here is a graphical illustration of the resampling process:</p>
+<div class="inline-figure"><img src="images/ml_abstraction.svg" style="display: block; margin: auto;"></div>
+<div id="resampling-settings" class="section level3" number="2.5.1">
+<h3>
+<span class="header-section-number">2.5.1</span> Settings<a class="anchor" aria-label="anchor" href="#resampling-settings"><i class="fas fa-link"></i></a>
+</h3>
+<p>In this example we use the <a href="https://mlr3.mlr-org.com/reference/mlr_tasks_penguins.html"><code>penguins</code></a> task and a simple classification tree from the <a href="https://cran.r-project.org/package=rpart">rpart</a> package once again.</p>
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3verse.mlr-org.com">"mlr3verse"</a></span><span class="op">)</span>
+
+<span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"penguins"</span><span class="op">)</span>
+<span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span></code></pre></div>
+<p>When performing resampling with a dataset, we first need to define which approach should be used.
+<a href="https://mlr3.mlr-org.com">mlr3</a> resampling strategies and their parameters can be queried by looking at the <code>data.table</code> output of the <code>mlr_resamplings</code> dictionary:</p>
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">mlr_resamplings</span><span class="op">)</span></code></pre></div>
+<pre><code>##            key        params iters
+## 1:   bootstrap ratio,repeats    30
+## 2:      custom                  NA
+## 3:   custom_cv                  NA
+## 4:          cv         folds    10
+## 5:     holdout         ratio     1
+## 6:    insample                   1
+## 7:         loo                  NA
+## 8: repeated_cv folds,repeats   100
+## 9: subsampling ratio,repeats    30</code></pre>
+<p>Additional resampling methods for special use cases will be available via extension packages, such as <a href="https://github.com/mlr-org/mlr3spatiotemporal">mlr3spatiotemporal</a> for spatial data.</p>
+<p>The model fit conducted in the <a href="basics.html#train-predict">train/predict/score</a> chapter is equivalent to a “holdout resampling,” so let’s consider this one first.
+Again, we can retrieve elements from the dictionary <a href="https://mlr3.mlr-org.com/reference/mlr_resamplings.html"><code>mlr_resamplings</code></a> via <code>$get()</code> or with the convenience function<a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>rsmp()</code></a>:</p>
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resampling</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"holdout"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">resampling</span><span class="op">)</span></code></pre></div>
+<pre><code>## &lt;ResamplingHoldout&gt; with 1 iterations
+## * Instantiated: FALSE
+## * Parameters: ratio=0.6667</code></pre>
+<p>Note that the <code>$is_instantiated</code> field is set to <code>FALSE</code>.
+This means we did not actually apply the strategy on a dataset yet.
+Applying the strategy on a dataset is done in the next section <a href="basics.html#resampling-inst">Instantiation</a>.</p>
+<p>By default we get a .66/.33 split of the data.
+There are two ways in which the ratio can be changed:</p>
+<ol style="list-style-type: decimal">
+<li>Overwriting the slot in <code>$param_set$values</code> using a named list:</li>
+</ol>
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resampling</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>ratio <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Specifying the resampling parameters directly during construction:</li>
+</ol>
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"holdout"</span>, ratio <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></code></pre></div>
+<pre><code>## &lt;ResamplingHoldout&gt; with 1 iterations
+## * Instantiated: FALSE
+## * Parameters: ratio=0.8</code></pre>
+</div>
+<div id="resampling-inst" class="section level3" number="2.5.2">
+<h3>
+<span class="header-section-number">2.5.2</span> Instantiation<a class="anchor" aria-label="anchor" href="#resampling-inst"><i class="fas fa-link"></i></a>
+</h3>
+<p>So far we just set the stage and selected the resampling strategy.</p>
+<p>To actually perform the splitting and obtain indices for the training and the test split the resampling needs a <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a>.
+By calling the method <code>instantiate()</code>, we split the indices of the data into indices for training and test sets.
+These resulting indices are stored in the <a href="https://mlr3.mlr-org.com/reference/Resampling.html"><code>Resampling</code></a> objects.
+To better illustrate the following operations, we switch to a <a href="https://mlr3.mlr-org.com/reference/mlr_resamplings_cv.html"><code>3-fold cross-validation</code></a>:</p>
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resampling</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"cv"</span>, folds <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<span class="va">resampling</span><span class="op">$</span><span class="fu">instantiate</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
+<span class="va">resampling</span><span class="op">$</span><span class="va">iters</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">resampling</span><span class="op">$</span><span class="fu">train_set</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>##  int [1:229] 2 3 5 10 12 13 16 17 19 25 ...</code></pre>
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">resampling</span><span class="op">$</span><span class="fu">test_set</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>##  int [1:115] 4 6 8 9 11 14 18 20 21 22 ...</code></pre>
+<p>Note that if you want to compare multiple <a href="basics.html#learners">Learners</a> in a fair manner, using the same instantiated resampling for each learner is mandatory.
+A way to greatly simplify the comparison of multiple learners is discussed in the <a href="basics.html#benchmarking">next section on benchmarking</a>.</p>
+</div>
+<div id="resampling-exec" class="section level3" number="2.5.3">
+<h3>
+<span class="header-section-number">2.5.3</span> Execution<a class="anchor" aria-label="anchor" href="#resampling-exec"><i class="fas fa-link"></i></a>
+</h3>
+<p>With a <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a>, a <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a> and a <a href="https://mlr3.mlr-org.com/reference/Resampling.html"><code>Resampling</code></a> object we can call <a href="https://mlr3.mlr-org.com/reference/resample.html"><code>resample()</code></a>, which repeatedly fits the learner to the task at hand according to the given resampling strategy.
+This in turn creates a <a href="https://mlr3.mlr-org.com/reference/ResampleResult.html"><code>ResampleResult</code></a> object.
+We tell <a href="https://mlr3.mlr-org.com/reference/resample.html"><code>resample()</code></a> to keep the fitted models by setting the <code>store_models</code> option to <code>TRUE</code>and then start the computation:</p>
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"penguins"</span><span class="op">)</span>
+<span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span>, maxdepth <span class="op">=</span> <span class="fl">3</span>, predict_type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
+<span class="va">resampling</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"cv"</span>, folds <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+
+<span class="va">rr</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/resample.html">resample</a></span><span class="op">(</span><span class="va">task</span>, <span class="va">learner</span>, <span class="va">resampling</span>, store_models <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">rr</span><span class="op">)</span></code></pre></div>
+<pre><code>## &lt;ResampleResult&gt; of 3 iterations
+## * Task: penguins
+## * Learner: classif.rpart
+## * Warnings: 0 in 0 iterations
+## * Errors: 0 in 0 iterations</code></pre>
+<p>The returned <a href="https://mlr3.mlr-org.com/reference/ResampleResult.html"><code>ResampleResult</code></a> stored as <code>rr</code> provides various getters to access the stored information:</p>
+<ul>
+<li>
+<p>Calculate the average performance across all resampling iterations:</p>
+<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="fu">aggregate</span><span class="op">(</span><span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"classif.ce"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## classif.ce 
+##    0.05805</code></pre>
+</li>
+<li>
+<p>Extract the performance for the individual resampling iterations:</p>
+<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="fu">score</span><span class="op">(</span><span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"classif.ce"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>##                 task  task_id                   learner    learner_id
+## 1: &lt;TaskClassif[47]&gt; penguins &lt;LearnerClassifRpart[36]&gt; classif.rpart
+## 2: &lt;TaskClassif[47]&gt; penguins &lt;LearnerClassifRpart[36]&gt; classif.rpart
+## 3: &lt;TaskClassif[47]&gt; penguins &lt;LearnerClassifRpart[36]&gt; classif.rpart
+##            resampling resampling_id iteration              prediction
+## 1: &lt;ResamplingCV[19]&gt;            cv         1 &lt;PredictionClassif[19]&gt;
+## 2: &lt;ResamplingCV[19]&gt;            cv         2 &lt;PredictionClassif[19]&gt;
+## 3: &lt;ResamplingCV[19]&gt;            cv         3 &lt;PredictionClassif[19]&gt;
+##    classif.ce
+## 1:    0.06957
+## 2:    0.07826
+## 3:    0.02632</code></pre>
+</li>
+<li>
+<p>Check for warnings or errors:</p>
+<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="va">warnings</span></code></pre></div>
+<pre><code>## Empty data.table (0 rows and 2 cols): iteration,msg</code></pre>
+<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="va">errors</span></code></pre></div>
+<pre><code>## Empty data.table (0 rows and 2 cols): iteration,msg</code></pre>
+</li>
+<li>
+<p>Extract and inspect the resampling splits:</p>
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="va">resampling</span></code></pre></div>
+<pre><code>## &lt;ResamplingCV&gt; with 3 iterations
+## * Instantiated: TRUE
+## * Parameters: folds=3</code></pre>
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="va">resampling</span><span class="op">$</span><span class="va">iters</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">rr</span><span class="op">$</span><span class="va">resampling</span><span class="op">$</span><span class="fu">test_set</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>##  int [1:115] 10 16 17 21 22 23 24 27 32 37 ...</code></pre>
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">rr</span><span class="op">$</span><span class="va">resampling</span><span class="op">$</span><span class="fu">train_set</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>##  int [1:229] 1 2 4 6 7 8 12 13 15 20 ...</code></pre>
+</li>
+<li>
+<p>Retrieve the <a href="basics.html#learners">learner</a> of a specific iteration and inspect it:</p>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">lrn</span> <span class="op">=</span> <span class="va">rr</span><span class="op">$</span><span class="va">learners</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+<span class="va">lrn</span><span class="op">$</span><span class="va">model</span></code></pre></div>
+<pre><code>## n= 229 
+## 
+## node), split, n, loss, yval, (yprob)
+##       * denotes terminal node
+## 
+## 1) root 229 122 Adelie (0.46725 0.18341 0.34934)  
+##   2) flipper_length&lt; 206 145  38 Adelie (0.73793 0.26207 0.00000)  
+##     4) bill_length&lt; 43.35 107   3 Adelie (0.97196 0.02804 0.00000) *
+##     5) bill_length&gt;=43.35 38   3 Chinstrap (0.07895 0.92105 0.00000) *
+##   3) flipper_length&gt;=206 84   4 Gentoo (0.00000 0.04762 0.95238) *</code></pre>
+</li>
+<li>
+<p>Extract the predictions:</p>
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="fu">prediction</span><span class="op">(</span><span class="op">)</span> <span class="co"># all predictions merged into a single Prediction object</span></code></pre></div>
+<pre><code>## &lt;PredictionClassif&gt; for 344 observations:
+##     row_ids     truth  response prob.Adelie prob.Chinstrap prob.Gentoo
+##          10    Adelie    Adelie     0.97196        0.02804     0.00000
+##          16    Adelie    Adelie     0.97196        0.02804     0.00000
+##          17    Adelie    Adelie     0.97196        0.02804     0.00000
+## ---                                                                   
+##         338 Chinstrap Chinstrap     0.11111        0.86667     0.02222
+##         340 Chinstrap    Gentoo     0.02439        0.03659     0.93902
+##         344 Chinstrap Chinstrap     0.11111        0.86667     0.02222</code></pre>
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="fu">predictions</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="co"># prediction of first resampling iteration</span></code></pre></div>
+<pre><code>## &lt;PredictionClassif&gt; for 115 observations:
+##     row_ids     truth  response prob.Adelie prob.Chinstrap prob.Gentoo
+##          10    Adelie    Adelie     0.97196        0.02804      0.0000
+##          16    Adelie    Adelie     0.97196        0.02804      0.0000
+##          17    Adelie    Adelie     0.97196        0.02804      0.0000
+## ---                                                                   
+##         336 Chinstrap Chinstrap     0.07895        0.92105      0.0000
+##         337 Chinstrap    Gentoo     0.00000        0.04762      0.9524
+##         339 Chinstrap Chinstrap     0.07895        0.92105      0.0000</code></pre>
+</li>
+<li>
+<p>Filter to only keep specified iterations:</p>
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="fu">filter</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">rr</span><span class="op">)</span></code></pre></div>
+<pre><code>## &lt;ResampleResult&gt; of 2 iterations
+## * Task: penguins
+## * Learner: classif.rpart
+## * Warnings: 0 in 0 iterations
+## * Errors: 0 in 0 iterations</code></pre>
+</li>
+</ul>
+</div>
+<div id="resamp-custom" class="section level3" number="2.5.4">
+<h3>
+<span class="header-section-number">2.5.4</span> Custom resampling<a class="anchor" aria-label="anchor" href="#resamp-custom"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sometimes it is necessary to perform resampling with custom splits, e.g. to reproduce results reported in a study.
+A manual resampling instance can be created using the <code>"custom"</code> template.</p>
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resampling</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"custom"</span><span class="op">)</span>
+<span class="va">resampling</span><span class="op">$</span><span class="fu">instantiate</span><span class="op">(</span><span class="va">task</span>,
+  train <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">51</span><span class="op">:</span><span class="fl">60</span>, <span class="fl">101</span><span class="op">:</span><span class="fl">110</span><span class="op">)</span><span class="op">)</span>,
+  test <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, <span class="fl">61</span><span class="op">:</span><span class="fl">70</span>, <span class="fl">111</span><span class="op">:</span><span class="fl">120</span><span class="op">)</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="va">resampling</span><span class="op">$</span><span class="va">iters</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resampling</span><span class="op">$</span><span class="fu">train_set</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
+<pre><code>##  [1]   1   2   3   4   5   6   7   8   9  10  51  52  53  54  55  56  57  58  59
+## [20]  60 101 102 103 104 105 106 107 108 109 110</code></pre>
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resampling</span><span class="op">$</span><span class="fu">test_set</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
+<pre><code>##  [1]  11  12  13  14  15  16  17  18  19  20  61  62  63  64  65  66  67  68  69
+## [20]  70 111 112 113 114 115 116 117 118 119 120</code></pre>
+</div>
+<div id="resampling-with-predefined-groups" class="section level3" number="2.5.5">
+<h3>
+<span class="header-section-number">2.5.5</span> Resampling with predefined groups<a class="anchor" aria-label="anchor" href="#resampling-with-predefined-groups"><i class="fas fa-link"></i></a>
+</h3>
+<p>In contrast to defining column role <code>"group"</code>, which denotes that specific observations should always appear together in either test or training set, one can also supply a factor variable to pre-define all partitions (<em>Still WIP in {mlr3}</em>).</p>
+<p>This means that each factor level of this variable is solely composing the test set.
+Hence, this method does not allow setting the “folds” argument because the number of folds is determined by the number of factor levels.</p>
+<p>This predefined approach was called “blocking” in mlr2.
+It should not be confused with the term “blocking” in <a href="https://mlr3spatiotempcv.mlr-org.com">mlr3spatiotempcv</a> which refers to a category of resampling methods making use of squared/rectangular partitioning.</p>
+</div>
+<div id="autoplot-resampleresult" class="section level3" number="2.5.6">
+<h3>
+<span class="header-section-number">2.5.6</span> Plotting Resample Results<a class="anchor" aria-label="anchor" href="#autoplot-resampleresult"><i class="fas fa-link"></i></a>
+</h3>
+<p><a href="https://mlr3viz.mlr-org.com">mlr3viz</a> provides a <a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot"><code>autoplot()</code></a> method.
+To showcase some of the plots, we create a binary classification task with two features, perform a resampling with a 10-fold cross validation and visualize the results:</p>
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"pima"</span><span class="op">)</span>
+<span class="va">task</span><span class="op">$</span><span class="fu">select</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"glucose"</span>, <span class="st">"mass"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span>, predict_type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
+<span class="va">rr</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/resample.html">resample</a></span><span class="op">(</span><span class="va">task</span>, <span class="va">learner</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"cv"</span><span class="op">)</span>, store_models <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="co"># boxplot of AUC values across the 10 folds</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">rr</span>, measure <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"classif.auc"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-basics-resampling_files/figure-html/02-basics-resampling-017-1.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># ROC curve, averaged over 10 folds</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">rr</span>, type <span class="op">=</span> <span class="st">"roc"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-basics-resampling_files/figure-html/02-basics-resampling-017-2.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># learner predictions for first fold</span>
+<span class="va">rr</span><span class="op">$</span><span class="fu">filter</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">rr</span>, type <span class="op">=</span> <span class="st">"prediction"</span><span class="op">)</span></code></pre></div>
+<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<div class="inline-figure"><img src="02-basics-resampling_files/figure-html/02-basics-resampling-017-3.svg" width="672" style="display: block; margin: auto;"></div>
+<p>All available plot types are listed on the manual page of <a href="https://mlr3viz.mlr-org.com/reference/autoplot.ResampleResult.html"><code>autoplot.ResampleResult()</code></a>.</p>
+</div>
+<div id="autoplot-resample-partition" class="section level3" number="2.5.7">
+<h3>
+<span class="header-section-number">2.5.7</span> Plotting Resample Partitions<a class="anchor" aria-label="anchor" href="#autoplot-resample-partition"><i class="fas fa-link"></i></a>
+</h3>
+<p><a href="https://mlr3spatiotempcv.mlr-org.com">mlr3spatiotempcv</a> provides <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code> methods to visualize resampling partitions of spatiotemporal datasets.
+See the <a href="https://mlr3spatiotempcv.mlr-org.com/reference">function reference</a> and vignette <a href="https://mlr3spatiotempcv.mlr-org.com/articles/spatiotemp-viz.html">“Spatiotemporal visualization”</a> for more info.</p>
+<pre><code>## Warning: Ignoring unknown parameters: crs
+
+## Warning: Ignoring unknown parameters: crs</code></pre>
+<div class="inline-figure"><img src="02-basics-resampling_files/figure-html/02-basics-resampling-018-1.svg" width="672" style="display: block; margin: auto;"></div>
+
+</div>
+</div>
+<div id="benchmarking" class="section level2" number="2.6">
+<h2>
+<span class="header-section-number">2.6</span> Benchmarking<a class="anchor" aria-label="anchor" href="#benchmarking"><i class="fas fa-link"></i></a>
+</h2>
+<p>Comparing the performance of different learners on multiple tasks and/or different resampling schemes is a common task.
+This operation is usually referred to as “benchmarking” in the field of machine-learning.
+The <a href="https://mlr3.mlr-org.com">mlr3</a> package offers the <a href="https://mlr3.mlr-org.com/reference/benchmark.html"><code>benchmark()</code></a> convenience function.</p>
+<div id="bm-design" class="section level3" number="2.6.1">
+<h3>
+<span class="header-section-number">2.6.1</span> Design Creation<a class="anchor" aria-label="anchor" href="#bm-design"><i class="fas fa-link"></i></a>
+</h3>
+<p>In <code>mlr3</code> we require you to supply a “design” of your benchmark experiment.
+Such a design is essentially a table of settings you want to execute.
+It consists of unique combinations of <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a>, <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a> and <a href="https://mlr3.mlr-org.com/reference/Resampling.html"><code>Resampling</code></a> triplets.</p>
+<p>We use the <a href="https://mlr3.mlr-org.com/reference/benchmark_grid.html"><code>benchmark_grid()</code></a> function to create an exhaustive design and instantiate the resampling properly, so that all learners are executed on the same train/test split for each tasks.
+We set the learners to predict probabilities and also tell them to predict the observations of the training set (by setting <code>predict_sets</code> to <code><a href="https://rdrr.io/r/base/c.html">c("train", "test")</a></code>).
+Additionally, we use <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>tsks()</code></a>, <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>lrns()</code></a>, and <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>rsmps()</code></a> to retrieve lists of <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a>, <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a> and <a href="https://mlr3.mlr-org.com/reference/Resampling.html"><code>Resampling</code></a> in the same fashion as <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>tsk()</code></a>, <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>lrn()</code></a> and <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>rsmp()</code></a>.</p>
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3verse.mlr-org.com">"mlr3verse"</a></span><span class="op">)</span>
+
+<span class="va">design</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/benchmark_grid.html">benchmark_grid</a></span><span class="op">(</span>
+  tasks <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsks</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"spam"</span>, <span class="st">"german_credit"</span>, <span class="st">"sonar"</span><span class="op">)</span><span class="op">)</span>,
+  learners <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrns</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"classif.ranger"</span>, <span class="st">"classif.rpart"</span>, <span class="st">"classif.featureless"</span><span class="op">)</span>,
+    predict_type <span class="op">=</span> <span class="st">"prob"</span>, predict_sets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"train"</span>, <span class="st">"test"</span><span class="op">)</span><span class="op">)</span>,
+  resamplings <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmps</a></span><span class="op">(</span><span class="st">"cv"</span>, folds <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span></code></pre></div>
+<pre><code>##                 task                         learner         resampling
+## 1: &lt;TaskClassif[47]&gt;      &lt;LearnerClassifRanger[36]&gt; &lt;ResamplingCV[19]&gt;
+## 2: &lt;TaskClassif[47]&gt;       &lt;LearnerClassifRpart[36]&gt; &lt;ResamplingCV[19]&gt;
+## 3: &lt;TaskClassif[47]&gt; &lt;LearnerClassifFeatureless[36]&gt; &lt;ResamplingCV[19]&gt;
+## 4: &lt;TaskClassif[47]&gt;      &lt;LearnerClassifRanger[36]&gt; &lt;ResamplingCV[19]&gt;
+## 5: &lt;TaskClassif[47]&gt;       &lt;LearnerClassifRpart[36]&gt; &lt;ResamplingCV[19]&gt;
+## 6: &lt;TaskClassif[47]&gt; &lt;LearnerClassifFeatureless[36]&gt; &lt;ResamplingCV[19]&gt;
+## 7: &lt;TaskClassif[47]&gt;      &lt;LearnerClassifRanger[36]&gt; &lt;ResamplingCV[19]&gt;
+## 8: &lt;TaskClassif[47]&gt;       &lt;LearnerClassifRpart[36]&gt; &lt;ResamplingCV[19]&gt;
+## 9: &lt;TaskClassif[47]&gt; &lt;LearnerClassifFeatureless[36]&gt; &lt;ResamplingCV[19]&gt;</code></pre>
+<p>The created <code>design</code> can be passed to <a href="https://mlr3.mlr-org.com/reference/benchmark.html"><code>benchmark()</code></a> to start the computation.
+It is also possible to create a custom design manually.
+However, if you create a custom task with <code><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table()</a></code>, the train/test splits will be different for each row of the design if you do not <a href="basics.html#resampling-inst"><strong>manually instantiate</strong></a> the resampling before creating the design.
+See the help page on <a href="https://mlr3.mlr-org.com/reference/benchmark_grid.html"><code>benchmark_grid()</code></a> for an example.</p>
+</div>
+<div id="bm-exec" class="section level3" number="2.6.2">
+<h3>
+<span class="header-section-number">2.6.2</span> Execution and Aggregation of Results<a class="anchor" aria-label="anchor" href="#bm-exec"><i class="fas fa-link"></i></a>
+</h3>
+<p>After the <a href="basics.html#bm-design">benchmark design</a> is ready, we can directly call <a href="https://mlr3.mlr-org.com/reference/benchmark.html"><code>benchmark()</code></a>:</p>
+<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># execute the benchmark</span>
+<span class="va">bmr</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/benchmark.html">benchmark</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span></code></pre></div>
+<p>Note that we did not instantiate the resampling instance manually.
+<a href="https://mlr3.mlr-org.com/reference/benchmark_grid.html"><code>benchmark_grid()</code></a> took care of it for us:
+Each resampling strategy is instantiated once for each task during the construction of the exhaustive grid.</p>
+<p>Once the benchmarking is done, we can aggregate the performance with <code>$aggregate()</code>.
+We create two measures to calculate the AUC for the training set and for the predict set:</p>
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">measures</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"classif.auc"</span>, predict_sets <span class="op">=</span> <span class="st">"train"</span>, id <span class="op">=</span> <span class="st">"auc_train"</span><span class="op">)</span>,
+  <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"classif.auc"</span>, id <span class="op">=</span> <span class="st">"auc_test"</span><span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">tab</span> <span class="op">=</span> <span class="va">bmr</span><span class="op">$</span><span class="fu">aggregate</span><span class="op">(</span><span class="va">measures</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></code></pre></div>
+<pre><code>##    nr      resample_result       task_id          learner_id resampling_id
+## 1:  1 &lt;ResampleResult[20]&gt;          spam      classif.ranger            cv
+## 2:  2 &lt;ResampleResult[20]&gt;          spam       classif.rpart            cv
+## 3:  3 &lt;ResampleResult[20]&gt;          spam classif.featureless            cv
+## 4:  4 &lt;ResampleResult[20]&gt; german_credit      classif.ranger            cv
+## 5:  5 &lt;ResampleResult[20]&gt; german_credit       classif.rpart            cv
+## 6:  6 &lt;ResampleResult[20]&gt; german_credit classif.featureless            cv
+## 7:  7 &lt;ResampleResult[20]&gt;         sonar      classif.ranger            cv
+## 8:  8 &lt;ResampleResult[20]&gt;         sonar       classif.rpart            cv
+## 9:  9 &lt;ResampleResult[20]&gt;         sonar classif.featureless            cv
+##    iters auc_train auc_test
+## 1:     3    0.9995   0.9845
+## 2:     3    0.9055   0.8949
+## 3:     3    0.5000   0.5000
+## 4:     3    0.9984   0.8008
+## 5:     3    0.7992   0.7186
+## 6:     3    0.5000   0.5000
+## 7:     3    1.0000   0.9199
+## 8:     3    0.9162   0.7490
+## 9:     3    0.5000   0.5000</code></pre>
+<p>We can aggregate the results even further.
+For example, we might be interested to know which learner performed best over all tasks simultaneously.
+Simply aggregating the performances with the mean is usually not statistically sound.
+Instead, we calculate the rank statistic for each learner grouped by task.
+Then the calculated ranks grouped by learner are aggregated with <a href="https://cran.r-project.org/package=data.table">data.table</a>.
+Since the AUC needs to be maximized, we multiply the values by <span class="math inline">\(-1\)</span> so that the best learner has a rank of <span class="math inline">\(1\)</span>.</p>
+<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://r-datatable.com">"data.table"</a></span><span class="op">)</span>
+<span class="co"># group by levels of task_id, return columns:</span>
+<span class="co"># - learner_id</span>
+<span class="co"># - rank of col '-auc_train' (per level of learner_id)</span>
+<span class="co"># - rank of col '-auc_test' (per level of learner_id)</span>
+<span class="va">ranks</span> <span class="op">=</span> <span class="va">tab</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">learner_id</span>, rank_train <span class="op">=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/frank.html">rank</a></span><span class="op">(</span><span class="op">-</span><span class="va">auc_train</span><span class="op">)</span>, rank_test <span class="op">=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/frank.html">rank</a></span><span class="op">(</span><span class="op">-</span><span class="va">auc_test</span><span class="op">)</span><span class="op">)</span>, by <span class="op">=</span> <span class="va">task_id</span><span class="op">]</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">ranks</span><span class="op">)</span></code></pre></div>
+<pre><code>##          task_id          learner_id rank_train rank_test
+## 1:          spam      classif.ranger          1         1
+## 2:          spam       classif.rpart          2         2
+## 3:          spam classif.featureless          3         3
+## 4: german_credit      classif.ranger          1         1
+## 5: german_credit       classif.rpart          2         2
+## 6: german_credit classif.featureless          3         3
+## 7:         sonar      classif.ranger          1         1
+## 8:         sonar       classif.rpart          2         2
+## 9:         sonar classif.featureless          3         3</code></pre>
+<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># group by levels of learner_id, return columns:</span>
+<span class="co"># - mean rank of col 'rank_train' (per level of learner_id)</span>
+<span class="co"># - mean rank of col 'rank_test' (per level of learner_id)</span>
+<span class="va">ranks</span> <span class="op">=</span> <span class="va">ranks</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span>mrank_train <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">rank_train</span><span class="op">)</span>, mrank_test <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">rank_test</span><span class="op">)</span><span class="op">)</span>, by <span class="op">=</span> <span class="va">learner_id</span><span class="op">]</span>
+
+<span class="co"># print the final table, ordered by mean rank of AUC test</span>
+<span class="va">ranks</span><span class="op">[</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setorder.html">order</a></span><span class="op">(</span><span class="va">mrank_test</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>##             learner_id mrank_train mrank_test
+## 1:      classif.ranger           1          1
+## 2:       classif.rpart           2          2
+## 3: classif.featureless           3          3</code></pre>
+<p>Unsurprisingly, the featureless learner is outperformed on both training and test set.
+The classification forest also outperforms a single classification tree.</p>
+</div>
+<div id="autoplot-benchmarkresult" class="section level3" number="2.6.3">
+<h3>
+<span class="header-section-number">2.6.3</span> Plotting Benchmark Results<a class="anchor" aria-label="anchor" href="#autoplot-benchmarkresult"><i class="fas fa-link"></i></a>
+</h3>
+<p>Analogously to plotting <a href="basics.html#autoplot-task">tasks</a>, <a href="basics.html#autoplot-prediction">predictions</a> or <a href="basics.html#autoplot-resampleresult">resample results</a>, <a href="https://mlr3viz.mlr-org.com">mlr3viz</a> also provides a <a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot"><code>autoplot()</code></a> method for benchmark results.</p>
+<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">bmr</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-basics-benchmarking_files/figure-html/02-basics-benchmarking-005-1.svg" width="672" style="display: block; margin: auto;"></div>
+<p>We can also plot ROC curves.
+To do so, we first need to filter the <a href="https://mlr3.mlr-org.com/reference/BenchmarkResult.html"><code>BenchmarkResult</code></a> to only contain a single <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a>:</p>
+<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bmr_small</span> <span class="op">=</span> <span class="va">bmr</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">filter</span><span class="op">(</span>task_id <span class="op">=</span> <span class="st">"german_credit"</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">bmr_small</span>, type <span class="op">=</span> <span class="st">"roc"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-basics-benchmarking_files/figure-html/02-basics-benchmarking-006-1.svg" width="672" style="display: block; margin: auto;"></div>
+<p>All available plot types are listed on the manual page of <a href="https://mlr3viz.mlr-org.com/reference/autoplot.BenchmarkResult.html"><code>autoplot.BenchmarkResult()</code></a>.</p>
+</div>
+<div id="bm-resamp" class="section level3" number="2.6.4">
+<h3>
+<span class="header-section-number">2.6.4</span> Extracting ResampleResults<a class="anchor" aria-label="anchor" href="#bm-resamp"><i class="fas fa-link"></i></a>
+</h3>
+<p>A <a href="https://mlr3.mlr-org.com/reference/BenchmarkResult.html"><code>BenchmarkResult</code></a> object is essentially a collection of multiple <a href="https://mlr3.mlr-org.com/reference/ResampleResult.html"><code>ResampleResult</code></a> objects.
+As these are stored in a column of the aggregated <code><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table()</a></code>, we can easily extract them:</p>
+<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tab</span> <span class="op">=</span> <span class="va">bmr</span><span class="op">$</span><span class="fu">aggregate</span><span class="op">(</span><span class="va">measures</span><span class="op">)</span>
+<span class="va">rr</span> <span class="op">=</span> <span class="va">tab</span><span class="op">[</span><span class="va">task_id</span> <span class="op">==</span> <span class="st">"german_credit"</span> <span class="op">&amp;</span> <span class="va">learner_id</span> <span class="op">==</span> <span class="st">"classif.ranger"</span><span class="op">]</span><span class="op">$</span><span class="va">resample_result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">rr</span><span class="op">)</span></code></pre></div>
+<pre><code>## &lt;ResampleResult&gt; of 3 iterations
+## * Task: german_credit
+## * Learner: classif.ranger
+## * Warnings: 0 in 0 iterations
+## * Errors: 0 in 0 iterations</code></pre>
+<p>We can now investigate this resampling and even single resampling iterations using one of the approaches shown in <a href="basics.html#bm-exec">the previous section</a>:</p>
+<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">measure</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"classif.auc"</span><span class="op">)</span>
+<span class="va">rr</span><span class="op">$</span><span class="fu">aggregate</span><span class="op">(</span><span class="va">measure</span><span class="op">)</span></code></pre></div>
+<pre><code>## classif.auc 
+##      0.8008</code></pre>
+<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># get the iteration with worst AUC</span>
+<span class="va">perf</span> <span class="op">=</span> <span class="va">rr</span><span class="op">$</span><span class="fu">score</span><span class="op">(</span><span class="va">measure</span><span class="op">)</span>
+<span class="va">i</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">perf</span><span class="op">$</span><span class="va">classif.auc</span><span class="op">)</span>
+
+<span class="co"># get the corresponding learner and train set</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">rr</span><span class="op">$</span><span class="va">learners</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<pre><code>## &lt;LearnerClassifRanger:classif.ranger&gt;
+## * Model: -
+## * Parameters: num.threads=1
+## * Packages: ranger
+## * Predict Type: prob
+## * Feature types: logical, integer, numeric, character, factor, ordered
+## * Properties: importance, multiclass, oob_error, twoclass, weights</code></pre>
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">rr</span><span class="op">$</span><span class="va">resampling</span><span class="op">$</span><span class="fu">train_set</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1]  2  5 11 13 14 18</code></pre>
+</div>
+<div id="converting-and-merging" class="section level3" number="2.6.5">
+<h3>
+<span class="header-section-number">2.6.5</span> Converting and Merging<a class="anchor" aria-label="anchor" href="#converting-and-merging"><i class="fas fa-link"></i></a>
+</h3>
+<p>A <a href="https://mlr3.mlr-org.com/reference/ResampleResult.html"><code>ResampleResult</code></a> can be casted to a <a href="https://mlr3.mlr-org.com/reference/BenchmarkResult.html"><code>BenchmarkResult</code></a> using the converter <a href="https://mlr3.mlr-org.com/reference/as_benchmark_result.html"><code>as_benchmark_result()</code></a>.
+Additionally, two <a href="https://mlr3.mlr-org.com/reference/BenchmarkResult.html"><code>BenchmarkResults</code></a> can be merged into a larger result object.</p>
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"iris"</span><span class="op">)</span>
+<span class="va">resampling</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"holdout"</span><span class="op">)</span><span class="op">$</span><span class="fu">instantiate</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
+
+<span class="va">rr1</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/resample.html">resample</a></span><span class="op">(</span><span class="va">task</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span>, <span class="va">resampling</span><span class="op">)</span>
+<span class="va">rr2</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/resample.html">resample</a></span><span class="op">(</span><span class="va">task</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.featureless"</span><span class="op">)</span>, <span class="va">resampling</span><span class="op">)</span>
+
+<span class="co"># Cast both ResampleResults to BenchmarkResults</span>
+<span class="va">bmr1</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_benchmark_result.html">as_benchmark_result</a></span><span class="op">(</span><span class="va">rr1</span><span class="op">)</span>
+<span class="va">bmr2</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_benchmark_result.html">as_benchmark_result</a></span><span class="op">(</span><span class="va">rr2</span><span class="op">)</span>
+
+<span class="co"># Merge 2nd BMR into the first BMR</span>
+<span class="va">bmr1</span><span class="op">$</span><span class="fu">combine</span><span class="op">(</span><span class="va">bmr2</span><span class="op">)</span>
+
+<span class="va">bmr1</span></code></pre></div>
+<pre><code>## &lt;BenchmarkResult&gt; of 2 rows with 2 resampling runs
+##  nr task_id          learner_id resampling_id iters warnings errors
+##   1    iris       classif.rpart       holdout     1        0      0
+##   2    iris classif.featureless       holdout     1        0      0</code></pre>
+
+</div>
+</div>
+<div id="binary-classification" class="section level2" number="2.7">
+<h2>
+<span class="header-section-number">2.7</span> Binary classification<a class="anchor" aria-label="anchor" href="#binary-classification"><i class="fas fa-link"></i></a>
+</h2>
+<p>Classification problems with a target variable containing only two classes are called “binary.”
+For such binary target variables, you can specify the <em>positive class</em> within the <a href="https://mlr3.mlr-org.com/reference/TaskClassif.html"><code>classification task</code></a> object during task creation.
+If not explicitly set during construction, the positive class defaults to the first level of the target variable.</p>
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># during construction</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"Sonar"</span>, package <span class="op">=</span> <span class="st">"mlbench"</span><span class="op">)</span>
+<span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_task_classif.html">as_task_classif</a></span><span class="op">(</span><span class="va">Sonar</span>, target <span class="op">=</span> <span class="st">"Class"</span>, positive <span class="op">=</span> <span class="st">"R"</span><span class="op">)</span>
+
+<span class="co"># switch positive class to level 'M'</span>
+<span class="va">task</span><span class="op">$</span><span class="va">positive</span> <span class="op">=</span> <span class="st">"M"</span></code></pre></div>
+<div id="binary-roc" class="section level3" number="2.7.1">
+<h3>
+<span class="header-section-number">2.7.1</span> ROC Curve and Thresholds<a class="anchor" aria-label="anchor" href="#binary-roc"><i class="fas fa-link"></i></a>
+</h3>
+<p>ROC Analysis, which stands for “receiver operating characteristics,” is a subfield of machine learning which studies the evaluation of binary prediction systems.
+We saw earlier that one can retrieve the confusion matrix of a <a href="https://mlr3.mlr-org.com/reference/Prediction.html"><code>Prediction</code></a> by accessing the <code>$confusion</code> field:</p>
+<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span>, predict_type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
+<span class="va">pred</span> <span class="op">=</span> <span class="va">learner</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
+<span class="va">C</span> <span class="op">=</span> <span class="va">pred</span><span class="op">$</span><span class="va">confusion</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">C</span><span class="op">)</span></code></pre></div>
+<pre><code>##         truth
+## response  M  R
+##        M 95 10
+##        R 16 87</code></pre>
+<p>The confusion matrix contains the counts of correct and incorrect class assignments, grouped by class labels.
+The columns illustrate the true (observed) labels and the rows display the predicted labels.
+The positive is always the first row or column in the confusion matrix.
+Thus, the element in <span class="math inline">\(C_{11}\)</span> is the number of times our model predicted the positive class and was right about it.
+Analogously, the element in <span class="math inline">\(C_{22}\)</span> is the number of times our model predicted the negative class and was also right about it.
+The elements on the diagonal are called True Positives (TP) and True Negatives (TN).
+The element <span class="math inline">\(C_{12}\)</span> is the number of times we falsely predicted a positive label, and is called False Positives (FP).
+The element <span class="math inline">\(C_{21}\)</span> is called False Negatives (FN).</p>
+<p>We can now normalize in rows and columns of the confusion matrix to derive several informative metrics:</p>
+<ul>
+<li>
+<strong>True Positive Rate (TPR)</strong>: How many of the true positives did we predict as positive?</li>
+<li>
+<strong>True Negative Rate (TNR)</strong>: How many of the true negatives did we predict as negative?</li>
+<li>
+<strong>Positive Predictive Value PPV</strong>: If we predict positive how likely is it a true positive?</li>
+<li>
+<strong>Negative Predictive Value NPV</strong>: If we predict negative how likely is it a true negative?</li>
+</ul>
+<div class="inline-figure"><img src="images/confusion_matrix.png" width="98%" style="display: block; margin: auto;"></div>
+<p>Source: <a href="https://en.wikipedia.org/wiki/Evaluation_of_binary_classifiers">Wikipedia</a></p>
+<p>It is difficult to achieve a high TPR and low FPR in conjunction, so one uses them for constructing the ROC Curve.
+We characterize a classifier by its TPR and FPR values and plot them in a coordinate system.
+The best classifier lies on the top-left corner.
+The worst classifier lies at the diagonal.
+<!-- FIXME Why is the best classifier on the top-left? The argument here only shows that classifiers at the diagonal are inferior but there is no argument in place, illustrating why the other (top left) classifiers are superior. -->
+Classifiers lying on the diagonal produce random labels (with different proportions).
+If each positive <span class="math inline">\(x\)</span> will be randomly classified with 25% as “positive,” we get a TPR of 0.25.
+If we assign each negative <span class="math inline">\(x\)</span> randomly to “positive” we get a FPR of 0.25.
+In practice, we should never obtain a classifier below the diagonal, as inverting the predicted labels will result in a reflection at the diagonal.
+<!-- FIXME Why is that reflection bad as such ? One sentence to elaborate would add here--></p>
+<p>A scoring classifier is a model which produces scores or probabilities, instead of discrete labels.
+To obtain probabilities from a learner in mlr3, you have to set <code>predict_type = "prob"</code> for a <code>ref("LearnerClassif")</code>.
+Whether a classifier can predict probabilities is given in its <code>$predict_types</code> field.
+Thresholding flexibly converts measured probabilities to labels.
+Predict <span class="math inline">\(1\)</span> (positive class) if <span class="math inline">\(\hat{f}(x) &gt; \tau\)</span> else predict <span class="math inline">\(0\)</span>.
+Normally, one could use <span class="math inline">\(\tau = 0.5\)</span> to convert probabilities to labels, but for imbalanced or cost-sensitive situations another threshold could be more suitable.
+After thresholding, any metric defined on labels can be used.</p>
+<p>For <code>mlr3</code> prediction objects, the ROC curve can easily be created with <a href="https://mlr3viz.mlr-org.com">mlr3viz</a> which relies on the <a href="https://cran.r-project.org/package=precrec">precrec</a> to calculate and plot ROC curves:</p>
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3viz.mlr-org.com">"mlr3viz"</a></span><span class="op">)</span>
+
+<span class="co"># TPR vs FPR / Sensitivity vs (1 - Specificity)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">pred</span>, type <span class="op">=</span> <span class="st">"roc"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-basics-binary_files/figure-html/02-basics-binary-004-1.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Precision vs Recall</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">pred</span>, type <span class="op">=</span> <span class="st">"prc"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-basics-binary_files/figure-html/02-basics-binary-004-2.svg" width="672" style="display: block; margin: auto;"></div>
+</div>
+<div id="threshold-tuning" class="section level3" number="2.7.2">
+<h3>
+<span class="header-section-number">2.7.2</span> Threshold Tuning<a class="anchor" aria-label="anchor" href="#threshold-tuning"><i class="fas fa-link"></i></a>
+</h3>
+<p>Learners which can predict the probability for the positive class usually use a simple rule to determine the predicted class label: if the probability exceeds the threshold <span class="math inline">\(t = 0.5\)</span>, pick the positive label, and select the negative label otherwise.
+If the model is not well calibrated or the class labels are heavily unbalanced, selecting a different threshold can help to improve the predictive performance w.r.t. a chosen performance measure.</p>
+<p>Here, we change the threshold to <span class="math inline">\(t = 0.2\)</span>, improving the True Positive Rate (TPR).
+Note that with the new threshold more observations from the positive class will get correctly classified with the positive label, but at the same time the True Negative Rate (TNR) decreases.
+Depending on the application, this may be a desired trade-off.</p>
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">measures</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msrs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"classif.tpr"</span>, <span class="st">"classif.tnr"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">pred</span><span class="op">$</span><span class="va">confusion</span></code></pre></div>
+<pre><code>##         truth
+## response  M  R
+##        M 95 10
+##        R 16 87</code></pre>
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pred</span><span class="op">$</span><span class="fu">score</span><span class="op">(</span><span class="va">measures</span><span class="op">)</span></code></pre></div>
+<pre><code>## classif.tpr classif.tnr 
+##      0.8559      0.8969</code></pre>
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pred</span><span class="op">$</span><span class="fu">set_threshold</span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span>
+<span class="va">pred</span><span class="op">$</span><span class="va">confusion</span></code></pre></div>
+<pre><code>##         truth
+## response   M   R
+##        M 104  25
+##        R   7  72</code></pre>
+<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pred</span><span class="op">$</span><span class="fu">score</span><span class="op">(</span><span class="va">measures</span><span class="op">)</span></code></pre></div>
+<pre><code>## classif.tpr classif.tnr 
+##      0.9369      0.7423</code></pre>
+<p>Thresholds can also be tuned with the <a href="https://mlr3pipelines.mlr-org.com">mlr3pipelines</a> package, i.e. using <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_tunethreshold.html"><code>PipeOpTuneThreshold</code></a>.</p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="introduction.html"><span class="header-section-number">1</span> Introduction and Overview</a></div>
+<div class="next"><a href="optimization.html"><span class="header-section-number">3</span> Model Optimization</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#basics"><span class="header-section-number">2</span> Basics</a></li>
+<li><a class="nav-link" href="#r6"><span class="header-section-number">2.1</span> Quick R6 Intro for Beginners</a></li>
+<li>
+<a class="nav-link" href="#tasks"><span class="header-section-number">2.2</span> Tasks</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#tasks-types"><span class="header-section-number">2.2.1</span> Task Types</a></li>
+<li><a class="nav-link" href="#tasks-creation"><span class="header-section-number">2.2.2</span> Task Creation</a></li>
+<li><a class="nav-link" href="#tasks-predefined"><span class="header-section-number">2.2.3</span> Predefined tasks</a></li>
+<li><a class="nav-link" href="#tasks-api"><span class="header-section-number">2.2.4</span> Task API</a></li>
+<li><a class="nav-link" href="#autoplot-task"><span class="header-section-number">2.2.5</span> Plotting Tasks</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#learners"><span class="header-section-number">2.3</span> Learners</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#predefined-learners"><span class="header-section-number">2.3.1</span> Predefined Learners</a></li>
+<li><a class="nav-link" href="#learner-api"><span class="header-section-number">2.3.2</span> Learner API</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#train-predict"><span class="header-section-number">2.4</span> Train, Predict, Score</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#train-predict-objects"><span class="header-section-number">2.4.1</span> Creating Task and Learner Objects</a></li>
+<li><a class="nav-link" href="#split-data"><span class="header-section-number">2.4.2</span> Setting up the train/test splits of the data</a></li>
+<li><a class="nav-link" href="#training"><span class="header-section-number">2.4.3</span> Training the learner</a></li>
+<li><a class="nav-link" href="#predicting"><span class="header-section-number">2.4.4</span> Predicting</a></li>
+<li><a class="nav-link" href="#predict-type"><span class="header-section-number">2.4.5</span> Changing the Predict Type</a></li>
+<li><a class="nav-link" href="#autoplot-prediction"><span class="header-section-number">2.4.6</span> Plotting Predictions</a></li>
+<li><a class="nav-link" href="#measure"><span class="header-section-number">2.4.7</span> Performance assessment</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#resampling"><span class="header-section-number">2.5</span> Resampling</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#resampling-settings"><span class="header-section-number">2.5.1</span> Settings</a></li>
+<li><a class="nav-link" href="#resampling-inst"><span class="header-section-number">2.5.2</span> Instantiation</a></li>
+<li><a class="nav-link" href="#resampling-exec"><span class="header-section-number">2.5.3</span> Execution</a></li>
+<li><a class="nav-link" href="#resamp-custom"><span class="header-section-number">2.5.4</span> Custom resampling</a></li>
+<li><a class="nav-link" href="#resampling-with-predefined-groups"><span class="header-section-number">2.5.5</span> Resampling with predefined groups</a></li>
+<li><a class="nav-link" href="#autoplot-resampleresult"><span class="header-section-number">2.5.6</span> Plotting Resample Results</a></li>
+<li><a class="nav-link" href="#autoplot-resample-partition"><span class="header-section-number">2.5.7</span> Plotting Resample Partitions</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#benchmarking"><span class="header-section-number">2.6</span> Benchmarking</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#bm-design"><span class="header-section-number">2.6.1</span> Design Creation</a></li>
+<li><a class="nav-link" href="#bm-exec"><span class="header-section-number">2.6.2</span> Execution and Aggregation of Results</a></li>
+<li><a class="nav-link" href="#autoplot-benchmarkresult"><span class="header-section-number">2.6.3</span> Plotting Benchmark Results</a></li>
+<li><a class="nav-link" href="#bm-resamp"><span class="header-section-number">2.6.4</span> Extracting ResampleResults</a></li>
+<li><a class="nav-link" href="#converting-and-merging"><span class="header-section-number">2.6.5</span> Converting and Merging</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#binary-classification"><span class="header-section-number">2.7</span> Binary classification</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#binary-roc"><span class="header-section-number">2.7.1</span> ROC Curve and Thresholds</a></li>
+<li><a class="nav-link" href="#threshold-tuning"><span class="header-section-number">2.7.2</span> Threshold Tuning</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/mlr-org/mlr3book/blob/main/bookdown/02-basics.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/mlr-org/mlr3book/edit/main/bookdown/02-basics.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-09-03.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

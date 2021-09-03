@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>9 Appendix | mlr3 book</title>
+<meta name="author" content="Marc Becker">
+<meta name="author" content="Martin Binder">
+<meta name="author" content="Bernd Bischl">
+<meta name="author" content="Michel Lang">
+<meta name="author" content="Florian Pfisterer">
+<meta name="author" content="Nicholas G. Reich">
+<meta name="author" content="Jakob Richter">
+<meta name="author" content="Patrick Schratz">
+<meta name="author" content="Raphael Sonabend">
+<meta name="author" content="Damir Pulatov">
+<meta name="description" content="9.1 Integrated Learners Learners are available from one of the following packages: mlr3: debug learner and rpart learners. mlr3learners: opinionated selection of some default learners. mlr3proba:...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="9 Appendix | mlr3 book">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://mlr3book.mlr-org.com/appendix.html">
+<meta property="og:image" content="https://mlr3book.mlr-org.com//block.png">
+<meta property="og:description" content="9.1 Integrated Learners Learners are available from one of the following packages: mlr3: debug learner and rpart learners. mlr3learners: opinionated selection of some default learners. mlr3proba:...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="9 Appendix | mlr3 book">
+<meta name="twitter:description" content="9.1 Integrated Learners Learners are available from one of the following packages: mlr3: debug learner and rpart learners. mlr3learners: opinionated selection of some default learners. mlr3proba:...">
+<meta name="twitter:image" content="https://mlr3book.mlr-org.com//block.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">mlr3 book</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Citation Info</a></li>
+<li><a class="" href="quickstart.html">Quickstart</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction and Overview</a></li>
+<li><a class="" href="basics.html"><span class="header-section-number">2</span> Basics</a></li>
+<li><a class="" href="optimization.html"><span class="header-section-number">3</span> Model Optimization</a></li>
+<li><a class="" href="pipelines.html"><span class="header-section-number">4</span> Pipelines</a></li>
+<li><a class="" href="technical.html"><span class="header-section-number">5</span> Technical</a></li>
+<li><a class="" href="extending.html"><span class="header-section-number">6</span> Extending</a></li>
+<li><a class="" href="special-tasks.html"><span class="header-section-number">7</span> Special Tasks</a></li>
+<li><a class="" href="interpretation.html"><span class="header-section-number">8</span> Model Interpretation</a></li>
+<li><a class="active" href="appendix.html"><span class="header-section-number">9</span> Appendix</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/mlr-org/mlr3book">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="appendix" class="section level1" number="9">
+<h1>
+<span class="header-section-number">9</span> Appendix<a class="anchor" aria-label="anchor" href="#appendix"><i class="fas fa-link"></i></a>
+</h1>
+
+<div id="list-learners" class="section level2" number="9.1">
+<h2>
+<span class="header-section-number">9.1</span> Integrated Learners<a class="anchor" aria-label="anchor" href="#list-learners"><i class="fas fa-link"></i></a>
+</h2>
+<p>Learners are available from one of the following packages:</p>
+<ul>
+<li>
+<a href="https://mlr3.mlr-org.com">mlr3</a>: debug learner and <a href="https://cran.r-project.org/package=rpart">rpart</a> learners.</li>
+<li>
+<a href="https://mlr3learners.mlr-org.com">mlr3learners</a>: opinionated selection of some default learners.</li>
+<li>
+<a href="https://mlr3proba.mlr-org.com">mlr3proba</a>: base learners for survival and probabilistic regression.</li>
+<li>
+<a href="https://mlr3cluster.mlr-org.com">mlr3cluster</a>: learners for unsupervised clustering.</li>
+<li>
+<a href="https://mlr3extralearners.mlr-org.com">mlr3extralearners</a>: more experimental learners for regression, classification and survival.</li>
+</ul>
+<p>Use the <a href="https://mlr3extralearners.mlr-org.com/articles/learners/list_learners.html">interactive search table</a> to look through all our learners.</p>
+
+</div>
+<div id="list-measures" class="section level2" number="9.2">
+<h2>
+<span class="header-section-number">9.2</span> Integrated Performance Measures<a class="anchor" aria-label="anchor" href="#list-measures"><i class="fas fa-link"></i></a>
+</h2>
+<p>Also see the <a href="https://mlr3measures.mlr-org.com/reference/">overview on the website</a> of <a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a>.</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Id</th>
+<th align="left">Packages</th>
+<th align="left">Task Type</th>
+<th align="left">Predict Type</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_aic.html"><code>aic</code></a></td>
+<td align="left"></td>
+<td align="left">NA</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_bic.html"><code>bic</code></a></td>
+<td align="left"></td>
+<td align="left">NA</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.acc.html"><code>classif.acc</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.auc.html"><code>classif.auc</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">prob</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.bacc.html"><code>classif.bacc</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.bbrier.html"><code>classif.bbrier</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">prob</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.ce.html"><code>classif.ce</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.costs.html"><code>classif.costs</code></a></td>
+<td align="left"></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.dor.html"><code>classif.dor</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.fbeta.html"><code>classif.fbeta</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.fdr.html"><code>classif.fdr</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.fn.html"><code>classif.fn</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.fnr.html"><code>classif.fnr</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.fomr.html"><code>classif.fomr</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.fp.html"><code>classif.fp</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.fpr.html"><code>classif.fpr</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.logloss.html"><code>classif.logloss</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">prob</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.mbrier.html"><code>classif.mbrier</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">prob</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.mcc.html"><code>classif.mcc</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.npv.html"><code>classif.npv</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.ppv.html"><code>classif.ppv</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.prauc.html"><code>classif.prauc</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">prob</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.precision.html"><code>classif.precision</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.recall.html"><code>classif.recall</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.sensitivity.html"><code>classif.sensitivity</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.specificity.html"><code>classif.specificity</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.tn.html"><code>classif.tn</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.tnr.html"><code>classif.tnr</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.tp.html"><code>classif.tp</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.tpr.html"><code>classif.tpr</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_debug.html"><code>debug</code></a></td>
+<td align="left"></td>
+<td align="left">NA</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_dens.logloss.html"><code>dens.logloss</code></a></td>
+<td align="left"></td>
+<td align="left">dens</td>
+<td align="left">pdf</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_oob_error.html"><code>oob_error</code></a></td>
+<td align="left"></td>
+<td align="left">NA</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.bias.html"><code>regr.bias</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.ktau.html"><code>regr.ktau</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.mae.html"><code>regr.mae</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.mape.html"><code>regr.mape</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.maxae.html"><code>regr.maxae</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.medae.html"><code>regr.medae</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.medse.html"><code>regr.medse</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.mse.html"><code>regr.mse</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.msle.html"><code>regr.msle</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.pbias.html"><code>regr.pbias</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.rae.html"><code>regr.rae</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.rmse.html"><code>regr.rmse</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.rmsle.html"><code>regr.rmsle</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.rrse.html"><code>regr.rrse</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.rse.html"><code>regr.rse</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.rsq.html"><code>regr.rsq</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.sae.html"><code>regr.sae</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.smape.html"><code>regr.smape</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.srho.html"><code>regr.srho</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_regr.sse.html"><code>regr.sse</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">regr</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_selected_features.html"><code>selected_features</code></a></td>
+<td align="left"></td>
+<td align="left">NA</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.graf.html"><code>surv.brier</code></a></td>
+<td align="left"></td>
+<td align="left">surv</td>
+<td align="left">distr</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.calib_alpha.html"><code>surv.calib_alpha</code></a></td>
+<td align="left"></td>
+<td align="left">surv</td>
+<td align="left">distr</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.calib_beta.html"><code>surv.calib_beta</code></a></td>
+<td align="left"></td>
+<td align="left">surv</td>
+<td align="left">lp</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.chambless_auc.html"><code>surv.chambless_auc</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=survAUC">survAUC</a></td>
+<td align="left">surv</td>
+<td align="left">lp</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.cindex.html"><code>surv.cindex</code></a></td>
+<td align="left"></td>
+<td align="left">surv</td>
+<td align="left">crank</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.dcalib.html"><code>surv.dcalib</code></a></td>
+<td align="left"></td>
+<td align="left">surv</td>
+<td align="left">distr</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.graf.html"><code>surv.graf</code></a></td>
+<td align="left"></td>
+<td align="left">surv</td>
+<td align="left">distr</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.hung_auc.html"><code>surv.hung_auc</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=survAUC">survAUC</a></td>
+<td align="left">surv</td>
+<td align="left">lp</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.intlogloss.html"><code>surv.intlogloss</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=distr6">distr6</a></td>
+<td align="left">surv</td>
+<td align="left">distr</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.logloss.html"><code>surv.logloss</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=distr6">distr6</a></td>
+<td align="left">surv</td>
+<td align="left">distr</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.mae.html"><code>surv.mae</code></a></td>
+<td align="left"></td>
+<td align="left">surv</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.mse.html"><code>surv.mse</code></a></td>
+<td align="left"></td>
+<td align="left">surv</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.nagelk_r2.html"><code>surv.nagelk_r2</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=survAUC">survAUC</a></td>
+<td align="left">surv</td>
+<td align="left">lp</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.oquigley_r2.html"><code>surv.oquigley_r2</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=survAUC">survAUC</a></td>
+<td align="left">surv</td>
+<td align="left">lp</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.rmse.html"><code>surv.rmse</code></a></td>
+<td align="left"></td>
+<td align="left">surv</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.schmid.html"><code>surv.schmid</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=distr6">distr6</a></td>
+<td align="left">surv</td>
+<td align="left">distr</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.song_auc.html"><code>surv.song_auc</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=survAUC">survAUC</a></td>
+<td align="left">surv</td>
+<td align="left">lp</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.song_tnr.html"><code>surv.song_tnr</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=survAUC">survAUC</a></td>
+<td align="left">surv</td>
+<td align="left">lp</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.song_tpr.html"><code>surv.song_tpr</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=survAUC">survAUC</a></td>
+<td align="left">surv</td>
+<td align="left">lp</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.uno_auc.html"><code>surv.uno_auc</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=survAUC">survAUC</a></td>
+<td align="left">surv</td>
+<td align="left">lp</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.uno_tnr.html"><code>surv.uno_tnr</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=survAUC">survAUC</a></td>
+<td align="left">surv</td>
+<td align="left">lp</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.uno_tpr.html"><code>surv.uno_tpr</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=survAUC">survAUC</a></td>
+<td align="left">surv</td>
+<td align="left">lp</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_measures_surv.xu_r2.html"><code>surv.xu_r2</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=survAUC">survAUC</a></td>
+<td align="left">surv</td>
+<td align="left">lp</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_elapsed_time.html"><code>time_both</code></a></td>
+<td align="left"></td>
+<td align="left">NA</td>
+<td align="left">response</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_elapsed_time.html"><code>time_predict</code></a></td>
+<td align="left"></td>
+<td align="left">NA</td>
+<td align="left">response</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3.mlr-org.com/reference/mlr_measures_elapsed_time.html"><code>time_train</code></a></td>
+<td align="left"></td>
+<td align="left">NA</td>
+<td align="left">response</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="list-filters" class="section level2" number="9.3">
+<h2>
+<span class="header-section-number">9.3</span> Integrated Filter Methods<a class="anchor" aria-label="anchor" href="#list-filters"><i class="fas fa-link"></i></a>
+</h2>
+<div id="fs-filter-list" class="section level3" number="9.3.1">
+<h3>
+<span class="header-section-number">9.3.1</span> Standalone filter methods<a class="anchor" aria-label="anchor" href="#fs-filter-list"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Id</th>
+<th align="left">Packages</th>
+<th align="left">Task Types</th>
+<th align="left">Feature Types</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_anova.html"><code>anova</code></a></td>
+<td align="left">stats</td>
+<td align="left">classif</td>
+<td align="left">int, dbl</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_auc.html"><code>auc</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a></td>
+<td align="left">classif</td>
+<td align="left">int, dbl</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_carscore.html"><code>carscore</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=care">care</a></td>
+<td align="left">regr</td>
+<td align="left">dbl</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_cmim.html"><code>cmim</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=praznik">praznik</a></td>
+<td align="left">classif, regr</td>
+<td align="left">int, dbl, fct, ord</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_correlation.html"><code>correlation</code></a></td>
+<td align="left">stats</td>
+<td align="left">regr</td>
+<td align="left">int, dbl</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_disr.html"><code>disr</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=praznik">praznik</a></td>
+<td align="left">classif, regr</td>
+<td align="left">int, dbl, fct, ord</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_find_correlation.html"><code>find_correlation</code></a></td>
+<td align="left">stats</td>
+<td align="left">classif, regr</td>
+<td align="left">int, dbl</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_importance.html"><code>importance</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=rpart">rpart</a></td>
+<td align="left">classif</td>
+<td align="left">lgl, int, dbl, fct, ord</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_information_gain.html"><code>information_gain</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=FSelectorRcpp">FSelectorRcpp</a></td>
+<td align="left">classif, regr</td>
+<td align="left">int, dbl, fct, ord</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_jmi.html"><code>jmi</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=praznik">praznik</a></td>
+<td align="left">classif, regr</td>
+<td align="left">int, dbl, fct, ord</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_jmim.html"><code>jmim</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=praznik">praznik</a></td>
+<td align="left">classif, regr</td>
+<td align="left">int, dbl, fct, ord</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_kruskal_test.html"><code>kruskal_test</code></a></td>
+<td align="left">stats</td>
+<td align="left">classif</td>
+<td align="left">int, dbl</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_mim.html"><code>mim</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=praznik">praznik</a></td>
+<td align="left">classif, regr</td>
+<td align="left">int, dbl, fct, ord</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_mrmr.html"><code>mrmr</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=praznik">praznik</a></td>
+<td align="left">classif, regr</td>
+<td align="left">int, dbl, fct, ord</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_njmim.html"><code>njmim</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=praznik">praznik</a></td>
+<td align="left">classif, regr</td>
+<td align="left">int, dbl, fct, ord</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_performance.html"><code>performance</code></a></td>
+<td align="left">
+<a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a>, <a href="https://cran.r-project.org/package=rpart">rpart</a>
+</td>
+<td align="left">classif</td>
+<td align="left">lgl, int, dbl, fct, ord</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_permutation.html"><code>permutation</code></a></td>
+<td align="left">
+<a href="https://cran.r-project.org/package=mlr3measures">mlr3measures</a>, <a href="https://cran.r-project.org/package=rpart">rpart</a>
+</td>
+<td align="left">classif</td>
+<td align="left">lgl, int, dbl, fct, ord</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_relief.html"><code>relief</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=FSelectorRcpp">FSelectorRcpp</a></td>
+<td align="left">classif, regr</td>
+<td align="left">int, dbl, fct, ord</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_variance.html"><code>variance</code></a></td>
+<td align="left">stats</td>
+<td align="left">classif, regr</td>
+<td align="left">int, dbl</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="fs-filter-embedded-list" class="section level3" number="9.3.2">
+<h3>
+<span class="header-section-number">9.3.2</span> Learners With Embedded Filter Methods<a class="anchor" aria-label="anchor" href="#fs-filter-embedded-list"><i class="fas fa-link"></i></a>
+</h3>
+<pre><code>##  [1] "classif.featureless" "classif.ranger"      "classif.rpart"      
+##  [4] "classif.xgboost"     "regr.featureless"    "regr.ranger"        
+##  [7] "regr.rpart"          "regr.xgboost"        "surv.ranger"        
+## [10] "surv.rpart"          "surv.xgboost"</code></pre>
+
+</div>
+</div>
+<div id="list-pipeops" class="section level2" number="9.4">
+<h2>
+<span class="header-section-number">9.4</span> Integrated Pipe Operators<a class="anchor" aria-label="anchor" href="#list-pipeops"><i class="fas fa-link"></i></a>
+</h2>
+<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="30%">
+<col width="32%">
+<col width="13%">
+<col width="9%">
+<col width="14%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Id</th>
+<th align="left">Packages</th>
+<th align="left">Tags</th>
+<th align="left">Train</th>
+<th align="left">Predict</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_boxcox.html"><code>boxcox</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=bestNormalize">bestNormalize</a></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_colapply.html"><code>colapply</code></a></td>
+<td align="left"></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_collapsefactors.html"><code>collapsefactors</code></a></td>
+<td align="left"></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_colroles.html"><code>colroles</code></a></td>
+<td align="left"></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_datefeatures.html"><code>datefeatures</code></a></td>
+<td align="left"></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_histbin.html"><code>histbin</code></a></td>
+<td align="left">graphics</td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_ica.html"><code>ica</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=fastICA">fastICA</a></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_kernelpca.html"><code>kernelpca</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=kernlab">kernlab</a></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_modelmatrix.html"><code>modelmatrix</code></a></td>
+<td align="left">stats</td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_mutate.html"><code>mutate</code></a></td>
+<td align="left"></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_nmf.html"><code>nmf</code></a></td>
+<td align="left">
+<a href="https://cran.r-project.org/package=MASS">MASS</a>, <a href="https://cran.r-project.org/package=NMF">NMF</a>
+</td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_pca.html"><code>pca</code></a></td>
+<td align="left"></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_quantilebin.html"><code>quantilebin</code></a></td>
+<td align="left">stats</td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_randomprojection.html"><code>randomprojection</code></a></td>
+<td align="left"></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_renamecolumns.html"><code>renamecolumns</code></a></td>
+<td align="left"></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_scale.html"><code>scale</code></a></td>
+<td align="left"></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_scalemaxabs.html"><code>scalemaxabs</code></a></td>
+<td align="left"></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_scalerange.html"><code>scalerange</code></a></td>
+<td align="left"></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_spatialsign.html"><code>spatialsign</code></a></td>
+<td align="left"></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_subsample.html"><code>subsample</code></a></td>
+<td align="left"></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_textvectorizer.html"><code>textvectorizer</code></a></td>
+<td align="left">
+<a href="https://cran.r-project.org/package=quanteda">quanteda</a>, <a href="https://cran.r-project.org/package=stopwords">stopwords</a>
+</td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_yeojohnson.html"><code>yeojohnson</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=bestNormalize">bestNormalize</a></td>
+<td align="left">data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_encode.html"><code>encode</code></a></td>
+<td align="left">stats</td>
+<td align="left">encode , data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_encodeimpact.html"><code>encodeimpact</code></a></td>
+<td align="left"></td>
+<td align="left">encode , data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_encodelmer.html"><code>encodelmer</code></a></td>
+<td align="left">
+<a href="https://cran.r-project.org/package=lme4">lme4</a>, <a href="https://cran.r-project.org/package=nloptr">nloptr</a>
+</td>
+<td align="left">encode , data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_vtreat.html"><code>vtreat</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=vtreat">vtreat</a></td>
+<td align="left">encode , missings , data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_classifavg.html"><code>classifavg</code></a></td>
+<td align="left">stats</td>
+<td align="left">ensemble</td>
+<td align="left">NULL → NULL</td>
+<td align="left">PredictionClassif→PredictionClassif</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_featureunion.html"><code>featureunion</code></a></td>
+<td align="left"></td>
+<td align="left">ensemble</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_regravg.html"><code>regravg</code></a></td>
+<td align="left"></td>
+<td align="left">ensemble</td>
+<td align="left">NULL → NULL</td>
+<td align="left">PredictionRegr→PredictionRegr</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_pipeops_survavg.html"><code>survavg</code></a></td>
+<td align="left"></td>
+<td align="left">ensemble</td>
+<td align="left">NULL → NULL</td>
+<td align="left">PredictionSurv→PredictionSurv</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_filter.html"><code>filter</code></a></td>
+<td align="left"></td>
+<td align="left">feature selection, data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_select.html"><code>select</code></a></td>
+<td align="left"></td>
+<td align="left">feature selection, data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_classbalancing.html"><code>classbalancing</code></a></td>
+<td align="left"></td>
+<td align="left">imbalanced data, data transform</td>
+<td align="left">TaskClassif → TaskClassif</td>
+<td align="left">TaskClassif→TaskClassif</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_classweights.html"><code>classweights</code></a></td>
+<td align="left"></td>
+<td align="left">imbalanced data, data transform</td>
+<td align="left">TaskClassif → TaskClassif</td>
+<td align="left">TaskClassif→TaskClassif</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_smote.html"><code>smote</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=smotefamily">smotefamily</a></td>
+<td align="left">imbalanced data, data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_learner.html"><code>learner</code></a></td>
+<td align="left"></td>
+<td align="left">learner</td>
+<td align="left">TaskClassif → NULL</td>
+<td align="left">TaskClassif→PredictionClassif</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_learner_cv.html"><code>learner_cv</code></a></td>
+<td align="left"></td>
+<td align="left">learner , ensemble , data transform</td>
+<td align="left">TaskClassif → TaskClassif</td>
+<td align="left">TaskClassif→TaskClassif</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_imputeconstant.html"><code>imputeconstant</code></a></td>
+<td align="left"></td>
+<td align="left">missings</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_imputehist.html"><code>imputehist</code></a></td>
+<td align="left">graphics</td>
+<td align="left">missings</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_imputelearner.html"><code>imputelearner</code></a></td>
+<td align="left"></td>
+<td align="left">missings</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_imputemean.html"><code>imputemean</code></a></td>
+<td align="left"></td>
+<td align="left">missings</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_imputemedian.html"><code>imputemedian</code></a></td>
+<td align="left">stats</td>
+<td align="left">missings</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_imputemode.html"><code>imputemode</code></a></td>
+<td align="left"></td>
+<td align="left">missings</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_imputeoor.html"><code>imputeoor</code></a></td>
+<td align="left"></td>
+<td align="left">missings</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_imputesample.html"><code>imputesample</code></a></td>
+<td align="left"></td>
+<td align="left">missings</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_missind.html"><code>missind</code></a></td>
+<td align="left"></td>
+<td align="left">missings , data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_multiplicityexply.html"><code>multiplicityexply</code></a></td>
+<td align="left"></td>
+<td align="left">multiplicity</td>
+<td align="left">[*] → *</td>
+<td align="left">[*]→*</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_multiplicityimply.html"><code>multiplicityimply</code></a></td>
+<td align="left"></td>
+<td align="left">multiplicity</td>
+<td align="left">* → [*]</td>
+<td align="left">*→[*]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_ovrunite.html"><code>ovrunite</code></a></td>
+<td align="left"></td>
+<td align="left">multiplicity, ensemble</td>
+<td align="left">[NULL] → NULL</td>
+<td align="left">[PredictionClassif]→PredictionClassif</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_replicate.html"><code>replicate</code></a></td>
+<td align="left"></td>
+<td align="left">multiplicity</td>
+<td align="left">* → [*]</td>
+<td align="left">*→[*]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_fixfactors.html"><code>fixfactors</code></a></td>
+<td align="left"></td>
+<td align="left">robustify , data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_removeconstants.html"><code>removeconstants</code></a></td>
+<td align="left"></td>
+<td align="left">robustify , data transform</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_ovrsplit.html"><code>ovrsplit</code></a></td>
+<td align="left"></td>
+<td align="left">target transform, multiplicity</td>
+<td align="left">TaskClassif → [TaskClassif]</td>
+<td align="left">TaskClassif→[TaskClassif]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_targetmutate.html"><code>targetmutate</code></a></td>
+<td align="left"></td>
+<td align="left">target transform</td>
+<td align="left">Task → NULL, Task</td>
+<td align="left">Task→function, Task</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_targettrafoscalerange.html"><code>targettrafoscalerange</code></a></td>
+<td align="left"></td>
+<td align="left">target transform</td>
+<td align="left">TaskRegr → NULL, TaskRegr</td>
+<td align="left">TaskRegr→function, TaskRegr</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_threshold.html"><code>threshold</code></a></td>
+<td align="left"></td>
+<td align="left">target transform</td>
+<td align="left">NULL → NULL</td>
+<td align="left">PredictionClassif→PredictionClassif</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_tunethreshold.html"><code>tunethreshold</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=bbotk">bbotk</a></td>
+<td align="left">target transform</td>
+<td align="left">Task → NULL</td>
+<td align="left">Task→Prediction</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_branch.html"><code>branch</code></a></td>
+<td align="left"></td>
+<td align="left">meta</td>
+<td align="left">* → *</td>
+<td align="left"><em>→</em></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_chunk.html"><code>chunk</code></a></td>
+<td align="left"></td>
+<td align="left">meta</td>
+<td align="left">Task → Task</td>
+<td align="left">Task→Task</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_copy.html"><code>copy</code></a></td>
+<td align="left"></td>
+<td align="left">meta</td>
+<td align="left">* → *</td>
+<td align="left"><em>→</em></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_nop.html"><code>nop</code></a></td>
+<td align="left"></td>
+<td align="left">meta</td>
+<td align="left">* → *</td>
+<td align="left"><em>→</em></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_proxy.html"><code>proxy</code></a></td>
+<td align="left"></td>
+<td align="left">meta</td>
+<td align="left">* → *</td>
+<td align="left"><em>→</em></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_unbranch.html"><code>unbranch</code></a></td>
+<td align="left"></td>
+<td align="left">meta</td>
+<td align="left">* → *</td>
+<td align="left"><em>→</em></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_pipeops_compose_crank.html"><code>compose_crank</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=distr6">distr6</a></td>
+<td align="left">abstract</td>
+<td align="left">NULL → NULL</td>
+<td align="left">PredictionSurv→PredictionSurv</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_pipeops_compose_distr.html"><code>compose_distr</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=distr6">distr6</a></td>
+<td align="left">abstract</td>
+<td align="left">NULL, NULL → NULL</td>
+<td align="left">PredictionSurv, PredictionSurv→PredictionSurv</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_pipeops_compose_probregr.html"><code>compose_probregr</code></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=distr6">distr6</a></td>
+<td align="left">abstract</td>
+<td align="left">NULL, NULL → NULL</td>
+<td align="left">PredictionRegr, PredictionRegr→PredictionRegr</td>
+</tr>
+<tr class="odd">
+<td align="left">crankcompose</td>
+<td align="left"><a href="https://cran.r-project.org/package=distr6">distr6</a></td>
+<td align="left">abstract</td>
+<td align="left">NULL → NULL</td>
+<td align="left">PredictionSurv→PredictionSurv</td>
+</tr>
+<tr class="even">
+<td align="left">distrcompose</td>
+<td align="left"><a href="https://cran.r-project.org/package=distr6">distr6</a></td>
+<td align="left">abstract</td>
+<td align="left">NULL, NULL → NULL</td>
+<td align="left">PredictionSurv, PredictionSurv→PredictionSurv</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_randomresponse.html"><code>randomresponse</code></a></td>
+<td align="left"></td>
+<td align="left">abstract</td>
+<td align="left">NULL → NULL</td>
+<td align="left">Prediction→Prediction</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_targetinvert.html"><code>targetinvert</code></a></td>
+<td align="left"></td>
+<td align="left">abstract</td>
+<td align="left">NULL, NULL → NULL</td>
+<td align="left">function, Prediction→Prediction</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_pipeops_trafopred_regrsurv.html"><code>trafopred_regrsurv</code></a></td>
+<td align="left"></td>
+<td align="left">abstract</td>
+<td align="left">NULL, NULL → NULL</td>
+<td align="left">PredictionRegr, *→PredictionSurv</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_pipeops_trafopred_survregr.html"><code>trafopred_survregr</code></a></td>
+<td align="left"></td>
+<td align="left">abstract</td>
+<td align="left">NULL → NULL</td>
+<td align="left">PredictionSurv→PredictionRegr</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_pipeops_trafotask_regrsurv.html"><code>trafotask_regrsurv</code></a></td>
+<td align="left"></td>
+<td align="left">abstract</td>
+<td align="left">TaskRegr, * → TaskSurv</td>
+<td align="left">TaskRegr, *→TaskSurv</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://mlr3proba.mlr-org.com/reference/mlr_pipeops_trafotask_survregr.html"><code>trafotask_survregr</code></a></td>
+<td align="left"></td>
+<td align="left">abstract</td>
+<td align="left">TaskSurv, * → TaskRegr</td>
+<td align="left">TaskSurv, *→TaskRegr</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="compare-frameworks" class="section level2" number="9.5">
+<h2>
+<span class="header-section-number">9.5</span> Framework Comparison<a class="anchor" aria-label="anchor" href="#compare-frameworks"><i class="fas fa-link"></i></a>
+</h2>
+<p>Below, we collected some examples, where <strong><a href="https://cran.r-project.org/package=mlr3pipelines">mlr3pipelines</a></strong> is compared to different other software packages,
+such as <strong><a href="https://cran.r-project.org/package=mlr">mlr</a></strong>, <strong><a href="https://cran.r-project.org/package=recipes">recipes</a></strong> and <strong><a href="https://scikit-learn.org/stable/">sklearn</a></strong>.</p>
+<p>Before diving deeper, we give a short introduction to PipeOps.</p>
+<div id="an-introduction-to-pipeops" class="section level3" number="9.5.1">
+<h3>
+<span class="header-section-number">9.5.1</span> An introduction to “PipeOp”s<a class="anchor" aria-label="anchor" href="#an-introduction-to-pipeops"><i class="fas fa-link"></i></a>
+</h3>
+<p>In this example, we create a linear Pipeline.
+After scaling all input features, we rotate our data using principal component analysis.
+After this transformation, we use a simple Decision Tree learner for classification.</p>
+<p>As exemplary data, we will use the “<code>iris</code>” classification task.
+This object contains the famous iris dataset and some meta-information, such as the target variable.</p>
+<div class="sourceCode" id="cb867"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
+<span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"iris"</span><span class="op">)</span></code></pre></div>
+<p>We quickly split our data into a train and a test set:</p>
+<div class="sourceCode" id="cb868"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">test.idx</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">task</span><span class="op">$</span><span class="va">nrow</span><span class="op">)</span>, <span class="fl">30</span><span class="op">)</span>
+<span class="va">train.idx</span> <span class="op">=</span> <span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">setdiff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">task</span><span class="op">$</span><span class="va">nrow</span><span class="op">)</span>, <span class="va">test.idx</span><span class="op">)</span>
+<span class="co"># Set task to only use train indexes</span>
+<span class="va">task</span><span class="op">$</span><span class="va">row_roles</span><span class="op">$</span><span class="va">use</span> <span class="op">=</span> <span class="va">train.idx</span></code></pre></div>
+<p>A Pipeline (or <code>Graph</code>) contains multiple pipeline operators (“<code>PipeOp</code>”s), where each <code>PipeOp</code> transforms the data when it flows through it.
+For this use case, we require 3 transformations:</p>
+<ul>
+<li>A <code>PipeOp</code> that scales the data</li>
+<li>A <code>PipeOp</code> that performs PCA</li>
+<li>A <code>PipeOp</code> that contains the <strong>Decision Tree</strong> learner</li>
+</ul>
+<p>A list of available <code>PipeOp</code>s can be obtained from</p>
+<div class="sourceCode" id="cb869"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3pipelines.mlr-org.com">"mlr3pipelines"</a></span><span class="op">)</span>
+<span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## &lt;DictionaryPipeOp&gt; with 64 stored values
+## Keys: boxcox, branch, chunk, classbalancing, classifavg, classweights,
+##   colapply, collapsefactors, colroles, copy, datefeatures, encode,
+##   encodeimpact, encodelmer, featureunion, filter, fixfactors, histbin,
+##   ica, imputeconstant, imputehist, imputelearner, imputemean,
+##   imputemedian, imputemode, imputeoor, imputesample, kernelpca,
+##   learner, learner_cv, missind, modelmatrix, multiplicityexply,
+##   multiplicityimply, mutate, nmf, nop, ovrsplit, ovrunite, pca, proxy,
+##   quantilebin, randomprojection, randomresponse, regravg,
+##   removeconstants, renamecolumns, replicate, scale, scalemaxabs,
+##   scalerange, select, smote, spatialsign, subsample, targetinvert,
+##   targetmutate, targettrafoscalerange, textvectorizer, threshold,
+##   tunethreshold, unbranch, vtreat, yeojohnson</code></pre>
+<p>First we define the required <code>PipeOp</code>s:</p>
+<div class="sourceCode" id="cb871"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">op1</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span>
+<span class="va">op2</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span><span class="op">)</span>
+<span class="va">op3</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"learner"</span>, learner <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div id="a-quick-glance-into-a-pipeop" class="section level4" number="9.5.1.1">
+<h4>
+<span class="header-section-number">9.5.1.1</span> A quick glance into a PipeOp<a class="anchor" aria-label="anchor" href="#a-quick-glance-into-a-pipeop"><i class="fas fa-link"></i></a>
+</h4>
+<p>In order to get a better understanding of what the respective PipeOps do, we quickly look at one of them in detail:</p>
+<p>The most important slots in a PipeOp are:</p>
+<ul>
+<li>
+<code>$train()</code>: A function used to train the PipeOp.</li>
+<li>
+<code>$predict()</code>: A function used to predict with the PipeOp.</li>
+</ul>
+<p>The <code>$train()</code> and <code>$predict()</code> functions define the core functionality of our PipeOp.
+In many cases, in order to not leak information from the training set into the test set it is imperative to treat train and test data separately.
+For this we require a <code>$train()</code> function that learns the appropriate transformations from the training set and a <code>$predict()</code> function that applies the transformation on future data.</p>
+<p>In the case of <code>PipeOpPCA</code> this means the following:</p>
+<ul>
+<li>
+<code>$train()</code> learns a rotation matrix from its input and saves this matrix to an additional slot, <code>$state</code>.
+It returns the rotated input data stored in a new <code>Task</code>.</li>
+<li>
+<code>$predict()</code> uses the rotation matrix stored in <code>$state</code> in order to rotate future, unseen data.
+It returns those in a new <code>Task</code>.</li>
+</ul>
+</div>
+<div id="constructing-the-pipeline" class="section level4" number="9.5.1.2">
+<h4>
+<span class="header-section-number">9.5.1.2</span> Constructing the Pipeline<a class="anchor" aria-label="anchor" href="#constructing-the-pipeline"><i class="fas fa-link"></i></a>
+</h4>
+<p>We can now connect the <code>PipeOp</code>s constructed earlier to a <strong>Pipeline</strong>.
+We can do this using the <code><a href="https://mlr3pipelines.mlr-org.com//reference/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></code> operator.</p>
+<div class="sourceCode" id="cb872"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">linear_pipeline</span> <span class="op">=</span> <span class="va">op1</span> <span class="op">%&gt;&gt;%</span> <span class="va">op2</span> <span class="op">%&gt;&gt;%</span> <span class="va">op3</span></code></pre></div>
+<p>The result of this operation is a “<code>Graph</code>.”
+A <code>Graph</code> connects the input and output of each <code>PipeOp</code> to the following <code>PipeOp</code>.
+This allows us to specify linear processing pipelines.
+In this case, we connect the output of the <strong>scaling</strong> PipeOp to the input of the <strong>PCA</strong> PipeOp and the output of the <strong>PCA</strong> PipeOp to the input of <strong>PipeOpLearner</strong>.</p>
+<p>We can now train the <code>Graph</code> using the <code>iris</code> <code>Task</code>.</p>
+<div class="sourceCode" id="cb873"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">linear_pipeline</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
+<pre><code>## $classif.rpart.output
+## NULL</code></pre>
+<p>When we now train the graph, the data flows through the graph as follows:</p>
+<ul>
+<li>The Task flows into the <code>PipeOpScale</code>.
+The <code>PipeOp</code> scales each column in the data contained in the Task and returns a new Task that contains the scaled data to its output.</li>
+<li>The scaled Task flows into the <code>PipeOpPCA</code>.
+PCA transforms the data and returns a (possibly smaller) Task, that contains the transformed data.</li>
+<li>This transformed data then flows into the learner, in our case <strong>classif.rpart</strong>.
+It is then used to train the learner, and as a result saves a model that can be used to predict new data.</li>
+</ul>
+<p>In order to predict on new data, we need to save the relevant transformations our data went through while training.
+As a result, each <code>PipeOp</code> saves a state, where information required to appropriately transform future data is stored.
+In our case, this is <strong>mean</strong> and <strong>standard deviation</strong> of each column for <code>PipeOpScale</code>, the PCA rotation matrix for <code>PipeOpPCA</code> and the learned model for <code>PipeOpLearner</code>.</p>
+<div class="sourceCode" id="cb875"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># predict on test.idx</span>
+<span class="va">task</span><span class="op">$</span><span class="va">row_roles</span><span class="op">$</span><span class="va">use</span> <span class="op">=</span> <span class="va">test.idx</span>
+<span class="va">linear_pipeline</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
+<pre><code>## $classif.rpart.output
+## &lt;PredictionClassif&gt; for 30 observations:
+##     row_ids      truth   response
+##         124  virginica  virginica
+##          36     setosa     setosa
+##          17     setosa     setosa
+## ---                              
+##          55 versicolor versicolor
+##         103  virginica  virginica
+##         112  virginica  virginica</code></pre>
+</div>
+</div>
+<div id="mlr3pipelines-vs.-mlr" class="section level3" number="9.5.2">
+<h3>
+<span class="header-section-number">9.5.2</span> mlr3pipelines vs. mlr<a class="anchor" aria-label="anchor" href="#mlr3pipelines-vs.-mlr"><i class="fas fa-link"></i></a>
+</h3>
+<p>In order to showcase the benefits of <a href="https://cran.r-project.org/package=mlr3pipelines">mlr3pipelines</a> over <a href="https://cran.r-project.org/package=mlr">mlr</a>’s <code>Wrapper</code> mechanism, we compare the case of imputing missing values before filtering the top 2 features and then applying a learner.</p>
+<p>While <a href="https://cran.r-project.org/package=mlr">mlr</a> wrappers are generally less verbose and require a little less code, this heavily inhibits flexibility.
+As an example, wrappers can generally not process data in parallel.</p>
+<div id="mlr" class="section level4" number="9.5.2.1">
+<h4>
+<span class="header-section-number">9.5.2.1</span> mlr<a class="anchor" aria-label="anchor" href="#mlr"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb877"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"mlr"</span><span class="op">)</span>
+<span class="co"># We first create a learner</span>
+<span class="va">lrn</span> <span class="op">=</span> <span class="fu">makeLearner</span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span>
+<span class="co"># Wrap this learner in a FilterWrapper</span>
+<span class="va">lrn.wrp</span> <span class="op">=</span> <span class="fu">makeFilterWrapper</span><span class="op">(</span><span class="va">lrn</span>, fw.abs <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span>
+<span class="co"># And wrap the resulting wrapped learner into an ImputeWrapper.</span>
+<span class="va">lrn.wrp</span> <span class="op">=</span> <span class="fu">makeImputeWrapper</span><span class="op">(</span><span class="va">lrn.wrp</span>, classes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>factor <span class="op">=</span> <span class="fu">imputeConstant</span><span class="op">(</span><span class="st">"missing"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># Afterwards, we can train the resulting learner on a task</span>
+<span class="fu">train</span><span class="op">(</span><span class="va">lrn</span>, <span class="va">iris.task</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="mlr3pipelines" class="section level4" number="9.5.2.2">
+<h4>
+<span class="header-section-number">9.5.2.2</span> mlr3pipelines<a class="anchor" aria-label="anchor" href="#mlr3pipelines"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb878"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3pipelines.mlr-org.com">"mlr3pipelines"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3filters.mlr-org.com">"mlr3filters"</a></span><span class="op">)</span>
+
+<span class="va">impute</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"imputeoor"</span><span class="op">)</span>
+<span class="va">filter</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"filter"</span>, filter <span class="op">=</span> <span class="fu"><a href="https://mlr3filters.mlr-org.com/reference/flt.html">flt</a></span><span class="op">(</span><span class="st">"variance"</span><span class="op">)</span>, filter.nfeat <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span>
+<span class="va">rpart</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"learner"</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># Assemble the Pipeline</span>
+<span class="va">pipeline</span> <span class="op">=</span> <span class="va">impute</span> <span class="op">%&gt;&gt;%</span> <span class="va">filter</span> <span class="op">%&gt;&gt;%</span> <span class="va">rpart</span>
+<span class="co"># And convert to a 'GraphLearner'</span>
+<span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_learner.html">as_learner</a></span><span class="op">(</span><span class="va">pipeline</span><span class="op">)</span></code></pre></div>
+<p>The fact that <strong>mlr’s</strong> wrappers have to be applied inside-out, i.e. in the reverse order is often confusing.
+This is way more straight-forward in <code>mlr3pipelines</code>, where we simply chain the different methods using <code><a href="https://mlr3pipelines.mlr-org.com//reference/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></code>.
+Additionally, <code>mlr3pipelines</code> offers way greater possibilities with respect to the kinds of Pipelines that can be constructed.
+In <code>mlr3pipelines</code>, we allow for the construction of parallel and conditional pipelines.
+This was previously not possible.</p>
+</div>
+</div>
+<div id="mlr3pipelines-vs.-sklearn.pipeline.pipeline" class="section level3" number="9.5.3">
+<h3>
+<span class="header-section-number">9.5.3</span> mlr3pipelines vs. sklearn.pipeline.Pipeline<a class="anchor" aria-label="anchor" href="#mlr3pipelines-vs.-sklearn.pipeline.pipeline"><i class="fas fa-link"></i></a>
+</h3>
+<p>In order to broaden the horizon, we compare to <strong>Python</strong> <a href="https://scikit-learn.org/stable/">sklearn’s</a> <code>Pipeline</code> methods.
+<code>sklearn.pipeline.Pipeline</code> sequentially applies a list of transforms before fitting a final estimator.
+Intermediate steps of the pipeline are <code>transforms</code>, i.e. steps that can learn from the data, but also transform the data while it flows through it.
+The purpose of the pipeline is to assemble several steps that can be cross-validated together while setting different parameters.
+For this, it enables setting parameters of the various steps.</p>
+<p>It is thus conceptually very similar to <a href="https://cran.r-project.org/package=mlr3pipelines">mlr3pipelines</a>.
+Similarly to <a href="https://cran.r-project.org/package=mlr3pipelines">mlr3pipelines</a>, we can tune over a full <code>Pipeline</code> using various tuning methods.
+<code>Pipeline</code> mainly supports linear pipelines.
+This means, that it can execute parallel steps, such as for example <strong>Bagging</strong>, but it does not support conditional execution, i.e. <code>PipeOpBranch</code>.
+At the same time, the different <code>transforms</code> in the pipeline can be cached, which makes tuning over the configuration space of a <code>Pipeline</code> more efficient, as executing some steps multiple times can be avoided.</p>
+<p>We compare functionality available in both <a href="https://cran.r-project.org/package=mlr3pipelines">mlr3pipelines</a> and <code>sklearn.pipeline.Pipeline</code> to give a comparison.</p>
+<p>The following example obtained from the <a href="https://scikit-learn.org/stable/">sklearn</a> documentation showcases a <strong>Pipeline</strong> that first Selects a feature and performs PCA on the original data, concatenates the resulting datasets and applies a Support Vector Machine.</p>
+<div id="sklearn" class="section level4" number="9.5.3.1">
+<h4>
+<span class="header-section-number">9.5.3.1</span> sklearn<a class="anchor" aria-label="anchor" href="#sklearn"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb879"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb879-1"><a href="appendix.html#cb879-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline, FeatureUnion</span>
+<span id="cb879-2"><a href="appendix.html#cb879-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
+<span id="cb879-3"><a href="appendix.html#cb879-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb879-4"><a href="appendix.html#cb879-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
+<span id="cb879-5"><a href="appendix.html#cb879-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb879-6"><a href="appendix.html#cb879-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> SelectKBest</span>
+<span id="cb879-7"><a href="appendix.html#cb879-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb879-8"><a href="appendix.html#cb879-8" aria-hidden="true" tabindex="-1"></a>iris <span class="op">=</span> load_iris()</span>
+<span id="cb879-9"><a href="appendix.html#cb879-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb879-10"><a href="appendix.html#cb879-10" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> iris.data, iris.target</span>
+<span id="cb879-11"><a href="appendix.html#cb879-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb879-12"><a href="appendix.html#cb879-12" aria-hidden="true" tabindex="-1"></a><span class="co"># This dataset is way too high-dimensional. Better do PCA:</span></span>
+<span id="cb879-13"><a href="appendix.html#cb879-13" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb879-14"><a href="appendix.html#cb879-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb879-15"><a href="appendix.html#cb879-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Maybe some original features where good, too?</span></span>
+<span id="cb879-16"><a href="appendix.html#cb879-16" aria-hidden="true" tabindex="-1"></a>selection <span class="op">=</span> SelectKBest(k<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb879-17"><a href="appendix.html#cb879-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb879-18"><a href="appendix.html#cb879-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Build estimator from PCA and Univariate selection:</span></span>
+<span id="cb879-19"><a href="appendix.html#cb879-19" aria-hidden="true" tabindex="-1"></a>combined_features <span class="op">=</span> FeatureUnion([(<span class="st">"pca"</span>, pca), (<span class="st">"univ_select"</span>, selection)])</span>
+<span id="cb879-20"><a href="appendix.html#cb879-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb879-21"><a href="appendix.html#cb879-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Use combined features to transform dataset:</span></span>
+<span id="cb879-22"><a href="appendix.html#cb879-22" aria-hidden="true" tabindex="-1"></a>X_features <span class="op">=</span> combined_features.fit(X, y).transform(X)</span>
+<span id="cb879-23"><a href="appendix.html#cb879-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb879-24"><a href="appendix.html#cb879-24" aria-hidden="true" tabindex="-1"></a>svm <span class="op">=</span> SVC(kernel<span class="op">=</span><span class="st">"linear"</span>)</span>
+<span id="cb879-25"><a href="appendix.html#cb879-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb879-26"><a href="appendix.html#cb879-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Do grid search over k, n_components and C:</span></span>
+<span id="cb879-27"><a href="appendix.html#cb879-27" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> Pipeline([(<span class="st">"features"</span>, combined_features), (<span class="st">"svm"</span>, svm)])</span>
+<span id="cb879-28"><a href="appendix.html#cb879-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb879-29"><a href="appendix.html#cb879-29" aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> <span class="bu">dict</span>(features__pca__n_components<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb879-30"><a href="appendix.html#cb879-30" aria-hidden="true" tabindex="-1"></a>                  features__univ_select__k<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">2</span>],</span>
+<span id="cb879-31"><a href="appendix.html#cb879-31" aria-hidden="true" tabindex="-1"></a>                  svm__C<span class="op">=</span>[<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">10</span>])</span>
+<span id="cb879-32"><a href="appendix.html#cb879-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb879-33"><a href="appendix.html#cb879-33" aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(pipeline, param_grid<span class="op">=</span>param_grid, cv<span class="op">=</span><span class="dv">5</span>, verbose<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb879-34"><a href="appendix.html#cb879-34" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X, y)</span></code></pre></div>
+</div>
+<div id="mlr3pipelines-1" class="section level4" number="9.5.3.2">
+<h4>
+<span class="header-section-number">9.5.3.2</span> mlr3pipelines<a class="anchor" aria-label="anchor" href="#mlr3pipelines-1"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb880"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb880-1"><a href="appendix.html#cb880-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"mlr3verse"</span>)</span>
+<span id="cb880-2"><a href="appendix.html#cb880-2" aria-hidden="true" tabindex="-1"></a>iris <span class="ot">=</span> <span class="fu">tsk</span>(<span class="st">"iris"</span>)</span>
+<span id="cb880-3"><a href="appendix.html#cb880-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb880-4"><a href="appendix.html#cb880-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the steps</span></span>
+<span id="cb880-5"><a href="appendix.html#cb880-5" aria-hidden="true" tabindex="-1"></a>copy <span class="ot">=</span> <span class="fu">po</span>(<span class="st">"copy"</span>, <span class="dv">2</span>)</span>
+<span id="cb880-6"><a href="appendix.html#cb880-6" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">=</span> <span class="fu">po</span>(<span class="st">"pca"</span>)</span>
+<span id="cb880-7"><a href="appendix.html#cb880-7" aria-hidden="true" tabindex="-1"></a>selection <span class="ot">=</span> <span class="fu">po</span>(<span class="st">"filter"</span>, <span class="at">filter =</span> <span class="fu">flt</span>(<span class="st">"variance"</span>))</span>
+<span id="cb880-8"><a href="appendix.html#cb880-8" aria-hidden="true" tabindex="-1"></a>union <span class="ot">=</span> <span class="fu">po</span>(<span class="st">"featureunion"</span>, <span class="dv">2</span>)</span>
+<span id="cb880-9"><a href="appendix.html#cb880-9" aria-hidden="true" tabindex="-1"></a>svm <span class="ot">=</span> <span class="fu">po</span>(<span class="st">"learner"</span>, <span class="fu">lrn</span>(<span class="st">"classif.svm"</span>, <span class="at">kernel =</span> <span class="st">"linear"</span>, <span class="at">type =</span> <span class="st">"C-classification"</span>))</span>
+<span id="cb880-10"><a href="appendix.html#cb880-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb880-11"><a href="appendix.html#cb880-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Assemble the Pipeline</span></span>
+<span id="cb880-12"><a href="appendix.html#cb880-12" aria-hidden="true" tabindex="-1"></a>pipeline <span class="ot">=</span> copy <span class="sc">%&gt;&gt;%</span> <span class="fu">gunion</span>(<span class="fu">list</span>(pca, selection)) <span class="sc">%&gt;&gt;%</span> union <span class="sc">%&gt;&gt;%</span> svm</span>
+<span id="cb880-13"><a href="appendix.html#cb880-13" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">as_learner</span>(pipeline)</span>
+<span id="cb880-14"><a href="appendix.html#cb880-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb880-15"><a href="appendix.html#cb880-15" aria-hidden="true" tabindex="-1"></a><span class="co"># For tuning, we define the resampling and the Parameter Space</span></span>
+<span id="cb880-16"><a href="appendix.html#cb880-16" aria-hidden="true" tabindex="-1"></a>resampling <span class="ot">=</span> <span class="fu">rsmp</span>(<span class="st">"cv"</span>, <span class="at">folds =</span> 5L)</span>
+<span id="cb880-17"><a href="appendix.html#cb880-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb880-18"><a href="appendix.html#cb880-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"paradox"</span>)</span>
+<span id="cb880-19"><a href="appendix.html#cb880-19" aria-hidden="true" tabindex="-1"></a>search_space <span class="ot">=</span> <span class="fu">ps</span>(</span>
+<span id="cb880-20"><a href="appendix.html#cb880-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">classif.svm.cost =</span> <span class="fu">p_dbl</span>(<span class="at">lower =</span> <span class="fl">0.1</span>, <span class="at">upper =</span> <span class="dv">1</span>),</span>
+<span id="cb880-21"><a href="appendix.html#cb880-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">pca.rank. =</span> <span class="fu">p_int</span>(<span class="at">lower =</span> <span class="dv">1</span>, <span class="at">upper =</span> <span class="dv">3</span>),</span>
+<span id="cb880-22"><a href="appendix.html#cb880-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">variance.filter.nfeat =</span> <span class="fu">p_int</span>(<span class="at">lower =</span> <span class="dv">1</span>, <span class="at">upper =</span> <span class="dv">2</span>)</span>
+<span id="cb880-23"><a href="appendix.html#cb880-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb880-24"><a href="appendix.html#cb880-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb880-25"><a href="appendix.html#cb880-25" aria-hidden="true" tabindex="-1"></a>instance <span class="ot">=</span> TuningInstanceSingleCrit<span class="sc">$</span><span class="fu">new</span>(</span>
+<span id="cb880-26"><a href="appendix.html#cb880-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">task =</span> iris,</span>
+<span id="cb880-27"><a href="appendix.html#cb880-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">learner =</span> learner,</span>
+<span id="cb880-28"><a href="appendix.html#cb880-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">resampling =</span> resampling,</span>
+<span id="cb880-29"><a href="appendix.html#cb880-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">measure =</span> <span class="fu">msr</span>(<span class="st">"classif.ce"</span>),</span>
+<span id="cb880-30"><a href="appendix.html#cb880-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">terminator =</span> <span class="fu">trm</span>(<span class="st">"none"</span>),</span>
+<span id="cb880-31"><a href="appendix.html#cb880-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">search_space =</span> search_space</span>
+<span id="cb880-32"><a href="appendix.html#cb880-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb880-33"><a href="appendix.html#cb880-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb880-34"><a href="appendix.html#cb880-34" aria-hidden="true" tabindex="-1"></a>tuner <span class="ot">=</span> <span class="fu">tnr</span>(<span class="st">"grid_search"</span>, <span class="at">resolution =</span> <span class="dv">10</span>)</span>
+<span id="cb880-35"><a href="appendix.html#cb880-35" aria-hidden="true" tabindex="-1"></a>tuner<span class="sc">$</span><span class="fu">optimize</span>(instance)</span>
+<span id="cb880-36"><a href="appendix.html#cb880-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb880-37"><a href="appendix.html#cb880-37" aria-hidden="true" tabindex="-1"></a>Set the learner to the optimal values and train</span>
+<span id="cb880-38"><a href="appendix.html#cb880-38" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span>param_set<span class="sc">$</span>values <span class="ot">=</span> instance<span class="sc">$</span>result_learner_param_vals</span></code></pre></div>
+<p>In summary, we can achieve similar results with a comparable number of lines, while at the same time offering greater flexibility with respect to which kinds of pipelines we want to optimize over.
+At the same time, experiments using <code>mlr3</code> can now be arbitrarily parallelized using <code>futures</code>.</p>
+</div>
+</div>
+<div id="mlr3pipelines-vs-recipes" class="section level3" number="9.5.4">
+<h3>
+<span class="header-section-number">9.5.4</span> mlr3pipelines vs recipes<a class="anchor" aria-label="anchor" href="#mlr3pipelines-vs-recipes"><i class="fas fa-link"></i></a>
+</h3>
+<p><a href="https://cran.r-project.org/package=recipes">recipes</a> is a new package, that covers some of the same applications steps as <a href="https://cran.r-project.org/package=mlr3pipelines">mlr3pipelines</a>.
+Both packages feature the possibility to connect different pre- and post-processing methods using a pipe-operator.
+As the <a href="https://cran.r-project.org/package=recipes">recipes</a> package tightly integrates with the <a href="https://cran.r-project.org/package=tidymodels">tidymodels</a> ecosystem, much of the functionality integrated there can be used in <code>recipes</code>.
+We compare <a href="https://cran.r-project.org/package=recipes">recipes</a> to <a href="https://cran.r-project.org/package=mlr3pipelines">mlr3pipelines</a> using an example from the <a href="https://cran.r-project.org/package=recipes">recipes</a> vignette.</p>
+<p>The aim of the analysis is to predict whether customers pay back their loans given some information on the customers.
+In order to do this, we build a model that does the following:</p>
+<ol style="list-style-type: decimal">
+<li>It first imputes missing values using k-nearest neighbors</li>
+<li>All factor variables are converted to numerics using dummy encoding</li>
+<li>The data is first centered then scaled.</li>
+</ol>
+<p>In order to validate the algorithm, data is first split into a train and test set using <code>initial_split</code>, <code>training</code>, <code>testing</code>.
+The recipe trained on the train data (see steps above) is then applied to the test data.</p>
+<div id="recipes" class="section level4" number="9.5.4.1">
+<h4>
+<span class="header-section-number">9.5.4.1</span> recipes<a class="anchor" aria-label="anchor" href="#recipes"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb881"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"tidymodels"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"rsample"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"credit_data"</span>, package <span class="op">=</span> <span class="st">"modeldata"</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">55</span><span class="op">)</span>
+<span class="va">train_test_split</span> <span class="op">=</span> <span class="fu">initial_split</span><span class="op">(</span><span class="va">credit_data</span><span class="op">)</span>
+<span class="va">credit_train</span> <span class="op">=</span> <span class="fu">training</span><span class="op">(</span><span class="va">train_test_split</span><span class="op">)</span>
+<span class="va">credit_test</span> <span class="op">=</span> <span class="fu"><a href="https://dbplyr.tidyverse.org/reference/testing.html">testing</a></span><span class="op">(</span><span class="va">train_test_split</span><span class="op">)</span>
+
+<span class="va">rec</span> <span class="op">=</span> <span class="fu">recipe</span><span class="op">(</span><span class="va">Status</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">credit_train</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">step_knnimpute</span><span class="op">(</span><span class="fu">all_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_predictors</span><span class="op">(</span><span class="op">)</span>, <span class="op">-</span><span class="fu">all_numeric</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">step_center</span><span class="op">(</span><span class="fu">all_numeric</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">step_scale</span><span class="op">(</span><span class="fu">all_numeric</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">trained_rec</span> <span class="op">=</span> <span class="fu">prep</span><span class="op">(</span><span class="va">rec</span>, training <span class="op">=</span> <span class="va">credit_train</span><span class="op">)</span>
+
+<span class="co"># Apply to train and test set</span>
+<span class="va">train_data</span> <span class="op">&lt;-</span> <span class="fu">bake</span><span class="op">(</span><span class="va">trained_rec</span>, new_data <span class="op">=</span> <span class="va">credit_train</span><span class="op">)</span>
+<span class="va">test_data</span>  <span class="op">&lt;-</span> <span class="fu">bake</span><span class="op">(</span><span class="va">trained_rec</span>, new_data <span class="op">=</span> <span class="va">credit_test</span><span class="op">)</span></code></pre></div>
+<p>Afterwards, the transformed data can be used during train and predict:</p>
+<div class="sourceCode" id="cb882"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Train</span>
+<span class="va">rf</span> <span class="op">=</span> <span class="fu">rand_forest</span><span class="op">(</span>mtry <span class="op">=</span> <span class="fl">12</span>, trees <span class="op">=</span> <span class="fl">200</span>, mode <span class="op">=</span> <span class="st">"classification"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"ranger"</span>, importance <span class="op">=</span> <span class="st">'impurity'</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">fit</span><span class="op">(</span><span class="va">Status</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">train_data</span><span class="op">)</span>
+
+<span class="co"># Predict</span>
+<span class="va">prds</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">rf</span>, <span class="va">test_data</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="mlr3pipelines-2" class="section level4" number="9.5.4.2">
+<h4>
+<span class="header-section-number">9.5.4.2</span> mlr3pipelines<a class="anchor" aria-label="anchor" href="#mlr3pipelines-2"><i class="fas fa-link"></i></a>
+</h4>
+<p>The same analysis can be performed in <a href="https://cran.r-project.org/package=mlr3pipelines">mlr3pipelines</a>.
+Note, that for now we do not impute via <code>knn</code> but instead via sampling.</p>
+<div class="sourceCode" id="cb883"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://r-datatable.com">"data.table"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3learners.mlr-org.com">"mlr3learners"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3pipelines.mlr-org.com">"mlr3pipelines"</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"credit_data"</span>, package <span class="op">=</span> <span class="st">"modeldata"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">55</span><span class="op">)</span>
+
+<span class="co"># Create the task</span>
+<span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_task_classif.html">as_task_classif</a></span><span class="op">(</span><span class="va">credit_data</span>, target <span class="op">=</span> <span class="st">"Status"</span><span class="op">)</span>
+
+<span class="co"># Build up the Pipeline:</span>
+<span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"imputesample"</span>, id <span class="op">=</span> <span class="st">"impute"</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+  <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"encode"</span>, method <span class="op">=</span> <span class="st">"one-hot"</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+  <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+  <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"learner"</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.ranger"</span>, num.trees <span class="op">=</span> <span class="fl">200</span>, mtry <span class="op">=</span> <span class="fl">12</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># We can visualize what happens to the data using the `plot` function:</span>
+<span class="va">g</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span><span class="op">)</span>
+
+<span class="co"># And we can use `mlr3's` full functionality be wrapping the Graph into a GraphLearner.</span>
+<span class="va">glrn</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_learner.html">as_learner</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span>
+<span class="fu"><a href="https://mlr3.mlr-org.com/reference/resample.html">resample</a></span><span class="op">(</span><span class="va">task</span>, <span class="va">glrn</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"holdout"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+
+</div>
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="interpretation.html"><span class="header-section-number">8</span> Model Interpretation</a></div>
+<div class="next"><a href="references.html">References</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#appendix"><span class="header-section-number">9</span> Appendix</a></li>
+<li><a class="nav-link" href="#list-learners"><span class="header-section-number">9.1</span> Integrated Learners</a></li>
+<li><a class="nav-link" href="#list-measures"><span class="header-section-number">9.2</span> Integrated Performance Measures</a></li>
+<li>
+<a class="nav-link" href="#list-filters"><span class="header-section-number">9.3</span> Integrated Filter Methods</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#fs-filter-list"><span class="header-section-number">9.3.1</span> Standalone filter methods</a></li>
+<li><a class="nav-link" href="#fs-filter-embedded-list"><span class="header-section-number">9.3.2</span> Learners With Embedded Filter Methods</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#list-pipeops"><span class="header-section-number">9.4</span> Integrated Pipe Operators</a></li>
+<li>
+<a class="nav-link" href="#compare-frameworks"><span class="header-section-number">9.5</span> Framework Comparison</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#an-introduction-to-pipeops"><span class="header-section-number">9.5.1</span> An introduction to “PipeOp”s</a></li>
+<li><a class="nav-link" href="#mlr3pipelines-vs.-mlr"><span class="header-section-number">9.5.2</span> mlr3pipelines vs. mlr</a></li>
+<li><a class="nav-link" href="#mlr3pipelines-vs.-sklearn.pipeline.pipeline"><span class="header-section-number">9.5.3</span> mlr3pipelines vs. sklearn.pipeline.Pipeline</a></li>
+<li><a class="nav-link" href="#mlr3pipelines-vs-recipes"><span class="header-section-number">9.5.4</span> mlr3pipelines vs recipes</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/mlr-org/mlr3book/blob/main/bookdown/98-appendix.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/mlr-org/mlr3book/edit/main/bookdown/98-appendix.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-09-03.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>8 Model Interpretation | mlr3 book</title>
+<meta name="author" content="Marc Becker">
+<meta name="author" content="Martin Binder">
+<meta name="author" content="Bernd Bischl">
+<meta name="author" content="Michel Lang">
+<meta name="author" content="Florian Pfisterer">
+<meta name="author" content="Nicholas G. Reich">
+<meta name="author" content="Jakob Richter">
+<meta name="author" content="Patrick Schratz">
+<meta name="author" content="Raphael Sonabend">
+<meta name="author" content="Damir Pulatov">
+<meta name="description" content="In principle, all generic frameworks for model interpretation are applicable on the models fitted with mlr3 by just extracting the fitted models from the Learner objects. However, two of the most...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="8 Model Interpretation | mlr3 book">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://mlr3book.mlr-org.com/interpretation.html">
+<meta property="og:image" content="https://mlr3book.mlr-org.com//block.png">
+<meta property="og:description" content="In principle, all generic frameworks for model interpretation are applicable on the models fitted with mlr3 by just extracting the fitted models from the Learner objects. However, two of the most...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="8 Model Interpretation | mlr3 book">
+<meta name="twitter:description" content="In principle, all generic frameworks for model interpretation are applicable on the models fitted with mlr3 by just extracting the fitted models from the Learner objects. However, two of the most...">
+<meta name="twitter:image" content="https://mlr3book.mlr-org.com//block.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">mlr3 book</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Citation Info</a></li>
+<li><a class="" href="quickstart.html">Quickstart</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction and Overview</a></li>
+<li><a class="" href="basics.html"><span class="header-section-number">2</span> Basics</a></li>
+<li><a class="" href="optimization.html"><span class="header-section-number">3</span> Model Optimization</a></li>
+<li><a class="" href="pipelines.html"><span class="header-section-number">4</span> Pipelines</a></li>
+<li><a class="" href="technical.html"><span class="header-section-number">5</span> Technical</a></li>
+<li><a class="" href="extending.html"><span class="header-section-number">6</span> Extending</a></li>
+<li><a class="" href="special-tasks.html"><span class="header-section-number">7</span> Special Tasks</a></li>
+<li><a class="active" href="interpretation.html"><span class="header-section-number">8</span> Model Interpretation</a></li>
+<li><a class="" href="appendix.html"><span class="header-section-number">9</span> Appendix</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/mlr-org/mlr3book">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="interpretation" class="section level1" number="8">
+<h1>
+<span class="header-section-number">8</span> Model Interpretation<a class="anchor" aria-label="anchor" href="#interpretation"><i class="fas fa-link"></i></a>
+</h1>
+<p>In principle, all generic frameworks for model interpretation are applicable on the models fitted with <code>mlr3</code> by just extracting the fitted models from the <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a> objects.</p>
+<p>However, two of the most popular frameworks,</p>
+<ul>
+<li>
+<a href="https://cran.r-project.org/package=iml">iml</a> in Subsection <a href="interpretation.html#iml">8.1</a>,</li>
+<li>
+<a href="https://cran.r-project.org/package=DALEX">DALEX</a> in Subsection <a href="interpretation.html#dalex">8.2</a>, and</li>
+</ul>
+<p>additionally come with some convenience for <code>mlr3</code>.</p>
+
+<div id="iml" class="section level2" number="8.1">
+<h2>
+<span class="header-section-number">8.1</span> IML<a class="anchor" aria-label="anchor" href="#iml"><i class="fas fa-link"></i></a>
+</h2>
+<p><em>Author: Shawn Storm</em></p>
+<p><a href="https://cran.r-project.org/package=iml">iml</a> is an R package that interprets the behavior and explains predictions of machine learning models. The functions provided in the <a href="https://cran.r-project.org/package=iml">iml</a> package are model-agnostic which gives the flexibility to use any machine learning model.</p>
+<p>This chapter provides examples of how to use <code>iml</code> with <code>mlr3</code>. For more information refer to the <a href="https://github.com/christophM/iml">IML github</a> and the <a href="https://christophm.github.io/interpretable-ml-book/">IML book</a></p>
+<div id="penguin-task" class="section level3" number="8.1.1">
+<h3>
+<span class="header-section-number">8.1.1</span> Penguin Task<a class="anchor" aria-label="anchor" href="#penguin-task"><i class="fas fa-link"></i></a>
+</h3>
+<p>To understand what <code>iml</code> can offer, we start off with a thorough example. The goal of this example is to figure out the species of penguins given a set of features. The <a href="https://www.rdocumentation.org/packages/palmerpenguins/topics/penguins"><code>palmerpenguins::penguins</code></a> data set will be used which is an alternative to the <code>iris</code> data set.
+The <code>penguins</code> data sets contains 8 variables of 344 penguins:</p>
+<div class="sourceCode" id="cb829"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"penguins"</span>, package <span class="op">=</span> <span class="st">"palmerpenguins"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></code></pre></div>
+<pre><code>## tibble [344 × 8] (S3: tbl_df/tbl/data.frame)
+##  $ species          : Factor w/ 3 levels "Adelie","Chinstrap",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ island           : Factor w/ 3 levels "Biscoe","Dream",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ bill_length_mm   : num [1:344] 39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
+##  $ bill_depth_mm    : num [1:344] 18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
+##  $ flipper_length_mm: int [1:344] 181 186 195 NA 193 190 181 195 193 190 ...
+##  $ body_mass_g      : int [1:344] 3750 3800 3250 NA 3450 3650 3625 4675 3475 4250 ...
+##  $ sex              : Factor w/ 2 levels "female","male": 2 1 1 NA 1 2 1 2 NA NA ...
+##  $ year             : int [1:344] 2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...</code></pre>
+<p>To get started run:</p>
+<div class="sourceCode" id="cb831"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://christophm.github.io/iml/">"iml"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3learners.mlr-org.com">"mlr3learners"</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb832"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">penguins</span> <span class="op">=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/na.omit.data.table.html">na.omit</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span>
+<span class="va">task_peng</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_task_classif.html">as_task_classif</a></span><span class="op">(</span><span class="va">penguins</span>, target <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></code></pre></div>
+<p><code>penguins = na.omit(penguins)</code> is to omit the 11 cases with missing values.
+If not omitted, there will be an error when running the learner from the data points that have N/A for some features.</p>
+<div class="sourceCode" id="cb833"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.ranger"</span><span class="op">)</span>
+<span class="va">learner</span><span class="op">$</span><span class="va">predict_type</span> <span class="op">=</span> <span class="st">"prob"</span>
+<span class="va">learner</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task_peng</span><span class="op">)</span>
+<span class="va">learner</span><span class="op">$</span><span class="va">model</span></code></pre></div>
+<pre><code>## Ranger result
+## 
+## Call:
+##  ranger::ranger(dependent.variable.name = task$target_names, data = task$data(),      probability = self$predict_type == "prob", case.weights = task$weights$weight,      num.threads = 1L) 
+## 
+## Type:                             Probability estimation 
+## Number of trees:                  500 
+## Sample size:                      333 
+## Number of independent variables:  7 
+## Mtry:                             2 
+## Target node size:                 10 
+## Variable importance mode:         none 
+## Splitrule:                        gini 
+## OOB prediction error (Brier s.):  0.0179</code></pre>
+<div class="sourceCode" id="cb835"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">=</span> <span class="va">penguins</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> <span class="op">!=</span> <span class="st">"species"</span><span class="op">)</span><span class="op">]</span>
+<span class="va">model</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/Predictor.html">Predictor</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">learner</span>, data <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">penguins</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></code></pre></div>
+<p>As explained in Section <a href="https://mlr3book.mlr-org.com/learners.html">2.3</a>, specific learners can be queried with <code>mlr_learners</code>.
+In Section <a href="https://mlr3book.mlr-org.com/train-predict.html">2.5</a> it is recommended for some classifiers to use the <code>predict_type</code> as <code>prob</code> instead of directly predicting a label.
+This is what is done in this example.
+<code>penguins[which(names(penguins) != "species")]</code> is the data of all the features and <code>y</code> will be the penguins<code>species</code>.
+<code>learner$train(task_peng)</code> trains the model and <code>learner$model</code> stores the model from the training command.
+<code>Predictor</code> holds the machine learning model and the data.
+All interpretation methods in <code>iml</code> need the machine learning model and the data to be wrapped in the <code>Predictor</code> object.</p>
+<p>Next is the core functionality of <code>iml</code>. In this example three separate interpretation methods will be used: <a href="https://github.com/christophM/iml/blob/master/R/FeatureEffects.R">FeatureEffects</a>, <a href="https://github.com/christophM/iml/blob/master/R/FeatureImp.R">FeatureImp</a> and <a href="https://github.com/christophM/iml/blob/master/R/Shapley.R">Shapley</a></p>
+<ul>
+<li><p><code>FeatureEffects</code> computes the effects for all given features on the model prediction. Different methods are implemented: <a href="https://christophm.github.io/interpretable-ml-book/ale.html">Accumulated Local Effect (ALE) plots</a>, <a href="https://christophm.github.io/interpretable-ml-book/pdp.html">Partial Dependence Plots (PDPs)</a> and <a href="https://christophm.github.io/interpretable-ml-book/ice.html">Individual Conditional Expectation (ICE) curves</a>.</p></li>
+<li><p><code>Shapley</code> computes feature contributions for single predictions with the Shapley value – an approach from cooperative game theory (<a href="https://christophm.github.io/interpretable-ml-book/shapley.html">Shapley Value</a>).</p></li>
+<li><p><code>FeatureImp</code> computes the importance of features by calculating the increase in the model’s prediction error after permuting the feature (more <a href="https://christophm.github.io/interpretable-ml-book/feature-importance.html#feature-importance">here</a>).</p></li>
+</ul>
+</div>
+<div id="featureeffects" class="section level3" number="8.1.2">
+<h3>
+<span class="header-section-number">8.1.2</span> FeatureEffects<a class="anchor" aria-label="anchor" href="#featureeffects"><i class="fas fa-link"></i></a>
+</h3>
+<p>In addition to the commands above the following two need to be ran:</p>
+<div class="sourceCode" id="cb836"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">num_features</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bill_length_mm"</span>, <span class="st">"bill_depth_mm"</span>, <span class="st">"flipper_length_mm"</span>, <span class="st">"body_mass_g"</span>, <span class="st">"year"</span><span class="op">)</span>
+<span class="va">effect</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/FeatureEffects.html">FeatureEffects</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">effect</span>, features <span class="op">=</span> <span class="va">num_features</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:08-interpretation-iml-005"></span>
+<img src="08-interpretation-iml_files/figure-html/08-interpretation-iml-005-1.svg" alt="Plot of the results from FeatureEffects. FeatureEffects computes and plots feature effects of prediction models" width="672"><p class="caption">
+Figure 8.1: Plot of the results from FeatureEffects. FeatureEffects computes and plots feature effects of prediction models
+</p>
+</div>
+<p><code>effect</code> stores the object from the <code>FeatureEffect</code> computation and the results can then be plotted. In this example, all of the features provided by the <code>penguins</code> data set were used.</p>
+<p>All features except for <code>year</code> provide meaningful interpretable information. It should be clear why <code>year</code> doesn’t provide anything of significance. <code>bill_length_mm</code> shows for example that when the bill length is smaller than roughly 40mm, there is a high chance that the penguin is an Adelie.</p>
+</div>
+<div id="shapley" class="section level3" number="8.1.3">
+<h3>
+<span class="header-section-number">8.1.3</span> Shapley<a class="anchor" aria-label="anchor" href="#shapley"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb837"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">=</span> <span class="va">penguins</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> <span class="op">!=</span> <span class="st">"species"</span><span class="op">)</span><span class="op">]</span>
+<span class="va">model</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/Predictor.html">Predictor</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">learner</span>, data <span class="op">=</span> <span class="va">penguins</span>, y <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span>
+<span class="va">x.interest</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span><span class="op">)</span>
+<span class="va">shapley</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/Shapley.html">Shapley</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">model</span>, x.interest <span class="op">=</span> <span class="va">x.interest</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">shapley</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:08-interpretation-iml-006"></span>
+<img src="08-interpretation-iml_files/figure-html/08-interpretation-iml-006-1.svg" alt="Plot of the results from Shapley. $\phi$ gives the increase or decrease in probability given the values on the vertical axis" width="672"><p class="caption">
+Figure 8.2: Plot of the results from Shapley. <span class="math inline">\(\phi\)</span> gives the increase or decrease in probability given the values on the vertical axis
+</p>
+</div>
+<p>The <span class="math inline">\(\phi\)</span> provides insight into the probability given the values on the vertical axis. For example, a penguin is less likely to be Gentoo if the bill_depth=18.7 is and much more likely to be Adelie than Chinstrap.</p>
+</div>
+<div id="featureimp" class="section level3" number="8.1.4">
+<h3>
+<span class="header-section-number">8.1.4</span> FeatureImp<a class="anchor" aria-label="anchor" href="#featureimp"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb838"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">effect</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/FeatureImp.html">FeatureImp</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">model</span>, loss <span class="op">=</span> <span class="st">"ce"</span><span class="op">)</span>
+<span class="va">effect</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span>features <span class="op">=</span> <span class="va">num_features</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:08-interpretation-iml-007"></span>
+<img src="08-interpretation-iml_files/figure-html/08-interpretation-iml-007-1.svg" alt="Plot of the results from FeatureImp. FeatureImp visualizes the importance of features given the prediction model" width="672"><p class="caption">
+Figure 8.3: Plot of the results from FeatureImp. FeatureImp visualizes the importance of features given the prediction model
+</p>
+</div>
+<p><code>FeatureImp</code> shows the level of importance of the features when classifying the penguins. It is clear to see that the <code>bill_length_mm</code> is of high importance and one should concentrate on different boundaries of this feature when attempting to classify the three species.</p>
+</div>
+<div id="independent-test-data" class="section level3" number="8.1.5">
+<h3>
+<span class="header-section-number">8.1.5</span> Independent Test Data<a class="anchor" aria-label="anchor" href="#independent-test-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>It is also interesting to see how well the model performs on a test data set. For this section, exactly as was recommended in Section <a href="https://mlr3book.mlr-org.com/train-predict.html">2.4</a>, 80% of the penguin data set will be used for the training set and 20% for the test set:</p>
+<div class="sourceCode" id="cb839"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">train_set</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">task_peng</span><span class="op">$</span><span class="va">nrow</span>, <span class="fl">0.8</span> <span class="op">*</span> <span class="va">task_peng</span><span class="op">$</span><span class="va">nrow</span><span class="op">)</span>
+<span class="va">test_set</span> <span class="op">=</span> <span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">setdiff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">task_peng</span><span class="op">$</span><span class="va">nrow</span><span class="op">)</span>, <span class="va">train_set</span><span class="op">)</span>
+<span class="va">learner</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task_peng</span>, row_ids <span class="op">=</span> <span class="va">train_set</span><span class="op">)</span>
+<span class="va">prediction</span> <span class="op">=</span> <span class="va">learner</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task_peng</span>, row_ids <span class="op">=</span> <span class="va">test_set</span><span class="op">)</span></code></pre></div>
+<p>First, we compare the feature importance on training and test set</p>
+<div class="sourceCode" id="cb840"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># plot on training</span>
+<span class="va">model</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/Predictor.html">Predictor</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">learner</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">[</span><span class="va">train_set</span>,<span class="op">]</span>, y <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span>
+<span class="va">effect</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/FeatureImp.html">FeatureImp</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">model</span>, loss <span class="op">=</span> <span class="st">"ce"</span> <span class="op">)</span>
+<span class="va">plot_train</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">effect</span>, features <span class="op">=</span> <span class="va">num_features</span><span class="op">)</span>
+
+<span class="co"># plot on test data</span>
+<span class="va">model</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/Predictor.html">Predictor</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">learner</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">[</span><span class="va">test_set</span>, <span class="op">]</span>, y <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span>
+<span class="va">effect</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/FeatureImp.html">FeatureImp</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">model</span>, loss <span class="op">=</span> <span class="st">"ce"</span> <span class="op">)</span>
+<span class="va">plot_test</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">effect</span>, features <span class="op">=</span> <span class="va">num_features</span><span class="op">)</span>
+
+<span class="co"># combine into single plot</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://patchwork.data-imaginist.com">"patchwork"</a></span><span class="op">)</span>
+<span class="va">plot_train</span> <span class="op">+</span> <span class="va">plot_test</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:08-interpretation-iml-009"></span>
+<img src="08-interpretation-iml_files/figure-html/08-interpretation-iml-009-1.svg" alt="FeatImp on train (left) and test (right)" width="672"><p class="caption">
+Figure 8.4: FeatImp on train (left) and test (right)
+</p>
+</div>
+<p>The results of the train set for <code>FeatureImp</code> are very similar, which is expected.
+We follow a similar approach to compare the feature effects:</p>
+<div class="sourceCode" id="cb841"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/Predictor.html">Predictor</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">learner</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">[</span><span class="va">train_set</span>,<span class="op">]</span>, y <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span>
+<span class="va">effect</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/FeatureEffects.html">FeatureEffects</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">effect</span>, features <span class="op">=</span> <span class="va">num_features</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:08-interpretation-iml-010"></span>
+<img src="08-interpretation-iml_files/figure-html/08-interpretation-iml-010-1.svg" alt="FeatEffect train data set" width="672"><p class="caption">
+Figure 8.5: FeatEffect train data set
+</p>
+</div>
+<div class="sourceCode" id="cb842"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/Predictor.html">Predictor</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">learner</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">[</span><span class="va">test_set</span>,<span class="op">]</span>, y <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span>
+<span class="va">effect</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/FeatureEffects.html">FeatureEffects</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">effect</span>, features <span class="op">=</span> <span class="va">num_features</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:08-interpretation-iml-011"></span>
+<img src="08-interpretation-iml_files/figure-html/08-interpretation-iml-011-1.svg" alt="FeatEffect test data set" width="672"><p class="caption">
+Figure 8.6: FeatEffect test data set
+</p>
+</div>
+<p>As is the case with <code>FeatureImp</code>, the test data results show either an over- or underestimate of feature importance / feature effects compared to the results where the entire penguin data set was used.
+This would be a good opportunity for the reader to attempt to resolve the estimation by playing with the amount of features and the amount of data used for both the test and train data sets of <code>FeatureImp</code> and <code>FeatureEffects</code>.
+Be sure to not change the line <code>train_set = sample(task_peng$nrow, 0.8 * task_peng$nrow)</code> as it will randomly sample the data again.</p>
+
+</div>
+</div>
+<div id="dalex" class="section level2" number="8.2">
+<h2>
+<span class="header-section-number">8.2</span> DALEX<a class="anchor" aria-label="anchor" href="#dalex"><i class="fas fa-link"></i></a>
+</h2>
+<p><em>Authors: <a href="https://github.com/pbiecek">Przemysław Biecek</a>, <a href="https://github.com/maksymiuks">Szymon Maksymiuk</a></em></p>
+<div id="interpretability-dalex-introduction" class="section level3" number="8.2.1">
+<h3>
+<span class="header-section-number">8.2.1</span> Introduction<a class="anchor" aria-label="anchor" href="#interpretability-dalex-introduction"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <a href="https://cran.r-project.org/package=DALEX">DALEX</a> package X-rays any predictive model and helps to explore, explain and visualize its behaviour. The package implements a collection of methods for <a href="https://pbiecek.github.io/ema/">Explanatory Model Analysis</a>. It is based on a unified grammar summarised in Figure <a href="interpretation.html#fig:08-interpretation-dalex-001">8.7</a>.</p>
+<p>In the following sections, we will present subsequent methods available in the DALEX package based on a random forest model trained for football players worth prediction on the FIFA 20 data. We will show both methods analyzing the model at the level of a single prediction and the global level - for the whole data set.</p>
+<p>The structure of this chapter is the following:</p>
+<ul>
+<li>In Section <a href="interpretation.html#interpretability-data-fifa">8.2.2</a> we introduce the FIFA 20 dataset and then in section <a href="interpretation.html#interpretability-train-ranger">8.2.3</a> we train a random regression forest using the <a href="https://cran.r-project.org/package=ranger">ranger</a> package.</li>
+<li>Section <a href="interpretation.html#interpretability-architecture">8.2.4</a> introduces general logic beyond DALEX explainers.</li>
+<li>Section <a href="interpretation.html#interpretability-dataset-level">8.2.5</a> introduces methods for dataset level model exploration.</li>
+<li>Section <a href="interpretation.html#interpretability-instance-level">8.2.6</a> introduces methods for instance-level model exploration.</li>
+</ul>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:08-interpretation-dalex-001"></span>
+<img src="images/DALEX_ema.png" alt="Taxonomy of methods for model exploration presented in this chapter. Left part overview methods for instance level exploration while right part is related to dataset level model exploration." width="92%"><p class="caption">
+Figure 8.7: Taxonomy of methods for model exploration presented in this chapter. Left part overview methods for instance level exploration while right part is related to dataset level model exploration.
+</p>
+</div>
+</div>
+<div id="interpretability-data-fifa" class="section level3" number="8.2.2">
+<h3>
+<span class="header-section-number">8.2.2</span> Read data: FIFA<a class="anchor" aria-label="anchor" href="#interpretability-data-fifa"><i class="fas fa-link"></i></a>
+</h3>
+<p>Examples presented in this chapter are based on data retrieved from the FIFA video game. We will use the data scrapped from the <a href="https://sofifa.com/">sofifa</a> website. The raw data is available at <a href="https://www.kaggle.com/stefanoleone992/fifa-20-complete-player-dataset">kaggle</a>. After some basic data cleaning, the processed data for the top 5000 football players is available in the DALEX package under the name <code>fifa</code>.</p>
+<div class="sourceCode" id="cb843"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://dalex.drwhy.ai">"DALEX"</a></span><span class="op">)</span>
+<span class="va">fifa</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"value_eur"</span>, <span class="st">"age"</span>, <span class="st">"height_cm"</span>, <span class="st">"nationality"</span>, <span class="st">"attacking_crossing"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>##                   value_eur age height_cm nationality attacking_crossing
+## L. Messi           95500000  32       170   Argentina                 88
+## Cristiano Ronaldo  58500000  34       187    Portugal                 84</code></pre>
+<p>For every player, we have 42 features available.</p>
+<div class="sourceCode" id="cb845"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">fifa</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 5000   42</code></pre>
+<p>In the table below we overview these 42 features for three selected players.
+One of the features, called <code>value_eur</code>, is the worth of the footballer in euros. In the next section, we will build a prediction model, which will estimate the worth of the player based on other player characteristics.</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="left">Lionel Messi</th>
+<th align="left">Cristiano Ronaldo</th>
+<th align="left">Neymar Junior</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">wage_eur</td>
+<td align="left">565000</td>
+<td align="left">405000</td>
+<td align="left">290000</td>
+</tr>
+<tr class="even">
+<td align="left">age</td>
+<td align="left">32</td>
+<td align="left">34</td>
+<td align="left">27</td>
+</tr>
+<tr class="odd">
+<td align="left">height_cm</td>
+<td align="left">170</td>
+<td align="left">187</td>
+<td align="left">175</td>
+</tr>
+<tr class="even">
+<td align="left">weight_kg</td>
+<td align="left">72</td>
+<td align="left">83</td>
+<td align="left">68</td>
+</tr>
+<tr class="odd">
+<td align="left">nationality</td>
+<td align="left">Argentina</td>
+<td align="left">Portugal</td>
+<td align="left">Brazil</td>
+</tr>
+<tr class="even">
+<td align="left">overall</td>
+<td align="left">94</td>
+<td align="left">93</td>
+<td align="left">92</td>
+</tr>
+<tr class="odd">
+<td align="left">potential</td>
+<td align="left">94</td>
+<td align="left">93</td>
+<td align="left">92</td>
+</tr>
+<tr class="even">
+<td align="left">value_eur</td>
+<td align="left">95 500 000</td>
+<td align="left">58 500 000</td>
+<td align="left">105 500 000</td>
+</tr>
+<tr class="odd">
+<td align="left">attacking_crossing</td>
+<td align="left">88</td>
+<td align="left">84</td>
+<td align="left">87</td>
+</tr>
+<tr class="even">
+<td align="left">attacking_finishing</td>
+<td align="left">95</td>
+<td align="left">94</td>
+<td align="left">87</td>
+</tr>
+<tr class="odd">
+<td align="left">attacking_heading_accuracy</td>
+<td align="left">70</td>
+<td align="left">89</td>
+<td align="left">62</td>
+</tr>
+<tr class="even">
+<td align="left">attacking_short_passing</td>
+<td align="left">92</td>
+<td align="left">83</td>
+<td align="left">87</td>
+</tr>
+<tr class="odd">
+<td align="left">attacking_volleys</td>
+<td align="left">88</td>
+<td align="left">87</td>
+<td align="left">87</td>
+</tr>
+<tr class="even">
+<td align="left">skill_dribbling</td>
+<td align="left">97</td>
+<td align="left">89</td>
+<td align="left">96</td>
+</tr>
+<tr class="odd">
+<td align="left">skill_curve</td>
+<td align="left">93</td>
+<td align="left">81</td>
+<td align="left">88</td>
+</tr>
+<tr class="even">
+<td align="left">skill_fk_accuracy</td>
+<td align="left">94</td>
+<td align="left">76</td>
+<td align="left">87</td>
+</tr>
+<tr class="odd">
+<td align="left">skill_long_passing</td>
+<td align="left">92</td>
+<td align="left">77</td>
+<td align="left">81</td>
+</tr>
+<tr class="even">
+<td align="left">skill_ball_control</td>
+<td align="left">96</td>
+<td align="left">92</td>
+<td align="left">95</td>
+</tr>
+<tr class="odd">
+<td align="left">movement_acceleration</td>
+<td align="left">91</td>
+<td align="left">89</td>
+<td align="left">94</td>
+</tr>
+<tr class="even">
+<td align="left">movement_sprint_speed</td>
+<td align="left">84</td>
+<td align="left">91</td>
+<td align="left">89</td>
+</tr>
+<tr class="odd">
+<td align="left">movement_agility</td>
+<td align="left">93</td>
+<td align="left">87</td>
+<td align="left">96</td>
+</tr>
+<tr class="even">
+<td align="left">movement_reactions</td>
+<td align="left">95</td>
+<td align="left">96</td>
+<td align="left">92</td>
+</tr>
+<tr class="odd">
+<td align="left">movement_balance</td>
+<td align="left">95</td>
+<td align="left">71</td>
+<td align="left">84</td>
+</tr>
+<tr class="even">
+<td align="left">power_shot_power</td>
+<td align="left">86</td>
+<td align="left">95</td>
+<td align="left">80</td>
+</tr>
+<tr class="odd">
+<td align="left">power_jumping</td>
+<td align="left">68</td>
+<td align="left">95</td>
+<td align="left">61</td>
+</tr>
+<tr class="even">
+<td align="left">power_stamina</td>
+<td align="left">75</td>
+<td align="left">85</td>
+<td align="left">81</td>
+</tr>
+<tr class="odd">
+<td align="left">power_strength</td>
+<td align="left">68</td>
+<td align="left">78</td>
+<td align="left">49</td>
+</tr>
+<tr class="even">
+<td align="left">power_long_shots</td>
+<td align="left">94</td>
+<td align="left">93</td>
+<td align="left">84</td>
+</tr>
+<tr class="odd">
+<td align="left">mentality_aggression</td>
+<td align="left">48</td>
+<td align="left">63</td>
+<td align="left">51</td>
+</tr>
+<tr class="even">
+<td align="left">mentality_interceptions</td>
+<td align="left">40</td>
+<td align="left">29</td>
+<td align="left">36</td>
+</tr>
+<tr class="odd">
+<td align="left">mentality_positioning</td>
+<td align="left">94</td>
+<td align="left">95</td>
+<td align="left">87</td>
+</tr>
+<tr class="even">
+<td align="left">mentality_vision</td>
+<td align="left">94</td>
+<td align="left">82</td>
+<td align="left">90</td>
+</tr>
+<tr class="odd">
+<td align="left">mentality_penalties</td>
+<td align="left">75</td>
+<td align="left">85</td>
+<td align="left">90</td>
+</tr>
+<tr class="even">
+<td align="left">mentality_composure</td>
+<td align="left">96</td>
+<td align="left">95</td>
+<td align="left">94</td>
+</tr>
+<tr class="odd">
+<td align="left">defending_marking</td>
+<td align="left">33</td>
+<td align="left">28</td>
+<td align="left">27</td>
+</tr>
+<tr class="even">
+<td align="left">defending_standing_tackle</td>
+<td align="left">37</td>
+<td align="left">32</td>
+<td align="left">26</td>
+</tr>
+<tr class="odd">
+<td align="left">defending_sliding_tackle</td>
+<td align="left">26</td>
+<td align="left">24</td>
+<td align="left">29</td>
+</tr>
+<tr class="even">
+<td align="left">goalkeeping_diving</td>
+<td align="left">6</td>
+<td align="left">7</td>
+<td align="left">9</td>
+</tr>
+<tr class="odd">
+<td align="left">goalkeeping_handling</td>
+<td align="left">11</td>
+<td align="left">11</td>
+<td align="left">9</td>
+</tr>
+<tr class="even">
+<td align="left">goalkeeping_kicking</td>
+<td align="left">15</td>
+<td align="left">15</td>
+<td align="left">15</td>
+</tr>
+<tr class="odd">
+<td align="left">goalkeeping_positioning</td>
+<td align="left">14</td>
+<td align="left">14</td>
+<td align="left">15</td>
+</tr>
+<tr class="even">
+<td align="left">goalkeeping_reflexes</td>
+<td align="left">8</td>
+<td align="left">11</td>
+<td align="left">11</td>
+</tr>
+</tbody>
+</table></div>
+<p>In order to get a more stable model we remove four variables i.e. <code>nationality</code>, <code>overall</code>, <code>potential</code>, <code>wage_eur</code>.</p>
+<div class="sourceCode" id="cb847"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fifa</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'nationality'</span>, <span class="st">'overall'</span>, <span class="st">'potential'</span>, <span class="st">'wage_eur'</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">fifa</span><span class="op">)</span><span class="op">)</span>           <span class="va">fifa</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">fifa</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="interpretability-train-ranger" class="section level3" number="8.2.3">
+<h3>
+<span class="header-section-number">8.2.3</span> Train a model: Ranger<a class="anchor" aria-label="anchor" href="#interpretability-train-ranger"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code>DALEX</code> package works for any model regardless of its internal structure. Examples of how this package works are shown on a random forest model implemented in the <a href="https://cran.r-project.org/package=ranger">ranger</a> package.</p>
+<p>We use the <code>mlr3</code> package to build a predictive model.
+First, let’s load the required packages.</p>
+<div class="sourceCode" id="cb848"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3learners.mlr-org.com">"mlr3learners"</a></span><span class="op">)</span></code></pre></div>
+<p>Then we can define the regression task - prediction of the <code>value_eur</code> variable:</p>
+<div class="sourceCode" id="cb849"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fifa_task</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_task_regr.html">as_task_regr</a></span><span class="op">(</span><span class="va">fifa</span>, target <span class="op">=</span> <span class="st">"value_eur"</span><span class="op">)</span></code></pre></div>
+<p>Finally, we train mlr3’s <a href="https://mlr3learners.mlr-org.com/reference/mlr_learners_regr.ranger.html"><code>ranger learner</code></a> with 250 trees. Note that in this example for brevity we do not split the data into a train/test data. The model is built on the whole data.</p>
+<div class="sourceCode" id="cb850"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fifa_ranger</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"regr.ranger"</span><span class="op">)</span>
+<span class="va">fifa_ranger</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>num.trees <span class="op">=</span> <span class="fl">250</span><span class="op">)</span>
+<span class="va">fifa_ranger</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">fifa_task</span><span class="op">)</span>
+<span class="va">fifa_ranger</span></code></pre></div>
+<pre><code>## &lt;LearnerRegrRanger:regr.ranger&gt;
+## * Model: ranger
+## * Parameters: num.trees=250
+## * Packages: ranger
+## * Predict Type: response
+## * Feature types: logical, integer, numeric, character, factor, ordered
+## * Properties: importance, oob_error, weights</code></pre>
+</div>
+<div id="interpretability-architecture" class="section level3" number="8.2.4">
+<h3>
+<span class="header-section-number">8.2.4</span> The general workflow<a class="anchor" aria-label="anchor" href="#interpretability-architecture"><i class="fas fa-link"></i></a>
+</h3>
+<p>Working with explanations in the DALEX package always consists of three steps schematically shown in the pipe below.</p>
+<pre><code>model %&gt;%
+  explain_mlr3(data = ..., y = ..., label = ...) %&gt;%
+  model_parts() %&gt;%
+  plot()</code></pre>
+<ol style="list-style-type: decimal">
+<li><p>All functions in the DALEX package can work for models with any structure. It is possible because in the first step we create an adapter that allows the downstream functions to access the model in a consistent fashion. In general, such an adapter is created with <a href="https://www.rdocumentation.org/packages/DALEX/topics/explain.default"><code>DALEX::explain.default()</code></a> function, but for models created in the <code>mlr3</code> package it is more convenient to use the <a href="https://www.rdocumentation.org/packages/DALEXtra/topics/explain_mlr3"><code>DALEXtra::explain_mlr3()</code></a>.</p></li>
+<li><p>Explanations are determined by the functions <a href="https://www.rdocumentation.org/packages/DALEX/topics/model_parts"><code>DALEX::model_parts()</code></a>, <a href="https://www.rdocumentation.org/packages/DALEX/topics/model_profile"><code>DALEX::model_profile()</code></a>, <a href="https://www.rdocumentation.org/packages/DALEX/topics/predict_parts"><code>DALEX::predict_parts()</code></a> and <a href="https://www.rdocumentation.org/packages/DALEX/topics/predict_profile"><code>DALEX::predict_profile()</code></a>. Each of these functions takes the model adapter as its first argument. The other arguments describe how the function works. We will present them in the following section.</p></li>
+<li><p>Explanations can be visualized with the generic function <code>plot</code> or summarised with the generic function <a href="https://www.rdocumentation.org/packages/base/topics/print"><code>print()</code></a>. Each explanation is a data frame with an additional class attribute. The <code>plot</code> function creates graphs using the <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a> package, so they can be easily modified with usual <code>ggplot2</code> decorators.</p></li>
+</ol>
+<p>We show this cascade of functions based on the FIFA example.</p>
+<p>To get started with the exploration of the model behaviour we need to create an explainer. <a href="https://www.rdocumentation.org/packages/DALEX/topics/explain.default"><code>DALEX::explain.default</code></a> function handles is for all types of predictive models. In the <a href="https://cran.r-project.org/package=DALEXtra">DALEXtra</a> package there generic versions for the most common ML frameworks. Among them the <a href="https://www.rdocumentation.org/packages/DALEXtra/topics/explain_mlr3"><code>DALEXtra::explain_mlr3()</code></a> function works for <code>mlr3</code> models.</p>
+<p>This function performs a series of internal checks so the output is a bit verbose. Turn the <code>verbose = FALSE</code> argument to make it less wordy.</p>
+<div class="sourceCode" id="cb853"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://dalex.drwhy.ai">"DALEX"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ModelOriented.github.io/DALEXtra/">"DALEXtra"</a></span><span class="op">)</span>
+
+<span class="va">ranger_exp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ModelOriented.github.io/DALEXtra/reference/explain_mlr3.html">explain_mlr3</a></span><span class="op">(</span><span class="va">fifa_ranger</span>,
+        data     <span class="op">=</span> <span class="va">fifa</span>,
+        y        <span class="op">=</span> <span class="va">fifa</span><span class="op">$</span><span class="va">value_eur</span>,
+        label    <span class="op">=</span> <span class="st">"Ranger RF"</span>,
+        colorize <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<pre><code>## Preparation of a new explainer is initiated
+##   -&gt; model label       :  Ranger RF 
+##   -&gt; data              :  5000  rows  38  cols 
+##   -&gt; target variable   :  5000  values 
+##   -&gt; predict function  :  yhat.LearnerRegr  will be used (  default  )
+##   -&gt; predicted values  :  No value for predict function target column. (  default  )
+##   -&gt; model_info        :  package mlr3 , ver. 0.12.0 , task regression (  default  ) 
+##   -&gt; predicted values  :  numerical, min =  425371 , mean =  7473968 , max =  90077967  
+##   -&gt; residual function :  difference between y and yhat (  default  )
+##   -&gt; residuals         :  numerical, min =  -8799467 , mean =  -681.5 , max =  17024067  
+##   A new explainer has been created!</code></pre>
+</div>
+<div id="interpretability-dataset-level" class="section level3" number="8.2.5">
+<h3>
+<span class="header-section-number">8.2.5</span> Dataset level exploration<a class="anchor" aria-label="anchor" href="#interpretability-dataset-level"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <a href="https://www.rdocumentation.org/packages/DALEX/topics/model_parts"><code>DALEX::model_parts()</code></a> function calculates the importance of variables using the <a href="https://pbiecek.github.io/ema/featureImportance.html">permutations based importance</a>.</p>
+<div class="sourceCode" id="cb855"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fifa_vi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/model_parts.html">model_parts</a></span><span class="op">(</span><span class="va">ranger_exp</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">fifa_vi</span><span class="op">)</span></code></pre></div>
+<pre><code>##               variable mean_dropout_loss     label
+## 1         _full_model_           1310584 Ranger RF
+## 2            value_eur           1310584 Ranger RF
+## 3            weight_kg           1362465 Ranger RF
+## 4            height_cm           1376654 Ranger RF
+## 5     movement_balance           1378379 Ranger RF
+## 6 mentality_aggression           1382546 Ranger RF</code></pre>
+<p>Results can be visualized with generic <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>. The chart for all 38 variables would be unreadable, so with the <code>max_vars</code> argument, we limit the number of variables on the plot.</p>
+<div class="sourceCode" id="cb857"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">fifa_vi</span>, max_vars <span class="op">=</span> <span class="fl">12</span>, show_boxplots <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="08-interpretation-dalex_files/figure-html/08-interpretation-dalex-011-1.svg" width="768" style="display: block; margin: auto;"></div>
+<p>Once we know which variables are most important, we can use <a href="https://pbiecek.github.io/ema/partialDependenceProfiles.html">Partial Dependence Plots</a> to show how the model, on average, changes with changes in selected variables. In this example, they show the average relation between the particular variables and players’ value.</p>
+<div class="sourceCode" id="cb858"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">selected_variables</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"movement_reactions"</span>,
+                <span class="st">"skill_ball_control"</span>, <span class="st">"skill_dribbling"</span><span class="op">)</span>
+
+<span class="va">fifa_pd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/model_profile.html">model_profile</a></span><span class="op">(</span><span class="va">ranger_exp</span>,
+                variables <span class="op">=</span> <span class="va">selected_variables</span><span class="op">)</span><span class="op">$</span><span class="va">agr_profiles</span>
+<span class="va">fifa_pd</span></code></pre></div>
+<pre><code>## Top profiles    : 
+##              _vname_   _label_ _x_  _yhat_ _ids_
+## 1 skill_ball_control Ranger RF   5 6540200     0
+## 2    skill_dribbling Ranger RF   7 6783475     0
+## 3    skill_dribbling Ranger RF  11 6767077     0
+## 4    skill_dribbling Ranger RF  12 6764135     0
+## 5    skill_dribbling Ranger RF  13 6763353     0
+## 6    skill_dribbling Ranger RF  14 6762018     0</code></pre>
+<p>Again, the result of the explanation can be presented with the generic function <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>.</p>
+<div class="sourceCode" id="cb860"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">fifa_pd</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span><span class="st">"Estimated value in Euro"</span>, labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_dollar.html">dollar_format</a></span><span class="op">(</span>suffix <span class="op">=</span> <span class="st">"€"</span>, prefix <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Partial Dependence profiles for selected variables"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="08-interpretation-dalex_files/figure-html/08-interpretation-dalex-013-1.svg" width="768" style="display: block; margin: auto;"></div>
+<p>The general trend for most player characteristics is the same. The higher are the skills the higher is the player’s worth. With a single exception – variable Age.</p>
+</div>
+<div id="interpretability-instance-level" class="section level3" number="8.2.6">
+<h3>
+<span class="header-section-number">8.2.6</span> Instance level explanation<a class="anchor" aria-label="anchor" href="#interpretability-instance-level"><i class="fas fa-link"></i></a>
+</h3>
+<p>Time to see how the model behaves for a single observation/player
+This can be done for any player, but this example we will use the Cristiano Ronaldo.</p>
+<p>The function <code>predict_parts</code> is an instance-level version of the <code>model_parts</code> function introduced in the previous section. For the background behind that method see the <a href="https://pbiecek.github.io/ema/breakDown.html">Introduction to Break Down</a>.</p>
+<div class="sourceCode" id="cb861"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ronaldo</span> <span class="op">&lt;-</span> <span class="va">fifa</span><span class="op">[</span><span class="st">"Cristiano Ronaldo"</span>,<span class="op">]</span>
+<span class="va">ronaldo_bd_ranger</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/predict_parts.html">predict_parts</a></span><span class="op">(</span><span class="va">ranger_exp</span>,
+                        new_observation <span class="op">=</span> <span class="va">ronaldo</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ronaldo_bd_ranger</span><span class="op">)</span></code></pre></div>
+<pre><code>##                                         contribution
+## Ranger RF: intercept                         7473968
+## Ranger RF: movement_reactions = 96          13799235
+## Ranger RF: skill_ball_control = 92           6234675
+## Ranger RF: attacking_finishing = 94          5891966
+## Ranger RF: mentality_positioning = 95        3719392
+## Ranger RF: attacking_short_passing = 83      5333002</code></pre>
+<p>The generic <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function shows the estimated contribution of variables to the final prediction.</p>
+<p>Cristiano is a striker, therefore characteristics that influence his worth are those related to attack, like <code>attacking_volleys</code> or <code>skill_dribbling</code>. The only variable with negative attribution is <code>age</code>.</p>
+<div class="sourceCode" id="cb863"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ronaldo_bd_ranger</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="08-interpretation-dalex_files/figure-html/08-interpretation-dalex-016-1.svg" width="768" style="display: block; margin: auto;"></div>
+<p>Another way to inspect the local behaviour of the model is to use <a href="https://pbiecek.github.io/ema/shapley.html">SHapley Additive exPlanations (SHAP)</a>. It locally shows the contribution of variables to a single observation, just like Break Down.</p>
+<div class="sourceCode" id="cb864"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ronaldo_shap_ranger</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/predict_parts.html">predict_parts</a></span><span class="op">(</span><span class="va">ranger_exp</span>,
+                        new_observation <span class="op">=</span> <span class="va">ronaldo</span>,
+                        type <span class="op">=</span> <span class="st">"shap"</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ronaldo_shap_ranger</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span><span class="st">"Estimated value in Euro"</span>, labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_dollar.html">dollar_format</a></span><span class="op">(</span>suffix <span class="op">=</span> <span class="st">"€"</span>, prefix <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="08-interpretation-dalex_files/figure-html/08-interpretation-dalex-017-1.svg" width="768" style="display: block; margin: auto;"></div>
+<p>In the previous section, we’ve introduced a global explanation - Partial Dependence Plots. <a href="https://pbiecek.github.io/ema/ceterisParibus.html">Ceteris Paribus</a> is the instance level version of that plot. It shows the response of the model for observation when we change only one variable while others stay unchanged. Blue dot stands for the original value.</p>
+<div class="sourceCode" id="cb865"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">selected_variables</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"movement_reactions"</span>,
+                <span class="st">"skill_ball_control"</span>, <span class="st">"skill_dribbling"</span><span class="op">)</span>
+
+<span class="va">ronaldo_cp_ranger</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/predict_profile.html">predict_profile</a></span><span class="op">(</span><span class="va">ranger_exp</span>, <span class="va">ronaldo</span>, variables <span class="op">=</span> <span class="va">selected_variables</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ronaldo_cp_ranger</span>, variables <span class="op">=</span> <span class="va">selected_variables</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span><span class="st">"Estimated value of Christiano Ronaldo"</span>, labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_dollar.html">dollar_format</a></span><span class="op">(</span>suffix <span class="op">=</span> <span class="st">"€"</span>, prefix <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="08-interpretation-dalex_files/figure-html/08-interpretation-dalex-018-1.svg" width="768" style="display: block; margin: auto;"></div>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="special-tasks.html"><span class="header-section-number">7</span> Special Tasks</a></div>
+<div class="next"><a href="appendix.html"><span class="header-section-number">9</span> Appendix</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#interpretation"><span class="header-section-number">8</span> Model Interpretation</a></li>
+<li>
+<a class="nav-link" href="#iml"><span class="header-section-number">8.1</span> IML</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#penguin-task"><span class="header-section-number">8.1.1</span> Penguin Task</a></li>
+<li><a class="nav-link" href="#featureeffects"><span class="header-section-number">8.1.2</span> FeatureEffects</a></li>
+<li><a class="nav-link" href="#shapley"><span class="header-section-number">8.1.3</span> Shapley</a></li>
+<li><a class="nav-link" href="#featureimp"><span class="header-section-number">8.1.4</span> FeatureImp</a></li>
+<li><a class="nav-link" href="#independent-test-data"><span class="header-section-number">8.1.5</span> Independent Test Data</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#dalex"><span class="header-section-number">8.2</span> DALEX</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#interpretability-dalex-introduction"><span class="header-section-number">8.2.1</span> Introduction</a></li>
+<li><a class="nav-link" href="#interpretability-data-fifa"><span class="header-section-number">8.2.2</span> Read data: FIFA</a></li>
+<li><a class="nav-link" href="#interpretability-train-ranger"><span class="header-section-number">8.2.3</span> Train a model: Ranger</a></li>
+<li><a class="nav-link" href="#interpretability-architecture"><span class="header-section-number">8.2.4</span> The general workflow</a></li>
+<li><a class="nav-link" href="#interpretability-dataset-level"><span class="header-section-number">8.2.5</span> Dataset level exploration</a></li>
+<li><a class="nav-link" href="#interpretability-instance-level"><span class="header-section-number">8.2.6</span> Instance level explanation</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/mlr-org/mlr3book/blob/main/bookdown/08-interpretation.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/mlr-org/mlr3book/edit/main/bookdown/08-interpretation.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-09-03.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

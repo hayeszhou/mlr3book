@@ -232,14 +232,14 @@ Note that for linear proportional hazards models, the ranking (but not necessari
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionSurv&gt; for 60 observations:
-##     row_ids time status   crank      lp                    distr
-##           7  104  FALSE  0.2685  0.2685 &lt;VectorDistribution[60]&gt;
-##           8  102  FALSE -0.4163 -0.4163 &lt;VectorDistribution[60]&gt;
-##          10   91  FALSE -3.3269 -3.3269 &lt;VectorDistribution[60]&gt;
-## ---                                                             
-##         295  104  FALSE  1.0945  1.0945 &lt;VectorDistribution[60]&gt;
-##         296  104  FALSE  0.4098  0.4098 &lt;VectorDistribution[60]&gt;
-##         300  102  FALSE -3.1856 -3.1856 &lt;VectorDistribution[60]&gt;</code></pre>
+##     row_ids time status   crank      lp     distr
+##           2   49   TRUE -0.4549 -0.4549 &lt;list[1]&gt;
+##           3  104  FALSE -0.4549 -0.4549 &lt;list[1]&gt;
+##           5  104  FALSE -3.3222 -3.3222 &lt;list[1]&gt;
+## ---                                              
+##         268   81  FALSE -1.6978 -1.6978 &lt;list[1]&gt;
+##         279  104  FALSE  0.3627  0.3627 &lt;list[1]&gt;
+##         280  104  FALSE -1.6623 -1.6623 &lt;list[1]&gt;</code></pre>
 </div>
 <div id="composition" class="section level3" number="7.1.3">
 <h3>
@@ -353,7 +353,7 @@ See <a href="https://mlr3pipelines.mlr-org.com">mlr3pipelines</a> for full tutor
 </h2>
 <p>Density estimation is the learning task to find the unknown distribution from which an i.i.d. data set is generated.
 We interpret this broadly, with this distribution not necessarily being continuous (so may possess a mass not density).
-The conditional case, where a distribution is predicted conditional on covariates, is known as ‘probabilistic supervised regression,’ and will be implemented in <a href="https://mlr3proba.mlr-org.com">mlr3proba</a> in the near-future.
+The conditional case, where a distribution is predicted conditional on covariates, is known as ‘probabilistic supervised regression’, and will be implemented in <a href="https://mlr3proba.mlr-org.com">mlr3proba</a> in the near-future.
 Unconditional density estimation is viewed as an unsupervised task.
 For a good overview to density estimation see <em>Density estimation for statistics and data analysis</em> <span class="citation">(<a href="references.html#ref-Silverman1986" role="doc-biblioref">Silverman 1986</a>)</span>.</p>
 <p>The package <a href="https://mlr3proba.mlr-org.com">mlr3proba</a> extends <a href="https://mlr3.mlr-org.com">mlr3</a> with the following objects for density estimation:</p>
@@ -399,7 +399,7 @@ However, <code>TaskDens</code> still has a <code>target</code> argument and a <c
 <h3>
 <span class="header-section-number">7.2.1</span> Train and Predict<a class="anchor" aria-label="anchor" href="#train-and-predict-1"><i class="fas fa-link"></i></a>
 </h3>
-<p>Density learners have <code>train</code> and <code>predict</code> methods, though being unsupervised, ‘prediction’ is actually ‘estimation.’
+<p>Density learners have <code>train</code> and <code>predict</code> methods, though being unsupervised, ‘prediction’ is actually ‘estimation’.
 In training, a <a href="https://cran.r-project.org/package=distr6">distr6</a> object is created,
 <a href="https://alan-turing-institute.github.io/distr6/">see here</a> for full tutorials on how to access the probability density function, <code>pdf</code>, cumulative distribution function, <code>cdf</code>, and other important fields and methods.
 The predict method is simply a wrapper around <code>self$model$pdf</code> and if available <code>self$model$cdf</code>, i.e. evaluates the pdf/cdf at given points.
@@ -418,17 +418,17 @@ Note that in prediction the points to evaluate the pdf and cdf are determined by
 <span class="va">learner</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task_faithful</span>, row_ids <span class="op">=</span> <span class="va">train_set</span><span class="op">)</span>
 <span class="va">learner</span><span class="op">$</span><span class="va">model</span></code></pre></div>
 <pre><code>## $distr
-## Histogram 
+## Histogram() 
 ## 
 ## $hist
 ## $breaks
 ## [1] 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0 5.5
 ## 
 ## $counts
-## [1] 34 29  5  7 24 62 52  4
+## [1] 40 32  3  5 25 56 52  4
 ## 
 ## $density
-## [1] 0.31336 0.26728 0.04608 0.06452 0.22120 0.57143 0.47926 0.03687
+## [1] 0.36866 0.29493 0.02765 0.04608 0.23041 0.51613 0.47926 0.03687
 ## 
 ## $mids
 ## [1] 1.75 2.25 2.75 3.25 3.75 4.25 4.75 5.25
@@ -517,7 +517,7 @@ Note that in prediction the points to evaluate the pdf and cdf are determined by
 <span class="header-section-number">7.3</span> Spatiotemporal Analysis<a class="anchor" aria-label="anchor" href="#spatiotemporal"><i class="fas fa-link"></i></a>
 </h2>
 <p>Data observations may entail reference information about spatial or temporal characteristics.
-Spatial information is stored as coordinates, usually named “x” and “y” or “lat”/“lon.”
+Spatial information is stored as coordinates, usually named “x” and “y” or “lat”/“lon”.
 Treating spatiotemporal data using non-spatial data methods can lead to over-optimistic performance estimates.
 Hence, methods specifically designed to account for the special nature of spatiotemporal data are needed.</p>
 <p>In the <a href="https://cran.r-project.org/package=mlr3">mlr3</a> framework, the following packages relate to this field:</p>
@@ -580,7 +580,7 @@ The following example showcases how a spatial dataset can be used to retrieve a 
 It contains information on the occurrence of landslides (binary) in the Andes of Southern Ecuador.
 The landslides were mapped from aerial photos taken in 2000.
 The dataset is well suited to serve as an example because it it relatively small and of course due to the spatial nature of the observations.
-Please refer to <span class="citation"><a href="references.html#ref-muenchow2012" role="doc-biblioref">Muenchow, Brenning, and Richter</a> (<a href="references.html#ref-muenchow2012" role="doc-biblioref">2012</a>)</span> for a detailed description of the dataset.</p>
+Please refer to <span class="citation">Muenchow, Brenning, and Richter (<a href="references.html#ref-muenchow2012" role="doc-biblioref">2012</a>)</span> for a detailed description of the dataset.</p>
 <p>To account for the spatial autocorrelation probably present in the landslide data, we will make use one of the most used spatial partitioning methods, a cluster-based k-means grouping <span class="citation">(<a href="references.html#ref-brenning2012" role="doc-biblioref">Brenning 2012</a>)</span>, (<code>"spcv_coords"</code> in <a href="https://github.com/mlr-org/mlr3spatiotemporal">mlr3spatiotemporal</a>).
 This method performs a clustering in 2D space which contrasts with the commonly used random partitioning for non-spatial data.
 The grouping has the effect that train and test data are more separated in space as they would be by conducting a random partitioning, thereby reducing the effect of STAC.</p>
@@ -692,7 +692,7 @@ It is recommended (required) that users familiarize themselves with each impleme
 For almost all methods implemented in <a href="https://github.com/mlr-org/mlr3spatiotemporal">mlr3spatiotemporal</a>, there is a scientific publication describing the strengths and weaknesses of the respective approach (either linked in the help file of <a href="https://github.com/mlr-org/mlr3spatiotemporal">mlr3spatiotemporal</a> or its respective dependency packages).</p>
 <p>In the example above, a cross-validation without hyperparameter tuning was shown.
 If a nested CV is desired, it is recommended to use the same spatial partitioning method for the inner loop (= tuning level).
-See <span class="citation"><a href="references.html#ref-schratz2019" role="doc-biblioref">Schratz et al.</a> (<a href="references.html#ref-schratz2019" role="doc-biblioref">2019</a>)</span> for more details and chapter 11 of <a href="https://geocompr.robinlovelace.net/spatial-cv.html">Geocomputation with R</a> <span class="citation">(<a href="references.html#ref-lovelace2019" role="doc-biblioref">Lovelace, Nowosad, and Muenchow 2019</a>)</span><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The chapter will soon be rewritten using the &lt;strong&gt;mlr3&lt;/strong&gt; and &lt;strong&gt;mlr3spatiotempcv&lt;/strong&gt; packages.&lt;/p&gt;"><sup>3</sup></a>.</p>
+See <span class="citation">Schratz et al. (<a href="references.html#ref-schratz2019" role="doc-biblioref">2019</a>)</span> for more details and chapter 11 of <a href="https://geocompr.robinlovelace.net/spatial-cv.html">Geocomputation with R</a> <span class="citation">(<a href="references.html#ref-lovelace2019" role="doc-biblioref">Lovelace, Nowosad, and Muenchow 2019</a>)</span><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The chapter will soon be rewritten using the &lt;strong&gt;mlr3&lt;/strong&gt; and &lt;strong&gt;mlr3spatiotempcv&lt;/strong&gt; packages.&lt;/p&gt;"><sup>3</sup></a>.</p>
 <p>A list of all implemented methods in <a href="https://github.com/mlr-org/mlr3spatiotemporal">mlr3spatiotemporal</a> can be found in the <a href="https://mlr3spatiotempcv.mlr-org.com/articles/mlr3spatiotempcv.html#resampling-methods">Getting Started</a> vignette of the package.</p>
 <p>If you want to learn even more about the field of spatial partitioning, STAC and the problems associated with it, the work of <a href="https://scholar.google.com/citations?user=9YibxW0AAAAJ&amp;hl=en">Prof. Hanna Meyer</a> is very much recommended for further reference.</p>
 </div>
@@ -823,17 +823,17 @@ We first create a classification task, then resample the model using a 10-fold c
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">confusion</span><span class="op">)</span></code></pre></div>
 <pre><code>##         truth
 ## response good bad
-##     good  601 151
-##     bad    99 149</code></pre>
+##     good  603 150
+##     bad    97 150</code></pre>
 <p>To calculate the average costs like above, we can simply multiply the elements of the confusion matrix with the elements of the previously introduced cost matrix, and sum the values of the resulting matrix:</p>
 <div class="sourceCode" id="cb781"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">avg_costs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">confusion</span> <span class="op">*</span> <span class="va">costs</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">avg_costs</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] -0.05935</code></pre>
+<pre><code>## [1] -0.06105</code></pre>
 <p>With an average loan of $20,000, the logistic regression yields the following costs:</p>
 <div class="sourceCode" id="cb783"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">avg_costs</span> <span class="op">*</span> <span class="fl">20000</span> <span class="op">*</span> <span class="fl">1000</span></code></pre></div>
-<pre><code>## [1] -1187000</code></pre>
+<pre><code>## [1] -1221000</code></pre>
 <p>Instead of losing over $1,000,000, the credit institute now can expect a profit of more than $1,000,000.</p>
 </div>
 <div id="cost-sensitive-measure" class="section level3" number="7.7.2">
@@ -870,9 +870,9 @@ We compare the logistic regression to a simple featureless learner and to a rand
 ## 2:  2 &lt;ResampleResult[20]&gt; german_credit classif.featureless            cv
 ## 3:  3 &lt;ResampleResult[20]&gt; german_credit      classif.ranger            cv
 ##    iters classif.costs
-## 1:     3      -0.05785
+## 1:     3      -0.05273
 ## 2:     3       0.05500
-## 3:     3      -0.04600</code></pre>
+## 3:     3      -0.04767</code></pre>
 <p>As expected, the featureless learner is performing comparably bad.
 The logistic regression and the random forest work equally well.</p>
 </div>
@@ -886,7 +886,7 @@ Some learners natively support cost-sensitive classification (e.g., XXX).
 However, we will concentrate on a more generic approach which works for all models which can predict probabilities for class labels: thresholding.</p>
 <p>Most learners can calculate the probability <span class="math inline">\(p\)</span> for the positive class.
 If <span class="math inline">\(p\)</span> exceeds the threshold <span class="math inline">\(0.5\)</span>, they predict the positive class, and the negative class otherwise.</p>
-<p>For our binary classification case of the credit data, the we primarily want to minimize the errors where the model predicts “good,” but truth is “bad” (i.e., the number of false positives) as this is the more expensive error.
+<p>For our binary classification case of the credit data, the we primarily want to minimize the errors where the model predicts “good”, but truth is “bad” (i.e., the number of false positives) as this is the more expensive error.
 If we now increase the threshold to values <span class="math inline">\(&gt; 0.5\)</span>, we reduce the number of false negatives.
 Note that we increase the number of false positives simultaneously, or, in other words, we are trading false positives for false negatives.</p>
 <div class="sourceCode" id="cb789"><pre class="downlit sourceCode r">
@@ -897,13 +897,13 @@ Note that we increase the number of false positives simultaneously, or, in other
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 1000 observations:
 ##     row_ids truth response prob.good prob.bad
-##           3  good     good    0.9741  0.02589
-##           7  good     good    0.9373  0.06274
-##          15  good      bad    0.2879  0.71205
+##           2   bad      bad    0.3427  0.65728
+##          13  good     good    0.8872  0.11283
+##          17  good     good    0.9780  0.02205
 ## ---                                          
-##         959   bad      bad    0.2616  0.73843
-##         989  good      bad    0.4612  0.53880
-##         998  good     good    0.9246  0.07538</code></pre>
+##         949   bad     good    0.8520  0.14804
+##         953   bad     good    0.6752  0.32485
+##         988  good     good    0.9540  0.04605</code></pre>
 <div class="sourceCode" id="cb791"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># helper function to try different threshold values interactively</span>
 <span class="va">with_threshold</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">th</span><span class="op">)</span> <span class="op">{</span>
@@ -915,34 +915,34 @@ Note that we increase the number of false positives simultaneously, or, in other
 <pre><code>## $confusion
 ##         truth
 ## response good bad
-##     good  599 154
-##     bad   101 146
+##     good  603 149
+##     bad    97 151
 ## 
 ## $costs
 ## classif.costs 
-##      -0.05565</code></pre>
+##      -0.06205</code></pre>
 <div class="sourceCode" id="cb793"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">with_threshold</span><span class="op">(</span><span class="va">p</span>, <span class="fl">0.75</span><span class="op">)</span></code></pre></div>
 <pre><code>## $confusion
 ##         truth
 ## response good bad
-##     good  470  75
-##     bad   230 225
+##     good  481  74
+##     bad   219 226
 ## 
 ## $costs
 ## classif.costs 
-##       -0.0895</code></pre>
+##      -0.09435</code></pre>
 <div class="sourceCode" id="cb795"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">with_threshold</span><span class="op">(</span><span class="va">p</span>, <span class="fl">1.0</span><span class="op">)</span></code></pre></div>
 <pre><code>## $confusion
 ##         truth
 ## response good bad
-##     good    0   1
-##     bad   700 299
+##     good    1   0
+##     bad   699 300
 ## 
 ## $costs
 ## classif.costs 
-##         0.001</code></pre>
+##      -0.00035</code></pre>
 <div class="sourceCode" id="cb797"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># TODO: include plot of threshold vs performance</span></code></pre></div>
 <p>Instead of manually trying different threshold values, one uses use <a href="https://www.rdocumentation.org/packages/stats/topics/optimize"><code>optimize()</code></a> to find a good threshold value w.r.t. our performance measure:</p>
@@ -955,18 +955,18 @@ Note that we increase the number of false positives simultaneously, or, in other
 <span class="va">best</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/optimize.html">optimize</a></span><span class="op">(</span><span class="va">f</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">best</span><span class="op">)</span></code></pre></div>
 <pre><code>## $minimum
-## [1] 0.7494
+## [1] 0.7426
 ## 
 ## $objective
 ## classif.costs 
-##       -0.0902</code></pre>
+##       -0.0951</code></pre>
 <div class="sourceCode" id="cb800"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># optimized confusion matrix:</span>
 <span class="fu">with_threshold</span><span class="op">(</span><span class="va">p</span>, <span class="va">best</span><span class="op">$</span><span class="va">minimum</span><span class="op">)</span><span class="op">$</span><span class="va">confusion</span></code></pre></div>
 <pre><code>##         truth
 ## response good bad
-##     good  472  75
-##     bad   228 225</code></pre>
+##     good  486  75
+##     bad   214 225</code></pre>
 <p>Note that the function <a href="https://www.rdocumentation.org/packages/stats/topics/optimize"><code>optimize()</code></a> is intended for unimodal functions and therefore may converge to a local optimum here.
 See below for better alternatives to find good threshold values.</p>
 </div>
@@ -1049,31 +1049,31 @@ you can easily imagine, that we can also jointly tune over additional hyperparam
 <span class="op">)</span>
 
 <span class="va">at</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"german_credit"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## INFO  [08:41:00.180] [bbotk] Starting to optimize 1 parameter(s) with '&lt;OptimizerRandomSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=5]' 
-## INFO  [08:41:00.225] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [08:41:00.514] [bbotk] Result of batch 1: 
-## INFO  [08:41:00.523] [bbotk]  threshold.thresholds classif.ce                                uhash 
-## INFO  [08:41:00.523] [bbotk]                0.4913      0.292 8f6f8de6-22d9-4398-898e-f0dcbb87387b 
-## INFO  [08:41:00.526] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [08:41:00.833] [bbotk] Result of batch 2: 
-## INFO  [08:41:00.835] [bbotk]  threshold.thresholds classif.ce                                uhash 
-## INFO  [08:41:00.835] [bbotk]                0.8541      0.352 72ed4ea9-e947-4615-a6ca-c06af43b85f6 
-## INFO  [08:41:00.838] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [08:41:01.098] [bbotk] Result of batch 3: 
-## INFO  [08:41:01.100] [bbotk]  threshold.thresholds classif.ce                                uhash 
-## INFO  [08:41:01.100] [bbotk]                0.4096      0.292 eaafa06e-d735-4719-8706-5f6468cb8802 
-## INFO  [08:41:01.103] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [08:41:01.362] [bbotk] Result of batch 4: 
-## INFO  [08:41:01.364] [bbotk]  threshold.thresholds classif.ce                                uhash 
-## INFO  [08:41:01.364] [bbotk]                0.8569      0.352 3517cc1a-0c6b-41eb-98c2-ff8b0631a72f 
-## INFO  [08:41:01.367] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [08:41:01.626] [bbotk] Result of batch 5: 
-## INFO  [08:41:01.628] [bbotk]  threshold.thresholds classif.ce                                uhash 
-## INFO  [08:41:01.628] [bbotk]                 0.409      0.292 bbb9a7dd-40e8-4afa-9a3f-ee56e565ae1e 
-## INFO  [08:41:01.637] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [08:41:01.638] [bbotk] Result: 
-## INFO  [08:41:01.639] [bbotk]  threshold.thresholds learner_param_vals  x_domain classif.ce 
-## INFO  [08:41:01.639] [bbotk]                0.4913          &lt;list[2]&gt; &lt;list[1]&gt;      0.292</code></pre>
+<pre><code>## INFO  [12:18:15.797] [bbotk] Starting to optimize 1 parameter(s) with '&lt;OptimizerRandomSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=5]' 
+## INFO  [12:18:15.844] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [12:18:16.153] [bbotk] Result of batch 1: 
+## INFO  [12:18:16.154] [bbotk]  threshold.thresholds classif.ce                                uhash 
+## INFO  [12:18:16.154] [bbotk]                0.1581      0.271 2a3f4f52-cced-4d3a-9e4b-260c28eed65d 
+## INFO  [12:18:16.158] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [12:18:16.445] [bbotk] Result of batch 2: 
+## INFO  [12:18:16.447] [bbotk]  threshold.thresholds classif.ce                                uhash 
+## INFO  [12:18:16.447] [bbotk]                0.9901      0.693 1a4b7a73-9d85-4afe-b161-88cc6c600cbd 
+## INFO  [12:18:16.450] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [12:18:16.739] [bbotk] Result of batch 3: 
+## INFO  [12:18:16.741] [bbotk]  threshold.thresholds classif.ce                                uhash 
+## INFO  [12:18:16.741] [bbotk]                0.8148     0.3221 aef061d0-d2ec-4da9-ab3c-d7cd72b01324 
+## INFO  [12:18:16.744] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [12:18:17.032] [bbotk] Result of batch 4: 
+## INFO  [12:18:17.034] [bbotk]  threshold.thresholds classif.ce                                uhash 
+## INFO  [12:18:17.034] [bbotk]                0.7411      0.279 96ee817c-7c31-45b1-8561-e3000d9eef54 
+## INFO  [12:18:17.037] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [12:18:17.319] [bbotk] Result of batch 5: 
+## INFO  [12:18:17.321] [bbotk]  threshold.thresholds classif.ce                                uhash 
+## INFO  [12:18:17.321] [bbotk]                  0.29      0.259 97f62b4c-97f4-4f57-9c6c-3dbea7049ec8 
+## INFO  [12:18:17.331] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [12:18:17.332] [bbotk] Result: 
+## INFO  [12:18:17.334] [bbotk]  threshold.thresholds learner_param_vals  x_domain classif.ce 
+## INFO  [12:18:17.334] [bbotk]                  0.29          &lt;list[2]&gt; &lt;list[1]&gt;      0.259</code></pre>
 <p>Inside the <code>trafo</code>, we simply collect all set params into a named vector via <code>map_dbl</code> and store it
 in the <code>threshold.thresholds</code> slot expected by the learner.</p>
 <p>Again, we create a <code>AutoTuner</code>, which automatically tunes the supplied learner over the <code>ParamSet</code> we supplied above.</p>
@@ -1436,7 +1436,7 @@ Hence, having two centers might be a better choice for the number of clusters.</
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-09-03.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-09-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

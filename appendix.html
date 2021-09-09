@@ -1373,7 +1373,7 @@ It returns those in a new <code>Task</code>.</li>
 We can do this using the <code><a href="https://mlr3pipelines.mlr-org.com//reference/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></code> operator.</p>
 <div class="sourceCode" id="cb872"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linear_pipeline</span> <span class="op">=</span> <span class="va">op1</span> <span class="op">%&gt;&gt;%</span> <span class="va">op2</span> <span class="op">%&gt;&gt;%</span> <span class="va">op3</span></code></pre></div>
-<p>The result of this operation is a “<code>Graph</code>.”
+<p>The result of this operation is a “<code>Graph</code>”.
 A <code>Graph</code> connects the input and output of each <code>PipeOp</code> to the following <code>PipeOp</code>.
 This allows us to specify linear processing pipelines.
 In this case, we connect the output of the <strong>scaling</strong> PipeOp to the input of the <strong>PCA</strong> PipeOp and the output of the <strong>PCA</strong> PipeOp to the input of <strong>PipeOpLearner</strong>.</p>
@@ -1401,13 +1401,13 @@ In our case, this is <strong>mean</strong> and <strong>standard deviation</stron
 <pre><code>## $classif.rpart.output
 ## &lt;PredictionClassif&gt; for 30 observations:
 ##     row_ids      truth   response
-##         124  virginica  virginica
-##          36     setosa     setosa
-##          17     setosa     setosa
-## ---                              
-##          55 versicolor versicolor
+##          95 versicolor versicolor
 ##         103  virginica  virginica
-##         112  virginica  virginica</code></pre>
+##          72 versicolor versicolor
+## ---                              
+##          91 versicolor versicolor
+##         125  virginica  virginica
+##          30     setosa     setosa</code></pre>
 </div>
 </div>
 <div id="mlr3pipelines-vs.-mlr" class="section level3" number="9.5.2">
@@ -1685,7 +1685,7 @@ Note, that for now we do not impute via <code>knn</code> but instead via samplin
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-09-03.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-09-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

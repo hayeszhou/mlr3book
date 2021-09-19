@@ -26,7 +26,7 @@
 <meta name="twitter:title" content="2 Basics | mlr3 book">
 <meta name="twitter:description" content="This chapter will teach you the essential building blocks of mlr3, as well as its R6 classes and operations used for machine learning. A typical machine learning workflow looks like this: The...">
 <meta name="twitter:image" content="https://mlr3book.mlr-org.com//block.png">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
@@ -701,7 +701,7 @@ A full list of implemented learners across all packages is given in <a href="htt
 <code class="sourceCode R"><span class="co"># load most mlr3 packages to populate the dictionary</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3verse.mlr-org.com">"mlr3verse"</a></span><span class="op">)</span>
 <span class="va">mlr_learners</span></code></pre></div>
-<pre><code>## &lt;DictionaryLearner&gt; with 133 stored values
+<pre><code>## &lt;DictionaryLearner&gt; with 135 stored values
 ## Keys: classif.AdaBoostM1, classif.bart, classif.C50, classif.catboost,
 ##   classif.cforest, classif.ctree, classif.cv_glmnet, classif.debug,
 ##   classif.earth, classif.extratrees, classif.featureless, classif.fnn,
@@ -709,29 +709,29 @@ A full list of implemented learners across all packages is given in <a href="htt
 ##   classif.glmboost, classif.glmnet, classif.IBk, classif.J48,
 ##   classif.JRip, classif.kknn, classif.ksvm, classif.lda,
 ##   classif.liblinear, classif.lightgbm, classif.LMT, classif.log_reg,
-##   classif.mob, classif.multinom, classif.naive_bayes, classif.nnet,
-##   classif.OneR, classif.PART, classif.qda, classif.randomForest,
-##   classif.ranger, classif.rfsrc, classif.rpart, classif.svm,
-##   classif.xgboost, clust.agnes, clust.ap, clust.cmeans, clust.cobweb,
-##   clust.dbscan, clust.diana, clust.em, clust.fanny, clust.featureless,
-##   clust.ff, clust.hclust, clust.kkmeans, clust.kmeans,
-##   clust.MBatchKMeans, clust.meanshift, clust.pam, clust.SimpleKMeans,
-##   clust.xmeans, dens.hist, dens.kde, dens.kde_kd, dens.kde_ks,
-##   dens.locfit, dens.logspline, dens.mixed, dens.nonpar, dens.pen,
-##   dens.plug, dens.spline, regr.bart, regr.catboost, regr.cforest,
-##   regr.ctree, regr.cubist, regr.cv_glmnet, regr.earth, regr.extratrees,
-##   regr.featureless, regr.fnn, regr.gam, regr.gamboost, regr.gausspr,
-##   regr.gbm, regr.glm, regr.glmboost, regr.glmnet, regr.IBk, regr.kknn,
-##   regr.km, regr.ksvm, regr.liblinear, regr.lightgbm, regr.lm,
-##   regr.M5Rules, regr.mars, regr.mob, regr.randomForest, regr.ranger,
-##   regr.rfsrc, regr.rpart, regr.svm, regr.xgboost, surv.akritas,
-##   surv.blackboost, surv.cforest, surv.coxboost, surv.coxph,
-##   surv.coxtime, surv.ctree, surv.cv_coxboost, surv.cv_glmnet,
-##   surv.deephit, surv.deepsurv, surv.dnnsurv, surv.flexible,
-##   surv.gamboost, surv.gbm, surv.glmboost, surv.glmnet, surv.kaplan,
-##   surv.loghaz, surv.mboost, surv.nelson, surv.obliqueRSF,
-##   surv.parametric, surv.pchazard, surv.penalized, surv.ranger,
-##   surv.rfsrc, surv.rpart, surv.svm, surv.xgboost</code></pre>
+##   classif.lssvm, classif.mob, classif.multinom, classif.naive_bayes,
+##   classif.nnet, classif.OneR, classif.PART, classif.qda,
+##   classif.randomForest, classif.ranger, classif.rfsrc, classif.rpart,
+##   classif.svm, classif.xgboost, clust.agnes, clust.ap, clust.cmeans,
+##   clust.cobweb, clust.dbscan, clust.diana, clust.em, clust.fanny,
+##   clust.featureless, clust.ff, clust.hclust, clust.kkmeans,
+##   clust.kmeans, clust.MBatchKMeans, clust.meanshift, clust.pam,
+##   clust.SimpleKMeans, clust.xmeans, dens.hist, dens.kde, dens.kde_kd,
+##   dens.kde_ks, dens.locfit, dens.logspline, dens.mixed, dens.nonpar,
+##   dens.pen, dens.plug, dens.spline, regr.bart, regr.catboost,
+##   regr.cforest, regr.ctree, regr.cubist, regr.cv_glmnet, regr.earth,
+##   regr.extratrees, regr.featureless, regr.fnn, regr.gam, regr.gamboost,
+##   regr.gausspr, regr.gbm, regr.glm, regr.glmboost, regr.glmnet,
+##   regr.IBk, regr.kknn, regr.km, regr.ksvm, regr.liblinear,
+##   regr.lightgbm, regr.lm, regr.M5Rules, regr.mars, regr.mob,
+##   regr.randomForest, regr.ranger, regr.rfsrc, regr.rpart, regr.rvm,
+##   regr.svm, regr.xgboost, surv.akritas, surv.blackboost, surv.cforest,
+##   surv.coxboost, surv.coxph, surv.coxtime, surv.ctree,
+##   surv.cv_coxboost, surv.cv_glmnet, surv.deephit, surv.deepsurv,
+##   surv.dnnsurv, surv.flexible, surv.gamboost, surv.gbm, surv.glmboost,
+##   surv.glmnet, surv.kaplan, surv.loghaz, surv.mboost, surv.nelson,
+##   surv.obliqueRSF, surv.parametric, surv.pchazard, surv.penalized,
+##   surv.ranger, surv.rfsrc, surv.rpart, surv.svm, surv.xgboost</code></pre>
 <p>To obtain an object from the dictionary we can use <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>lrn()</code></a> or the generic <code>mlr_learners$get()</code> method, e.g. <code><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn("classif.rpart")</a></code>.</p>
 </div>
 <div id="learner-api" class="section level3" number="2.3.2">
@@ -874,13 +874,11 @@ We can now access the stored model via the field <code>$model</code>:</p>
 ## node), split, n, loss, yval, (yprob)
 ##       * denotes terminal node
 ## 
-## 1) root 275 152 Adelie (0.447273 0.192727 0.360000)  
-##   2) flipper_length&lt; 206.5 170  49 Adelie (0.711765 0.282353 0.005882)  
-##     4) bill_length&lt; 43.35 121   3 Adelie (0.975207 0.024793 0.000000) *
-##     5) bill_length&gt;=43.35 49   4 Chinstrap (0.061224 0.918367 0.020408) *
-##   3) flipper_length&gt;=206.5 105   7 Gentoo (0.019048 0.047619 0.933333)  
-##     6) island=Dream,Torgersen 7   2 Chinstrap (0.285714 0.714286 0.000000) *
-##     7) island=Biscoe 98   0 Gentoo (0.000000 0.000000 1.000000) *</code></pre>
+## 1) root 275 158 Adelie (0.42545 0.20000 0.37455)  
+##   2) flipper_length&lt; 207.5 167  52 Adelie (0.68862 0.31138 0.00000)  
+##     4) bill_length&lt; 43.35 115   3 Adelie (0.97391 0.02609 0.00000) *
+##     5) bill_length&gt;=43.35 52   3 Chinstrap (0.05769 0.94231 0.00000) *
+##   3) flipper_length&gt;=207.5 108   5 Gentoo (0.01852 0.02778 0.95370) *</code></pre>
 </div>
 <div id="predicting" class="section level3" number="2.4.4">
 <h3>
@@ -893,34 +891,34 @@ Remember that we <a href="basics.html#split-data">initially split the data</a> i
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 69 observations:
 ##     row_ids     truth  response
-##           7    Adelie    Adelie
-##          11    Adelie    Adelie
-##          19    Adelie    Adelie
+##           3    Adelie    Adelie
+##           8    Adelie    Adelie
+##          15    Adelie    Adelie
 ## ---                            
-##         322 Chinstrap Chinstrap
-##         325 Chinstrap Chinstrap
-##         336 Chinstrap Chinstrap</code></pre>
+##         335 Chinstrap Chinstrap
+##         336 Chinstrap Chinstrap
+##         344 Chinstrap Chinstrap</code></pre>
 <p>The <code>$predict()</code> method of the <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a> returns a <a href="https://mlr3.mlr-org.com/reference/Prediction.html"><code>Prediction</code></a> object.
 More precisely, a <a href="https://mlr3.mlr-org.com/reference/LearnerClassif.html"><code>LearnerClassif</code></a> returns a <a href="https://mlr3.mlr-org.com/reference/PredictionClassif.html"><code>PredictionClassif</code></a> object.</p>
 <p>A prediction objects holds the row ids of the test data, the respective true label of the target column and the respective predictions.
 The simplest way to extract this information is by converting the <a href="https://mlr3.mlr-org.com/reference/Prediction.html"><code>Prediction</code></a> object to a <code><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table()</a></code>:</p>
 <div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##    row_ids  truth response
-## 1:       7 Adelie   Adelie
-## 2:      11 Adelie   Adelie
-## 3:      19 Adelie   Adelie
-## 4:      25 Adelie   Adelie
-## 5:      29 Adelie   Adelie
-## 6:      31 Adelie   Adelie</code></pre>
+<pre><code>##    row_ids  truth  response
+## 1:       3 Adelie    Adelie
+## 2:       8 Adelie    Adelie
+## 3:      15 Adelie    Adelie
+## 4:      20 Adelie Chinstrap
+## 5:      23 Adelie    Adelie
+## 6:      24 Adelie    Adelie</code></pre>
 <p>For classification, you can also extract the confusion matrix:</p>
 <div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">prediction</span><span class="op">$</span><span class="va">confusion</span></code></pre></div>
 <pre><code>##            truth
 ## response    Adelie Chinstrap Gentoo
-##   Adelie        28         2      0
-##   Chinstrap      1        13      0
-##   Gentoo         0         0     25</code></pre>
+##   Adelie        34         2      0
+##   Chinstrap      1        10      2
+##   Gentoo         0         1     19</code></pre>
 </div>
 <div id="predict-type" class="section level3" number="2.4.5">
 <h3>
@@ -941,28 +939,28 @@ To switch to predicting these probabilities, the <code>predict_type</code> field
 <div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># data.table conversion</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##    row_ids  truth response prob.Adelie prob.Chinstrap prob.Gentoo
-## 1:       7 Adelie   Adelie      0.9752        0.02479           0
-## 2:      11 Adelie   Adelie      0.9752        0.02479           0
-## 3:      19 Adelie   Adelie      0.9752        0.02479           0
-## 4:      25 Adelie   Adelie      0.9752        0.02479           0
-## 5:      29 Adelie   Adelie      0.9752        0.02479           0
-## 6:      31 Adelie   Adelie      0.9752        0.02479           0</code></pre>
+<pre><code>##    row_ids  truth  response prob.Adelie prob.Chinstrap prob.Gentoo
+## 1:       3 Adelie    Adelie     0.97391        0.02609           0
+## 2:       8 Adelie    Adelie     0.97391        0.02609           0
+## 3:      15 Adelie    Adelie     0.97391        0.02609           0
+## 4:      20 Adelie Chinstrap     0.05769        0.94231           0
+## 5:      23 Adelie    Adelie     0.97391        0.02609           0
+## 6:      24 Adelie    Adelie     0.97391        0.02609           0</code></pre>
 <div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># directly access the predicted labels:</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">$</span><span class="va">response</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] Adelie Adelie Adelie Adelie Adelie Adelie
+<pre><code>## [1] Adelie    Adelie    Adelie    Chinstrap Adelie    Adelie   
 ## Levels: Adelie Chinstrap Gentoo</code></pre>
 <div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># directly access the matrix of probabilities:</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">$</span><span class="va">prob</span><span class="op">)</span></code></pre></div>
-<pre><code>##      Adelie Chinstrap Gentoo
-## [1,] 0.9752   0.02479      0
-## [2,] 0.9752   0.02479      0
-## [3,] 0.9752   0.02479      0
-## [4,] 0.9752   0.02479      0
-## [5,] 0.9752   0.02479      0
-## [6,] 0.9752   0.02479      0</code></pre>
+<pre><code>##       Adelie Chinstrap Gentoo
+## [1,] 0.97391   0.02609      0
+## [2,] 0.97391   0.02609      0
+## [3,] 0.97391   0.02609      0
+## [4,] 0.05769   0.94231      0
+## [5,] 0.97391   0.02609      0
+## [6,] 0.97391   0.02609      0</code></pre>
 <p>Analogously to predicting probabilities, many <a href="https://mlr3.mlr-org.com/reference/LearnerRegr.html"><code>regression learners</code></a> support the extraction of standard error estimates by setting the predict type to <code>"se"</code>.</p>
 </div>
 <div id="autoplot-prediction" class="section level3" number="2.4.6">
@@ -1123,10 +1121,10 @@ To better illustrate the following operations, we switch to a <a href="https://m
 <pre><code>## [1] 3</code></pre>
 <div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">resampling</span><span class="op">$</span><span class="fu">train_set</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##  int [1:229] 1 9 10 13 14 25 27 28 29 30 ...</code></pre>
+<pre><code>##  int [1:229] 3 9 11 16 19 20 21 25 29 33 ...</code></pre>
 <div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">resampling</span><span class="op">$</span><span class="fu">test_set</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##  int [1:115] 2 3 6 8 11 12 15 16 17 18 ...</code></pre>
+<pre><code>##  int [1:115] 1 2 8 12 15 22 23 24 36 38 ...</code></pre>
 <p>Note that if you want to compare multiple <a href="basics.html#learners">Learners</a> in a fair manner, using the same instantiated resampling for each learner is mandatory.
 A way to greatly simplify the comparison of multiple learners is discussed in the <a href="basics.html#benchmarking">next section on benchmarking</a>.</p>
 </div>
@@ -1156,7 +1154,7 @@ We tell <a href="https://mlr3.mlr-org.com/reference/resample.html"><code>resampl
 <div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="fu">aggregate</span><span class="op">(</span><span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"classif.ce"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## classif.ce 
-##    0.06392</code></pre>
+##    0.06974</code></pre>
 </li>
 <li>
 <p>Extract the performance for the individual resampling iterations:</p>
@@ -1171,9 +1169,9 @@ We tell <a href="https://mlr3.mlr-org.com/reference/resample.html"><code>resampl
 ## 2: &lt;ResamplingCV[19]&gt;            cv         2 &lt;PredictionClassif[19]&gt;
 ## 3: &lt;ResamplingCV[19]&gt;            cv         3 &lt;PredictionClassif[19]&gt;
 ##    classif.ce
-## 1:    0.06957
-## 2:    0.06957
-## 3:    0.05263</code></pre>
+## 1:    0.11304
+## 2:    0.03478
+## 3:    0.06140</code></pre>
 </li>
 <li>
 <p>Check for warnings or errors:</p>
@@ -1196,10 +1194,10 @@ We tell <a href="https://mlr3.mlr-org.com/reference/resample.html"><code>resampl
 <pre><code>## [1] 3</code></pre>
 <div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">rr</span><span class="op">$</span><span class="va">resampling</span><span class="op">$</span><span class="fu">test_set</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##  int [1:115] 7 8 9 13 14 16 20 24 25 33 ...</code></pre>
+<pre><code>##  int [1:115] 1 3 9 10 11 13 19 23 26 27 ...</code></pre>
 <div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">rr</span><span class="op">$</span><span class="va">resampling</span><span class="op">$</span><span class="fu">train_set</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##  int [1:229] 2 5 11 15 17 19 22 26 27 30 ...</code></pre>
+<pre><code>##  int [1:229] 2 4 14 15 16 22 25 29 30 36 ...</code></pre>
 </li>
 <li>
 <p>Retrieve the <a href="basics.html#learners">learner</a> of a specific iteration and inspect it:</p>
@@ -1211,11 +1209,13 @@ We tell <a href="https://mlr3.mlr-org.com/reference/resample.html"><code>resampl
 ## node), split, n, loss, yval, (yprob)
 ##       * denotes terminal node
 ## 
-## 1) root 229 128 Adelie (0.44105 0.22271 0.33624)  
-##   2) flipper_length&lt; 206.5 148  49 Adelie (0.66892 0.33108 0.00000)  
-##     4) bill_length&lt; 44.65 100   3 Adelie (0.97000 0.03000 0.00000) *
-##     5) bill_length&gt;=44.65 48   2 Chinstrap (0.04167 0.95833 0.00000) *
-##   3) flipper_length&gt;=206.5 81   4 Gentoo (0.02469 0.02469 0.95062) *</code></pre>
+##  1) root 229 131 Adelie (0.427948 0.196507 0.375546)  
+##    2) flipper_length&lt; 207.5 142  44 Adelie (0.690141 0.302817 0.007042)  
+##      4) bill_length&lt; 43.15 94   1 Adelie (0.989362 0.010638 0.000000) *
+##      5) bill_length&gt;=43.15 48   6 Chinstrap (0.104167 0.875000 0.020833)  
+##       10) body_mass&gt;=4125 9   4 Adelie (0.555556 0.333333 0.111111) *
+##       11) body_mass&lt; 4125 39   0 Chinstrap (0.000000 1.000000 0.000000) *
+##    3) flipper_length&gt;=207.5 87   2 Gentoo (0.000000 0.022989 0.977011) *</code></pre>
 </li>
 <li>
 <p>Extract the predictions:</p>
@@ -1223,24 +1223,24 @@ We tell <a href="https://mlr3.mlr-org.com/reference/resample.html"><code>resampl
 <code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="fu">prediction</span><span class="op">(</span><span class="op">)</span> <span class="co"># all predictions merged into a single Prediction object</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 344 observations:
 ##     row_ids     truth  response prob.Adelie prob.Chinstrap prob.Gentoo
-##           7    Adelie    Adelie     0.97000         0.0300           0
-##           8    Adelie    Adelie     0.97000         0.0300           0
-##           9    Adelie    Adelie     0.97000         0.0300           0
+##           1    Adelie    Adelie      0.9894        0.01064           0
+##           3    Adelie    Adelie      0.9894        0.01064           0
+##           9    Adelie    Adelie      0.9894        0.01064           0
 ## ---                                                                   
-##         332 Chinstrap Chinstrap     0.02564         0.9744           0
-##         333 Chinstrap Chinstrap     0.02564         0.9744           0
-##         344 Chinstrap Chinstrap     0.02564         0.9744           0</code></pre>
+##         337 Chinstrap Chinstrap      0.1000        0.90000           0
+##         340 Chinstrap Chinstrap      0.1000        0.90000           0
+##         341 Chinstrap Chinstrap      0.1000        0.90000           0</code></pre>
 <div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="fu">predictions</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="co"># prediction of first resampling iteration</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 115 observations:
-##     row_ids     truth response prob.Adelie prob.Chinstrap prob.Gentoo
-##           7    Adelie   Adelie     0.97000        0.03000      0.0000
-##           8    Adelie   Adelie     0.97000        0.03000      0.0000
-##           9    Adelie   Adelie     0.97000        0.03000      0.0000
-## ---                                                                  
-##         340 Chinstrap   Gentoo     0.02469        0.02469      0.9506
-##         341 Chinstrap   Adelie     0.97000        0.03000      0.0000
-##         343 Chinstrap   Gentoo     0.02469        0.02469      0.9506</code></pre>
+##     row_ids     truth  response prob.Adelie prob.Chinstrap prob.Gentoo
+##           1    Adelie    Adelie      0.9894        0.01064           0
+##           3    Adelie    Adelie      0.9894        0.01064           0
+##           9    Adelie    Adelie      0.9894        0.01064           0
+## ---                                                                   
+##         338 Chinstrap Chinstrap      0.0000        1.00000           0
+##         339 Chinstrap Chinstrap      0.0000        1.00000           0
+##         344 Chinstrap Chinstrap      0.0000        1.00000           0</code></pre>
 </li>
 <li>
 <p>Filter to only keep specified iterations:</p>
@@ -1280,13 +1280,22 @@ A manual resampling instance can be created using the <code>"custom"</code> temp
 </div>
 <div id="resampling-with-predefined-groups" class="section level3" number="2.5.5">
 <h3>
-<span class="header-section-number">2.5.5</span> Resampling with predefined groups<a class="anchor" aria-label="anchor" href="#resampling-with-predefined-groups"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.5.5</span> Resampling with (predefined) groups<a class="anchor" aria-label="anchor" href="#resampling-with-predefined-groups"><i class="fas fa-link"></i></a>
 </h3>
-<p>In contrast to defining column role <code>"group"</code>, which denotes that specific observations should always appear together in either test or training set, one can also supply a factor variable to pre-define all partitions (<em>Still WIP in {mlr3}</em>).</p>
-<p>This means that each factor level of this variable is solely composing the test set.
-Hence, this method does not allow setting the “folds” argument because the number of folds is determined by the number of factor levels.</p>
-<p>This predefined approach was called “blocking” in mlr2.
-It should not be confused with the term “blocking” in <a href="https://mlr3spatiotempcv.mlr-org.com">mlr3spatiotempcv</a> which refers to a category of resampling methods making use of squared/rectangular partitioning.</p>
+<p>One can denote that certain observations should be grouped during resampling, meaning they will always either belong to the train or test set.
+This characteristic must be defined via column role <code>"group"</code> during Task creation (see also the <a href="https://mlr3.mlr-org.com/reference/Resampling.html#grouping-blocking">help page</a> on this column role).
+In {mlr} this was previously called “blocking”.
+See also the mlr3gallery post on <a href="https://mlr3gallery.mlr-org.com/posts/2020-03-30-stratification-blocking/">this topic</a> for a practical example.</p>
+<p>An even more strict approach is to supply a custom grouping structure which solely makes up one fold.
+{mlr3} supports this via the <code>"custom_cv"</code> resampling method.
+This method accepts a factor vector with the same length as <code>task$nrow()</code> or a string of an existing variable in the data.
+Note that this approach does not allow setting the “folds” argument because the number of folds is determined by the number of factor levels.
+This predefined approach was called “grouping” in mlr2.</p>
+<div class="rmdcaution">
+<p>
+The term “blocking” is overloaded in the resampling context. In the field of spatial resampling (see <code>r mlr_pkg(“mlr3spatiotempcv”)</code>), “blocking” is used as a general concept for grouping observations while on the other hand there are also specific resampling methods which have “blocking” in their name (`“spcv_block”) and focus on rectangular partitioning.
+</p>
+</div>
 </div>
 <div id="autoplot-resampleresult" class="section level3" number="2.5.6">
 <h3>
@@ -1311,7 +1320,7 @@ To showcase some of the plots, we create a binary classification task with two f
 <code class="sourceCode R"><span class="co"># learner predictions for first fold</span>
 <span class="va">rr</span><span class="op">$</span><span class="fu">filter</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">rr</span>, type <span class="op">=</span> <span class="st">"prediction"</span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <div class="inline-figure"><img src="02-basics-resampling_files/figure-html/02-basics-resampling-017-3.svg" width="672" style="display: block; margin: auto;"></div>
 <p>All available plot types are listed on the manual page of <a href="https://mlr3viz.mlr-org.com/reference/autoplot.ResampleResult.html"><code>autoplot.ResampleResult()</code></a>.</p>
 </div>
@@ -1402,14 +1411,14 @@ We create two measures to calculate the AUC for the training set and for the pre
 ## 8:  8 &lt;ResampleResult[20]&gt;         sonar       classif.rpart            cv
 ## 9:  9 &lt;ResampleResult[20]&gt;         sonar classif.featureless            cv
 ##    iters auc_train auc_test
-## 1:     3    0.9995   0.9846
-## 2:     3    0.8982   0.8902
+## 1:     3    0.9994   0.9858
+## 2:     3    0.9104   0.9026
 ## 3:     3    0.5000   0.5000
-## 4:     3    0.9987   0.7949
-## 5:     3    0.8141   0.7166
+## 4:     3    0.9986   0.7944
+## 5:     3    0.8143   0.7012
 ## 6:     3    0.5000   0.5000
-## 7:     3    1.0000   0.9322
-## 8:     3    0.9235   0.7711
+## 7:     3    1.0000   0.9326
+## 8:     3    0.9129   0.7478
 ## 9:     3    0.5000   0.5000</code></pre>
 <p>We can aggregate the results even further.
 For example, we might be interested to know which learner performed best over all tasks simultaneously.
@@ -1486,7 +1495,7 @@ As these are stored in a column of the aggregated <code><a href="https://Rdatata
 <code class="sourceCode R"><span class="va">measure</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"classif.auc"</span><span class="op">)</span>
 <span class="va">rr</span><span class="op">$</span><span class="fu">aggregate</span><span class="op">(</span><span class="va">measure</span><span class="op">)</span></code></pre></div>
 <pre><code>## classif.auc 
-##      0.7949</code></pre>
+##      0.7944</code></pre>
 <div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get the iteration with worst AUC</span>
 <span class="va">perf</span> <span class="op">=</span> <span class="va">rr</span><span class="op">$</span><span class="fu">score</span><span class="op">(</span><span class="va">measure</span><span class="op">)</span>
@@ -1503,7 +1512,7 @@ As these are stored in a column of the aggregated <code><a href="https://Rdatata
 ## * Properties: importance, multiclass, oob_error, twoclass, weights</code></pre>
 <div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">rr</span><span class="op">$</span><span class="va">resampling</span><span class="op">$</span><span class="fu">train_set</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 3 4 5 6 7 9</code></pre>
+<pre><code>## [1]  4  5  6  7  9 16</code></pre>
 </div>
 <div id="converting-and-merging" class="section level3" number="2.6.5">
 <h3>
@@ -1688,7 +1697,7 @@ Depending on the application, this may be a desired trade-off.</p>
 <li><a class="nav-link" href="#resampling-inst"><span class="header-section-number">2.5.2</span> Instantiation</a></li>
 <li><a class="nav-link" href="#resampling-exec"><span class="header-section-number">2.5.3</span> Execution</a></li>
 <li><a class="nav-link" href="#resamp-custom"><span class="header-section-number">2.5.4</span> Custom resampling</a></li>
-<li><a class="nav-link" href="#resampling-with-predefined-groups"><span class="header-section-number">2.5.5</span> Resampling with predefined groups</a></li>
+<li><a class="nav-link" href="#resampling-with-predefined-groups"><span class="header-section-number">2.5.5</span> Resampling with (predefined) groups</a></li>
 <li><a class="nav-link" href="#autoplot-resampleresult"><span class="header-section-number">2.5.6</span> Plotting Resample Results</a></li>
 <li><a class="nav-link" href="#autoplot-resample-partition"><span class="header-section-number">2.5.7</span> Plotting Resample Partitions</a></li>
 </ul>
@@ -1725,7 +1734,7 @@ Depending on the application, this may be a desired trade-off.</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-09-10.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-09-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

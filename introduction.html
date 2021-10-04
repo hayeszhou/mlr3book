@@ -79,18 +79,20 @@ We do not implement any <a href="basics.html#learners">learners</a> ourselves, b
 This unified interface provides functionality to extend and combine existing <a href="basics.html#learners">learners</a>, intelligently select and tune the most appropriate technique for a <a href="basics.html#tasks">task</a>, and perform large-scale comparisons that enable meta-learning.
 Examples of this advanced functionality include <a href="optimization.html#tuning">hyperparameter tuning</a> and <a href="optimization.html#fs">feature selection</a>. <a href="technical.html#parallelization">Parallelization</a> of many operations is natively supported.</p>
 <p><strong>Target Audience</strong></p>
+<p>We expect that users of <a href="https://mlr3.mlr-org.com">mlr3</a> have at least basic knowledge of machine learning and R.
+The later chapters of this book describe advanced functionality that requires more advanced knowledge of both.
+<a href="https://mlr3.mlr-org.com">mlr3</a> is suitable for complex projects that use advanced functionality as well as one-liners to quickly prototype specific tasks.</p>
 <p><a href="https://mlr3.mlr-org.com">mlr3</a> provides a domain-specific language for machine learning in R.
 We target both <strong>practitioners</strong> who want to quickly apply machine learning algorithms and <strong>researchers</strong> who want to implement, benchmark, and compare their new methods in a structured environment.
-The package is a complete rewrite of an earlier version of <a href="https://mlr.mlr-org.com">mlr</a> that leverages many years of experience to provide a state-of-the-art system that is easy to use and extend.
-It is intended for users who have basic knowledge of machine learning and R and who are interested in complex projects that use advanced functionality as well as one-liners to quickly prototype specific tasks.</p>
+The package is a complete rewrite of an earlier version of <a href="https://mlr.mlr-org.com">mlr</a> that leverages many years of experience to provide a state-of-the-art system that is easy to use and extend.</p>
 <p><strong>Why a Rewrite?</strong></p>
 <p><a href="https://mlr.mlr-org.com">mlr</a> <span class="citation">(<a href="references.html#ref-mlr" role="doc-biblioref">Bischl et al. 2016</a>)</span> was first released to <a href="https://cran.r-project.org">CRAN</a> in 2013, with the core design and architecture dating back much further.
-Over time, the addition of many features has led to a considerably more complex design that made it harder to build, maintain, and extent than we had hoped for.
+Over time, the addition of many features has led to a considerably more complex design that made it harder to build, maintain, and extend than we had hoped for.
 With hindsight, we saw that some design and architecture choices in <a href="https://mlr.mlr-org.com">mlr</a> made it difficult to support new features, in particular with respect to pipelines.
 Furthermore, the R ecosystem as well as helpful packages such as <a href="https://cran.r-project.org/package=data.table">data.table</a> have undergone major changes in the meantime.
 It would have been nearly impossible to integrate all of these changes into the original design of <a href="https://mlr.mlr-org.com">mlr</a>.
 Instead, we decided to start working on a reimplementation in 2018, which resulted in the first release of <a href="https://mlr3.mlr-org.com">mlr3</a> on CRAN in July 2019.
-The new design and the integration of further and newly developed R packages (especially <a href="https://cran.r-project.org/package=R6">R6</a>, <a href="https://cran.r-project.org/package=future">future</a>, and <a href="https://cran.r-project.org/package=data.table">data.table</a>) makes <a href="https://mlr3.mlr-org.com">mlr3</a> much easier to use, maintain, and more efficient compared to its predecessor <a href="https://mlr.mlr-org.com">mlr</a>.</p>
+The new design and the integration of further and newly-developed R packages (especially <a href="https://cran.r-project.org/package=R6">R6</a>, <a href="https://cran.r-project.org/package=future">future</a>, and <a href="https://cran.r-project.org/package=data.table">data.table</a>) makes <a href="https://mlr3.mlr-org.com">mlr3</a> much easier to use, maintain, and more efficient compared to its predecessor <a href="https://mlr.mlr-org.com">mlr</a>.</p>
 <p><strong>Design Principles</strong></p>
 <p>We follow these general design principles in the <a href="https://mlr3.mlr-org.com">mlr3</a> package and ecosystem.</p>
 <ul>
@@ -131,16 +133,17 @@ Logging facility.</li>
 <a href="https://cran.r-project.org/package=mlbench">mlbench</a>:
 A collection of machine learning data sets.</li>
 </ul>
-<p>All these packages are well curated and mature, so no problems with packet dependencies are to be expected here.
-Additionally, the following packages are suggested for extra functionality:</p>
+<p>All these packages are well curated and mature; we expect no problems with dependencies.
+Additionally, we suggest the following packages for extra functionality:</p>
 <ul>
 <li>For <a href="technical.html#parallelization">parallelization</a>: <a href="https://cran.r-project.org/package=future">future</a> / <a href="https://cran.r-project.org/package=future.apply">future.apply</a>.</li>
 <li>For <a href="#progress-bars">progress bars</a>: <a href="https://cran.r-project.org/package=progressr">progressr</a>.</li>
 <li>For <a href="technical.html#error-handling">capturing output, warnings, and exceptions</a>: <a href="https://cran.r-project.org/package=evaluate">evaluate</a> or <a href="https://cran.r-project.org/package=callr">callr</a>.</li>
 </ul>
-<p>While <a href="https://mlr3.mlr-org.com">mlr3</a> provides the base functionality and some of the most fundamental building blocks for machine learning, the following packages extend <a href="https://mlr3.mlr-org.com">mlr3</a> with capabilities for preprocessing, pipelining, visualizations, additional learners or additional task types:</p>
+<p>The <a href="https://mlr3.mlr-org.com">mlr3</a> package itself provides the base functionality that the rest of ecosystem rely on and some of the fundamental building blocks for machine learning.
+The following packages extend <a href="https://mlr3.mlr-org.com">mlr3</a> with capabilities for preprocessing, pipelining, visualizations, additional learners, additional task types, and more:</p>
 <div class="inline-figure"><img src="https://raw.githubusercontent.com/mlr-org/mlr3/master/man/figures/mlr3verse.svg" width="98%" style="display: block; margin: auto;"></div>
-<p>A complete list with links to the respective repositories can be found on the <a href="https://github.com/mlr-org/mlr3/wiki/Extension-Packages">wiki page on extension packages</a>.</p>
+<p>A complete list with links to the repositories for the respective packages can be found on the <a href="https://github.com/mlr-org/mlr3/wiki/Extension-Packages">wiki page for extension packages</a>.</p>
 
 </div>
   <div class="chapter-nav">

@@ -161,7 +161,7 @@ Furthermore, survival data contains solely positive values and therefore needs t
 <p>Unlike <code>TaskClassif</code> and <code>TaskRegr</code> which have a single ‘target’ argument, <code>TaskSurv</code> mimics the
 <code><a href="https://rdrr.io/pkg/survival/man/Surv.html">survival::Surv</a></code> object and has three-four target arguments (dependent on censoring type).
 A <code>TaskSurv</code> can be constructed with the function <a href="https://mlr3proba.mlr-org.com/reference/as_task_surv.html"><code>as_task_surv()</code></a>:</p>
-<div class="sourceCode" id="cb724"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb722"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3proba.mlr-org.com">"mlr3proba"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/therneau/survival">"survival"</a></span><span class="op">)</span>
@@ -174,7 +174,7 @@ A <code>TaskSurv</code> can be constructed with the function <a href="https://ml
 ## * Features (4):
 ##   - dbl (2): enum, rx
 ##   - int (2): number, size</code></pre>
-<div class="sourceCode" id="cb726"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb724"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># type = "right" is default</span>
 <span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3proba.mlr-org.com/reference/as_task_surv.html">as_task_surv</a></span><span class="op">(</span><span class="fu">survival</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/survival/man/rats.html">rats</a></span>, id <span class="op">=</span> <span class="st">"right_censored"</span>,
   time <span class="op">=</span> <span class="st">"time"</span>, event <span class="op">=</span> <span class="st">"status"</span>, type <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span>
@@ -187,11 +187,11 @@ A <code>TaskSurv</code> can be constructed with the function <a href="https://ml
 ##   - int (1): litter
 ##   - dbl (1): rx
 ##   - chr (1): sex</code></pre>
-<div class="sourceCode" id="cb728"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb726"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># the target column is a survival object:</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">task</span><span class="op">$</span><span class="fu">truth</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 101+  49  104+  91+ 104+ 102+</code></pre>
-<div class="sourceCode" id="cb730"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb728"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># kaplan-meier plot</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3viz.mlr-org.com">"mlr3viz"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
@@ -220,7 +220,7 @@ If a <code>PredictionSurv</code> returns an <code>lp</code> then the <code>crank
 Otherwise <code>crank</code> is calculated as the expectation of the predicted survival distribution.
 Note that for linear proportional hazards models, the ranking (but not necessarily the <code>crank</code> score itself) given by <code>lp</code> and the expectation of <code>distr</code>, is identical.</p>
 <p>The example below uses the <a href="https://mlr3proba.mlr-org.com/reference/mlr_tasks_rats.html"><code>rats</code></a> task shipped with <a href="https://mlr3proba.mlr-org.com">mlr3proba</a>.</p>
-<div class="sourceCode" id="cb732"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb730"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"rats"</span><span class="op">)</span>
 <span class="va">learn</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"surv.coxph"</span><span class="op">)</span>
 
@@ -233,13 +233,13 @@ Note that for linear proportional hazards models, the ranking (but not necessari
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionSurv&gt; for 60 observations:
 ##     row_ids time status   crank      lp     distr
-##           7  104  FALSE  0.2401  0.2401 &lt;list[1]&gt;
-##           9  104  FALSE -0.2962 -0.2962 &lt;list[1]&gt;
-##          16   98  FALSE -2.5916 -2.5916 &lt;list[1]&gt;
+##           7  104  FALSE  0.3818  0.3818 &lt;list[1]&gt;
+##          15  104  FALSE -0.4517 -0.4517 &lt;list[1]&gt;
+##          21   79  FALSE -0.4314 -0.4314 &lt;list[1]&gt;
 ## ---                                              
-##         274   94  FALSE -2.0702 -2.0702 &lt;list[1]&gt;
-##         282   77  FALSE -2.5943 -2.5943 &lt;list[1]&gt;
-##         298   92  FALSE -2.0217 -2.0217 &lt;list[1]&gt;</code></pre>
+##         286  104  FALSE -1.5387 -1.5387 &lt;list[1]&gt;
+##         298   92  FALSE -1.4981 -1.4981 &lt;list[1]&gt;
+##         299  104  FALSE -2.3518 -2.3518 &lt;list[1]&gt;</code></pre>
 </div>
 <div id="composition" class="section level3" number="7.1.3">
 <h3>
@@ -248,7 +248,7 @@ Note that for linear proportional hazards models, the ranking (but not necessari
 <p>Finally we take a look at the <code>PipeOp</code>s implemented in <a href="https://mlr3proba.mlr-org.com">mlr3proba</a>, which are used for composition of predict types.
 For example, a predict linear predictor does not have a lot of meaning by itself, but it can be composed into a survival distribution.
 See <a href="https://mlr3pipelines.mlr-org.com">mlr3pipelines</a> for full tutorials and details on <code>PipeOp</code>s.</p>
-<div class="sourceCode" id="cb734"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb732"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3pipelines.mlr-org.com">"mlr3pipelines"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3learners.mlr-org.com">"mlr3learners"</a></span><span class="op">)</span>
 <span class="co"># PipeOpDistrCompositor - Train one model with a baseline distribution,</span>
@@ -282,7 +282,7 @@ See <a href="https://mlr3pipelines.mlr-org.com">mlr3pipelines</a> for full tutor
 <span class="header-section-number">7.1.4</span> Benchmark Experiment<a class="anchor" aria-label="anchor" href="#benchmark-experiment"><i class="fas fa-link"></i></a>
 </h3>
 <p>Finally, we conduct a small benchmark study on the <a href="https://mlr3proba.mlr-org.com/reference/mlr_tasks_rats.html"><code>rats</code></a> task using some of the integrated survival learners:</p>
-<div class="sourceCode" id="cb735"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb733"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3learners.mlr-org.com">"mlr3learners"</a></span><span class="op">)</span>
 
 <span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"rats"</span><span class="op">)</span>
@@ -316,7 +316,7 @@ See <a href="https://mlr3pipelines.mlr-org.com">mlr3pipelines</a> for full tutor
 ## * Predict Type: distr
 ## * Feature types: logical, integer, numeric, character, factor, ordered
 ## * Properties: importance, oob_error, weights</code></pre>
-<div class="sourceCode" id="cb737"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb735"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Harrell's C-Index for survival</span>
 <span class="va">measure</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"surv.cindex"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">measure</span><span class="op">)</span></code></pre></div>
@@ -328,7 +328,7 @@ See <a href="https://mlr3pipelines.mlr-org.com">mlr3pipelines</a> for full tutor
 ## * Properties: -
 ## * Predict type: crank
 ## * Return type: Score</code></pre>
-<div class="sourceCode" id="cb739"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb737"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">bmr</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/benchmark.html">benchmark</a></span><span class="op">(</span><span class="fu"><a href="https://mlr3.mlr-org.com/reference/benchmark_grid.html">benchmark_grid</a></span><span class="op">(</span><span class="va">task</span>, <span class="va">learners</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"cv"</span>, folds <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="va">bmr</span><span class="op">$</span><span class="fu">aggregate</span><span class="op">(</span><span class="va">measure</span><span class="op">)</span></code></pre></div>
@@ -340,7 +340,7 @@ See <a href="https://mlr3pipelines.mlr-org.com">mlr3pipelines</a> for full tutor
 ## 1:         0.7671
 ## 2:         0.5000
 ## 3:         0.7737</code></pre>
-<div class="sourceCode" id="cb741"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb739"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">bmr</span>, measure <span class="op">=</span> <span class="va">measure</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="07-special-survival_files/figure-html/07-special-survival-004-1.svg" width="672" style="display: block; margin: auto;"></div>
 <p>The experiment indicates that both the Cox PH and the random forest have better discrimination than the Kaplan-Meier baseline estimator, but that the machine learning random forest is not consistently better than the interpretable Cox PH.</p>
@@ -369,7 +369,7 @@ For a good overview to density estimation see <em>Density estimation for statist
 </ul>
 <p>In this example we demonstrate the basic functionality of the package on the <a href="https://www.rdocumentation.org/packages/datasets/topics/faithful"><code>faithful</code></a> data from the datasets package.
 This task ships as pre-defined <a href="https://mlr3proba.mlr-org.com/reference/TaskDens.html"><code>TaskDens</code></a> with <a href="https://mlr3proba.mlr-org.com">mlr3proba</a>.</p>
-<div class="sourceCode" id="cb742"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb740"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3proba.mlr-org.com">"mlr3proba"</a></span><span class="op">)</span>
 
@@ -380,7 +380,7 @@ This task ships as pre-defined <a href="https://mlr3proba.mlr-org.com/reference/
 ## * Properties: -
 ## * Features (1):
 ##   - dbl (1): precip</code></pre>
-<div class="sourceCode" id="cb744"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb742"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># histogram and density plot</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3viz.mlr-org.com">"mlr3viz"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">task</span>, type <span class="op">=</span> <span class="st">"overlay"</span><span class="op">)</span></code></pre></div>
@@ -404,7 +404,7 @@ In training, a <a href="https://cran.r-project.org/package=distr6">distr6</a> ob
 <a href="https://alan-turing-institute.github.io/distr6/">see here</a> for full tutorials on how to access the probability density function, <code>pdf</code>, cumulative distribution function, <code>cdf</code>, and other important fields and methods.
 The predict method is simply a wrapper around <code>self$model$pdf</code> and if available <code>self$model$cdf</code>, i.e. evaluates the pdf/cdf at given points.
 Note that in prediction the points to evaluate the pdf and cdf are determined by the <code>target</code> column in the <code>TaskDens</code> object used for testing.</p>
-<div class="sourceCode" id="cb746"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb744"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create task and learner</span>
 
 <span class="va">task_faithful</span> <span class="op">=</span> <span class="va"><a href="https://mlr3proba.mlr-org.com/reference/TaskDens.html">TaskDens</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"eruptions"</span>, backend <span class="op">=</span> <span class="fu">datasets</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/datasets/faithful.html">faithful</a></span><span class="op">$</span><span class="va">eruptions</span><span class="op">)</span>
@@ -425,10 +425,10 @@ Note that in prediction the points to evaluate the pdf and cdf are determined by
 ## [1] 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0 5.5
 ## 
 ## $counts
-## [1] 39 32  3  4 21 61 53  4
+## [1] 37 32  4  7 23 61 49  4
 ## 
 ## $density
-## [1] 0.35945 0.29493 0.02765 0.03687 0.19355 0.56221 0.48848 0.03687
+## [1] 0.34101 0.29493 0.03687 0.06452 0.21198 0.56221 0.45161 0.03687
 ## 
 ## $mids
 ## [1] 1.75 2.25 2.75 3.25 3.75 4.25 4.75 5.25
@@ -444,10 +444,10 @@ Note that in prediction the points to evaluate the pdf and cdf are determined by
 ## 
 ## attr(,"class")
 ## [1] "dens.hist"</code></pre>
-<div class="sourceCode" id="cb748"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb746"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">learner</span><span class="op">$</span><span class="va">model</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "dens.hist"</code></pre>
-<div class="sourceCode" id="cb750"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb748"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># make predictions for new data</span>
 <span class="va">prediction</span> <span class="op">=</span> <span class="va">learner</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task_faithful</span>, row_ids <span class="op">=</span> <span class="va">test_set</span><span class="op">)</span></code></pre></div>
 <p>Every <code>PredictionDens</code> object can estimate:</p>
@@ -466,7 +466,7 @@ Note that in prediction the points to evaluate the pdf and cdf are determined by
 <span class="header-section-number">7.2.2</span> Benchmark Experiment<a class="anchor" aria-label="anchor" href="#benchmark-experiment-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Finally, we conduct a small benchmark study on the <a href="https://mlr3proba.mlr-org.com/reference/mlr_tasks_precip.html"><code>precip</code></a> task using some of the integrated survival learners:</p>
-<div class="sourceCode" id="cb751"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb749"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># some integrated learners</span>
 <span class="va">learners</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrns</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dens.hist"</span>, <span class="st">"dens.kde"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">learners</span><span class="op">)</span></code></pre></div>
@@ -487,7 +487,7 @@ Note that in prediction the points to evaluate the pdf and cdf are determined by
 ## * Predict Type: pdf
 ## * Feature types: integer, numeric
 ## * Properties: missings</code></pre>
-<div class="sourceCode" id="cb753"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb751"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Logloss for probabilistic predictions</span>
 <span class="va">measure</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"dens.logloss"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">measure</span><span class="op">)</span></code></pre></div>
@@ -498,14 +498,14 @@ Note that in prediction the points to evaluate the pdf and cdf are determined by
 ## * Parameters: list()
 ## * Properties: -
 ## * Predict type: pdf</code></pre>
-<div class="sourceCode" id="cb755"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb753"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">bmr</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/benchmark.html">benchmark</a></span><span class="op">(</span><span class="fu"><a href="https://mlr3.mlr-org.com/reference/benchmark_grid.html">benchmark_grid</a></span><span class="op">(</span><span class="va">task</span>, <span class="va">learners</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"cv"</span>, folds <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="va">bmr</span><span class="op">$</span><span class="fu">aggregate</span><span class="op">(</span><span class="va">measure</span><span class="op">)</span></code></pre></div>
 <pre><code>##    nr      resample_result task_id learner_id resampling_id iters dens.logloss
 ## 1:  1 &lt;ResampleResult[20]&gt;  precip  dens.hist            cv     3        4.396
 ## 2:  2 &lt;ResampleResult[20]&gt;  precip   dens.kde            cv     3        4.818</code></pre>
-<div class="sourceCode" id="cb757"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb755"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">bmr</span>, measure <span class="op">=</span> <span class="va">measure</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="07-special-density_files/figure-html/07-special-density-003-1.svg" width="672" style="display: block; margin: auto;"></div>
 <p>The results of this experiment show that the sophisticated Penalized Density Estimator does not outperform the baseline Histogram, but that the Kernel Density Estimator has at least consistently <code>better</code> (i.e. lower logloss) results.</p>
@@ -543,7 +543,7 @@ Two child classes exist in {mlr3spatiotempcv} for this purpose:</p>
 <li><code>TaskRegrST</code></li>
 </ul>
 <p>To create one of these, one can either pass a <code>sf</code> object as the “backend” directly:</p>
-<div class="sourceCode" id="cb758"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb756"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create 'sf' object</span>
 <span class="va">data_sf</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">ecuador</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fl">32717</span><span class="op">)</span>
 <span class="co"># create mlr3 task</span>
@@ -552,7 +552,7 @@ Two child classes exist in {mlr3spatiotempcv} for this purpose:</p>
 <span class="op">)</span></code></pre></div>
 <p>or use a plain <code>data.frame</code>.
 In this case, the constructor of <code>TaskClassifST</code> needs a few more arguments:</p>
-<div class="sourceCode" id="cb759"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb757"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">=</span> <span class="fu">mlr3</span><span class="fu">::</span><span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_data_backend.html">as_data_backend</a></span><span class="op">(</span><span class="va">ecuador</span><span class="op">)</span>
 <span class="va">task</span> <span class="op">=</span> <span class="va">TaskClassifST</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"ecuador"</span>,
   backend <span class="op">=</span> <span class="va">data</span>, target <span class="op">=</span> <span class="st">"slides"</span>,
@@ -600,7 +600,7 @@ The only difference in the spatial setting is that <code>"repeated_spcv_coords"<
 <h4>
 <span class="header-section-number">7.3.3.1</span> Non-Spatial CV<a class="anchor" aria-label="anchor" href="#nsp-cv"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb760"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb758"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3spatiotempcv.mlr-org.com/">"mlr3spatiotempcv"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>
@@ -625,7 +625,7 @@ The only difference in the spatial setting is that <code>"repeated_spcv_coords"<
 <h4>
 <span class="header-section-number">7.3.3.2</span> Spatial CV<a class="anchor" aria-label="anchor" href="#sp-cv"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb762"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb760"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"ecuador"</span><span class="op">)</span>
 
 <span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span>, maxdepth <span class="op">=</span> <span class="fl">3</span>, predict_type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
@@ -648,7 +648,7 @@ For algorithms with a higher tendency of overfitting to the training set, the di
 </h3>
 <p>Every partitioning method in <a href="https://github.com/mlr-org/mlr3spatiotemporal">mlr3spatiotemporal</a> comes with a generic <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> method to visualize the created groups.
 In a 2D space this happens via <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a> while for spatiotemporal methods 3D visualizations via <a href="https://cran.r-project.org/package=plotly">plotly</a> are created.</p>
-<div class="sourceCode" id="cb764"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb762"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://mlr3spatiotempcv.mlr-org.com/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">resampling_sp</span>, <span class="va">task</span>, fold_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">*</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3.97</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">0.01</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">79.06</span>, <span class="op">-</span><span class="fl">79.08</span>, <span class="op">-</span><span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -658,7 +658,7 @@ Spatial offsets of up to multiple meters may occur if the wrong CRS is supplied 
 <p>This example used an already created task via the sugar function <code><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk()</a></code>.
 In practice however, one needs to create a spatiotemporal task via <code><a href="https://mlr3spatiotempcv.mlr-org.com/reference/TaskClassifST.html">TaskClassifST()</a></code>/<code><a href="https://mlr3spatiotempcv.mlr-org.com/reference/TaskRegrST.html">TaskRegrST()</a></code> and set the <code>crs</code> argument.</p>
 <p>The spatial grouping of the k-means based approach above contrasts visually ver well compared to the NSpCV (random) partitioning:</p>
-<div class="sourceCode" id="cb765"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb763"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://mlr3spatiotempcv.mlr-org.com/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">resampling_nsp</span>, <span class="va">task</span>, fold_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">*</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3.97</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">0.01</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">79.06</span>, <span class="op">-</span><span class="fl">79.08</span>, <span class="op">-</span><span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -670,7 +670,7 @@ In practice however, one needs to create a spatiotemporal task via <code><a href
 </h3>
 <p>The <code>spcv-block</code> method makes use of rectangular blocks to divide the study area into equally-sized parts.
 These blocks can be visualized by their spatial location and fold ID to get a better understanding how these influenced the final partitions.</p>
-<div class="sourceCode" id="cb766"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb764"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"ecuador"</span><span class="op">)</span>
 <span class="va">resampling</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"spcv_block"</span>, range <span class="op">=</span> <span class="fl">1000L</span><span class="op">)</span>
 <span class="va">resampling</span><span class="op">$</span><span class="fu">instantiate</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
@@ -775,7 +775,7 @@ This would result in a loss of 100% of the given loan.</p>
 </tbody>
 </table></div>
 <p>Expressed as costs (instead of profit), we can write down the cost-matrix as follows:</p>
-<div class="sourceCode" id="cb767"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb765"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">costs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.35</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/dimnames.html">dimnames</a></span><span class="op">(</span><span class="va">costs</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>response <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"good"</span>, <span class="st">"bad"</span><span class="op">)</span>, truth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"good"</span>, <span class="st">"bad"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">costs</span><span class="op">)</span></code></pre></div>
@@ -784,7 +784,7 @@ This would result in a loss of 100% of the given loan.</p>
 ##     good -0.35   1
 ##     bad   0.00   0</code></pre>
 <p>An exemplary data set for such a problem is the <a href="https://mlr3.mlr-org.com/reference/mlr_tasks_german_credit.html"><code>German Credit</code></a> task:</p>
-<div class="sourceCode" id="cb769"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb767"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
 <span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"german_credit"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">task</span><span class="op">$</span><span class="fu">truth</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -794,16 +794,16 @@ This would result in a loss of 100% of the given loan.</p>
 <p>The data has 70% customers who are able to pay back their credit, and 30% bad customers who default on the debt.
 A manager, who doesn’t have any model, could decide to give either everybody a credit or to give nobody a credit.
 The resulting costs for the German credit data are:</p>
-<div class="sourceCode" id="cb771"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb769"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># nobody:</span>
 <span class="op">(</span><span class="fl">700</span> <span class="op">*</span> <span class="va">costs</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fl">300</span> <span class="op">*</span> <span class="va">costs</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb773"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb771"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># everybody</span>
 <span class="op">(</span><span class="fl">700</span> <span class="op">*</span> <span class="va">costs</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fl">300</span> <span class="op">*</span> <span class="va">costs</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000</span></code></pre></div>
 <pre><code>## [1] 0.055</code></pre>
 <p>If the average loan is $20,000, the credit institute would lose more than one million dollar if it would grant everybody a credit:</p>
-<div class="sourceCode" id="cb775"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb773"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># average profit * average loan * number of customers</span>
 <span class="fl">0.055</span> <span class="op">*</span> <span class="fl">20000</span> <span class="op">*</span> <span class="fl">1000</span></code></pre></div>
 <pre><code>## [1] 1100000</code></pre>
@@ -814,7 +814,7 @@ The resulting costs for the German credit data are:</p>
 </h3>
 <p>For our first model, we choose an ordinary logistic regression (implemented in the add-on package <a href="https://mlr3learners.mlr-org.com">mlr3learners</a>).
 We first create a classification task, then resample the model using a 10-fold cross validation and extract the resulting confusion matrix:</p>
-<div class="sourceCode" id="cb777"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb775"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3learners.mlr-org.com">"mlr3learners"</a></span><span class="op">)</span>
 <span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.log_reg"</span><span class="op">)</span>
 <span class="va">rr</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/resample.html">resample</a></span><span class="op">(</span><span class="va">task</span>, <span class="va">learner</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"cv"</span><span class="op">)</span><span class="op">)</span>
@@ -823,17 +823,17 @@ We first create a classification task, then resample the model using a 10-fold c
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">confusion</span><span class="op">)</span></code></pre></div>
 <pre><code>##         truth
 ## response good bad
-##     good  605 152
-##     bad    95 148</code></pre>
+##     good  608 151
+##     bad    92 149</code></pre>
 <p>To calculate the average costs like above, we can simply multiply the elements of the confusion matrix with the elements of the previously introduced cost matrix, and sum the values of the resulting matrix:</p>
-<div class="sourceCode" id="cb779"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb777"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">avg_costs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">confusion</span> <span class="op">*</span> <span class="va">costs</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">avg_costs</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] -0.05975</code></pre>
+<pre><code>## [1] -0.0618</code></pre>
 <p>With an average loan of $20,000, the logistic regression yields the following costs:</p>
-<div class="sourceCode" id="cb781"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb779"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">avg_costs</span> <span class="op">*</span> <span class="fl">20000</span> <span class="op">*</span> <span class="fl">1000</span></code></pre></div>
-<pre><code>## [1] -1195000</code></pre>
+<pre><code>## [1] -1236000</code></pre>
 <p>Instead of losing over $1,000,000, the credit institute now can expect a profit of more than $1,000,000.</p>
 </div>
 <div id="cost-sensitive-measure" class="section level3" number="7.7.2">
@@ -844,7 +844,7 @@ We first create a classification task, then resample the model using a 10-fold c
 For this purpose we first create a cost-sensitive classification measure which calculates the costs based on our cost matrix.
 This allows us to conveniently quantify and compare modeling decisions.
 Fortunately, there already is a predefined measure <a href="https://mlr3.mlr-org.com/reference/Measure.html"><code>Measure</code></a> for this purpose: <a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.costs.html"><code>MeasureClassifCosts</code></a>:</p>
-<div class="sourceCode" id="cb783"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb781"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cost_measure</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"classif.costs"</span>, costs <span class="op">=</span> <span class="va">costs</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">cost_measure</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;MeasureClassifCosts:classif.costs&gt;
@@ -856,7 +856,7 @@ Fortunately, there already is a predefined measure <a href="https://mlr3.mlr-org
 ## * Predict type: response</code></pre>
 <p>If we now call <a href="https://mlr3.mlr-org.com/reference/resample.html"><code>resample()</code></a> or <a href="https://mlr3.mlr-org.com/reference/benchmark.html"><code>benchmark()</code></a>, the cost-sensitive measures will be evaluated.
 We compare the logistic regression to a simple featureless learner and to a random forest from package <a href="https://cran.r-project.org/package=ranger">ranger</a> :</p>
-<div class="sourceCode" id="cb785"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb783"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">learners</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.log_reg"</span><span class="op">)</span>,
   <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.featureless"</span><span class="op">)</span>,
@@ -870,9 +870,9 @@ We compare the logistic regression to a simple featureless learner and to a rand
 ## 2:  2 &lt;ResampleResult[20]&gt; german_credit classif.featureless            cv
 ## 3:  3 &lt;ResampleResult[20]&gt; german_credit      classif.ranger            cv
 ##    iters classif.costs
-## 1:     3      -0.06034
-## 2:     3       0.05498
-## 3:     3      -0.05463</code></pre>
+## 1:     3      -0.05084
+## 2:     3       0.05501
+## 3:     3      -0.06298</code></pre>
 <p>As expected, the featureless learner is performing comparably bad.
 The logistic regression and the random forest work equally well.</p>
 </div>
@@ -889,7 +889,7 @@ If <span class="math inline">\(p\)</span> exceeds the threshold <span class="mat
 <p>For our binary classification case of the credit data, the we primarily want to minimize the errors where the model predicts “good”, but truth is “bad” (i.e., the number of false positives) as this is the more expensive error.
 If we now increase the threshold to values <span class="math inline">\(&gt; 0.5\)</span>, we reduce the number of false negatives.
 Note that we increase the number of false positives simultaneously, or, in other words, we are trading false positives for false negatives.</p>
-<div class="sourceCode" id="cb787"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb785"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># fit models with probability prediction</span>
 <span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.log_reg"</span>, predict_type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
 <span class="va">rr</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/resample.html">resample</a></span><span class="op">(</span><span class="va">task</span>, <span class="va">learner</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"cv"</span><span class="op">)</span><span class="op">)</span>
@@ -897,14 +897,14 @@ Note that we increase the number of false positives simultaneously, or, in other
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 1000 observations:
 ##     row_ids truth response prob.good prob.bad
-##          15  good      bad    0.2631  0.73685
-##          27  good     good    0.8454  0.15456
-##          64   bad      bad    0.1458  0.85416
+##           7  good     good    0.9272  0.07280
+##          15  good      bad    0.2958  0.70424
+##          36   bad      bad    0.3836  0.61642
 ## ---                                          
-##         988  good     good    0.9720  0.02797
-##         991  good     good    0.9507  0.04926
-##         996  good     good    0.9564  0.04356</code></pre>
-<div class="sourceCode" id="cb789"><pre class="downlit sourceCode r">
+##         961  good     good    0.9462  0.05377
+##         969  good     good    0.9268  0.07323
+##         995  good     good    0.9490  0.05096</code></pre>
+<div class="sourceCode" id="cb787"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># helper function to try different threshold values interactively</span>
 <span class="va">with_threshold</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">th</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">p</span><span class="op">$</span><span class="fu">set_threshold</span><span class="op">(</span><span class="va">th</span><span class="op">)</span>
@@ -915,38 +915,38 @@ Note that we increase the number of false positives simultaneously, or, in other
 <pre><code>## $confusion
 ##         truth
 ## response good bad
-##     good  603 153
-##     bad    97 147
+##     good  609 150
+##     bad    91 150
 ## 
 ## $costs
 ## classif.costs 
-##      -0.05805</code></pre>
-<div class="sourceCode" id="cb791"><pre class="downlit sourceCode r">
+##      -0.06315</code></pre>
+<div class="sourceCode" id="cb789"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">with_threshold</span><span class="op">(</span><span class="va">p</span>, <span class="fl">0.75</span><span class="op">)</span></code></pre></div>
 <pre><code>## $confusion
 ##         truth
 ## response good bad
-##     good  475  75
-##     bad   225 225
+##     good  476  71
+##     bad   224 229
 ## 
 ## $costs
 ## classif.costs 
-##      -0.09125</code></pre>
-<div class="sourceCode" id="cb793"><pre class="downlit sourceCode r">
+##       -0.0956</code></pre>
+<div class="sourceCode" id="cb791"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">with_threshold</span><span class="op">(</span><span class="va">p</span>, <span class="fl">1.0</span><span class="op">)</span></code></pre></div>
 <pre><code>## $confusion
 ##         truth
 ## response good bad
-##     good    0   2
-##     bad   700 298
+##     good    0   0
+##     bad   700 300
 ## 
 ## $costs
 ## classif.costs 
-##         0.002</code></pre>
-<div class="sourceCode" id="cb795"><pre class="downlit sourceCode r">
+##             0</code></pre>
+<div class="sourceCode" id="cb793"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># TODO: include plot of threshold vs performance</span></code></pre></div>
 <p>Instead of manually trying different threshold values, one uses use <a href="https://www.rdocumentation.org/packages/stats/topics/optimize"><code>optimize()</code></a> to find a good threshold value w.r.t. our performance measure:</p>
-<div class="sourceCode" id="cb796"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb794"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># simple wrapper function which takes a threshold and returns the resulting model performance</span>
 <span class="co"># this wrapper is passed to optimize() to find its minimum for thresholds in [0.5, 1]</span>
 <span class="va">f</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">th</span><span class="op">)</span> <span class="op">{</span>
@@ -955,18 +955,18 @@ Note that we increase the number of false positives simultaneously, or, in other
 <span class="va">best</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/optimize.html">optimize</a></span><span class="op">(</span><span class="va">f</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">best</span><span class="op">)</span></code></pre></div>
 <pre><code>## $minimum
-## [1] 0.7463
+## [1] 0.7515
 ## 
 ## $objective
 ## classif.costs 
-##      -0.09235</code></pre>
-<div class="sourceCode" id="cb798"><pre class="downlit sourceCode r">
+##      -0.09525</code></pre>
+<div class="sourceCode" id="cb796"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># optimized confusion matrix:</span>
 <span class="fu">with_threshold</span><span class="op">(</span><span class="va">p</span>, <span class="va">best</span><span class="op">$</span><span class="va">minimum</span><span class="op">)</span><span class="op">$</span><span class="va">confusion</span></code></pre></div>
 <pre><code>##         truth
 ## response good bad
-##     good  481  76
-##     bad   219 224</code></pre>
+##     good  475  71
+##     bad   225 229</code></pre>
 <p>Note that the function <a href="https://www.rdocumentation.org/packages/stats/topics/optimize"><code>optimize()</code></a> is intended for unimodal functions and therefore may converge to a local optimum here.
 See below for better alternatives to find good threshold values.</p>
 </div>
@@ -975,7 +975,7 @@ See below for better alternatives to find good threshold values.</p>
 <span class="header-section-number">7.7.4</span> Threshold Tuning<a class="anchor" aria-label="anchor" href="#threshold-tuning-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Before we start, we have load all required packages:</p>
-<div class="sourceCode" id="cb800"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb798"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3pipelines.mlr-org.com">"mlr3pipelines"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3tuning.mlr-org.com">"mlr3tuning"</a></span><span class="op">)</span></code></pre></div>
@@ -997,12 +997,12 @@ This allows us to tune the <code>thresholds</code> via an outside optimizer from
 </h3>
 <p><code>PipeOpThreshold</code> can be put directly after a <code>Learner</code>.</p>
 <p>A simple example would be:</p>
-<div class="sourceCode" id="cb802"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb800"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span>, predict_type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"threshold"</span><span class="op">)</span>
 <span class="va">l</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_learner.html">as_learner</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></code></pre></div>
 <p>Note, that <code>predict_type</code> = “prob” is required for <code><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po("threshold")</a></code> to have any effect.</p>
 <p>The <code>thresholds</code> are now exposed as a <code>hyperparameter</code> of the <code>GraphLearner</code> we created:</p>
-<div class="sourceCode" id="cb803"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb801"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">l</span><span class="op">$</span><span class="va">param_set</span></code></pre></div>
 <pre><code>## &lt;ParamSetCollection&gt;
 ##                               id    class lower upper nlevels        default
@@ -1034,11 +1034,11 @@ This allows us to tune the <code>thresholds</code> via an outside optimizer from
 In this example, we only tune over the <code>thresholds</code> parameter of the <code>threshold</code> pipeop.
 you can easily imagine, that we can also jointly tune over additional hyperparameters, i.e. rpart’s <code>cp</code> parameter.</p>
 <p>As the <code>Task</code> we aim to optimize for is a binary task, we can simply specify the threshold param:</p>
-<div class="sourceCode" id="cb805"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb803"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://paradox.mlr-org.com">"paradox"</a></span><span class="op">)</span>
 <span class="va">ps</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>threshold.thresholds <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_dbl</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="fl">0</span>, upper <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>We now create a <code>AutoTuner</code>, which automatically tunes the supplied learner over the <code>ParamSet</code> we supplied above.</p>
-<div class="sourceCode" id="cb806"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb804"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">at</span> <span class="op">=</span> <span class="va"><a href="https://mlr3tuning.mlr-org.com/reference/AutoTuner.html">AutoTuner</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>
   learner <span class="op">=</span> <span class="va">l</span>,
   resampling <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"cv"</span>, folds <span class="op">=</span> <span class="fl">3L</span><span class="op">)</span>,
@@ -1049,41 +1049,41 @@ you can easily imagine, that we can also jointly tune over additional hyperparam
 <span class="op">)</span>
 
 <span class="va">at</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"german_credit"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## INFO  [13:50:16.703] [bbotk] Starting to optimize 1 parameter(s) with '&lt;OptimizerRandomSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=5, k=0]' 
-## INFO  [13:50:16.763] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [13:50:17.188] [bbotk] Result of batch 1: 
-## INFO  [13:50:17.190] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [13:50:17.190] [bbotk]                0.2231      0.272            0.219 
-## INFO  [13:50:17.190] [bbotk]                                 uhash 
-## INFO  [13:50:17.190] [bbotk]  0cd31fb2-d31a-4bf5-8e37-d80d5083bc42 
-## INFO  [13:50:17.194] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [13:50:17.560] [bbotk] Result of batch 2: 
-## INFO  [13:50:17.562] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [13:50:17.562] [bbotk]               0.03905      0.297            0.207 
-## INFO  [13:50:17.562] [bbotk]                                 uhash 
-## INFO  [13:50:17.562] [bbotk]  840297e6-a674-4349-901f-8d350a78a7e5 
-## INFO  [13:50:17.565] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [13:50:17.951] [bbotk] Result of batch 3: 
-## INFO  [13:50:17.953] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [13:50:17.953] [bbotk]                0.3676       0.26            0.219 
-## INFO  [13:50:17.953] [bbotk]                                 uhash 
-## INFO  [13:50:17.953] [bbotk]  4014da19-9f12-4b86-b11b-dec237026b90 
-## INFO  [13:50:17.957] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [13:50:18.334] [bbotk] Result of batch 4: 
-## INFO  [13:50:18.336] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [13:50:18.336] [bbotk]                0.4556      0.262            0.207 
-## INFO  [13:50:18.336] [bbotk]                                 uhash 
-## INFO  [13:50:18.336] [bbotk]  6d4d0bae-90ad-4558-8dee-a88a26aa73ef 
-## INFO  [13:50:18.340] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [13:50:18.831] [bbotk] Result of batch 5: 
-## INFO  [13:50:18.833] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [13:50:18.833] [bbotk]                 0.263      0.275            0.248 
-## INFO  [13:50:18.833] [bbotk]                                 uhash 
-## INFO  [13:50:18.833] [bbotk]  ece4f21d-6184-4c77-9864-68b687aabc2a 
-## INFO  [13:50:18.843] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [13:50:18.844] [bbotk] Result: 
-## INFO  [13:50:18.845] [bbotk]  threshold.thresholds learner_param_vals  x_domain classif.ce 
-## INFO  [13:50:18.845] [bbotk]                0.3676          &lt;list[2]&gt; &lt;list[1]&gt;       0.26</code></pre>
+<pre><code>## INFO  [10:34:51.614] [bbotk] Starting to optimize 1 parameter(s) with '&lt;OptimizerRandomSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=5, k=0]' 
+## INFO  [10:34:51.662] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:34:52.027] [bbotk] Result of batch 1: 
+## INFO  [10:34:52.029] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [10:34:52.029] [bbotk]                 0.536      0.272            0.198 
+## INFO  [10:34:52.029] [bbotk]                                 uhash 
+## INFO  [10:34:52.029] [bbotk]  1e8bc840-b821-4c47-9f40-f2e27a7d4a3c 
+## INFO  [10:34:52.032] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:34:52.428] [bbotk] Result of batch 2: 
+## INFO  [10:34:52.430] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [10:34:52.430] [bbotk]               0.04977      0.297            0.245 
+## INFO  [10:34:52.430] [bbotk]                                 uhash 
+## INFO  [10:34:52.430] [bbotk]  296e4997-3d9e-4948-a6ea-12dd7a97fed2 
+## INFO  [10:34:52.433] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:34:52.773] [bbotk] Result of batch 3: 
+## INFO  [10:34:52.783] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [10:34:52.783] [bbotk]                0.7892      0.343            0.192 
+## INFO  [10:34:52.783] [bbotk]                                 uhash 
+## INFO  [10:34:52.783] [bbotk]  0c6cb409-d146-4bdc-83b8-d9b837f83fd0 
+## INFO  [10:34:52.786] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:34:53.129] [bbotk] Result of batch 4: 
+## INFO  [10:34:53.131] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [10:34:53.131] [bbotk]                0.5052      0.272            0.185 
+## INFO  [10:34:53.131] [bbotk]                                 uhash 
+## INFO  [10:34:53.131] [bbotk]  da7e8bf1-0639-4bc1-b9cc-852845f79a71 
+## INFO  [10:34:53.134] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:34:53.492] [bbotk] Result of batch 5: 
+## INFO  [10:34:53.494] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [10:34:53.494] [bbotk]                0.2613      0.274            0.202 
+## INFO  [10:34:53.494] [bbotk]                                 uhash 
+## INFO  [10:34:53.494] [bbotk]  6858ef03-b65f-4699-8b7e-8b970b1c7b55 
+## INFO  [10:34:53.503] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [10:34:53.504] [bbotk] Result: 
+## INFO  [10:34:53.505] [bbotk]  threshold.thresholds learner_param_vals  x_domain classif.ce 
+## INFO  [10:34:53.505] [bbotk]                 0.536          &lt;list[2]&gt; &lt;list[1]&gt;      0.272</code></pre>
 <p>Inside the <code>trafo</code>, we simply collect all set params into a named vector via <code>map_dbl</code> and store it
 in the <code>threshold.thresholds</code> slot expected by the learner.</p>
 <p>Again, we create a <code>AutoTuner</code>, which automatically tunes the supplied learner over the <code>ParamSet</code> we supplied above.</p>
@@ -1100,12 +1100,12 @@ A better strategy is therefore often to optimize the thresholds separately after
 It directly optimizes the <code>cross-validated</code> predictions made by this <code>PipeOp</code>.
 This is done in order to avoid over-fitting the threshold tuning.</p>
 <p>A simple example would be:</p>
-<div class="sourceCode" id="cb808"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb806"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"learner_cv"</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span>, predict_type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"tunethreshold"</span><span class="op">)</span>
 <span class="va">l2</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_learner.html">as_learner</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></code></pre></div>
 <p>Note, that <code>predict_type</code> = “prob” is required for <code><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po("tunethreshold")</a></code> to work.
 Additionally, note that this time no <code>threshold</code> parameter is exposed, it is automatically tuned internally.</p>
-<div class="sourceCode" id="cb809"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb807"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">l2</span><span class="op">$</span><span class="va">param_set</span></code></pre></div>
 <pre><code>## &lt;ParamSetCollection&gt;
 ##                                         id    class lower upper nlevels
@@ -1213,7 +1213,7 @@ On the other hand, if the test set contains new data, <code>predict</code> will 
 Some learners do not support estimating cluster partitions on new data and will instead return assignments for training data and print a warning message.</p>
 <p>In the following example, a <a href="https://mlr3cluster.mlr-org.com/reference/mlr_learners_clust.kmeans.html"><code>$k$-means learner</code></a> is applied on the <a href="https://mlr3cluster.mlr-org.com/reference/mlr_tasks_usarrests.html"><code>US arrest data set</code></a>.
 The class labels are predicted and the contribution of the task features to assignment of the respective class are visualized.</p>
-<div class="sourceCode" id="cb811"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb809"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3cluster.mlr-org.com">"mlr3cluster"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3viz.mlr-org.com">"mlr3viz"</a></span><span class="op">)</span>
@@ -1228,10 +1228,10 @@ The class labels are predicted and the contribution of the task features to assi
 ## * Features (4):
 ##   - int (2): Assault, UrbanPop
 ##   - dbl (2): Murder, Rape</code></pre>
-<div class="sourceCode" id="cb813"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb811"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="07-special-cluster_files/figure-html/07-special-cluster-002-1.svg" width="672" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb814"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb812"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a k-means learner</span>
 <span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"clust.kmeans"</span><span class="op">)</span>
 
@@ -1257,7 +1257,7 @@ The class labels are predicted and the contribution of the task features to assi
 ## 
 ## [1] "cluster"      "centers"      "totss"        "withinss"     "tot.withinss"
 ## [6] "betweenss"    "size"         "iter"         "ifault"</code></pre>
-<div class="sourceCode" id="cb816"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb814"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># make "predictions" for the same data</span>
 <span class="va">prediction</span> <span class="op">=</span> <span class="va">learner</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">prediction</span>, <span class="va">task</span><span class="op">)</span></code></pre></div>
@@ -1284,7 +1284,7 @@ Silhouette values are in <span class="math inline">\([-1, 1]\)</span> range.</p>
 <li>-1 likely placed in the wrong cluster</li>
 </ul>
 <p>The following is an example of conducting a benchmark experiment with various learners on <a href="https://mlr3.mlr-org.com/reference/mlr_tasks_iris.html"><code>iris data set</code></a> without target variable and assessing the quality of each learner with both within sum of squares and silhouette measures.</p>
-<div class="sourceCode" id="cb817"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb815"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">design</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/benchmark_grid.html">benchmark_grid</a></span><span class="op">(</span>
   tasks <span class="op">=</span> <span class="va"><a href="https://mlr3cluster.mlr-org.com/reference/TaskClust.html">TaskClust</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"iris"</span>, <span class="va">iris</span><span class="op">[</span><span class="op">-</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span>,
   learners <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -1297,7 +1297,7 @@ Silhouette values are in <span class="math inline">\([-1, 1]\)</span> range.</p>
 ## 1: &lt;TaskClust[43]&gt; &lt;LearnerClustKMeans[36]&gt; &lt;ResamplingInsample[19]&gt;
 ## 2: &lt;TaskClust[43]&gt;    &lt;LearnerClustPAM[36]&gt; &lt;ResamplingInsample[19]&gt;
 ## 3: &lt;TaskClust[43]&gt; &lt;LearnerClustCMeans[36]&gt; &lt;ResamplingInsample[19]&gt;</code></pre>
-<div class="sourceCode" id="cb819"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb817"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># execute benchmark</span>
 <span class="va">bmr</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/benchmark.html">benchmark</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span>
 
@@ -1319,7 +1319,7 @@ Silhouette values are in <span class="math inline">\([-1, 1]\)</span> range.</p>
 <span class="header-section-number">7.8.3</span> Visualization<a class="anchor" aria-label="anchor" href="#visualization"><i class="fas fa-link"></i></a>
 </h3>
 <p>Cluster analysis in <a href="https://mlr3.mlr-org.com">mlr3</a> is integrated with <a href="https://mlr3viz.mlr-org.com">mlr3viz</a> which provides a number of useful plots. Some of those plots are shown below.</p>
-<div class="sourceCode" id="cb821"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb819"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="va"><a href="https://mlr3cluster.mlr-org.com/reference/TaskClust.html">TaskClust</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"iris"</span>, <span class="va">iris</span><span class="op">[</span><span class="op">-</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span>
 <span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"clust.kmeans"</span><span class="op">)</span>
 <span class="va">learner</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
@@ -1328,11 +1328,11 @@ Silhouette values are in <span class="math inline">\([-1, 1]\)</span> range.</p>
 <span class="co"># performing PCA on task and showing assignments</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">prediction</span>, <span class="va">task</span>, type <span class="op">=</span> <span class="st">"pca"</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="07-special-cluster_files/figure-html/07-special-cluster-004-1.svg" width="672" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb822"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb820"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># same as above but with probability ellipse that assumes normal distribution</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">prediction</span>, <span class="va">task</span>, type <span class="op">=</span> <span class="st">"pca"</span>, frame <span class="op">=</span> <span class="cn">TRUE</span>, frame.type <span class="op">=</span> <span class="st">'norm'</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="07-special-cluster_files/figure-html/07-special-cluster-004-2.svg" width="672" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb823"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb821"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"usarrests"</span><span class="op">)</span>
 <span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"clust.agnes"</span><span class="op">)</span>
 <span class="va">learner</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
@@ -1340,7 +1340,7 @@ Silhouette values are in <span class="math inline">\([-1, 1]\)</span> range.</p>
 <span class="co"># dendrogram for hierarchical clustering</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">learner</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="07-special-cluster_files/figure-html/07-special-cluster-004-3.svg" width="672" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb824"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb822"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># advanced dendrogram options from `factoextra::fviz_dend`</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">learner</span>,
   k <span class="op">=</span> <span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">k</span>, rect_fill <span class="op">=</span> <span class="cn">TRUE</span>,
@@ -1349,7 +1349,7 @@ Silhouette values are in <span class="math inline">\([-1, 1]\)</span> range.</p>
 <p>Silhouette plots can help to visually assess the quality of the analysis and help choose a number of clusters for a given data set.
 The red dotted line shows the mean silhouette value and each bar represents a data point.
 If most points in each cluster have an index around or higher than mean silhouette, the number of clusters is chosen well.</p>
-<div class="sourceCode" id="cb825"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb823"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># silhouette plot allows to visually inspect the quality of clustering</span>
 <span class="va">task</span> <span class="op">=</span> <span class="va"><a href="https://mlr3cluster.mlr-org.com/reference/TaskClust.html">TaskClust</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"iris"</span>, <span class="va">iris</span><span class="op">[</span><span class="op">-</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span>
 <span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"clust.kmeans"</span><span class="op">)</span>
@@ -1360,7 +1360,7 @@ If most points in each cluster have an index around or higher than mean silhouet
 <div class="inline-figure"><img src="07-special-cluster_files/figure-html/07-special-cluster-005-1.svg" width="672" style="display: block; margin: auto;"></div>
 <p>The plot shows that all points in cluster 5 and almost all points in clusters 4, 2 and 1 are below average silhouette index.
 This means that a lot of observations lie either on the border of clusters or are likely assigned to the wrong cluster.</p>
-<div class="sourceCode" id="cb826"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb824"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"clust.kmeans"</span><span class="op">)</span>
 <span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>centers <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span>
 <span class="va">learner</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
@@ -1446,7 +1446,7 @@ Hence, having two centers might be a better choice for the number of clusters.</
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-10-04.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-10-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -1302,11 +1302,11 @@ After scaling all input features, we rotate our data using principal component a
 After this transformation, we use a simple Decision Tree learner for classification.</p>
 <p>As exemplary data, we will use the “<code>iris</code>” classification task.
 This object contains the famous iris dataset and some meta-information, such as the target variable.</p>
-<div class="sourceCode" id="cb865"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb863"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
 <span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"iris"</span><span class="op">)</span></code></pre></div>
 <p>We quickly split our data into a train and a test set:</p>
-<div class="sourceCode" id="cb866"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb864"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">test.idx</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">task</span><span class="op">$</span><span class="va">nrow</span><span class="op">)</span>, <span class="fl">30</span><span class="op">)</span>
 <span class="va">train.idx</span> <span class="op">=</span> <span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">setdiff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">task</span><span class="op">$</span><span class="va">nrow</span><span class="op">)</span>, <span class="va">test.idx</span><span class="op">)</span>
 <span class="co"># Set task to only use train indexes</span>
@@ -1319,7 +1319,7 @@ For this use case, we require 3 transformations:</p>
 <li>A <code>PipeOp</code> that contains the <strong>Decision Tree</strong> learner</li>
 </ul>
 <p>A list of available <code>PipeOp</code>s can be obtained from</p>
-<div class="sourceCode" id="cb867"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb865"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3pipelines.mlr-org.com">"mlr3pipelines"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;DictionaryPipeOp&gt; with 64 stored values
@@ -1336,7 +1336,7 @@ For this use case, we require 3 transformations:</p>
 ##   targetmutate, targettrafoscalerange, textvectorizer, threshold,
 ##   tunethreshold, unbranch, vtreat, yeojohnson</code></pre>
 <p>First we define the required <code>PipeOp</code>s:</p>
-<div class="sourceCode" id="cb869"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb867"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">op1</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span>
 <span class="va">op2</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span><span class="op">)</span>
 <span class="va">op3</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"learner"</span>, learner <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -1371,14 +1371,14 @@ It returns those in a new <code>Task</code>.</li>
 </h4>
 <p>We can now connect the <code>PipeOp</code>s constructed earlier to a <strong>Pipeline</strong>.
 We can do this using the <code><a href="https://mlr3pipelines.mlr-org.com//reference/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></code> operator.</p>
-<div class="sourceCode" id="cb870"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb868"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linear_pipeline</span> <span class="op">=</span> <span class="va">op1</span> <span class="op">%&gt;&gt;%</span> <span class="va">op2</span> <span class="op">%&gt;&gt;%</span> <span class="va">op3</span></code></pre></div>
 <p>The result of this operation is a “<code>Graph</code>”.
 A <code>Graph</code> connects the input and output of each <code>PipeOp</code> to the following <code>PipeOp</code>.
 This allows us to specify linear processing pipelines.
 In this case, we connect the output of the <strong>scaling</strong> PipeOp to the input of the <strong>PCA</strong> PipeOp and the output of the <strong>PCA</strong> PipeOp to the input of <strong>PipeOpLearner</strong>.</p>
 <p>We can now train the <code>Graph</code> using the <code>iris</code> <code>Task</code>.</p>
-<div class="sourceCode" id="cb871"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb869"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linear_pipeline</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
 <pre><code>## $classif.rpart.output
 ## NULL</code></pre>
@@ -1394,20 +1394,20 @@ It is then used to train the learner, and as a result saves a model that can be 
 <p>In order to predict on new data, we need to save the relevant transformations our data went through while training.
 As a result, each <code>PipeOp</code> saves a state, where information required to appropriately transform future data is stored.
 In our case, this is <strong>mean</strong> and <strong>standard deviation</strong> of each column for <code>PipeOpScale</code>, the PCA rotation matrix for <code>PipeOpPCA</code> and the learned model for <code>PipeOpLearner</code>.</p>
-<div class="sourceCode" id="cb873"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb871"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># predict on test.idx</span>
 <span class="va">task</span><span class="op">$</span><span class="va">row_roles</span><span class="op">$</span><span class="va">use</span> <span class="op">=</span> <span class="va">test.idx</span>
 <span class="va">linear_pipeline</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
 <pre><code>## $classif.rpart.output
 ## &lt;PredictionClassif&gt; for 30 observations:
-##     row_ids      truth   response
-##          94 versicolor versicolor
-##          19     setosa     setosa
-##         110  virginica  virginica
-## ---                              
-##          87 versicolor  virginica
-##          30     setosa     setosa
-##          84 versicolor  virginica</code></pre>
+##     row_ids     truth   response
+##         144 virginica  virginica
+##         134 virginica versicolor
+##          16    setosa     setosa
+## ---                             
+##         120 virginica versicolor
+##         127 virginica versicolor
+##         105 virginica  virginica</code></pre>
 </div>
 </div>
 <div id="mlr3pipelines-vs.-mlr" class="section level3" number="9.5.2">
@@ -1421,7 +1421,7 @@ As an example, wrappers can generally not process data in parallel.</p>
 <h4>
 <span class="header-section-number">9.5.2.1</span> mlr<a class="anchor" aria-label="anchor" href="#mlr"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb875"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb873"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"mlr"</span><span class="op">)</span>
 <span class="co"># We first create a learner</span>
 <span class="va">lrn</span> <span class="op">=</span> <span class="fu">makeLearner</span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span>
@@ -1437,7 +1437,7 @@ As an example, wrappers can generally not process data in parallel.</p>
 <h4>
 <span class="header-section-number">9.5.2.2</span> mlr3pipelines<a class="anchor" aria-label="anchor" href="#mlr3pipelines"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb876"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb874"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3pipelines.mlr-org.com">"mlr3pipelines"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3filters.mlr-org.com">"mlr3filters"</a></span><span class="op">)</span>
@@ -1477,83 +1477,83 @@ At the same time, the different <code>transforms</code> in the pipeline can be c
 <h4>
 <span class="header-section-number">9.5.3.1</span> sklearn<a class="anchor" aria-label="anchor" href="#sklearn"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb877"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb877-1"><a href="appendix.html#cb877-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline, FeatureUnion</span>
-<span id="cb877-2"><a href="appendix.html#cb877-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
-<span id="cb877-3"><a href="appendix.html#cb877-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
-<span id="cb877-4"><a href="appendix.html#cb877-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
-<span id="cb877-5"><a href="appendix.html#cb877-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
-<span id="cb877-6"><a href="appendix.html#cb877-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> SelectKBest</span>
-<span id="cb877-7"><a href="appendix.html#cb877-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb877-8"><a href="appendix.html#cb877-8" aria-hidden="true" tabindex="-1"></a>iris <span class="op">=</span> load_iris()</span>
-<span id="cb877-9"><a href="appendix.html#cb877-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb877-10"><a href="appendix.html#cb877-10" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> iris.data, iris.target</span>
-<span id="cb877-11"><a href="appendix.html#cb877-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb877-12"><a href="appendix.html#cb877-12" aria-hidden="true" tabindex="-1"></a><span class="co"># This dataset is way too high-dimensional. Better do PCA:</span></span>
-<span id="cb877-13"><a href="appendix.html#cb877-13" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb877-14"><a href="appendix.html#cb877-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb877-15"><a href="appendix.html#cb877-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Maybe some original features where good, too?</span></span>
-<span id="cb877-16"><a href="appendix.html#cb877-16" aria-hidden="true" tabindex="-1"></a>selection <span class="op">=</span> SelectKBest(k<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb877-17"><a href="appendix.html#cb877-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb877-18"><a href="appendix.html#cb877-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Build estimator from PCA and Univariate selection:</span></span>
-<span id="cb877-19"><a href="appendix.html#cb877-19" aria-hidden="true" tabindex="-1"></a>combined_features <span class="op">=</span> FeatureUnion([(<span class="st">"pca"</span>, pca), (<span class="st">"univ_select"</span>, selection)])</span>
-<span id="cb877-20"><a href="appendix.html#cb877-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb877-21"><a href="appendix.html#cb877-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Use combined features to transform dataset:</span></span>
-<span id="cb877-22"><a href="appendix.html#cb877-22" aria-hidden="true" tabindex="-1"></a>X_features <span class="op">=</span> combined_features.fit(X, y).transform(X)</span>
-<span id="cb877-23"><a href="appendix.html#cb877-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb877-24"><a href="appendix.html#cb877-24" aria-hidden="true" tabindex="-1"></a>svm <span class="op">=</span> SVC(kernel<span class="op">=</span><span class="st">"linear"</span>)</span>
-<span id="cb877-25"><a href="appendix.html#cb877-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb877-26"><a href="appendix.html#cb877-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Do grid search over k, n_components and C:</span></span>
-<span id="cb877-27"><a href="appendix.html#cb877-27" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> Pipeline([(<span class="st">"features"</span>, combined_features), (<span class="st">"svm"</span>, svm)])</span>
-<span id="cb877-28"><a href="appendix.html#cb877-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb877-29"><a href="appendix.html#cb877-29" aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> <span class="bu">dict</span>(features__pca__n_components<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
-<span id="cb877-30"><a href="appendix.html#cb877-30" aria-hidden="true" tabindex="-1"></a>                  features__univ_select__k<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">2</span>],</span>
-<span id="cb877-31"><a href="appendix.html#cb877-31" aria-hidden="true" tabindex="-1"></a>                  svm__C<span class="op">=</span>[<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">10</span>])</span>
-<span id="cb877-32"><a href="appendix.html#cb877-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb877-33"><a href="appendix.html#cb877-33" aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(pipeline, param_grid<span class="op">=</span>param_grid, cv<span class="op">=</span><span class="dv">5</span>, verbose<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb877-34"><a href="appendix.html#cb877-34" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X, y)</span></code></pre></div>
+<div class="sourceCode" id="cb875"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb875-1"><a href="appendix.html#cb875-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline, FeatureUnion</span>
+<span id="cb875-2"><a href="appendix.html#cb875-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
+<span id="cb875-3"><a href="appendix.html#cb875-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb875-4"><a href="appendix.html#cb875-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
+<span id="cb875-5"><a href="appendix.html#cb875-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb875-6"><a href="appendix.html#cb875-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> SelectKBest</span>
+<span id="cb875-7"><a href="appendix.html#cb875-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb875-8"><a href="appendix.html#cb875-8" aria-hidden="true" tabindex="-1"></a>iris <span class="op">=</span> load_iris()</span>
+<span id="cb875-9"><a href="appendix.html#cb875-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb875-10"><a href="appendix.html#cb875-10" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> iris.data, iris.target</span>
+<span id="cb875-11"><a href="appendix.html#cb875-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb875-12"><a href="appendix.html#cb875-12" aria-hidden="true" tabindex="-1"></a><span class="co"># This dataset is way too high-dimensional. Better do PCA:</span></span>
+<span id="cb875-13"><a href="appendix.html#cb875-13" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb875-14"><a href="appendix.html#cb875-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb875-15"><a href="appendix.html#cb875-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Maybe some original features where good, too?</span></span>
+<span id="cb875-16"><a href="appendix.html#cb875-16" aria-hidden="true" tabindex="-1"></a>selection <span class="op">=</span> SelectKBest(k<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb875-17"><a href="appendix.html#cb875-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb875-18"><a href="appendix.html#cb875-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Build estimator from PCA and Univariate selection:</span></span>
+<span id="cb875-19"><a href="appendix.html#cb875-19" aria-hidden="true" tabindex="-1"></a>combined_features <span class="op">=</span> FeatureUnion([(<span class="st">"pca"</span>, pca), (<span class="st">"univ_select"</span>, selection)])</span>
+<span id="cb875-20"><a href="appendix.html#cb875-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb875-21"><a href="appendix.html#cb875-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Use combined features to transform dataset:</span></span>
+<span id="cb875-22"><a href="appendix.html#cb875-22" aria-hidden="true" tabindex="-1"></a>X_features <span class="op">=</span> combined_features.fit(X, y).transform(X)</span>
+<span id="cb875-23"><a href="appendix.html#cb875-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb875-24"><a href="appendix.html#cb875-24" aria-hidden="true" tabindex="-1"></a>svm <span class="op">=</span> SVC(kernel<span class="op">=</span><span class="st">"linear"</span>)</span>
+<span id="cb875-25"><a href="appendix.html#cb875-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb875-26"><a href="appendix.html#cb875-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Do grid search over k, n_components and C:</span></span>
+<span id="cb875-27"><a href="appendix.html#cb875-27" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> Pipeline([(<span class="st">"features"</span>, combined_features), (<span class="st">"svm"</span>, svm)])</span>
+<span id="cb875-28"><a href="appendix.html#cb875-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb875-29"><a href="appendix.html#cb875-29" aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> <span class="bu">dict</span>(features__pca__n_components<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb875-30"><a href="appendix.html#cb875-30" aria-hidden="true" tabindex="-1"></a>                  features__univ_select__k<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">2</span>],</span>
+<span id="cb875-31"><a href="appendix.html#cb875-31" aria-hidden="true" tabindex="-1"></a>                  svm__C<span class="op">=</span>[<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">10</span>])</span>
+<span id="cb875-32"><a href="appendix.html#cb875-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb875-33"><a href="appendix.html#cb875-33" aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(pipeline, param_grid<span class="op">=</span>param_grid, cv<span class="op">=</span><span class="dv">5</span>, verbose<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb875-34"><a href="appendix.html#cb875-34" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X, y)</span></code></pre></div>
 </div>
 <div id="mlr3pipelines-1" class="section level4" number="9.5.3.2">
 <h4>
 <span class="header-section-number">9.5.3.2</span> mlr3pipelines<a class="anchor" aria-label="anchor" href="#mlr3pipelines-1"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb878"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb878-1"><a href="appendix.html#cb878-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"mlr3verse"</span>)</span>
-<span id="cb878-2"><a href="appendix.html#cb878-2" aria-hidden="true" tabindex="-1"></a>iris <span class="ot">=</span> <span class="fu">tsk</span>(<span class="st">"iris"</span>)</span>
-<span id="cb878-3"><a href="appendix.html#cb878-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb878-4"><a href="appendix.html#cb878-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the steps</span></span>
-<span id="cb878-5"><a href="appendix.html#cb878-5" aria-hidden="true" tabindex="-1"></a>copy <span class="ot">=</span> <span class="fu">po</span>(<span class="st">"copy"</span>, <span class="dv">2</span>)</span>
-<span id="cb878-6"><a href="appendix.html#cb878-6" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">=</span> <span class="fu">po</span>(<span class="st">"pca"</span>)</span>
-<span id="cb878-7"><a href="appendix.html#cb878-7" aria-hidden="true" tabindex="-1"></a>selection <span class="ot">=</span> <span class="fu">po</span>(<span class="st">"filter"</span>, <span class="at">filter =</span> <span class="fu">flt</span>(<span class="st">"variance"</span>))</span>
-<span id="cb878-8"><a href="appendix.html#cb878-8" aria-hidden="true" tabindex="-1"></a>union <span class="ot">=</span> <span class="fu">po</span>(<span class="st">"featureunion"</span>, <span class="dv">2</span>)</span>
-<span id="cb878-9"><a href="appendix.html#cb878-9" aria-hidden="true" tabindex="-1"></a>svm <span class="ot">=</span> <span class="fu">po</span>(<span class="st">"learner"</span>, <span class="fu">lrn</span>(<span class="st">"classif.svm"</span>, <span class="at">kernel =</span> <span class="st">"linear"</span>, <span class="at">type =</span> <span class="st">"C-classification"</span>))</span>
-<span id="cb878-10"><a href="appendix.html#cb878-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb878-11"><a href="appendix.html#cb878-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Assemble the Pipeline</span></span>
-<span id="cb878-12"><a href="appendix.html#cb878-12" aria-hidden="true" tabindex="-1"></a>pipeline <span class="ot">=</span> copy <span class="sc">%&gt;&gt;%</span> <span class="fu">gunion</span>(<span class="fu">list</span>(pca, selection)) <span class="sc">%&gt;&gt;%</span> union <span class="sc">%&gt;&gt;%</span> svm</span>
-<span id="cb878-13"><a href="appendix.html#cb878-13" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">as_learner</span>(pipeline)</span>
-<span id="cb878-14"><a href="appendix.html#cb878-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb878-15"><a href="appendix.html#cb878-15" aria-hidden="true" tabindex="-1"></a><span class="co"># For tuning, we define the resampling and the Parameter Space</span></span>
-<span id="cb878-16"><a href="appendix.html#cb878-16" aria-hidden="true" tabindex="-1"></a>resampling <span class="ot">=</span> <span class="fu">rsmp</span>(<span class="st">"cv"</span>, <span class="at">folds =</span> 5L)</span>
-<span id="cb878-17"><a href="appendix.html#cb878-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb878-18"><a href="appendix.html#cb878-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"paradox"</span>)</span>
-<span id="cb878-19"><a href="appendix.html#cb878-19" aria-hidden="true" tabindex="-1"></a>search_space <span class="ot">=</span> <span class="fu">ps</span>(</span>
-<span id="cb878-20"><a href="appendix.html#cb878-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">classif.svm.cost =</span> <span class="fu">p_dbl</span>(<span class="at">lower =</span> <span class="fl">0.1</span>, <span class="at">upper =</span> <span class="dv">1</span>),</span>
-<span id="cb878-21"><a href="appendix.html#cb878-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">pca.rank. =</span> <span class="fu">p_int</span>(<span class="at">lower =</span> <span class="dv">1</span>, <span class="at">upper =</span> <span class="dv">3</span>),</span>
-<span id="cb878-22"><a href="appendix.html#cb878-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">variance.filter.nfeat =</span> <span class="fu">p_int</span>(<span class="at">lower =</span> <span class="dv">1</span>, <span class="at">upper =</span> <span class="dv">2</span>)</span>
-<span id="cb878-23"><a href="appendix.html#cb878-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb878-24"><a href="appendix.html#cb878-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb878-25"><a href="appendix.html#cb878-25" aria-hidden="true" tabindex="-1"></a>instance <span class="ot">=</span> TuningInstanceSingleCrit<span class="sc">$</span><span class="fu">new</span>(</span>
-<span id="cb878-26"><a href="appendix.html#cb878-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">task =</span> iris,</span>
-<span id="cb878-27"><a href="appendix.html#cb878-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">learner =</span> learner,</span>
-<span id="cb878-28"><a href="appendix.html#cb878-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">resampling =</span> resampling,</span>
-<span id="cb878-29"><a href="appendix.html#cb878-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">measure =</span> <span class="fu">msr</span>(<span class="st">"classif.ce"</span>),</span>
-<span id="cb878-30"><a href="appendix.html#cb878-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">terminator =</span> <span class="fu">trm</span>(<span class="st">"none"</span>),</span>
-<span id="cb878-31"><a href="appendix.html#cb878-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">search_space =</span> search_space</span>
-<span id="cb878-32"><a href="appendix.html#cb878-32" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb878-33"><a href="appendix.html#cb878-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb878-34"><a href="appendix.html#cb878-34" aria-hidden="true" tabindex="-1"></a>tuner <span class="ot">=</span> <span class="fu">tnr</span>(<span class="st">"grid_search"</span>, <span class="at">resolution =</span> <span class="dv">10</span>)</span>
-<span id="cb878-35"><a href="appendix.html#cb878-35" aria-hidden="true" tabindex="-1"></a>tuner<span class="sc">$</span><span class="fu">optimize</span>(instance)</span>
-<span id="cb878-36"><a href="appendix.html#cb878-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb878-37"><a href="appendix.html#cb878-37" aria-hidden="true" tabindex="-1"></a>Set the learner to the optimal values and train</span>
-<span id="cb878-38"><a href="appendix.html#cb878-38" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span>param_set<span class="sc">$</span>values <span class="ot">=</span> instance<span class="sc">$</span>result_learner_param_vals</span></code></pre></div>
+<div class="sourceCode" id="cb876"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb876-1"><a href="appendix.html#cb876-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"mlr3verse"</span>)</span>
+<span id="cb876-2"><a href="appendix.html#cb876-2" aria-hidden="true" tabindex="-1"></a>iris <span class="ot">=</span> <span class="fu">tsk</span>(<span class="st">"iris"</span>)</span>
+<span id="cb876-3"><a href="appendix.html#cb876-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb876-4"><a href="appendix.html#cb876-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the steps</span></span>
+<span id="cb876-5"><a href="appendix.html#cb876-5" aria-hidden="true" tabindex="-1"></a>copy <span class="ot">=</span> <span class="fu">po</span>(<span class="st">"copy"</span>, <span class="dv">2</span>)</span>
+<span id="cb876-6"><a href="appendix.html#cb876-6" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">=</span> <span class="fu">po</span>(<span class="st">"pca"</span>)</span>
+<span id="cb876-7"><a href="appendix.html#cb876-7" aria-hidden="true" tabindex="-1"></a>selection <span class="ot">=</span> <span class="fu">po</span>(<span class="st">"filter"</span>, <span class="at">filter =</span> <span class="fu">flt</span>(<span class="st">"variance"</span>))</span>
+<span id="cb876-8"><a href="appendix.html#cb876-8" aria-hidden="true" tabindex="-1"></a>union <span class="ot">=</span> <span class="fu">po</span>(<span class="st">"featureunion"</span>, <span class="dv">2</span>)</span>
+<span id="cb876-9"><a href="appendix.html#cb876-9" aria-hidden="true" tabindex="-1"></a>svm <span class="ot">=</span> <span class="fu">po</span>(<span class="st">"learner"</span>, <span class="fu">lrn</span>(<span class="st">"classif.svm"</span>, <span class="at">kernel =</span> <span class="st">"linear"</span>, <span class="at">type =</span> <span class="st">"C-classification"</span>))</span>
+<span id="cb876-10"><a href="appendix.html#cb876-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb876-11"><a href="appendix.html#cb876-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Assemble the Pipeline</span></span>
+<span id="cb876-12"><a href="appendix.html#cb876-12" aria-hidden="true" tabindex="-1"></a>pipeline <span class="ot">=</span> copy <span class="sc">%&gt;&gt;%</span> <span class="fu">gunion</span>(<span class="fu">list</span>(pca, selection)) <span class="sc">%&gt;&gt;%</span> union <span class="sc">%&gt;&gt;%</span> svm</span>
+<span id="cb876-13"><a href="appendix.html#cb876-13" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">as_learner</span>(pipeline)</span>
+<span id="cb876-14"><a href="appendix.html#cb876-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb876-15"><a href="appendix.html#cb876-15" aria-hidden="true" tabindex="-1"></a><span class="co"># For tuning, we define the resampling and the Parameter Space</span></span>
+<span id="cb876-16"><a href="appendix.html#cb876-16" aria-hidden="true" tabindex="-1"></a>resampling <span class="ot">=</span> <span class="fu">rsmp</span>(<span class="st">"cv"</span>, <span class="at">folds =</span> 5L)</span>
+<span id="cb876-17"><a href="appendix.html#cb876-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb876-18"><a href="appendix.html#cb876-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"paradox"</span>)</span>
+<span id="cb876-19"><a href="appendix.html#cb876-19" aria-hidden="true" tabindex="-1"></a>search_space <span class="ot">=</span> <span class="fu">ps</span>(</span>
+<span id="cb876-20"><a href="appendix.html#cb876-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">classif.svm.cost =</span> <span class="fu">p_dbl</span>(<span class="at">lower =</span> <span class="fl">0.1</span>, <span class="at">upper =</span> <span class="dv">1</span>),</span>
+<span id="cb876-21"><a href="appendix.html#cb876-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">pca.rank. =</span> <span class="fu">p_int</span>(<span class="at">lower =</span> <span class="dv">1</span>, <span class="at">upper =</span> <span class="dv">3</span>),</span>
+<span id="cb876-22"><a href="appendix.html#cb876-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">variance.filter.nfeat =</span> <span class="fu">p_int</span>(<span class="at">lower =</span> <span class="dv">1</span>, <span class="at">upper =</span> <span class="dv">2</span>)</span>
+<span id="cb876-23"><a href="appendix.html#cb876-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb876-24"><a href="appendix.html#cb876-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb876-25"><a href="appendix.html#cb876-25" aria-hidden="true" tabindex="-1"></a>instance <span class="ot">=</span> TuningInstanceSingleCrit<span class="sc">$</span><span class="fu">new</span>(</span>
+<span id="cb876-26"><a href="appendix.html#cb876-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">task =</span> iris,</span>
+<span id="cb876-27"><a href="appendix.html#cb876-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">learner =</span> learner,</span>
+<span id="cb876-28"><a href="appendix.html#cb876-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">resampling =</span> resampling,</span>
+<span id="cb876-29"><a href="appendix.html#cb876-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">measure =</span> <span class="fu">msr</span>(<span class="st">"classif.ce"</span>),</span>
+<span id="cb876-30"><a href="appendix.html#cb876-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">terminator =</span> <span class="fu">trm</span>(<span class="st">"none"</span>),</span>
+<span id="cb876-31"><a href="appendix.html#cb876-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">search_space =</span> search_space</span>
+<span id="cb876-32"><a href="appendix.html#cb876-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb876-33"><a href="appendix.html#cb876-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb876-34"><a href="appendix.html#cb876-34" aria-hidden="true" tabindex="-1"></a>tuner <span class="ot">=</span> <span class="fu">tnr</span>(<span class="st">"grid_search"</span>, <span class="at">resolution =</span> <span class="dv">10</span>)</span>
+<span id="cb876-35"><a href="appendix.html#cb876-35" aria-hidden="true" tabindex="-1"></a>tuner<span class="sc">$</span><span class="fu">optimize</span>(instance)</span>
+<span id="cb876-36"><a href="appendix.html#cb876-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb876-37"><a href="appendix.html#cb876-37" aria-hidden="true" tabindex="-1"></a>Set the learner to the optimal values and train</span>
+<span id="cb876-38"><a href="appendix.html#cb876-38" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span>param_set<span class="sc">$</span>values <span class="ot">=</span> instance<span class="sc">$</span>result_learner_param_vals</span></code></pre></div>
 <p>In summary, we can achieve similar results with a comparable number of lines, while at the same time offering greater flexibility with respect to which kinds of pipelines we want to optimize over.
 At the same time, experiments using <code>mlr3</code> can now be arbitrarily parallelized using <code>futures</code>.</p>
 </div>
@@ -1579,7 +1579,7 @@ The recipe trained on the train data (see steps above) is then applied to the te
 <h4>
 <span class="header-section-number">9.5.4.1</span> recipes<a class="anchor" aria-label="anchor" href="#recipes"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb879"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb877"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"tidymodels"</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"rsample"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"credit_data"</span>, package <span class="op">=</span> <span class="st">"modeldata"</span><span class="op">)</span>
@@ -1601,7 +1601,7 @@ The recipe trained on the train data (see steps above) is then applied to the te
 <span class="va">train_data</span> <span class="op">&lt;-</span> <span class="fu">bake</span><span class="op">(</span><span class="va">trained_rec</span>, new_data <span class="op">=</span> <span class="va">credit_train</span><span class="op">)</span>
 <span class="va">test_data</span>  <span class="op">&lt;-</span> <span class="fu">bake</span><span class="op">(</span><span class="va">trained_rec</span>, new_data <span class="op">=</span> <span class="va">credit_test</span><span class="op">)</span></code></pre></div>
 <p>Afterwards, the transformed data can be used during train and predict:</p>
-<div class="sourceCode" id="cb880"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb878"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Train</span>
 <span class="va">rf</span> <span class="op">=</span> <span class="fu">rand_forest</span><span class="op">(</span>mtry <span class="op">=</span> <span class="fl">12</span>, trees <span class="op">=</span> <span class="fl">200</span>, mode <span class="op">=</span> <span class="st">"classification"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">set_engine</span><span class="op">(</span><span class="st">"ranger"</span>, importance <span class="op">=</span> <span class="st">'impurity'</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -1616,7 +1616,7 @@ The recipe trained on the train data (see steps above) is then applied to the te
 </h4>
 <p>The same analysis can be performed in <a href="https://cran.r-project.org/package=mlr3pipelines">mlr3pipelines</a>.
 Note, that for now we do not impute via <code>knn</code> but instead via sampling.</p>
-<div class="sourceCode" id="cb881"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb879"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://r-datatable.com">"data.table"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3learners.mlr-org.com">"mlr3learners"</a></span><span class="op">)</span>
@@ -1685,7 +1685,7 @@ Note, that for now we do not impute via <code>knn</code> but instead via samplin
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-10-04.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-10-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

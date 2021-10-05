@@ -113,7 +113,7 @@ Other packages that provide, to varying degree, some preprocessing functionality
 </h2>
 <p>The building blocks of <a href="https://mlr3pipelines.mlr-org.com">mlr3pipelines</a> are <strong>PipeOp</strong>-objects (PO).
 They can be constructed directly using <code>PipeOp&lt;NAME&gt;$new()</code>, but the recommended way is to retrieve them from the <code>mlr_pipeops</code> dictionary:</p>
-<div class="sourceCode" id="cb335"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3pipelines.mlr-org.com">"mlr3pipelines"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">mlr_pipeops</span><span class="op">)</span></code></pre></div>
 <pre><code>##                       key           packages                             tags
@@ -315,27 +315,27 @@ They can be constructed directly using <code>PipeOp&lt;NAME&gt;$new()</code>, bu
 ## 64:             Task                Task              Task                Task
 ##     input.type.train  input.type.predict output.type.train output.type.predict</code></pre>
 <p>Single POs can be created using <code>po(&lt;name&gt;)</code>:</p>
-<div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pca</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span><span class="op">)</span></code></pre></div>
-<p>or using <strong>syntactic sugar</strong></p>
 <div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pca</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span><span class="op">)</span></code></pre></div>
-<p>Some POs require additional arguments for construction:</p>
+<p>or using <strong>syntactic sugar</strong></p>
 <div class="sourceCode" id="cb339"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pca</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span><span class="op">)</span></code></pre></div>
+<p>Some POs require additional arguments for construction:</p>
+<div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"learner"</span><span class="op">)</span>
 
 <span class="co"># Error in as_learner(learner) : argument "learner" is missing, with no default argument "learner" is missing, with no default</span></code></pre></div>
-<div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb341"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"learner"</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>or in short <code><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po("learner", lrn("classif.rpart"))</a></code>.</p>
 <p>Hyperparameters of POs can be set through the <code>param_vals</code> argument.
 Here we set the fraction of features for a filter:</p>
-<div class="sourceCode" id="cb341"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">filter</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"filter"</span>,
   filter <span class="op">=</span> <span class="fu">mlr3filters</span><span class="fu">::</span><span class="fu"><a href="https://mlr3filters.mlr-org.com/reference/flt.html">flt</a></span><span class="op">(</span><span class="st">"variance"</span><span class="op">)</span>,
   param_vals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>filter.frac <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>or in short notation:</p>
-<div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb343"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"filter"</span>, <span class="fu">mlr3filters</span><span class="fu">::</span><span class="fu"><a href="https://mlr3filters.mlr-org.com/reference/flt.html">flt</a></span><span class="op">(</span><span class="st">"variance"</span><span class="op">)</span>, filter.frac <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
 <p>The figure below shows an exemplary <code>PipeOp</code>.
 It takes an input, transforms it during <code>.$train</code> and <code>.$predict</code> and returns data:</p>
@@ -352,7 +352,7 @@ It is therefore convenient to build up a <code>Graph</code> from layers.
 This can be done using the <strong><code><a href="https://mlr3pipelines.mlr-org.com//reference/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></code></strong> (“double-arrow”) operator.
 It takes either a <code>PipeOp</code> or a <code>Graph</code> on each of its sides and connects all of the outputs of its left-hand side to one of the inputs each of its right-hand side.
 The number of inputs therefore must match the number of outputs.</p>
-<div class="sourceCode" id="cb343"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://magrittr.tidyverse.org">"magrittr"</a></span><span class="op">)</span>
 
 <span class="va">gr</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span><span class="op">)</span>
@@ -375,31 +375,31 @@ Therefore, multiple modifications can be chained.</p>
 <p>For this example we use the <code>pca</code> PO defined above and a new PO named “mutate”.
 The latter creates a new feature from existing variables.
 Additionally, we use the filter PO again.</p>
-<div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb345"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mutate</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"mutate"</span><span class="op">)</span>
 
 <span class="va">filter</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"filter"</span>,
   filter <span class="op">=</span> <span class="fu">mlr3filters</span><span class="fu">::</span><span class="fu"><a href="https://mlr3filters.mlr-org.com/reference/flt.html">flt</a></span><span class="op">(</span><span class="st">"variance"</span><span class="op">)</span>,
   param_vals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>filter.frac <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb345"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">graph</span> <span class="op">=</span> <span class="va"><a href="https://mlr3pipelines.mlr-org.com//reference/Graph.html">Graph</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span>
   <span class="fu">add_pipeop</span><span class="op">(</span><span class="va">mutate</span><span class="op">)</span><span class="op">$</span>
   <span class="fu">add_pipeop</span><span class="op">(</span><span class="va">filter</span><span class="op">)</span><span class="op">$</span>
   <span class="fu">add_edge</span><span class="op">(</span><span class="st">"mutate"</span>, <span class="st">"variance"</span><span class="op">)</span>  <span class="co"># add connection mutate -&gt; filter</span></code></pre></div>
 <p>The much quicker way is to use the <code><a href="https://mlr3pipelines.mlr-org.com//reference/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></code> operator to chain POs or <a href="https://mlr3pipelines.mlr-org.com/reference/Graph.html"><code>Graph</code></a> s.
 The same result as above can be achieved by doing the following:</p>
-<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb347"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">graph</span> <span class="op">=</span> <span class="va">mutate</span> <span class="op">%&gt;&gt;%</span> <span class="va">filter</span></code></pre></div>
 <p>Now the <a href="https://mlr3pipelines.mlr-org.com/reference/Graph.html"><code>Graph</code></a> can be inspected using its <code>$plot()</code> function:</p>
-<div class="sourceCode" id="cb347"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">graph</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="04-pipelines-nodes-edges-graphs_files/figure-html/04-pipelines-nodes-edges-graphs-006-1.svg" width="672" style="display: block; margin: auto;"></div>
 <p><strong>Chaining multiple POs of the same kind</strong></p>
 <p>If multiple POs of the same kind should be chained, it is necessary to change the <code>id</code> to avoid name clashes.
 This can be done by either accessing the <code>$id</code> slot or during construction:</p>
-<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">graph</span><span class="op">$</span><span class="fu">add_pipeop</span><span class="op">(</span><span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb349"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">graph</span><span class="op">$</span><span class="fu">add_pipeop</span><span class="op">(</span><span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">graph</span><span class="op">$</span><span class="fu">add_pipeop</span><span class="op">(</span><span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span>, id <span class="op">=</span> <span class="st">"pca2"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 
 </div>
@@ -416,7 +416,7 @@ This can be done by either accessing the <code>$id</code> slot or during constru
 <li>filter (filtering the dataset)</li>
 </ul>
 <p>Subsequently one can chain a PO learner to train and predict on the modified dataset.</p>
-<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb351"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mutate</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"mutate"</span><span class="op">)</span>
 <span class="va">filter</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"filter"</span>,
   filter <span class="op">=</span> <span class="fu">mlr3filters</span><span class="fu">::</span><span class="fu"><a href="https://mlr3filters.mlr-org.com/reference/flt.html">flt</a></span><span class="op">(</span><span class="st">"variance"</span><span class="op">)</span>,
@@ -428,12 +428,12 @@ This can be done by either accessing the <code>$id</code> slot or during constru
     learner <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Until here we defined the main pipeline stored in <a href="https://mlr3pipelines.mlr-org.com/reference/Graph.html"><code>Graph</code></a>.
 Now we can train and predict the pipeline:</p>
-<div class="sourceCode" id="cb351"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"iris"</span><span class="op">)</span>
 <span class="va">graph</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
 <pre><code>## $classif.rpart.output
 ## NULL</code></pre>
-<div class="sourceCode" id="cb353"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">graph</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
 <pre><code>## $classif.rpart.output
 ## &lt;PredictionClassif&gt; for 150 observations:
@@ -449,10 +449,10 @@ Now we can train and predict the pipeline:</p>
 A <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_learners_graph.html"><code>GraphLearner</code></a> encapsulates the whole pipeline (including the preprocessing steps) and can be put into <a href="https://mlr3.mlr-org.com/reference/resample.html"><code>resample()</code></a> or <a href="https://mlr3.mlr-org.com/reference/benchmark.html"><code>benchmark()</code></a> .
 If you are familiar with the old <em>mlr</em> package, this is the equivalent of all the <code>make*Wrapper()</code> functions.
 The pipeline being encapsulated (here <a href="https://mlr3pipelines.mlr-org.com/reference/Graph.html"><code>Graph</code></a> ) must always produce a <a href="https://mlr3.mlr-org.com/reference/Prediction.html"><code>Prediction</code></a> with its <code>$predict()</code> call, so it will probably contain at least one <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_learner.html"><code>PipeOpLearner</code></a> .</p>
-<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">glrn</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_learner.html">as_learner</a></span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></code></pre></div>
 <p>This learner can be used for model fitting, resampling, benchmarking, and tuning:</p>
-<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cv3</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"cv"</span>, folds <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="fu"><a href="https://mlr3.mlr-org.com/reference/resample.html">resample</a></span><span class="op">(</span><span class="va">task</span>, <span class="va">glrn</span>, <span class="va">cv3</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;ResampleResult&gt; of 3 iterations
@@ -467,7 +467,7 @@ The pipeline being encapsulated (here <a href="https://mlr3pipelines.mlr-org.com
 <p>Individual POs offer hyperparameters because they contain <code>$param_set</code> slots that can be read and written from <code>$param_set$values</code> (via the paradox package).
 The parameters get passed down to the <a href="https://mlr3pipelines.mlr-org.com/reference/Graph.html"><code>Graph</code></a>, and finally to the <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_learners_graph.html"><code>GraphLearner</code></a> .
 This makes it not only possible to easily change the behavior of a <a href="https://mlr3pipelines.mlr-org.com/reference/Graph.html"><code>Graph</code></a> / <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_learners_graph.html"><code>GraphLearner</code></a> and try different settings manually, but also to perform tuning using the <a href="https://mlr3tuning.mlr-org.com">mlr3tuning</a> package.</p>
-<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">glrn</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">variance.filter.frac</span> <span class="op">=</span> <span class="fl">0.25</span>
 <span class="va">cv3</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"cv"</span>, folds <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="fu"><a href="https://mlr3.mlr-org.com/reference/resample.html">resample</a></span><span class="op">(</span><span class="va">task</span>, <span class="va">glrn</span>, <span class="va">cv3</span><span class="op">)</span></code></pre></div>
@@ -483,7 +483,7 @@ This makes it not only possible to easily change the behavior of a <a href="http
 </h3>
 <p>If you are unfamiliar with tuning in <a href="https://mlr3.mlr-org.com">mlr3</a>, we recommend to take a look at the section about <a href="optimization.html#tuning">tuning</a> first.
 Here we define a <a href="https://paradox.mlr-org.com/reference/ParamSet.html"><code>ParamSet</code></a> for the “rpart” learner and the “variance” filter which should be optimized during the tuning process.</p>
-<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://paradox.mlr-org.com">"paradox"</a></span><span class="op">)</span>
 <span class="va">ps</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>
   classif.rpart.cp <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_dbl</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="fl">0</span>, upper <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>,
@@ -491,7 +491,7 @@ Here we define a <a href="https://paradox.mlr-org.com/reference/ParamSet.html"><
 <span class="op">)</span></code></pre></div>
 <p>After having defined the <code>PerformanceEvaluator</code>, a random search with 10 iterations is created.
 For the inner resampling, we are simply using holdout (single split into train/test) to keep the runtimes reasonable.</p>
-<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3tuning.mlr-org.com">"mlr3tuning"</a></span><span class="op">)</span>
 <span class="va">instance</span> <span class="op">=</span> <span class="va"><a href="https://mlr3tuning.mlr-org.com/reference/TuningInstanceSingleCrit.html">TuningInstanceSingleCrit</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>
   task <span class="op">=</span> <span class="va">task</span>,
@@ -501,11 +501,11 @@ For the inner resampling, we are simply using holdout (single split into train/t
   search_space <span class="op">=</span> <span class="va">ps</span>,
   terminator <span class="op">=</span> <span class="fu"><a href="https://bbotk.mlr-org.com/reference/trm.html">trm</a></span><span class="op">(</span><span class="st">"evals"</span>, n_evals <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tuner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3tuning.mlr-org.com/reference/tnr.html">tnr</a></span><span class="op">(</span><span class="st">"random_search"</span><span class="op">)</span>
 <span class="va">tuner</span><span class="op">$</span><span class="fu">optimize</span><span class="op">(</span><span class="va">instance</span><span class="op">)</span></code></pre></div>
 <p>The tuning result can be found in the respective <code>result</code> slots.</p>
-<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">instance</span><span class="op">$</span><span class="va">result_learner_param_vals</span>
 <span class="va">instance</span><span class="op">$</span><span class="va">result_y</span></code></pre></div>
 
@@ -554,7 +554,7 @@ In the following, we set three options:</p>
 </ol>
 <p>It is important to “unbranch” again after “branching”, so that the outputs are merged into one result objects.</p>
 <p>In the following we first create the branched graph and then show what happens if the “unbranching” is not applied:</p>
-<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">graph</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"branch"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"nop"</span>, <span class="st">"pca"</span>, <span class="st">"scale"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
   <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/gunion.html">gunion</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
     <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"nop"</span>, id <span class="op">=</span> <span class="st">"null1"</span><span class="op">)</span>,
@@ -562,15 +562,15 @@ In the following, we set three options:</p>
     <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span>
   <span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Without “unbranching” one creates the following graph:</p>
-<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">graph</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span>html <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="04-pipelines-non-linear_files/figure-html/04-pipelines-non-linear-004-1.svg" width="672" style="display: block; margin: auto;"></div>
 <p>Now when “unbranching”, we obtain the following results:</p>
-<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">graph</span> <span class="op">%&gt;&gt;%</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"unbranch"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"nop"</span>, <span class="st">"pca"</span>, <span class="st">"scale"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span>html <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="04-pipelines-non-linear_files/figure-html/04-pipelines-non-linear-005-1.svg" width="672" style="display: block; margin: auto;"></div>
 <p>The same can be achieved using a shorter notation:</p>
-<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># List of pipeops</span>
 <span class="va">opts</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"nop"</span>, <span class="st">"no_op"</span><span class="op">)</span>, <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span><span class="op">)</span>, <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span><span class="op">)</span>
 <span class="co"># List of po ids</span>
@@ -593,7 +593,7 @@ In the following, we set three options:</p>
 <p>We can leverage the different operations presented to connect POs.
 This allows us to form powerful graphs.</p>
 <p>Before we go into details, we split the task into train and test indices.</p>
-<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"iris"</span><span class="op">)</span>
 <span class="va">train.idx</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">task</span><span class="op">$</span><span class="va">nrow</span><span class="op">)</span>, <span class="fl">120</span><span class="op">)</span>
 <span class="va">test.idx</span> <span class="op">=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setops.html">setdiff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">task</span><span class="op">$</span><span class="va">nrow</span><span class="op">)</span>, <span class="va">train.idx</span><span class="op">)</span></code></pre></div>
@@ -614,36 +614,36 @@ The idea behind bagging is, that a set of weak, but different predictors can be 
 Graphically, it may be summarized as follows:</p>
 <div class="inline-figure"><img src="images/nonlinear_pipeops.svg" style="display: block; margin: auto;"></div>
 <p>First, we create a simple pipeline, that uses <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_subsample.html"><code>PipeOpSubsample</code></a> before a <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_learner.html"><code>PipeOpLearner</code></a> is trained:</p>
-<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">single_pred</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"subsample"</span>, frac <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
   <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"learner"</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>We can now copy this operation 10 times using <a href="https://mlr3pipelines.mlr-org.com/reference/pipeline_greplicate.html"><code>pipeline_greplicate</code></a>.
 The <a href="https://mlr3pipelines.mlr-org.com/reference/pipeline_greplicate.html"><code>pipeline_greplicate</code></a> allows us to parallelize many copies of an operation by creating a Graph containing <code>n</code> copies of the input Graph.
 We can also create it using <strong>syntactic sugar</strong> via <code><a href="https://mlr3pipelines.mlr-org.com//reference/ppl.html">ppl()</a></code>:</p>
-<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pred_set</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/ppl.html">ppl</a></span><span class="op">(</span><span class="st">"greplicate"</span>, <span class="va">single_pred</span>, <span class="fl">10L</span><span class="op">)</span></code></pre></div>
 <p>Afterwards we need to aggregate the 10 pipelines to form a single model:</p>
-<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bagging</span> <span class="op">=</span> <span class="va">pred_set</span> <span class="op">%&gt;&gt;%</span>
   <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"classifavg"</span>, innum <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
 <p>Now we can plot again to see what happens:</p>
-<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bagging</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span>html <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="04-pipelines-non-linear_files/figure-html/04-pipelines-non-linear-012-1.svg" width="720" style="display: block; margin: auto;"></div>
 <p>This pipeline can again be used in conjunction with <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_learners_graph.html"><code>GraphLearner</code></a> in order for Bagging to be used like a <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a>:</p>
-<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">baglrn</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_learner.html">as_learner</a></span><span class="op">(</span><span class="va">bagging</span><span class="op">)</span>
 <span class="va">baglrn</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span>, <span class="va">train.idx</span><span class="op">)</span>
 <span class="va">baglrn</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, <span class="va">test.idx</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 30 observations:
 ##     row_ids     truth  response prob.setosa prob.versicolor prob.virginica
-##          10    setosa    setosa           1               0              0
-##          11    setosa    setosa           1               0              0
-##          15    setosa    setosa           1               0              0
+##          18    setosa    setosa           1               0              0
+##          22    setosa    setosa           1               0              0
+##          23    setosa    setosa           1               0              0
 ## ---                                                                       
-##         136 virginica virginica           0               0              1
-##         143 virginica virginica           0               0              1
-##         147 virginica virginica           0               0              1</code></pre>
+##         145 virginica virginica           0               0              1
+##         147 virginica virginica           0               0              1
+##         149 virginica virginica           0               0              1</code></pre>
 <p>In conjunction with different <code>Backends</code>, this can be a very powerful tool.
 In cases when the data does not fully fit in memory, one can obtain a fraction of the data for each learner from a <a href="https://mlr3.mlr-org.com/reference/DataBackend.html"><code>DataBackend</code></a> and then aggregate predictions over all learners.</p>
 </div>
@@ -665,35 +665,35 @@ As a result, we obtain predictions for every data point in our input data.</p>
 <p>We first create a “level 0” learner, which is used to extract a lower level prediction.
 Additionally, we <code>clone()</code> the learner object to obtain a copy of the learner.
 Subsequently, one sets a custom id for the <a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.html"><code>PipeOp</code></a> .</p>
-<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lrn</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span>
 <span class="va">lrn_0</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"learner_cv"</span>, <span class="va">lrn</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">lrn_0</span><span class="op">$</span><span class="va">id</span> <span class="op">=</span> <span class="st">"rpart_cv"</span></code></pre></div>
 <p>We use <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_nop.html"><code>PipeOpNOP</code></a> in combination with <a href="https://mlr3pipelines.mlr-org.com/reference/gunion.html"><code>gunion</code></a>, in order to send the unchanged Task to the next level.
 There it is combined with the predictions from our decision tree learner.</p>
-<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">level_0</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/gunion.html">gunion</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">lrn_0</span>, <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"nop"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Afterwards, we want to concatenate the predictions from <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_learner_cv.html"><code>PipeOpLearnerCV</code></a> and the original Task using <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_featureunion.html"><code>PipeOpFeatureUnion</code></a> :</p>
-<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb379"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">combined</span> <span class="op">=</span> <span class="va">level_0</span> <span class="op">%&gt;&gt;%</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"featureunion"</span>, <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <p>Now we can train another learner on top of the combined features:</p>
-<div class="sourceCode" id="cb379"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">stack</span> <span class="op">=</span> <span class="va">combined</span> <span class="op">%&gt;&gt;%</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"learner"</span>, <span class="va">lrn</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">stack</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span>html <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="04-pipelines-non-linear_files/figure-html/04-pipelines-non-linear-018-1.svg" width="720" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">stacklrn</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_learner.html">as_learner</a></span><span class="op">(</span><span class="va">stack</span><span class="op">)</span>
 <span class="va">stacklrn</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span>, <span class="va">train.idx</span><span class="op">)</span>
 <span class="va">stacklrn</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, <span class="va">test.idx</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 30 observations:
 ##     row_ids     truth  response
-##          10    setosa    setosa
-##          11    setosa    setosa
-##          15    setosa    setosa
+##          18    setosa    setosa
+##          22    setosa    setosa
+##          23    setosa    setosa
 ## ---                            
-##         136 virginica virginica
-##         143 virginica virginica
-##         147 virginica virginica</code></pre>
+##         145 virginica virginica
+##         147 virginica virginica
+##         149 virginica virginica</code></pre>
 <p>In this vignette, we showed a very simple use-case for stacking.
 In many real-world applications, stacking is done for multiple levels and on multiple representations of the dataset.
 On a lower level, different preprocessing methods can be defined in conjunction with several learners.
@@ -710,7 +710,7 @@ Additionally, we keep a version of the “level 0” output (via <a href="https:
 In “level 2” we simply concatenate all “level 1” outputs and train a final decision tree.</p>
 <p>In the following examples, use <code>&lt;lrn&gt;$param_set$values$&lt;param_name&gt; = &lt;param_value&gt;</code> to set hyperparameters
 for the different learner.</p>
-<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://magrittr.tidyverse.org">"magrittr"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3learners.mlr-org.com">"mlr3learners"</a></span><span class="op">)</span> <span class="co"># for classif.glmnet</span>
 
@@ -746,17 +746,17 @@ for the different learner.</p>
 <span class="co"># Plot the resulting graph</span>
 <span class="va">level_2</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span>html <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="04-pipelines-non-linear_files/figure-html/04-pipelines-non-linear-020-1.svg" width="672" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"iris"</span><span class="op">)</span>
 <span class="va">lrn</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_learner.html">as_learner</a></span><span class="op">(</span><span class="va">level_2</span><span class="op">)</span></code></pre></div>
 <p>And we can again call <code>.$train</code> and <code>.$predict</code>:</p>
-<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lrn</span><span class="op">$</span>
   <span class="fu">train</span><span class="op">(</span><span class="va">task</span>, <span class="va">train.idx</span><span class="op">)</span><span class="op">$</span>
   <span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, <span class="va">test.idx</span><span class="op">)</span><span class="op">$</span>
   <span class="fu">score</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## classif.ce 
-##          0</code></pre>
+##     0.1333</code></pre>
 
 </div>
 </div>
@@ -779,13 +779,13 @@ Imputation methods range from relatively simple imputation using either <em>mean
 <li>Add a column marking whether a value for a given feature was missing or not (numeric only)</li>
 <li>We use <code><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po("featureunion")</a></code> to cbind the missing indicator features.</li>
 </ul>
-<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pom</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"missind"</span><span class="op">)</span>
 <span class="va">pon</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"imputehist"</span>, id <span class="op">=</span> <span class="st">"imputer_num"</span>, affect_columns <span class="op">=</span> <span class="va">is.numeric</span><span class="op">)</span>
 <span class="va">pof</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"imputeoor"</span>, id <span class="op">=</span> <span class="st">"imputer_fct"</span>, affect_columns <span class="op">=</span> <span class="va">is.factor</span><span class="op">)</span>
 <span class="va">imputer</span> <span class="op">=</span> <span class="va">pom</span> <span class="op">%&gt;&gt;%</span> <span class="va">pon</span> <span class="op">%&gt;&gt;%</span> <span class="va">pof</span></code></pre></div>
 <p>A learner can thus be equipped with automatic imputation of missing values by adding an imputation Pipeop.</p>
-<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">polrn</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"learner"</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">lrn</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_learner.html">as_learner</a></span><span class="op">(</span><span class="va">imputer</span> <span class="op">%&gt;&gt;%</span> <span class="va">polrn</span><span class="op">)</span></code></pre></div>
 </div>
@@ -797,7 +797,7 @@ Imputation methods range from relatively simple imputation using either <em>mean
 The operator evaluates one or multiple expressions provided in an <code>alist</code>.
 In this example, we compute some new features on top of the <code>iris</code> task.
 Then we add them to the data as illustrated below:</p>
-<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pom</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"mutate"</span><span class="op">)</span>
 
 <span class="co"># Define a set of mutations</span>
@@ -819,18 +819,18 @@ Subsequently, the parts are trained on each part of the data.</p>
 <p>After undertaking these steps, we aggregate the models.
 In this example, we split our data into 4 parts using <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_chunk.html"><code>PipeOpChunk</code></a> .
 Additionally, we create 4 <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_learner.html"><code>PipeOpLearner</code></a> POS, which are then trained on each split of the data.</p>
-<div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">chks</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"chunk"</span>, <span class="fl">4</span><span class="op">)</span>
 <span class="va">lrns</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/ppl.html">ppl</a></span><span class="op">(</span><span class="st">"greplicate"</span>, <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"learner"</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <p>Afterwards we can use <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_classifavg.html"><code>PipeOpClassifAvg</code></a> to aggregate the predictions from the 4 different models into a new one.</p>
-<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mjv</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"classifavg"</span>, <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <p>We can now connect the different operators and visualize the full graph:</p>
-<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pipeline</span> <span class="op">=</span> <span class="va">chks</span> <span class="op">%&gt;&gt;%</span> <span class="va">lrns</span> <span class="op">%&gt;&gt;%</span> <span class="va">mjv</span>
 <span class="va">pipeline</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span>html <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="04-pipelines-special-pipeops_files/figure-html/04-pipelines-special-pipeops-007-1.svg" width="720" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"iris"</span><span class="op">)</span>
 <span class="va">train.idx</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">task</span><span class="op">$</span><span class="va">nrow</span><span class="op">)</span>, <span class="fl">120</span><span class="op">)</span>
 <span class="va">test.idx</span> <span class="op">=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setops.html">setdiff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">task</span><span class="op">$</span><span class="va">nrow</span><span class="op">)</span>, <span class="va">train.idx</span><span class="op">)</span>
@@ -840,7 +840,7 @@ Additionally, we create 4 <a href="https://mlr3pipelines.mlr-org.com/reference/m
   <span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, <span class="va">train.idx</span><span class="op">)</span><span class="op">$</span>
   <span class="fu">score</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## classif.ce 
-##      0.025</code></pre>
+##    0.03333</code></pre>
 </div>
 <div id="feature-selection-pipeopfilter-and-pipeopselect" class="section level3" number="4.6.4">
 <h3>
@@ -849,7 +849,7 @@ Additionally, we create 4 <a href="https://mlr3pipelines.mlr-org.com/reference/m
 <p>The package <a href="https://mlr3filters.mlr-org.com">mlr3filters</a> contains many different <a href="https://mlr3filters.mlr-org.com/reference/Filter.html"><code>mlr3filters::Filter</code></a>s that can be used to select features for subsequent learners.
 This is often required when the data has a large amount of features.</p>
 <p>A <code>PipeOp</code> for filters is <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_filter.html"><code>PipeOpFilter</code></a>:</p>
-<div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"filter"</span>, <span class="fu">mlr3filters</span><span class="fu">::</span><span class="fu"><a href="https://mlr3filters.mlr-org.com/reference/flt.html">flt</a></span><span class="op">(</span><span class="st">"information_gain"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## PipeOp: &lt;information_gain&gt; (not trained)
 ## values: &lt;list()&gt;
@@ -876,7 +876,7 @@ It will go through basic concepts and then give a few examples that both show th
 This makes it easy for the user to switch out one algorithm for another without having to worry about what is happening inside it, what kind of data it is able to operate on etc.
 The benefit of using <code>mlr3</code>, for example, is that one can create a <code>Learner</code>, a <code>Task</code>, a <code>Resampling</code> etc. and use them for typical machine learning operations.
 It is trivial to exchange individual components and therefore use, for example, a different <code>Learner</code> in the same experiment for comparison.</p>
-<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_task_classif.html">as_task_classif</a></span><span class="op">(</span><span class="va">iris</span>, target <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span>
 <span class="va">lrn</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span>
 <span class="va">rsmp</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"holdout"</span><span class="op">)</span>
@@ -901,7 +901,7 @@ The prediction phase will then operate on the input data depending on the traine
 During training, it will transform incoming data by rotating it in a way that leads to uncorrelated features ordered by their contribution to total variance.
 It will <em>also</em> save the rotation matrix to be used during for new data.
 This makes it possible to perform “prediction” with single rows of new data, where a row’s scores on each of the principal components (the components of the training data!) is computed.</p>
-<div class="sourceCode" id="cb398"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb399"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">po</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span><span class="op">)</span>
 <span class="va">po</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##        Species    PC1      PC2      PC3       PC4
@@ -916,12 +916,12 @@ This makes it possible to perform “prediction” with single rows of new data,
 ## 148: virginica  1.764  0.07886  0.13048 -0.137001
 ## 149: virginica  1.901  0.11663  0.72325 -0.044595
 ## 150: virginica  1.390 -0.28266  0.36291  0.155039</code></pre>
-<div class="sourceCode" id="cb400"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">single_line_task</span> <span class="op">=</span> <span class="va">task</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">filter</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">po</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">single_line_task</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##    Species    PC1    PC2      PC3       PC4
 ## 1:  setosa -2.684 0.3194 -0.02791 -0.002262</code></pre>
-<div class="sourceCode" id="cb402"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">po</span><span class="op">$</span><span class="va">state</span></code></pre></div>
 <pre><code>## Standard deviations (1, .., p=4):
 ## [1] 2.0563 0.4926 0.2797 0.1544
@@ -959,7 +959,7 @@ Resampling should evaluate the generalization performance of the <em>entire</em>
 <p>Each <code>PipeOp</code> is an instance of an “<code>R6</code>” class, many of which are provided by the <a href="https://cran.r-project.org/package=mlr3pipelines">mlr3pipelines</a> package itself.
 They can be constructed explicitly (“<code>PipeOpPCA$new()</code>”) or retrieved from the <code>mlr_pipeops</code> dictionary: <code><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po("pca")</a></code>.
 The entire list of available <code>PipeOp</code>s, and some meta-information, can be retrieved using <code><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table()</a></code>:</p>
-<div class="sourceCode" id="cb404"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">mlr_pipeops</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"key"</span>, <span class="st">"input.num"</span>, <span class="st">"output.num"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
 <pre><code>##                       key input.num output.num
 ##  1:                boxcox         1          1
@@ -1028,7 +1028,7 @@ The entire list of available <code>PipeOp</code>s, and some meta-information, ca
 ## 64:            yeojohnson         1          1
 ##                       key input.num output.num</code></pre>
 <p>When retrieving <code>PipeOp</code>s from the <code>mlr_pipeops</code> dictionary, it is also possible to give additional constructor arguments, such as an <a href="pipelines.html#pipeop-ids-and-id-name-clashes">id</a> or <a href="pipelines.html#hyperparameters">parameter values</a>.</p>
-<div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span>, rank. <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <pre><code>## PipeOp: &lt;pca&gt; (not trained)
 ## values: &lt;rank.=3&gt;
@@ -1050,7 +1050,7 @@ The entire list of available <code>PipeOp</code>s, and some meta-information, ca
 These multiple inputs are always given as elements in the input list.
 For example, there is a <code>PipeOpFeatureUnion</code> that combines multiple tasks with different features and “<code><a href="https://rdrr.io/r/base/cbind.html">cbind()</a></code>s” them together, creating one combined task.
 When two halves of the <code>iris</code> task are given, for example, it recreates the original task:</p>
-<div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb409"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">iris_first_half</span> <span class="op">=</span> <span class="va">task</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">select</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">iris_second_half</span> <span class="op">=</span> <span class="va">task</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">select</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span><span class="op">)</span><span class="op">)</span>
 
@@ -1073,14 +1073,14 @@ When two halves of the <code>iris</code> task are given, for example, it recreat
 An input channel also carries information about the <em>type</em> of input that is acceptable.
 The input channels of the <code>pofu</code> object constructed above, for example, each accept a <code>Task</code> during training and prediction.
 This information can be queried from the <code>$input</code> slot:</p>
-<div class="sourceCode" id="cb410"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb411"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pofu</span><span class="op">$</span><span class="va">input</span></code></pre></div>
 <pre><code>##      name train predict
 ## 1: input1  Task    Task
 ## 2: input2  Task    Task</code></pre>
 <p>Other <code>PipeOp</code>s may have channels that take different types during different phases.
 The <code>backuplearner</code> <code>PipeOp</code>, for example, takes a <code>NULL</code> and a <code>Task</code> during training, and a <code>Prediction</code> and a <code>Task</code> during prediction:</p>
-<div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb413"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## TODO this is an important case to handle here, do not delete unless there is a better example.</span>
 <span class="co">## po("backuplearner")$input</span></code></pre></div>
 </div>
@@ -1093,7 +1093,7 @@ The <code>backuplearner</code> <code>PipeOp</code>, for example, takes a <code>N
 Similar to input channels, the information about the number and type of outputs given by a <code>PipeOp</code> is available in the <code>$output</code> slot.
 The <code>chunk</code> PipeOp, for example, chunks a given <code>Task</code> into subsets and consequently returns multiple <code>Task</code> objects, both during training and prediction.
 The number of output channels must be given during construction through the <code>outnum</code> argument.</p>
-<div class="sourceCode" id="cb413"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"chunk"</span>, outnum <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">$</span><span class="va">output</span></code></pre></div>
 <pre><code>##       name train predict
 ## 1: output1  Task    Task
@@ -1111,7 +1111,7 @@ A schema of a <code>PipeOp</code> with two output channels:</p>
 In many cases, the number of input or output channels is determined during construction, e.g. through the <code>innum</code> / <code>outnum</code> arguments.
 The <code>input.num</code> and <code>output.num</code> columns of the <code>mlr_pipeops</code>-table <a href="pipelines.html#where-to-get-pipeops">above</a> show the default number of channels, and <code>NA</code> if the number depends on a construction argument.</p>
 <p>The default printer of a <code>PipeOp</code> gives information about channel names and types:</p>
-<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## po("backuplearner")</span></code></pre></div>
 </div>
 </div>
@@ -1132,41 +1132,41 @@ Edges always pass between <code>PipeOp</code> <em>channels</em>, so it is not on
 <p>A <code>Graph</code> is empty when first created, and <code>PipeOp</code>s can be added using the <strong><code>$add_pipeop()</code></strong> method.
 The <strong><code>$add_edge()</code></strong> method is used to create connections between them.
 While the printer of a <code>Graph</code> gives some information about its layout, the most intuitive way of visualizing it is using the <code>$plot()</code> function.</p>
-<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span> <span class="op">=</span> <span class="va"><a href="https://mlr3pipelines.mlr-org.com//reference/Graph.html">Graph</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
 <span class="va">gr</span><span class="op">$</span><span class="fu">add_pipeop</span><span class="op">(</span><span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">gr</span><span class="op">$</span><span class="fu">add_pipeop</span><span class="op">(</span><span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"subsample"</span>, frac <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>
 <span class="va">gr</span><span class="op">$</span><span class="fu">add_edge</span><span class="op">(</span><span class="st">"scale"</span>, <span class="st">"subsample"</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb418"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></code></pre></div>
 <pre><code>## Graph with 2 PipeOps:
 ##         ID         State  sccssors prdcssors
 ##      scale &lt;&lt;UNTRAINED&gt;&gt; subsample          
 ##  subsample &lt;&lt;UNTRAINED&gt;&gt;               scale</code></pre>
-<div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span>html <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="04-pipelines-in-depth_files/figure-html/04-pipelines-in-depth-018-1.svg" width="768" style="display: block; margin: auto;"></div>
 <p>A <code>Graph</code> itself has a <strong><code>$train()</code></strong> and a <strong><code>$predict()</code></strong> method that accept some data and propagate this data through the network of <code>PipeOp</code>s.
 The return value corresponds to the output of the <code>PipeOp</code> output channels that are not connected to other <code>PipeOp</code>s.</p>
-<div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##        Species Petal.Length Petal.Width Sepal.Length Sepal.Width
-##  1:     setosa      -1.2225  -1.3110521     -1.25996      0.7862
-##  2:     setosa      -1.4490  -1.3110521     -0.05233      2.1627
-##  3:     setosa      -1.2791  -1.3110521     -0.89767      0.7862
-##  4:     setosa      -1.3924  -1.1798595     -1.62225     -1.7375
-##  5: versicolor      -0.2594  -0.2615107     -1.13920     -1.5081
-##  6: versicolor       0.4770   0.1320673      0.91378     -0.3610
-##  7: versicolor       0.4203   0.3944526      0.18920     -0.3610
-##  8: versicolor       0.3637   0.0008746     -0.41462     -1.0493
-##  9: versicolor       0.1371   0.0008746     -0.05233     -1.0493
-## 10: versicolor      -0.4294  -0.1303181     -0.89767     -1.2787
-## 11:  virginica       1.2700   1.7063794      0.55149      0.5567
-## 12:  virginica       1.3267   1.7063794      1.63836      1.2450
-## 13:  virginica       0.5903   0.7880307      0.43072     -0.5904
-## 14:  virginica       0.7602   0.9192234     -0.05233     -0.8198
-## 15:  virginica       0.9302   1.4439941      0.43072      0.7862</code></pre>
-<div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
+##  1:     setosa     -1.27910     -1.3111      -1.5015     0.09789
+##  2:     setosa     -1.16581     -1.0487      -0.5354     1.93331
+##  3:     setosa     -1.27910     -1.3111      -0.5354     1.47446
+##  4:     setosa     -1.44905     -1.3111      -1.0184     0.32732
+##  5:     setosa     -1.39240     -1.3111      -0.4146     1.01560
+##  6:     setosa     -1.22246     -1.3111      -0.8977     1.70389
+##  7: versicolor      0.53362      0.2633       0.3100    -0.36097
+##  8: versicolor      0.70356      0.6568       1.0345    -0.13154
+##  9: versicolor     -0.03286     -0.2615      -0.4146    -1.50811
+## 10: versicolor      0.42033      0.5256       0.1892     0.78617
+## 11: versicolor      0.19373      0.1321      -0.2939    -0.13154
+## 12:  virginica      1.60993      1.1816       2.1214    -0.13154
+## 13:  virginica      0.42033      0.6568      -1.1392    -1.27868
+## 14:  virginica      1.66657      1.3128       2.2422     1.70389
+## 15:  virginica      0.59027      0.7880       0.4307    -0.59040</code></pre>
+<div class="sourceCode" id="cb423"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">single_line_task</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##    Species Petal.Length Petal.Width Sepal.Length Sepal.Width
 ## 1:  setosa       -1.336      -1.311      -0.8977       1.016</code></pre>
@@ -1184,7 +1184,7 @@ When a <code>PipeOp</code> has more than one input / output channel, then the <c
 This argument can be given in the form of an integer, or as the name of the channel.</p>
 <p>The following constructs a <code>Graph</code> that copies the input and gives one copy each to a “scale” and a “pca” <code>PipeOp</code>.
 The resulting columns of each operation are put next to each other by “featureunion”.</p>
-<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span> <span class="op">=</span> <span class="va"><a href="https://mlr3pipelines.mlr-org.com//reference/Graph.html">Graph</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span>
   <span class="fu">add_pipeop</span><span class="op">(</span><span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"copy"</span>, outnum <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">$</span>
   <span class="fu">add_pipeop</span><span class="op">(</span><span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span>
@@ -1199,7 +1199,7 @@ The resulting columns of each operation are put next to each other by “feature
 
 <span class="va">gr</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span>html <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="04-pipelines-in-depth_files/figure-html/04-pipelines-in-depth-021-1.svg" width="672" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb426"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">iris_first_half</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##        Species Petal.Length Petal.Width    PC1       PC2
 ##   1:    setosa      -1.3358     -1.3111 -2.561 -0.006922
@@ -1222,7 +1222,7 @@ The resulting columns of each operation are put next to each other by “feature
 It is therefore convenient to build up a <code>Graph</code> from layers, which can be done using the <strong><code><a href="https://mlr3pipelines.mlr-org.com//reference/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></code></strong> (“double-arrow”) operator.
 It takes either a <code>PipeOp</code> or a <code>Graph</code> on each of its sides and connects all of the outputs of its left-hand side to one of the inputs each of its right-hand side–the number of inputs therefore must match the number of outputs.
 Together with the <strong><code><a href="https://mlr3pipelines.mlr-org.com//reference/gunion.html">gunion()</a></code></strong> operation, which takes <code>PipeOp</code>s or <code>Graph</code>s and arranges them next to each other akin to a (disjoint) graph union, the above network can more easily be constructed as follows:</p>
-<div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb428"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"copy"</span>, outnum <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
   <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/gunion.html">gunion</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span>, <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
   <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"featureunion"</span>, innum <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
@@ -1238,12 +1238,12 @@ Together with the <strong><code><a href="https://mlr3pipelines.mlr-org.com//refe
 It is therefore necessary for all <code>PipeOp</code>s within a <code>Graph</code> to have a unique <code>$id</code>.
 The <code>$id</code> can be set during or after construction, but it should not directly be changed after a <code>PipeOp</code> was inserted in a <code>Graph</code>.
 At that point, the <strong><code>$set_names()</code></strong>-method can be used to change <code>PipeOp</code> ids.</p>
-<div class="sourceCode" id="cb428"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb429"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">po1</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span>
 <span class="va">po2</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span>
 <span class="va">po1</span> <span class="op">%&gt;&gt;%</span> <span class="va">po2</span>  <span class="co">## name clash</span></code></pre></div>
 <pre><code>## Error in gunion(list(g1, g2)): Assertion on 'ids of pipe operators' failed: Must have unique names, but element 2 is duplicated.</code></pre>
-<div class="sourceCode" id="cb430"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb431"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">po2</span><span class="op">$</span><span class="va">id</span> <span class="op">=</span> <span class="st">"scale2"</span>
 <span class="va">gr</span> <span class="op">=</span> <span class="va">po1</span> <span class="op">%&gt;&gt;%</span> <span class="va">po2</span>
 <span class="va">gr</span></code></pre></div>
@@ -1251,7 +1251,7 @@ At that point, the <strong><code>$set_names()</code></strong>-method can be used
 ##      ID         State sccssors prdcssors
 ##   scale &lt;&lt;UNTRAINED&gt;&gt;   scale2          
 ##  scale2 &lt;&lt;UNTRAINED&gt;&gt;              scale</code></pre>
-<div class="sourceCode" id="cb432"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb433"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Alternative ways of getting new ids:</span>
 <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span>, id <span class="op">=</span> <span class="st">"scale2"</span><span class="op">)</span></code></pre></div>
 <pre><code>## PipeOp: &lt;scale2&gt; (not trained)
@@ -1260,7 +1260,7 @@ At that point, the <strong><code>$set_names()</code></strong>-method can be used
 ##   input [Task,Task]
 ## Output channels &lt;name [train type, predict type]&gt;:
 ##   output [Task,Task]</code></pre>
-<div class="sourceCode" id="cb434"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb435"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span>, id <span class="op">=</span> <span class="st">"scale2"</span><span class="op">)</span></code></pre></div>
 <pre><code>## PipeOp: &lt;scale2&gt; (not trained)
 ## values: &lt;robust=FALSE&gt;
@@ -1268,12 +1268,12 @@ At that point, the <strong><code>$set_names()</code></strong>-method can be used
 ##   input [Task,Task]
 ## Output channels &lt;name [train type, predict type]&gt;:
 ##   output [Task,Task]</code></pre>
-<div class="sourceCode" id="cb436"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb437"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## sometimes names of PipeOps within a Graph need to be changed</span>
 <span class="va">gr2</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span><span class="op">)</span>
 <span class="va">gr</span> <span class="op">%&gt;&gt;%</span> <span class="va">gr2</span></code></pre></div>
 <pre><code>## Error in gunion(list(g1, g2)): Assertion on 'ids of pipe operators' failed: Must have unique names, but element 3 is duplicated.</code></pre>
-<div class="sourceCode" id="cb438"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb439"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr2</span><span class="op">$</span><span class="fu">set_names</span><span class="op">(</span><span class="st">"scale"</span>, <span class="st">"scale3"</span><span class="op">)</span>
 <span class="va">gr</span> <span class="op">%&gt;&gt;%</span> <span class="va">gr2</span></code></pre></div>
 <pre><code>## Graph with 4 PipeOps:
@@ -1305,14 +1305,14 @@ Two components are mainly responsible for this:</p>
 The output during <code>$train()</code> is <code>NULL</code>.
 It can be used after a preprocessing pipeline, and it is even possible to perform operations on the <code>PredictionData</code>, for example by averaging multiple predictions or by using the “<code>PipeOpBackupLearner</code>” operator to impute predictions that a given model failed to create.</p>
 <p>The following is a very simple <code>Graph</code> that performs training and prediction on data after performing principal component analysis.</p>
-<div class="sourceCode" id="cb440"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb441"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"learner"</span>,
   <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb441"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb442"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
 <pre><code>## $classif.rpart.output
 ## NULL</code></pre>
-<div class="sourceCode" id="cb443"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb444"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
 <pre><code>## $classif.rpart.output
 ## &lt;PredictionClassif&gt; for 150 observations:
@@ -1333,7 +1333,7 @@ It can be used after a preprocessing pipeline, and it is even possible to perfor
 For this, it needs to be wrapped in a <code>GraphLearner</code> object, which is a thin wrapper that enables this functionality.
 The resulting <code>Learner</code> is extremely versatile, because every part of it can be modified, replaced, parameterized and optimized over.
 Resampling the graph above can be done the same way that resampling of the <code>Learner</code> was performed in the <a href="pipelines.html#whats-the-point">introductory example</a>.</p>
-<div class="sourceCode" id="cb445"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb446"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lrngrph</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_learner.html">as_learner</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span>
 <span class="fu"><a href="https://mlr3.mlr-org.com/reference/resample.html">resample</a></span><span class="op">(</span><span class="va">task</span>, <span class="va">lrngrph</span>, <span class="va">rsmp</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;ResampleResult&gt; of 1 iterations
@@ -1352,7 +1352,7 @@ Resampling the graph above can be done the same way that resampling of the <code
 They provide a unified interface for benchmarks and parameter optimization (“tuning”).
 For a deep dive into <code>paradox</code>, see <a href="optimization.html#searchspace">the tuning chapter</a> or the <a href="technical.html#paradox">in-depth <code>paradox</code> chapter</a>.</p>
 <p>The <code>ParamSet</code>, representing the space of possible parameter configurations of a <code>PipeOp</code>, can be inspected by accessing the <strong><code>$param_set</code></strong> slot of a <code>PipeOp</code> or a <code>Graph</code>.</p>
-<div class="sourceCode" id="cb447"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb448"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">op_pca</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span><span class="op">)</span>
 <span class="va">op_pca</span><span class="op">$</span><span class="va">param_set</span></code></pre></div>
 <pre><code>## &lt;ParamSet:pca&gt;
@@ -1363,19 +1363,19 @@ For a deep dive into <code>paradox</code>, see <a href="optimization.html#search
 ## 4: affect_columns ParamUty    NA    NA     Inf &lt;Selector[1]&gt;</code></pre>
 <p>To set or retrieve a parameter, the <strong><code>$param_set$values</code></strong> slot can be accessed.
 Alternatively, the <code>param_vals</code> value can be given during construction.</p>
-<div class="sourceCode" id="cb449"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb450"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">op_pca</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">center</span> <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="va">op_pca</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span></code></pre></div>
 <pre><code>## $center
 ## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb451"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb452"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">op_pca</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span>, center <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">op_pca</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span></code></pre></div>
 <pre><code>## $center
 ## [1] TRUE</code></pre>
 <p>Each <code>PipeOp</code> can bring its own individual parameters which are collected together in the <code>Graph</code>’s <code>$param_set</code>.
 A <code>PipeOp</code>’s parameter names are prefixed with its <code>$id</code> to prevent parameter name clashes.</p>
-<div class="sourceCode" id="cb453"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb454"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span> <span class="op">=</span> <span class="va">op_pca</span> <span class="op">%&gt;&gt;%</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span>
 <span class="va">gr</span><span class="op">$</span><span class="va">param_set</span></code></pre></div>
 <pre><code>## &lt;ParamSetCollection&gt;
@@ -1388,7 +1388,7 @@ A <code>PipeOp</code>’s parameter names are prefixed with its <code>$id</code>
 ## 6:          scale.scale ParamLgl    NA    NA       2           TRUE      
 ## 7:         scale.robust ParamLgl    NA    NA       2 &lt;NoDefault[3]&gt; FALSE
 ## 8: scale.affect_columns ParamUty    NA    NA     Inf  &lt;Selector[1]&gt;</code></pre>
-<div class="sourceCode" id="cb455"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb456"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span></code></pre></div>
 <pre><code>## $pca.center
 ## [1] TRUE
@@ -1396,7 +1396,7 @@ A <code>PipeOp</code>’s parameter names are prefixed with its <code>$id</code>
 ## $scale.robust
 ## [1] FALSE</code></pre>
 <p>Both <code>PipeOpLearner</code> and <code>GraphLearner</code> preserve parameters of the objects they encapsulate.</p>
-<div class="sourceCode" id="cb457"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb458"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">op_rpart</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"learner"</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">op_rpart</span><span class="op">$</span><span class="va">param_set</span></code></pre></div>
 <pre><code>## &lt;ParamSet:classif.rpart&gt;
@@ -1411,7 +1411,7 @@ A <code>PipeOp</code>’s parameter names are prefixed with its <code>$id</code>
 ##  8: surrogatestyle ParamInt     0     1       2              0      
 ##  9:   usesurrogate ParamInt     0     2       3              2      
 ## 10:           xval ParamInt     0   Inf     Inf             10     0</code></pre>
-<div class="sourceCode" id="cb459"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb460"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">glrn</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_learner.html">as_learner</a></span><span class="op">(</span><span class="va">gr</span> <span class="op">%&gt;&gt;%</span> <span class="va">op_rpart</span><span class="op">)</span>
 <span class="va">glrn</span><span class="op">$</span><span class="va">param_set</span></code></pre></div>
 <pre><code>## &lt;ParamSetCollection&gt;

@@ -234,13 +234,13 @@ Note that for linear proportional hazards models, the ranking (but not necessari
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionSurv&gt; for 60 observations:
 ##     row_ids time status   crank      lp     distr
-##           2   49   TRUE -0.4329 -0.4329 &lt;list[1]&gt;
-##          26  104  FALSE -0.3620 -0.3620 &lt;list[1]&gt;
-##          27  104  FALSE -0.3620 -0.3620 &lt;list[1]&gt;
+##           2   49   TRUE -0.5947 -0.5947 &lt;list[1]&gt;
+##          21   79  FALSE -0.5239 -0.5239 &lt;list[1]&gt;
+##          22   91  FALSE -2.8709 -2.8709 &lt;list[1]&gt;
 ## ---                                              
-##         289  103   TRUE  1.4710  1.4710 &lt;list[1]&gt;
-##         293   75   TRUE -3.1258 -3.1258 &lt;list[1]&gt;
-##         294   64  FALSE -3.1258 -3.1258 &lt;list[1]&gt;</code></pre>
+##         287   69  FALSE -2.9174 -2.9174 &lt;list[1]&gt;
+##         289  103   TRUE  1.6226  1.6226 &lt;list[1]&gt;
+##         297   79   TRUE  0.5615  0.5615 &lt;list[1]&gt;</code></pre>
 </div>
 <div id="composition" class="section level3" number="7.1.3">
 <h3>
@@ -426,10 +426,10 @@ Note that in prediction the points to evaluate the pdf and cdf are determined by
 ## [1] 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0 5.5
 ## 
 ## $counts
-## [1] 39 35  5  5 21 58 50  4
+## [1] 42 32  4  7 23 54 51  4
 ## 
 ## $density
-## [1] 0.35945 0.32258 0.04608 0.04608 0.19355 0.53456 0.46083 0.03687
+## [1] 0.38710 0.29493 0.03687 0.06452 0.21198 0.49770 0.47005 0.03687
 ## 
 ## $mids
 ## [1] 1.75 2.25 2.75 3.25 3.75 4.25 4.75 5.25
@@ -824,17 +824,17 @@ We first create a classification task, then resample the model using a 10-fold c
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">confusion</span><span class="op">)</span></code></pre></div>
 <pre><code>##         truth
 ## response good bad
-##     good  607 154
-##     bad    93 146</code></pre>
+##     good  603 149
+##     bad    97 151</code></pre>
 <p>To calculate the average costs like above, we can simply multiply the elements of the confusion matrix with the elements of the previously introduced cost matrix, and sum the values of the resulting matrix:</p>
 <div class="sourceCode" id="cb774"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">avg_costs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">confusion</span> <span class="op">*</span> <span class="va">costs</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">avg_costs</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] -0.05845</code></pre>
+<pre><code>## [1] -0.06205</code></pre>
 <p>With an average loan of $20,000, the logistic regression yields the following costs:</p>
 <div class="sourceCode" id="cb776"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">avg_costs</span> <span class="op">*</span> <span class="fl">20000</span> <span class="op">*</span> <span class="fl">1000</span></code></pre></div>
-<pre><code>## [1] -1169000</code></pre>
+<pre><code>## [1] -1241000</code></pre>
 <p>Instead of losing over $1,000,000, the credit institute now can expect a profit of more than $1,000,000.</p>
 </div>
 <div id="cost-sensitive-measure" class="section level3" number="7.7.2">
@@ -871,9 +871,9 @@ We compare the logistic regression to a simple featureless learner and to a rand
 ## 2:  2 &lt;ResampleResult[20]&gt; german_credit classif.featureless            cv
 ## 3:  3 &lt;ResampleResult[20]&gt; german_credit      classif.ranger            cv
 ##    iters classif.costs
-## 1:     3      -0.05593
-## 2:     3       0.05497
-## 3:     3      -0.04656</code></pre>
+## 1:     3      -0.05561
+## 2:     3       0.05495
+## 3:     3      -0.04068</code></pre>
 <p>As expected, the featureless learner is performing comparably bad.
 The logistic regression and the random forest work equally well.</p>
 </div>
@@ -898,13 +898,13 @@ Note that we increase the number of false positives simultaneously, or, in other
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 1000 observations:
 ##     row_ids truth response prob.good prob.bad
-##           2   bad      bad    0.2792  0.72075
-##          14   bad     good    0.6271  0.37289
-##          15  good      bad    0.3341  0.66594
+##           5   bad      bad    0.2088  0.79116
+##          14   bad     good    0.6680  0.33196
+##          22  good     good    0.7477  0.25233
 ## ---                                          
-##         979   bad     good    0.8012  0.19877
-##         991  good     good    0.9701  0.02993
-##         995  good     good    0.9573  0.04274</code></pre>
+##         965  good     good    0.6177  0.38230
+##         985  good     good    0.9535  0.04655
+##         999   bad      bad    0.3706  0.62937</code></pre>
 <div class="sourceCode" id="cb784"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># helper function to try different threshold values interactively</span>
 <span class="va">with_threshold</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">th</span><span class="op">)</span> <span class="op">{</span>
@@ -916,34 +916,34 @@ Note that we increase the number of false positives simultaneously, or, in other
 <pre><code>## $confusion
 ##         truth
 ## response good bad
-##     good  605 157
-##     bad    95 143
+##     good  601 151
+##     bad    99 149
 ## 
 ## $costs
 ## classif.costs 
-##      -0.05475</code></pre>
+##      -0.05935</code></pre>
 <div class="sourceCode" id="cb786"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">with_threshold</span><span class="op">(</span><span class="va">p</span>, <span class="fl">0.75</span><span class="op">)</span></code></pre></div>
 <pre><code>## $confusion
 ##         truth
 ## response good bad
-##     good  478  81
-##     bad   222 219
+##     good  482  78
+##     bad   218 222
 ## 
 ## $costs
 ## classif.costs 
-##       -0.0863</code></pre>
+##       -0.0907</code></pre>
 <div class="sourceCode" id="cb788"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">with_threshold</span><span class="op">(</span><span class="va">p</span>, <span class="fl">1.0</span><span class="op">)</span></code></pre></div>
 <pre><code>## $confusion
 ##         truth
 ## response good bad
-##     good    1   3
-##     bad   699 297
+##     good    0   1
+##     bad   700 299
 ## 
 ## $costs
 ## classif.costs 
-##       0.00265</code></pre>
+##         0.001</code></pre>
 <div class="sourceCode" id="cb790"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># TODO: include plot of threshold vs performance</span></code></pre></div>
 <p>Instead of manually trying different threshold values, one uses use <a href="https://www.rdocumentation.org/packages/stats/topics/optimize"><code>optimize()</code></a> to find a good threshold value w.r.t. our performance measure:</p>
@@ -956,18 +956,18 @@ Note that we increase the number of false positives simultaneously, or, in other
 <span class="va">best</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/optimize.html">optimize</a></span><span class="op">(</span><span class="va">f</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">best</span><span class="op">)</span></code></pre></div>
 <pre><code>## $minimum
-## [1] 0.6854
+## [1] 0.72
 ## 
 ## $objective
 ## classif.costs 
-##      -0.08975</code></pre>
+##       -0.0954</code></pre>
 <div class="sourceCode" id="cb793"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># optimized confusion matrix:</span>
 <span class="fu">with_threshold</span><span class="op">(</span><span class="va">p</span>, <span class="va">best</span><span class="op">$</span><span class="va">minimum</span><span class="op">)</span><span class="op">$</span><span class="va">confusion</span></code></pre></div>
 <pre><code>##         truth
 ## response good bad
-##     good  525  94
-##     bad   175 206</code></pre>
+##     good  504  81
+##     bad   196 219</code></pre>
 <p>Note that the function <a href="https://www.rdocumentation.org/packages/stats/topics/optimize"><code>optimize()</code></a> is intended for unimodal functions and therefore may converge to a local optimum here.
 See below for better alternatives to find good threshold values.</p>
 </div>
@@ -1050,41 +1050,41 @@ you can easily imagine, that we can also jointly tune over additional hyperparam
 <span class="op">)</span>
 
 <span class="va">at</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"german_credit"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## INFO  [14:09:26.767] [bbotk] Starting to optimize 1 parameter(s) with '&lt;OptimizerRandomSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=5, k=0]' 
-## INFO  [14:09:26.830] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:09:27.312] [bbotk] Result of batch 1: 
-## INFO  [14:09:27.314] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [14:09:27.314] [bbotk]               0.05838      0.301            0.261 
-## INFO  [14:09:27.314] [bbotk]                                 uhash 
-## INFO  [14:09:27.314] [bbotk]  fc5f282b-e8fe-4be6-b3a1-7e960615a261 
-## INFO  [14:09:27.317] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:09:27.706] [bbotk] Result of batch 2: 
-## INFO  [14:09:27.708] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [14:09:27.708] [bbotk]                0.5484      0.269            0.221 
-## INFO  [14:09:27.708] [bbotk]                                 uhash 
-## INFO  [14:09:27.708] [bbotk]  e05bb6c8-8cd1-4d95-b8b2-97f4118fcb73 
-## INFO  [14:09:27.712] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:09:28.100] [bbotk] Result of batch 3: 
-## INFO  [14:09:28.102] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [14:09:28.102] [bbotk]                0.3554      0.265            0.209 
-## INFO  [14:09:28.102] [bbotk]                                 uhash 
-## INFO  [14:09:28.102] [bbotk]  a2175355-c4d0-482f-a19b-b0080ea17a00 
-## INFO  [14:09:28.106] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:09:28.497] [bbotk] Result of batch 4: 
-## INFO  [14:09:28.500] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [14:09:28.500] [bbotk]                0.8535      0.329             0.22 
-## INFO  [14:09:28.500] [bbotk]                                 uhash 
-## INFO  [14:09:28.500] [bbotk]  8a2bb5b0-5984-41a8-8e1c-0bd415959350 
-## INFO  [14:09:28.503] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:09:28.880] [bbotk] Result of batch 5: 
-## INFO  [14:09:28.882] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [14:09:28.882] [bbotk]                0.4056      0.265            0.212 
-## INFO  [14:09:28.882] [bbotk]                                 uhash 
-## INFO  [14:09:28.882] [bbotk]  3c219105-6883-4cac-9a92-01dd394d7e8c 
-## INFO  [14:09:28.892] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [14:09:28.893] [bbotk] Result: 
-## INFO  [14:09:28.895] [bbotk]  threshold.thresholds learner_param_vals  x_domain classif.ce 
-## INFO  [14:09:28.895] [bbotk]                0.3554          &lt;list[2]&gt; &lt;list[1]&gt;      0.265</code></pre>
+<pre><code>## INFO  [14:34:31.799] [bbotk] Starting to optimize 1 parameter(s) with '&lt;OptimizerRandomSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=5, k=0]' 
+## INFO  [14:34:31.849] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [14:34:32.206] [bbotk] Result of batch 1: 
+## INFO  [14:34:32.208] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [14:34:32.208] [bbotk]                 0.317      0.286            0.204 
+## INFO  [14:34:32.208] [bbotk]                                 uhash 
+## INFO  [14:34:32.208] [bbotk]  ebcdcf52-e9f1-46a0-9717-b75c26eb254b 
+## INFO  [14:34:32.211] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [14:34:32.596] [bbotk] Result of batch 2: 
+## INFO  [14:34:32.597] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [14:34:32.597] [bbotk]                0.9391      0.689            0.235 
+## INFO  [14:34:32.597] [bbotk]                                 uhash 
+## INFO  [14:34:32.597] [bbotk]  e4033229-95bb-4d1f-938c-fae2337ec307 
+## INFO  [14:34:32.601] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [14:34:32.942] [bbotk] Result of batch 3: 
+## INFO  [14:34:32.945] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [14:34:32.945] [bbotk]                0.6359      0.297            0.193 
+## INFO  [14:34:32.945] [bbotk]                                 uhash 
+## INFO  [14:34:32.945] [bbotk]  12927ec6-53d3-4fb1-92e7-aed496b4a475 
+## INFO  [14:34:32.948] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [14:34:33.295] [bbotk] Result of batch 4: 
+## INFO  [14:34:33.298] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [14:34:33.298] [bbotk]                 0.583      0.297            0.191 
+## INFO  [14:34:33.298] [bbotk]                                 uhash 
+## INFO  [14:34:33.298] [bbotk]  6ea6a98f-c284-4c8e-ba81-ceca6e35ac98 
+## INFO  [14:34:33.301] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [14:34:33.652] [bbotk] Result of batch 5: 
+## INFO  [14:34:33.655] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [14:34:33.655] [bbotk]                 0.493      0.299            0.194 
+## INFO  [14:34:33.655] [bbotk]                                 uhash 
+## INFO  [14:34:33.655] [bbotk]  d5ad522a-0e13-427a-a001-ccc03e3eb3d1 
+## INFO  [14:34:33.663] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [14:34:33.664] [bbotk] Result: 
+## INFO  [14:34:33.665] [bbotk]  threshold.thresholds learner_param_vals  x_domain classif.ce 
+## INFO  [14:34:33.665] [bbotk]                 0.317          &lt;list[2]&gt; &lt;list[1]&gt;      0.286</code></pre>
 <p>Inside the <code>trafo</code>, we simply collect all set params into a named vector via <code>map_dbl</code> and store it
 in the <code>threshold.thresholds</code> slot expected by the learner.</p>
 <p>Again, we create a <code>AutoTuner</code>, which automatically tunes the supplied learner over the <code>ParamSet</code> we supplied above.</p>

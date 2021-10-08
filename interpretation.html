@@ -637,9 +637,9 @@ First, let’s load the required packages.</p>
 ##   -&gt; predict function  :  yhat.LearnerRegr  will be used (  default  )
 ##   -&gt; predicted values  :  No value for predict function target column. (  default  )
 ##   -&gt; model_info        :  package mlr3 , ver. 0.12.0 , task regression (  default  ) 
-##   -&gt; predicted values  :  numerical, min =  475433 , mean =  7472439 , max =  89986933  
+##   -&gt; predicted values  :  numerical, min =  472971 , mean =  7476240 , max =  89981267  
 ##   -&gt; residual function :  difference between y and yhat (  default  )
-##   -&gt; residuals         :  numerical, min =  -7568900 , mean =  848.4 , max =  19012807  
+##   -&gt; residuals         :  numerical, min =  -9743427 , mean =  -2953 , max =  17980000  
 ##   A new explainer has been created!</code></pre>
 </div>
 <div id="interpretability-dataset-level" class="section level3" number="9.2.5">
@@ -651,12 +651,12 @@ First, let’s load the required packages.</p>
 <code class="sourceCode R"><span class="va">fifa_vi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/model_parts.html">model_parts</a></span><span class="op">(</span><span class="va">ranger_exp</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">fifa_vi</span><span class="op">)</span></code></pre></div>
 <pre><code>##               variable mean_dropout_loss     label
-## 1         _full_model_           1378959 Ranger RF
-## 2            value_eur           1378959 Ranger RF
-## 3            weight_kg           1436343 Ranger RF
-## 4     movement_balance           1445291 Ranger RF
-## 5 mentality_aggression           1445622 Ranger RF
-## 6            height_cm           1447584 Ranger RF</code></pre>
+## 1         _full_model_           1316026 Ranger RF
+## 2            value_eur           1316026 Ranger RF
+## 3     movement_balance           1379392 Ranger RF
+## 4            height_cm           1379422 Ranger RF
+## 5            weight_kg           1380948 Ranger RF
+## 6 mentality_aggression           1387628 Ranger RF</code></pre>
 <p>Results can be visualized with generic <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>. The chart for all 38 variables would be unreadable, so with the <code>max_vars</code> argument, we limit the number of variables on the plot.</p>
 <div class="sourceCode" id="cb850"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">fifa_vi</span>, max_vars <span class="op">=</span> <span class="fl">12</span>, show_boxplots <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
@@ -671,12 +671,12 @@ First, let’s load the required packages.</p>
 <span class="va">fifa_pd</span></code></pre></div>
 <pre><code>## Top profiles    : 
 ##              _vname_   _label_ _x_  _yhat_ _ids_
-## 1 skill_ball_control Ranger RF   5 7154262     0
-## 2    skill_dribbling Ranger RF   7 7726926     0
-## 3    skill_dribbling Ranger RF  11 7723902     0
-## 4    skill_dribbling Ranger RF  12 7723568     0
-## 5    skill_dribbling Ranger RF  13 7723954     0
-## 6    skill_dribbling Ranger RF  14 7723240     0</code></pre>
+## 1 skill_ball_control Ranger RF   5 7475237     0
+## 2    skill_dribbling Ranger RF   7 8055462     0
+## 3    skill_dribbling Ranger RF  11 8048205     0
+## 4    skill_dribbling Ranger RF  12 8051504     0
+## 5    skill_dribbling Ranger RF  13 8047873     0
+## 6    skill_dribbling Ranger RF  14 8046969     0</code></pre>
 <p>Again, the result of the explanation can be presented with the generic function <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>.</p>
 <div class="sourceCode" id="cb853"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span>
@@ -699,12 +699,12 @@ This can be done for any player, but this example we will use the Cristiano Rona
                         new_observation <span class="op">=</span> <span class="va">ronaldo</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ronaldo_bd_ranger</span><span class="op">)</span></code></pre></div>
 <pre><code>##                                       contribution
-## Ranger RF: intercept                       7472439
-## Ranger RF: movement_reactions = 96        12267465
-## Ranger RF: skill_ball_control = 92         6213452
-## Ranger RF: attacking_finishing = 94        3965221
-## Ranger RF: mentality_positioning = 95      4576198
-## Ranger RF: skill_dribbling = 89            5594755</code></pre>
+## Ranger RF: intercept                       7476240
+## Ranger RF: movement_reactions = 96        11268510
+## Ranger RF: skill_ball_control = 92         6531377
+## Ranger RF: mentality_positioning = 95      5207504
+## Ranger RF: attacking_finishing = 94        5489875
+## Ranger RF: skill_dribbling = 89            5273092</code></pre>
 <p>The generic <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function shows the estimated contribution of variables to the final prediction.</p>
 <p>Cristiano is a striker, therefore characteristics that influence his worth are those related to attack, like <code>attacking_volleys</code> or <code>skill_dribbling</code>. The only variable with negative attribution is <code>age</code>.</p>
 <div class="sourceCode" id="cb856"><pre class="downlit sourceCode r">

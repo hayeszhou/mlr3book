@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>7 Special Tasks | mlr3 book</title>
+<title>8 Special Tasks | mlr3 book</title>
 <meta name="author" content="Marc Becker">
 <meta name="author" content="Martin Binder">
 <meta name="author" content="Bernd Bischl">
@@ -18,13 +18,13 @@
 <meta name="author" content="Damir Pulatov">
 <meta name="description" content="This chapter explores the different functions of mlr3 when dealing with specific data sets that require further statistical modification to undertake sensible analysis. Following topics are...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
-<meta property="og:title" content="7 Special Tasks | mlr3 book">
+<meta property="og:title" content="8 Special Tasks | mlr3 book">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://mlr3book.mlr-org.com/special-tasks.html">
 <meta property="og:image" content="https://mlr3book.mlr-org.com//block.png">
 <meta property="og:description" content="This chapter explores the different functions of mlr3 when dealing with specific data sets that require further statistical modification to undertake sensible analysis. Following topics are...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="7 Special Tasks | mlr3 book">
+<meta name="twitter:title" content="8 Special Tasks | mlr3 book">
 <meta name="twitter:description" content="This chapter explores the different functions of mlr3 when dealing with specific data sets that require further statistical modification to undertake sensible analysis. Following topics are...">
 <meta name="twitter:image" content="https://mlr3book.mlr-org.com//block.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -55,13 +55,14 @@
 <li><a class="" href="index.html">Quickstart</a></li>
 <li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction and Overview</a></li>
 <li><a class="" href="basics.html"><span class="header-section-number">2</span> Basics</a></li>
-<li><a class="" href="optimization.html"><span class="header-section-number">3</span> Model Optimization</a></li>
-<li><a class="" href="pipelines.html"><span class="header-section-number">4</span> Pipelines</a></li>
-<li><a class="" href="technical.html"><span class="header-section-number">5</span> Technical</a></li>
-<li><a class="" href="extending.html"><span class="header-section-number">6</span> Extending</a></li>
-<li><a class="active" href="special-tasks.html"><span class="header-section-number">7</span> Special Tasks</a></li>
-<li><a class="" href="interpretation.html"><span class="header-section-number">8</span> Model Interpretation</a></li>
-<li><a class="" href="appendix.html"><span class="header-section-number">9</span> Appendix</a></li>
+<li><a class="" href="perf-eval-cmp.html"><span class="header-section-number">3</span> Performance Evaluation and Comparison</a></li>
+<li><a class="" href="optimization.html"><span class="header-section-number">4</span> Model Optimization</a></li>
+<li><a class="" href="pipelines.html"><span class="header-section-number">5</span> Pipelines</a></li>
+<li><a class="" href="technical.html"><span class="header-section-number">6</span> Technical</a></li>
+<li><a class="" href="extending.html"><span class="header-section-number">7</span> Extending</a></li>
+<li><a class="active" href="special-tasks.html"><span class="header-section-number">8</span> Special Tasks</a></li>
+<li><a class="" href="interpretation.html"><span class="header-section-number">9</span> Model Interpretation</a></li>
+<li><a class="" href="appendix.html"><span class="header-section-number">10</span> Appendix</a></li>
 <li><a class="" href="citation-info.html">Citation Info</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
@@ -71,9 +72,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="special-tasks" class="section level1" number="7">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="special-tasks" class="section level1" number="8">
 <h1>
-<span class="header-section-number">7</span> Special Tasks<a class="anchor" aria-label="anchor" href="#special-tasks"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8</span> Special Tasks<a class="anchor" aria-label="anchor" href="#special-tasks"><i class="fas fa-link"></i></a>
 </h1>
 <p>This chapter explores the different functions of <code>mlr3</code> when dealing with specific data sets that require further statistical modification to undertake sensible analysis.
 Following topics are discussed:</p>
@@ -127,9 +128,9 @@ Fundamentally, clustering and classification are similar.
 However, clustering is an unsupervised task because observations do not contain true labels while in classification, labels are needed in order to train a model.</p>
 <p>This sub-chapter explains how to perform <a href="special-tasks.html#cluster">cluster analysis</a> in mlr3 with the help of <code>mlr3cluster</code> extension package.</p>
 
-<div id="survival" class="section level2" number="7.1">
+<div id="survival" class="section level2" number="8.1">
 <h2>
-<span class="header-section-number">7.1</span> Survival Analysis<a class="anchor" aria-label="anchor" href="#survival"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.1</span> Survival Analysis<a class="anchor" aria-label="anchor" href="#survival"><i class="fas fa-link"></i></a>
 </h2>
 <p>Survival analysis is a sub-field of supervised machine learning in which the aim is to predict the survival distribution of a given individual.
 Arguably the main feature of survival analysis is that unlike classification and regression, learners are trained on two features:</p>
@@ -155,9 +156,9 @@ Furthermore, survival data contains solely positive values and therefore needs t
 <a href="https://mlr3proba.mlr-org.com/reference/MeasureSurv.html"><code>MeasureSurv</code></a> as specialized class for performance measures</li>
 </ul>
 <p>For a good introduction to survival analysis see <em>Modelling Survival Data in Medical Research</em> <span class="citation">(<a href="references.html#ref-Collett2014" role="doc-biblioref">Collett 2014</a>)</span>.</p>
-<div id="tasksurv" class="section level3" number="7.1.1">
+<div id="tasksurv" class="section level3" number="8.1.1">
 <h3>
-<span class="header-section-number">7.1.1</span> TaskSurv<a class="anchor" aria-label="anchor" href="#tasksurv"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.1.1</span> TaskSurv<a class="anchor" aria-label="anchor" href="#tasksurv"><i class="fas fa-link"></i></a>
 </h3>
 <p>Unlike <code>TaskClassif</code> and <code>TaskRegr</code> which have a single ‘target’ argument, <code>TaskSurv</code> mimics the
 <code><a href="https://rdrr.io/pkg/survival/man/Surv.html">survival::Surv</a></code> object and has three-four target arguments (dependent on censoring type).
@@ -199,11 +200,11 @@ A <code>TaskSurv</code> can be constructed with the function <a href="https://ml
 <pre><code>## Registered S3 method overwritten by 'GGally':
 ##   method from   
 ##   +.gg   ggplot2</code></pre>
-<div class="inline-figure"><img src="07-special-survival_files/figure-html/07-special-survival-001-1.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="08-special-survival_files/figure-html/07-special-survival-001-1.svg" width="672" style="display: block; margin: auto;"></div>
 </div>
-<div id="predict-types---crank-lp-and-distr" class="section level3" number="7.1.2">
+<div id="predict-types---crank-lp-and-distr" class="section level3" number="8.1.2">
 <h3>
-<span class="header-section-number">7.1.2</span> Predict Types - crank, lp, and distr<a class="anchor" aria-label="anchor" href="#predict-types---crank-lp-and-distr"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.1.2</span> Predict Types - crank, lp, and distr<a class="anchor" aria-label="anchor" href="#predict-types---crank-lp-and-distr"><i class="fas fa-link"></i></a>
 </h3>
 <p>Every <code>PredictionSurv</code> object can predict one or more of:</p>
 <ul>
@@ -234,17 +235,17 @@ Note that for linear proportional hazards models, the ranking (but not necessari
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionSurv&gt; for 60 observations:
 ##     row_ids time status   crank      lp     distr
-##           2   49   TRUE -0.5947 -0.5947 &lt;list[1]&gt;
-##          21   79  FALSE -0.5239 -0.5239 &lt;list[1]&gt;
-##          22   91  FALSE -2.8709 -2.8709 &lt;list[1]&gt;
+##           5  104  FALSE -3.2292 -3.2292 &lt;list[1]&gt;
+##          20   97  FALSE -0.3138 -0.3138 &lt;list[1]&gt;
+##          22   91  FALSE -2.3468 -2.3468 &lt;list[1]&gt;
 ## ---                                              
-##         287   69  FALSE -2.9174 -2.9174 &lt;list[1]&gt;
-##         289  103   TRUE  1.6226  1.6226 &lt;list[1]&gt;
-##         297   79   TRUE  0.5615  0.5615 &lt;list[1]&gt;</code></pre>
+##         274   94  FALSE -1.7564 -1.7564 &lt;list[1]&gt;
+##         284   79  FALSE  0.3048  0.3048 &lt;list[1]&gt;
+##         286  104  FALSE -1.7283 -1.7283 &lt;list[1]&gt;</code></pre>
 </div>
-<div id="composition" class="section level3" number="7.1.3">
+<div id="composition" class="section level3" number="8.1.3">
 <h3>
-<span class="header-section-number">7.1.3</span> Composition<a class="anchor" aria-label="anchor" href="#composition"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.1.3</span> Composition<a class="anchor" aria-label="anchor" href="#composition"><i class="fas fa-link"></i></a>
 </h3>
 <p>Finally we take a look at the <code>PipeOp</code>s implemented in <a href="https://mlr3proba.mlr-org.com">mlr3proba</a>, which are used for composition of predict types.
 For example, a predict linear predictor does not have a lot of meaning by itself, but it can be composed into a survival distribution.
@@ -278,9 +279,9 @@ See <a href="https://mlr3pipelines.mlr-org.com">mlr3pipelines</a> for full tutor
                 estimator <span class="op">=</span> <span class="st">"kaplan"</span>, form <span class="op">=</span> <span class="st">"ph"</span>, overwrite <span class="op">=</span> <span class="cn">FALSE</span>, graph_learner <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">glm.distr</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="benchmark-experiment" class="section level3" number="7.1.4">
+<div id="benchmark-experiment" class="section level3" number="8.1.4">
 <h3>
-<span class="header-section-number">7.1.4</span> Benchmark Experiment<a class="anchor" aria-label="anchor" href="#benchmark-experiment"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.1.4</span> Benchmark Experiment<a class="anchor" aria-label="anchor" href="#benchmark-experiment"><i class="fas fa-link"></i></a>
 </h3>
 <p>Finally, we conduct a small benchmark study on the <a href="https://mlr3proba.mlr-org.com/reference/mlr_tasks_rats.html"><code>rats</code></a> task using some of the integrated survival learners:</p>
 <div class="sourceCode" id="cb730"><pre class="downlit sourceCode r">
@@ -343,14 +344,14 @@ See <a href="https://mlr3pipelines.mlr-org.com">mlr3pipelines</a> for full tutor
 ## 3:         0.7737</code></pre>
 <div class="sourceCode" id="cb736"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">bmr</span>, measure <span class="op">=</span> <span class="va">measure</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-special-survival_files/figure-html/07-special-survival-004-1.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="08-special-survival_files/figure-html/07-special-survival-004-1.svg" width="672" style="display: block; margin: auto;"></div>
 <p>The experiment indicates that both the Cox PH and the random forest have better discrimination than the Kaplan-Meier baseline estimator, but that the machine learning random forest is not consistently better than the interpretable Cox PH.</p>
 
 </div>
 </div>
-<div id="density" class="section level2" number="7.2">
+<div id="density" class="section level2" number="8.2">
 <h2>
-<span class="header-section-number">7.2</span> Density Estimation<a class="anchor" aria-label="anchor" href="#density"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.2</span> Density Estimation<a class="anchor" aria-label="anchor" href="#density"><i class="fas fa-link"></i></a>
 </h2>
 <p>Density estimation is the learning task to find the unknown distribution from which an i.i.d. data set is generated.
 We interpret this broadly, with this distribution not necessarily being continuous (so may possess a mass not density).
@@ -386,7 +387,7 @@ This task ships as pre-defined <a href="https://mlr3proba.mlr-org.com/reference/
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3viz.mlr-org.com">"mlr3viz"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">task</span>, type <span class="op">=</span> <span class="st">"overlay"</span><span class="op">)</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<div class="inline-figure"><img src="07-special-density_files/figure-html/07-special-density-001-1.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="08-special-density_files/figure-html/07-special-density-001-1.svg" width="672" style="display: block; margin: auto;"></div>
 <p>Unconditional density estimation is an unsupervised method.
 Hence, <code>TaskDens</code> is an unsupervised task which inherits directly from <code>Task</code> unlike <code>TaskClassif</code> and <code>TaskRegr</code>.
 However, <code>TaskDens</code> still has a <code>target</code> argument and a <code>$truth</code> field defined by:</p>
@@ -396,9 +397,9 @@ However, <code>TaskDens</code> still has a <code>target</code> argument and a <c
 <li>
 <code>$truth</code> - the values of the <code>target</code> column (which is <em>not</em> the true density, which is always unknown)</li>
 </ul>
-<div id="train-and-predict-1" class="section level3" number="7.2.1">
+<div id="train-and-predict-1" class="section level3" number="8.2.1">
 <h3>
-<span class="header-section-number">7.2.1</span> Train and Predict<a class="anchor" aria-label="anchor" href="#train-and-predict-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.2.1</span> Train and Predict<a class="anchor" aria-label="anchor" href="#train-and-predict-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Density learners have <code>train</code> and <code>predict</code> methods, though being unsupervised, ‘prediction’ is actually ‘estimation’.
 In training, a <a href="https://cran.r-project.org/package=distr6">distr6</a> object is created,
@@ -426,10 +427,10 @@ Note that in prediction the points to evaluate the pdf and cdf are determined by
 ## [1] 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0 5.5
 ## 
 ## $counts
-## [1] 42 32  4  7 23 54 51  4
+## [1] 42 34  4  6 25 49 54  3
 ## 
 ## $density
-## [1] 0.38710 0.29493 0.03687 0.06452 0.21198 0.49770 0.47005 0.03687
+## [1] 0.38710 0.31336 0.03687 0.05530 0.23041 0.45161 0.49770 0.02765
 ## 
 ## $mids
 ## [1] 1.75 2.25 2.75 3.25 3.75 4.25 4.75 5.25
@@ -462,9 +463,9 @@ Note that in prediction the points to evaluate the pdf and cdf are determined by
 <code>cdf</code> - cumulative distribution function</li>
 </ul>
 </div>
-<div id="benchmark-experiment-1" class="section level3" number="7.2.2">
+<div id="benchmark-experiment-1" class="section level3" number="8.2.2">
 <h3>
-<span class="header-section-number">7.2.2</span> Benchmark Experiment<a class="anchor" aria-label="anchor" href="#benchmark-experiment-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.2.2</span> Benchmark Experiment<a class="anchor" aria-label="anchor" href="#benchmark-experiment-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Finally, we conduct a small benchmark study on the <a href="https://mlr3proba.mlr-org.com/reference/mlr_tasks_precip.html"><code>precip</code></a> task using some of the integrated survival learners:</p>
 <div class="sourceCode" id="cb746"><pre class="downlit sourceCode r">
@@ -508,14 +509,14 @@ Note that in prediction the points to evaluate the pdf and cdf are determined by
 ## 2:  2 &lt;ResampleResult[20]&gt;  precip   dens.kde            cv     3        4.818</code></pre>
 <div class="sourceCode" id="cb752"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">bmr</span>, measure <span class="op">=</span> <span class="va">measure</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-special-density_files/figure-html/07-special-density-003-1.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="08-special-density_files/figure-html/07-special-density-003-1.svg" width="672" style="display: block; margin: auto;"></div>
 <p>The results of this experiment show that the sophisticated Penalized Density Estimator does not outperform the baseline Histogram, but that the Kernel Density Estimator has at least consistently <code>better</code> (i.e. lower logloss) results.</p>
 
 </div>
 </div>
-<div id="spatiotemporal" class="section level2" number="7.3">
+<div id="spatiotemporal" class="section level2" number="8.3">
 <h2>
-<span class="header-section-number">7.3</span> Spatiotemporal Analysis<a class="anchor" aria-label="anchor" href="#spatiotemporal"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.3</span> Spatiotemporal Analysis<a class="anchor" aria-label="anchor" href="#spatiotemporal"><i class="fas fa-link"></i></a>
 </h2>
 <p>Data observations may entail reference information about spatial or temporal characteristics.
 Spatial information is stored as coordinates, usually named “x” and “y” or “lat”/“lon”.
@@ -533,9 +534,9 @@ Hence, methods specifically designed to account for the special nature of spatio
 <p>The following (sub-)sections introduce the potential pitfalls of spatiotemporal data in machine learning and how to account for it.
 Note that not all functionality will be covered, and that some of the used packages are still in early lifecycles.
 If you want to contribute to one of the packages mentioned above, please contact <a href="https://github.com/pat-s">Patrick Schratz</a>.</p>
-<div id="creating-a-spatial-task" class="section level3" number="7.3.1">
+<div id="creating-a-spatial-task" class="section level3" number="8.3.1">
 <h3>
-<span class="header-section-number">7.3.1</span> Creating a spatial Task<a class="anchor" aria-label="anchor" href="#creating-a-spatial-task"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.3.1</span> Creating a spatial Task<a class="anchor" aria-label="anchor" href="#creating-a-spatial-task"><i class="fas fa-link"></i></a>
 </h3>
 <p>To make use of spatial resampling methods, a {mlr3} task that is aware of its spatial characteristic needs to be created.
 Two child classes exist in {mlr3spatiotempcv} for this purpose:</p>
@@ -562,9 +563,9 @@ In this case, the constructor of <code>TaskClassifST</code> needs a few more arg
 <span class="op">)</span></code></pre></div>
 <p>Now this Task can be used as a normal {mlr3} task in any kind of modeling scenario.</p>
 </div>
-<div id="spatiotemporal-intro" class="section level3" number="7.3.2">
+<div id="spatiotemporal-intro" class="section level3" number="8.3.2">
 <h3>
-<span class="header-section-number">7.3.2</span> Autocorrelation<a class="anchor" aria-label="anchor" href="#spatiotemporal-intro"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.3.2</span> Autocorrelation<a class="anchor" aria-label="anchor" href="#spatiotemporal-intro"><i class="fas fa-link"></i></a>
 </h3>
 <p>Data which includes spatial or temporal information requires special treatment in machine learning (similar to <a href="special-tasks.html#survival">survival</a>, <a href="special-tasks.html#ordinal">ordinal</a> and other task types listed in the <a href="special-tasks.html#special-tasks">special tasks</a> chapter).
 In contrast to non-spatial/non-temporal data, observations inherit a natural grouping, either in space or time or in both space and time <span class="citation">(<a href="references.html#ref-legendre1993" role="doc-biblioref">Legendre 1993</a>)</span>.
@@ -589,17 +590,17 @@ The grouping has the effect that train and test data are more separated in space
 This leads to a high similarity between train and test sets, resulting in “better” but biased performance estimates in every fold of a CV compared to the spatial CV approach.
 However, these low error rates are mainly caused due to the STAC in the observations and the lack of appropriate partitioning methods and not by the power of the fitted model.</p>
 </div>
-<div id="sp-vs-nsp-cv" class="section level3" number="7.3.3">
+<div id="sp-vs-nsp-cv" class="section level3" number="8.3.3">
 <h3>
-<span class="header-section-number">7.3.3</span> Spatial CV vs. Non-Spatial CV<a class="anchor" aria-label="anchor" href="#sp-vs-nsp-cv"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.3.3</span> Spatial CV vs. Non-Spatial CV<a class="anchor" aria-label="anchor" href="#sp-vs-nsp-cv"><i class="fas fa-link"></i></a>
 </h3>
 <p>In the following a spatial and a non-spatial CV will be conducted to showcase the mentioned performance differences.</p>
 <p>The performance of a simple classification tree (<code>"classif.rpart"</code>) is evaluated on a random partitioning (<code>"repeated_cv"</code>) with four folds and two repetitions.
 The chosen evaluation measure is “classification error” (<code>"classif.ce"</code>).
 The only difference in the spatial setting is that <code>"repeated_spcv_coords"</code> is chosen instead of <code>"repeated_cv"</code>.</p>
-<div id="nsp-cv" class="section level4" number="7.3.3.1">
+<div id="nsp-cv" class="section level4" number="8.3.3.1">
 <h4>
-<span class="header-section-number">7.3.3.1</span> Non-Spatial CV<a class="anchor" aria-label="anchor" href="#nsp-cv"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.3.3.1</span> Non-Spatial CV<a class="anchor" aria-label="anchor" href="#nsp-cv"><i class="fas fa-link"></i></a>
 </h4>
 <div class="sourceCode" id="cb755"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
@@ -622,9 +623,9 @@ The only difference in the spatial setting is that <code>"repeated_spcv_coords"<
 <pre><code>## classif.ce 
 ##     0.3389</code></pre>
 </div>
-<div id="sp-cv" class="section level4" number="7.3.3.2">
+<div id="sp-cv" class="section level4" number="8.3.3.2">
 <h4>
-<span class="header-section-number">7.3.3.2</span> Spatial CV<a class="anchor" aria-label="anchor" href="#sp-cv"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.3.3.2</span> Spatial CV<a class="anchor" aria-label="anchor" href="#sp-cv"><i class="fas fa-link"></i></a>
 </h4>
 <div class="sourceCode" id="cb757"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"ecuador"</span><span class="op">)</span>
@@ -643,9 +644,9 @@ The magnitude of this difference is variable as it depends on the dataset, the m
 For algorithms with a higher tendency of overfitting to the training set, the difference between the two methods will be larger.</p>
 </div>
 </div>
-<div id="vis-spt-partitions" class="section level3" number="7.3.4">
+<div id="vis-spt-partitions" class="section level3" number="8.3.4">
 <h3>
-<span class="header-section-number">7.3.4</span> Visualization of Spatiotemporal Partitions<a class="anchor" aria-label="anchor" href="#vis-spt-partitions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.3.4</span> Visualization of Spatiotemporal Partitions<a class="anchor" aria-label="anchor" href="#vis-spt-partitions"><i class="fas fa-link"></i></a>
 </h3>
 <p>Every partitioning method in <a href="https://github.com/mlr-org/mlr3spatiotemporal">mlr3spatiotemporal</a> comes with a generic <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> method to visualize the created groups.
 In a 2D space this happens via <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a> while for spatiotemporal methods 3D visualizations via <a href="https://cran.r-project.org/package=plotly">plotly</a> are created.</p>
@@ -653,7 +654,7 @@ In a 2D space this happens via <a href="https://cran.r-project.org/package=ggplo
 <code class="sourceCode R"><span class="fu"><a href="https://mlr3spatiotempcv.mlr-org.com/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">resampling_sp</span>, <span class="va">task</span>, fold_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">*</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3.97</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">0.01</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">79.06</span>, <span class="op">-</span><span class="fl">79.08</span>, <span class="op">-</span><span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-special-spatiotemp_files/figure-html/07-special-spatiotemp-003-1.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="08-special-spatiotemp_files/figure-html/07-special-spatiotemp-003-1.svg" width="672" style="display: block; margin: auto;"></div>
 <p>Note that setting the correct CRS for the given data is important which is done during task creation
 Spatial offsets of up to multiple meters may occur if the wrong CRS is supplied initially.</p>
 <p>This example used an already created task via the sugar function <code><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk()</a></code>.
@@ -663,11 +664,11 @@ In practice however, one needs to create a spatiotemporal task via <code><a href
 <code class="sourceCode R"><span class="fu"><a href="https://mlr3spatiotempcv.mlr-org.com/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">resampling_nsp</span>, <span class="va">task</span>, fold_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">*</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3.97</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">0.01</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">79.06</span>, <span class="op">-</span><span class="fl">79.08</span>, <span class="op">-</span><span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-special-spatiotemp_files/figure-html/07-special-spatiotemp-004-1.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="08-special-spatiotemp_files/figure-html/07-special-spatiotemp-004-1.svg" width="672" style="display: block; margin: auto;"></div>
 </div>
-<div id="vis-spatial-block" class="section level3" number="7.3.5">
+<div id="vis-spatial-block" class="section level3" number="8.3.5">
 <h3>
-<span class="header-section-number">7.3.5</span> Spatial Block Visualization<a class="anchor" aria-label="anchor" href="#vis-spatial-block"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.3.5</span> Spatial Block Visualization<a class="anchor" aria-label="anchor" href="#vis-spatial-block"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <code>spcv-block</code> method makes use of rectangular blocks to divide the study area into equally-sized parts.
 These blocks can be visualized by their spatial location and fold ID to get a better understanding how these influenced the final partitions.</p>
@@ -680,11 +681,11 @@ These blocks can be visualized by their spatial location and fold ID to get a be
 <span class="fu"><a href="https://mlr3spatiotempcv.mlr-org.com/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">resampling</span>, <span class="va">task</span>, size <span class="op">=</span> <span class="fl">0.7</span>,
   fold_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, show_blocks <span class="op">=</span> <span class="cn">TRUE</span>, show_labels <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">*</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">79.085</span>, <span class="op">-</span><span class="fl">79.055</span>, <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-special-spatiotemp_files/figure-html/07-special-spatiotemp-005-1.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="08-special-spatiotemp_files/figure-html/07-special-spatiotemp-005-1.svg" width="672" style="display: block; margin: auto;"></div>
 </div>
-<div id="choose-spt-rsmp" class="section level3" number="7.3.6">
+<div id="choose-spt-rsmp" class="section level3" number="8.3.6">
 <h3>
-<span class="header-section-number">7.3.6</span> Choosing a Resampling Method<a class="anchor" aria-label="anchor" href="#choose-spt-rsmp"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.3.6</span> Choosing a Resampling Method<a class="anchor" aria-label="anchor" href="#choose-spt-rsmp"><i class="fas fa-link"></i></a>
 </h3>
 <p>While the example used the <code>"spcv_coords"</code> method, this does not mean that this method is the best or only method suitable for this task.
 Even though this method is quite popular, it was mainly chosen because of the clear visual grouping differences compared to random partitioning.</p>
@@ -697,32 +698,32 @@ See <span class="citation">Schratz et al. (<a href="references.html#ref-schratz2
 <p>A list of all implemented methods in <a href="https://github.com/mlr-org/mlr3spatiotemporal">mlr3spatiotemporal</a> can be found in the <a href="https://mlr3spatiotempcv.mlr-org.com/articles/mlr3spatiotempcv.html#resampling-methods">Getting Started</a> vignette of the package.</p>
 <p>If you want to learn even more about the field of spatial partitioning, STAC and the problems associated with it, the work of <a href="https://scholar.google.com/citations?user=9YibxW0AAAAJ&amp;hl=en">Prof. Hanna Meyer</a> is very much recommended for further reference.</p>
 </div>
-<div id="spatial-prediction" class="section level3" number="7.3.7">
+<div id="spatial-prediction" class="section level3" number="8.3.7">
 <h3>
-<span class="header-section-number">7.3.7</span> Spatial Prediction<a class="anchor" aria-label="anchor" href="#spatial-prediction"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.3.7</span> Spatial Prediction<a class="anchor" aria-label="anchor" href="#spatial-prediction"><i class="fas fa-link"></i></a>
 </h3>
 <p>Experimental support for spatial prediction with <a href="https://cran.r-project.org/package=terra">terra</a>, <a href="https://cran.r-project.org/package=raster">raster</a>, <a href="https://cran.r-project.org/package=stars">stars</a> and <a href="https://cran.r-project.org/package=sf">sf</a> objects is available in <a href="https://github.com/mlr-org/mlr3spatial">mlr3spatial</a>.</p>
 <p>Until the package is released on CRAN, please see the package vignettes for usage examples.</p>
 
 </div>
 </div>
-<div id="ordinal" class="section level2" number="7.4">
+<div id="ordinal" class="section level2" number="8.4">
 <h2>
-<span class="header-section-number">7.4</span> Ordinal Analysis<a class="anchor" aria-label="anchor" href="#ordinal"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.4</span> Ordinal Analysis<a class="anchor" aria-label="anchor" href="#ordinal"><i class="fas fa-link"></i></a>
 </h2>
 <p>This is work in progress.
 See <a href="https://github.com/mlr-org/mlr3ordinal">mlr3ordinal</a> for the current state of the implementation.</p>
 
 </div>
-<div id="functional" class="section level2" number="7.5">
+<div id="functional" class="section level2" number="8.5">
 <h2>
-<span class="header-section-number">7.5</span> Functional Analysis<a class="anchor" aria-label="anchor" href="#functional"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.5</span> Functional Analysis<a class="anchor" aria-label="anchor" href="#functional"><i class="fas fa-link"></i></a>
 </h2>
 <p>Functional data is data containing an ordering on the dimensions.
 This implies that functional data consists of curves varying over a continuum, such as time, frequency, or wavelength.</p>
-<div id="how-to-model-functional-data" class="section level3" number="7.5.1">
+<div id="how-to-model-functional-data" class="section level3" number="8.5.1">
 <h3>
-<span class="header-section-number">7.5.1</span> How to model functional data?<a class="anchor" aria-label="anchor" href="#how-to-model-functional-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.5.1</span> How to model functional data?<a class="anchor" aria-label="anchor" href="#how-to-model-functional-data"><i class="fas fa-link"></i></a>
 </h3>
 <p>There are two ways to model functional data:</p>
 <ul>
@@ -734,18 +735,18 @@ Open an issue in <a href="https://github.com/mlr-org/mlr3fda">mlr3fda</a> if you
 
 </div>
 </div>
-<div id="multilabel" class="section level2" number="7.6">
+<div id="multilabel" class="section level2" number="8.6">
 <h2>
-<span class="header-section-number">7.6</span> Multilabel Classification<a class="anchor" aria-label="anchor" href="#multilabel"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.6</span> Multilabel Classification<a class="anchor" aria-label="anchor" href="#multilabel"><i class="fas fa-link"></i></a>
 </h2>
 <p>Multilabel classification deals with objects that can belong to more than one category at the same time.</p>
 <p>The development has not started yet, we are looking for contributes.
 Open an issue in <a href="https://github.com/mlr-org/mlr3multioutput">mlr3multioutput</a> if you are interested!</p>
 
 </div>
-<div id="cost-sens" class="section level2" number="7.7">
+<div id="cost-sens" class="section level2" number="8.7">
 <h2>
-<span class="header-section-number">7.7</span> Cost-Sensitive Classification<a class="anchor" aria-label="anchor" href="#cost-sens"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.7</span> Cost-Sensitive Classification<a class="anchor" aria-label="anchor" href="#cost-sens"><i class="fas fa-link"></i></a>
 </h2>
 <p>In regular classification the aim is to minimize the misclassification rate and thus all types of misclassification errors are deemed equally severe.
 A more general setting is cost-sensitive classification.
@@ -809,9 +810,9 @@ The resulting costs for the German credit data are:</p>
 <span class="fl">0.055</span> <span class="op">*</span> <span class="fl">20000</span> <span class="op">*</span> <span class="fl">1000</span></code></pre></div>
 <pre><code>## [1] 1100000</code></pre>
 <p>Our goal is to find a model which minimizes the costs (and thereby maximizes the expected profit).</p>
-<div id="a-first-model" class="section level3" number="7.7.1">
+<div id="a-first-model" class="section level3" number="8.7.1">
 <h3>
-<span class="header-section-number">7.7.1</span> A First Model<a class="anchor" aria-label="anchor" href="#a-first-model"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.7.1</span> A First Model<a class="anchor" aria-label="anchor" href="#a-first-model"><i class="fas fa-link"></i></a>
 </h3>
 <p>For our first model, we choose an ordinary logistic regression (implemented in the add-on package <a href="https://mlr3learners.mlr-org.com">mlr3learners</a>).
 We first create a classification task, then resample the model using a 10-fold cross validation and extract the resulting confusion matrix:</p>
@@ -824,22 +825,22 @@ We first create a classification task, then resample the model using a 10-fold c
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">confusion</span><span class="op">)</span></code></pre></div>
 <pre><code>##         truth
 ## response good bad
-##     good  603 149
-##     bad    97 151</code></pre>
+##     good  601 154
+##     bad    99 146</code></pre>
 <p>To calculate the average costs like above, we can simply multiply the elements of the confusion matrix with the elements of the previously introduced cost matrix, and sum the values of the resulting matrix:</p>
 <div class="sourceCode" id="cb774"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">avg_costs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">confusion</span> <span class="op">*</span> <span class="va">costs</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">avg_costs</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] -0.06205</code></pre>
+<pre><code>## [1] -0.05635</code></pre>
 <p>With an average loan of $20,000, the logistic regression yields the following costs:</p>
 <div class="sourceCode" id="cb776"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">avg_costs</span> <span class="op">*</span> <span class="fl">20000</span> <span class="op">*</span> <span class="fl">1000</span></code></pre></div>
-<pre><code>## [1] -1241000</code></pre>
+<pre><code>## [1] -1127000</code></pre>
 <p>Instead of losing over $1,000,000, the credit institute now can expect a profit of more than $1,000,000.</p>
 </div>
-<div id="cost-sensitive-measure" class="section level3" number="7.7.2">
+<div id="cost-sensitive-measure" class="section level3" number="8.7.2">
 <h3>
-<span class="header-section-number">7.7.2</span> Cost-sensitive Measure<a class="anchor" aria-label="anchor" href="#cost-sensitive-measure"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.7.2</span> Cost-sensitive Measure<a class="anchor" aria-label="anchor" href="#cost-sensitive-measure"><i class="fas fa-link"></i></a>
 </h3>
 <p>Our natural next step would be to further improve the modeling step in order to maximize the profit.
 For this purpose we first create a cost-sensitive classification measure which calculates the costs based on our cost matrix.
@@ -871,15 +872,15 @@ We compare the logistic regression to a simple featureless learner and to a rand
 ## 2:  2 &lt;ResampleResult[20]&gt; german_credit classif.featureless            cv
 ## 3:  3 &lt;ResampleResult[20]&gt; german_credit      classif.ranger            cv
 ##    iters classif.costs
-## 1:     3      -0.05561
-## 2:     3       0.05495
-## 3:     3      -0.04068</code></pre>
+## 1:     3      -0.05331
+## 2:     3       0.05500
+## 3:     3      -0.04010</code></pre>
 <p>As expected, the featureless learner is performing comparably bad.
 The logistic regression and the random forest work equally well.</p>
 </div>
-<div id="thresholding" class="section level3" number="7.7.3">
+<div id="thresholding-1" class="section level3" number="8.7.3">
 <h3>
-<span class="header-section-number">7.7.3</span> Thresholding<a class="anchor" aria-label="anchor" href="#thresholding"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.7.3</span> Thresholding<a class="anchor" aria-label="anchor" href="#thresholding-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Although we now correctly evaluate the models in a cost-sensitive fashion, the models themselves are unaware of the classification costs.
 They assume the same costs for both wrong classification decisions (false positives and false negatives).
@@ -898,13 +899,13 @@ Note that we increase the number of false positives simultaneously, or, in other
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 1000 observations:
 ##     row_ids truth response prob.good prob.bad
-##           5   bad      bad    0.2088  0.79116
-##          14   bad     good    0.6680  0.33196
-##          22  good     good    0.7477  0.25233
+##           4  good     good   0.75522  0.24478
+##          10   bad      bad   0.20408  0.79592
+##          17  good     good   0.97628  0.02372
 ## ---                                          
-##         965  good     good    0.6177  0.38230
-##         985  good     good    0.9535  0.04655
-##         999   bad      bad    0.3706  0.62937</code></pre>
+##         946  good      bad   0.09849  0.90151
+##         982   bad     good   0.55911  0.44089
+##         986  good      bad   0.33050  0.66950</code></pre>
 <div class="sourceCode" id="cb784"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># helper function to try different threshold values interactively</span>
 <span class="va">with_threshold</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">th</span><span class="op">)</span> <span class="op">{</span>
@@ -916,23 +917,23 @@ Note that we increase the number of false positives simultaneously, or, in other
 <pre><code>## $confusion
 ##         truth
 ## response good bad
-##     good  601 151
-##     bad    99 149
+##     good  603 149
+##     bad    97 151
 ## 
 ## $costs
 ## classif.costs 
-##      -0.05935</code></pre>
+##      -0.06205</code></pre>
 <div class="sourceCode" id="cb786"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">with_threshold</span><span class="op">(</span><span class="va">p</span>, <span class="fl">0.75</span><span class="op">)</span></code></pre></div>
 <pre><code>## $confusion
 ##         truth
 ## response good bad
-##     good  482  78
-##     bad   218 222
+##     good  468  77
+##     bad   232 223
 ## 
 ## $costs
 ## classif.costs 
-##       -0.0907</code></pre>
+##       -0.0868</code></pre>
 <div class="sourceCode" id="cb788"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">with_threshold</span><span class="op">(</span><span class="va">p</span>, <span class="fl">1.0</span><span class="op">)</span></code></pre></div>
 <pre><code>## $confusion
@@ -956,24 +957,24 @@ Note that we increase the number of false positives simultaneously, or, in other
 <span class="va">best</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/optimize.html">optimize</a></span><span class="op">(</span><span class="va">f</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">best</span><span class="op">)</span></code></pre></div>
 <pre><code>## $minimum
-## [1] 0.72
+## [1] 0.6894
 ## 
 ## $objective
 ## classif.costs 
-##       -0.0954</code></pre>
+##      -0.08995</code></pre>
 <div class="sourceCode" id="cb793"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># optimized confusion matrix:</span>
 <span class="fu">with_threshold</span><span class="op">(</span><span class="va">p</span>, <span class="va">best</span><span class="op">$</span><span class="va">minimum</span><span class="op">)</span><span class="op">$</span><span class="va">confusion</span></code></pre></div>
 <pre><code>##         truth
 ## response good bad
-##     good  504  81
-##     bad   196 219</code></pre>
+##     good  517  91
+##     bad   183 209</code></pre>
 <p>Note that the function <a href="https://www.rdocumentation.org/packages/stats/topics/optimize"><code>optimize()</code></a> is intended for unimodal functions and therefore may converge to a local optimum here.
 See below for better alternatives to find good threshold values.</p>
 </div>
-<div id="threshold-tuning-1" class="section level3" number="7.7.4">
+<div id="threshold-tuning" class="section level3" number="8.7.4">
 <h3>
-<span class="header-section-number">7.7.4</span> Threshold Tuning<a class="anchor" aria-label="anchor" href="#threshold-tuning-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.7.4</span> Threshold Tuning<a class="anchor" aria-label="anchor" href="#threshold-tuning"><i class="fas fa-link"></i></a>
 </h3>
 <p>Before we start, we have load all required packages:</p>
 <div class="sourceCode" id="cb795"><pre class="downlit sourceCode r">
@@ -982,9 +983,9 @@ See below for better alternatives to find good threshold values.</p>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3tuning.mlr-org.com">"mlr3tuning"</a></span><span class="op">)</span></code></pre></div>
 <pre><code>## Loading required package: paradox</code></pre>
 </div>
-<div id="adjusting-thresholds-two-strategies" class="section level3" number="7.7.5">
+<div id="adjusting-thresholds-two-strategies" class="section level3" number="8.7.5">
 <h3>
-<span class="header-section-number">7.7.5</span> Adjusting thresholds: Two strategies<a class="anchor" aria-label="anchor" href="#adjusting-thresholds-two-strategies"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.7.5</span> Adjusting thresholds: Two strategies<a class="anchor" aria-label="anchor" href="#adjusting-thresholds-two-strategies"><i class="fas fa-link"></i></a>
 </h3>
 <p>Currently <code>mlr3pipelines</code> offers two main strategies towards adjusting <code>classification thresholds</code>.
 We can either expose the thresholds as a <code>hyperparameter</code> of the Learner by using <code>PipeOpThreshold</code>.
@@ -992,9 +993,9 @@ This allows us to tune the <code>thresholds</code> via an outside optimizer from
 <p>Alternatively, we can also use <code>PipeOpTuneThreshold</code> which automatically tunes the threshold after each learner is fit.</p>
 <p>In this blog-post, we’ll go through both strategies.</p>
 </div>
-<div id="pipeopthreshold" class="section level3" number="7.7.6">
+<div id="pipeopthreshold" class="section level3" number="8.7.6">
 <h3>
-<span class="header-section-number">7.7.6</span> PipeOpThreshold<a class="anchor" aria-label="anchor" href="#pipeopthreshold"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.7.6</span> PipeOpThreshold<a class="anchor" aria-label="anchor" href="#pipeopthreshold"><i class="fas fa-link"></i></a>
 </h3>
 <p><code>PipeOpThreshold</code> can be put directly after a <code>Learner</code>.</p>
 <p>A simple example would be:</p>
@@ -1050,41 +1051,41 @@ you can easily imagine, that we can also jointly tune over additional hyperparam
 <span class="op">)</span>
 
 <span class="va">at</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"german_credit"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## INFO  [14:34:31.799] [bbotk] Starting to optimize 1 parameter(s) with '&lt;OptimizerRandomSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=5, k=0]' 
-## INFO  [14:34:31.849] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:34:32.206] [bbotk] Result of batch 1: 
-## INFO  [14:34:32.208] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [14:34:32.208] [bbotk]                 0.317      0.286            0.204 
-## INFO  [14:34:32.208] [bbotk]                                 uhash 
-## INFO  [14:34:32.208] [bbotk]  ebcdcf52-e9f1-46a0-9717-b75c26eb254b 
-## INFO  [14:34:32.211] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:34:32.596] [bbotk] Result of batch 2: 
-## INFO  [14:34:32.597] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [14:34:32.597] [bbotk]                0.9391      0.689            0.235 
-## INFO  [14:34:32.597] [bbotk]                                 uhash 
-## INFO  [14:34:32.597] [bbotk]  e4033229-95bb-4d1f-938c-fae2337ec307 
-## INFO  [14:34:32.601] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:34:32.942] [bbotk] Result of batch 3: 
-## INFO  [14:34:32.945] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [14:34:32.945] [bbotk]                0.6359      0.297            0.193 
-## INFO  [14:34:32.945] [bbotk]                                 uhash 
-## INFO  [14:34:32.945] [bbotk]  12927ec6-53d3-4fb1-92e7-aed496b4a475 
-## INFO  [14:34:32.948] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:34:33.295] [bbotk] Result of batch 4: 
-## INFO  [14:34:33.298] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [14:34:33.298] [bbotk]                 0.583      0.297            0.191 
-## INFO  [14:34:33.298] [bbotk]                                 uhash 
-## INFO  [14:34:33.298] [bbotk]  6ea6a98f-c284-4c8e-ba81-ceca6e35ac98 
-## INFO  [14:34:33.301] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:34:33.652] [bbotk] Result of batch 5: 
-## INFO  [14:34:33.655] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [14:34:33.655] [bbotk]                 0.493      0.299            0.194 
-## INFO  [14:34:33.655] [bbotk]                                 uhash 
-## INFO  [14:34:33.655] [bbotk]  d5ad522a-0e13-427a-a001-ccc03e3eb3d1 
-## INFO  [14:34:33.663] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [14:34:33.664] [bbotk] Result: 
-## INFO  [14:34:33.665] [bbotk]  threshold.thresholds learner_param_vals  x_domain classif.ce 
-## INFO  [14:34:33.665] [bbotk]                 0.317          &lt;list[2]&gt; &lt;list[1]&gt;      0.286</code></pre>
+<pre><code>## INFO  [09:36:16.484] [bbotk] Starting to optimize 1 parameter(s) with '&lt;OptimizerRandomSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=5, k=0]' 
+## INFO  [09:36:16.538] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [09:36:16.923] [bbotk] Result of batch 1: 
+## INFO  [09:36:16.925] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [09:36:16.925] [bbotk]                0.9831      0.685            0.228 
+## INFO  [09:36:16.925] [bbotk]                                 uhash 
+## INFO  [09:36:16.925] [bbotk]  52ed054a-5bd3-4282-a147-c23fadeb05c3 
+## INFO  [09:36:16.928] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [09:36:17.362] [bbotk] Result of batch 2: 
+## INFO  [09:36:17.364] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [09:36:17.364] [bbotk]                0.8643     0.4581            0.264 
+## INFO  [09:36:17.364] [bbotk]                                 uhash 
+## INFO  [09:36:17.364] [bbotk]  976df476-f0fe-4990-b19e-7062616d85ef 
+## INFO  [09:36:17.368] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [09:36:17.748] [bbotk] Result of batch 3: 
+## INFO  [09:36:17.750] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [09:36:17.750] [bbotk]                0.6817      0.273            0.215 
+## INFO  [09:36:17.750] [bbotk]                                 uhash 
+## INFO  [09:36:17.750] [bbotk]  ce17a02e-4f40-41c2-8c89-4d49603793e7 
+## INFO  [09:36:17.754] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [09:36:18.126] [bbotk] Result of batch 4: 
+## INFO  [09:36:18.128] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [09:36:18.128] [bbotk]                0.8468      0.339              0.2 
+## INFO  [09:36:18.128] [bbotk]                                 uhash 
+## INFO  [09:36:18.128] [bbotk]  51198c73-9f0c-4f3d-8918-bb73e16b00f8 
+## INFO  [09:36:18.132] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [09:36:18.527] [bbotk] Result of batch 5: 
+## INFO  [09:36:18.529] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [09:36:18.529] [bbotk]               0.01604        0.3            0.217 
+## INFO  [09:36:18.529] [bbotk]                                 uhash 
+## INFO  [09:36:18.529] [bbotk]  3c50cf54-ad17-4342-b3a7-694aa0424d19 
+## INFO  [09:36:18.538] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [09:36:18.539] [bbotk] Result: 
+## INFO  [09:36:18.541] [bbotk]  threshold.thresholds learner_param_vals  x_domain classif.ce 
+## INFO  [09:36:18.541] [bbotk]                0.6817          &lt;list[2]&gt; &lt;list[1]&gt;      0.273</code></pre>
 <p>Inside the <code>trafo</code>, we simply collect all set params into a named vector via <code>map_dbl</code> and store it
 in the <code>threshold.thresholds</code> slot expected by the learner.</p>
 <p>Again, we create a <code>AutoTuner</code>, which automatically tunes the supplied learner over the <code>ParamSet</code> we supplied above.</p>
@@ -1093,9 +1094,9 @@ While setting a threshold and computing performance is relatively cheap, fitting
 more computationally demanding.
 A better strategy is therefore often to optimize the thresholds separately after each model fit.</p>
 </div>
-<div id="pipeoptunethreshold" class="section level3" number="7.7.7">
+<div id="pipeoptunethreshold" class="section level3" number="8.7.7">
 <h3>
-<span class="header-section-number">7.7.7</span> PipeOpTunethreshold<a class="anchor" aria-label="anchor" href="#pipeoptunethreshold"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.7.7</span> PipeOpTunethreshold<a class="anchor" aria-label="anchor" href="#pipeoptunethreshold"><i class="fas fa-link"></i></a>
 </h3>
 <p><code>PipeOpTuneThreshold</code> on the other hand works together with <code>PipeOpLearnerCV</code>.
 It directly optimizes the <code>cross-validated</code> predictions made by this <code>PipeOp</code>.
@@ -1152,9 +1153,9 @@ on the thresholds but can significantly reduce runtime.</p>
 
 </div>
 </div>
-<div id="cluster" class="section level2" number="7.8">
+<div id="cluster" class="section level2" number="8.8">
 <h2>
-<span class="header-section-number">7.8</span> Cluster Analysis<a class="anchor" aria-label="anchor" href="#cluster"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.8</span> Cluster Analysis<a class="anchor" aria-label="anchor" href="#cluster"><i class="fas fa-link"></i></a>
 </h2>
 <p>Cluster analysis is a type of unsupervised machine learning where the goal is to group data into clusters, where each cluster contains similar observations.
 The similarity is based on specified metrics that are task and application dependent.
@@ -1193,9 +1194,9 @@ More specifically:</p>
 <li>
 <code>prob</code> stores cluster probabilities for each observation.</li>
 </ul>
-<div id="train-and-predict-2" class="section level3" number="7.8.1">
+<div id="train-and-predict-2" class="section level3" number="8.8.1">
 <h3>
-<span class="header-section-number">7.8.1</span> Train and Predict<a class="anchor" aria-label="anchor" href="#train-and-predict-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.8.1</span> Train and Predict<a class="anchor" aria-label="anchor" href="#train-and-predict-2"><i class="fas fa-link"></i></a>
 </h3>
 <p>Clustering learners provide both <code>train</code> and <code>predict</code> methods.
 The analysis typically consists of building clusters using all available data.
@@ -1231,7 +1232,7 @@ The class labels are predicted and the contribution of the task features to assi
 ##   - dbl (2): Murder, Rape</code></pre>
 <div class="sourceCode" id="cb808"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-special-cluster_files/figure-html/07-special-cluster-002-1.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="08-special-cluster_files/figure-html/07-special-cluster-002-1.svg" width="672" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb809"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a k-means learner</span>
 <span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"clust.kmeans"</span><span class="op">)</span>
@@ -1262,11 +1263,11 @@ The class labels are predicted and the contribution of the task features to assi
 <code class="sourceCode R"><span class="co"># make "predictions" for the same data</span>
 <span class="va">prediction</span> <span class="op">=</span> <span class="va">learner</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">prediction</span>, <span class="va">task</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-special-cluster_files/figure-html/07-special-cluster-002-2.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="08-special-cluster_files/figure-html/07-special-cluster-002-2.svg" width="672" style="display: block; margin: auto;"></div>
 </div>
-<div id="measures" class="section level3" number="7.8.2">
+<div id="measures" class="section level3" number="8.8.2">
 <h3>
-<span class="header-section-number">7.8.2</span> Measures<a class="anchor" aria-label="anchor" href="#measures"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.8.2</span> Measures<a class="anchor" aria-label="anchor" href="#measures"><i class="fas fa-link"></i></a>
 </h3>
 <p>The difference between supervised and unsupervised learning is that there is no ground truth data in unsupervised learning.
 In a supervised setting, such as classification, we would need to compare our predictions to true labels.
@@ -1315,9 +1316,9 @@ Silhouette values are in <span class="math inline">\([-1, 1]\)</span> range.</p>
 ## 3:           0.5493</code></pre>
 <p>The experiment shows that using k-means algorithm with three centers produces a better within sum of squares score than any other learner considered. However, pam (partitioning around medoids) learner with two clusters performs the best when considering silhouette measure which takes into the account both cluster cohesion and separation.</p>
 </div>
-<div id="visualization" class="section level3" number="7.8.3">
+<div id="visualization" class="section level3" number="8.8.3">
 <h3>
-<span class="header-section-number">7.8.3</span> Visualization<a class="anchor" aria-label="anchor" href="#visualization"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.8.3</span> Visualization<a class="anchor" aria-label="anchor" href="#visualization"><i class="fas fa-link"></i></a>
 </h3>
 <p>Cluster analysis in <a href="https://mlr3.mlr-org.com">mlr3</a> is integrated with <a href="https://mlr3viz.mlr-org.com">mlr3viz</a> which provides a number of useful plots. Some of those plots are shown below.</p>
 <div class="sourceCode" id="cb816"><pre class="downlit sourceCode r">
@@ -1328,11 +1329,11 @@ Silhouette values are in <span class="math inline">\([-1, 1]\)</span> range.</p>
 
 <span class="co"># performing PCA on task and showing assignments</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">prediction</span>, <span class="va">task</span>, type <span class="op">=</span> <span class="st">"pca"</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-special-cluster_files/figure-html/07-special-cluster-004-1.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="08-special-cluster_files/figure-html/07-special-cluster-004-1.svg" width="672" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb817"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># same as above but with probability ellipse that assumes normal distribution</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">prediction</span>, <span class="va">task</span>, type <span class="op">=</span> <span class="st">"pca"</span>, frame <span class="op">=</span> <span class="cn">TRUE</span>, frame.type <span class="op">=</span> <span class="st">'norm'</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-special-cluster_files/figure-html/07-special-cluster-004-2.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="08-special-cluster_files/figure-html/07-special-cluster-004-2.svg" width="672" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb818"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"usarrests"</span><span class="op">)</span>
 <span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"clust.agnes"</span><span class="op">)</span>
@@ -1340,13 +1341,13 @@ Silhouette values are in <span class="math inline">\([-1, 1]\)</span> range.</p>
 
 <span class="co"># dendrogram for hierarchical clustering</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">learner</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-special-cluster_files/figure-html/07-special-cluster-004-3.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="08-special-cluster_files/figure-html/07-special-cluster-004-3.svg" width="672" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb819"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># advanced dendrogram options from `factoextra::fviz_dend`</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">learner</span>,
   k <span class="op">=</span> <span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">k</span>, rect_fill <span class="op">=</span> <span class="cn">TRUE</span>,
   rect <span class="op">=</span> <span class="cn">TRUE</span>, rect_border <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"cyan"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-special-cluster_files/figure-html/07-special-cluster-004-4.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="08-special-cluster_files/figure-html/07-special-cluster-004-4.svg" width="672" style="display: block; margin: auto;"></div>
 <p>Silhouette plots can help to visually assess the quality of the analysis and help choose a number of clusters for a given data set.
 The red dotted line shows the mean silhouette value and each bar represents a data point.
 If most points in each cluster have an index around or higher than mean silhouette, the number of clusters is chosen well.</p>
@@ -1358,7 +1359,7 @@ If most points in each cluster have an index around or higher than mean silhouet
 <span class="va">learner</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
 <span class="va">prediction</span> <span class="op">=</span> <span class="va">learner</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">prediction</span>, <span class="va">task</span>, type <span class="op">=</span> <span class="st">"sil"</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-special-cluster_files/figure-html/07-special-cluster-005-1.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="08-special-cluster_files/figure-html/07-special-cluster-005-1.svg" width="672" style="display: block; margin: auto;"></div>
 <p>The plot shows that all points in cluster 5 and almost all points in clusters 4, 2 and 1 are below average silhouette index.
 This means that a lot of observations lie either on the border of clusters or are likely assigned to the wrong cluster.</p>
 <div class="sourceCode" id="cb821"><pre class="downlit sourceCode r">
@@ -1367,7 +1368,7 @@ This means that a lot of observations lie either on the border of clusters or ar
 <span class="va">learner</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
 <span class="va">prediction</span> <span class="op">=</span> <span class="va">learner</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">prediction</span>, <span class="va">task</span>, type <span class="op">=</span> <span class="st">"sil"</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-special-cluster_files/figure-html/07-special-cluster-006-1.svg" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="08-special-cluster_files/figure-html/07-special-cluster-006-1.svg" width="672" style="display: block; margin: auto;"></div>
 <p>Setting the number of centers to two improves both average silhouette score as well as overall quality of clustering because almost all points in cluster 1 are higher than and a lot of points in cluster 2 are close to mean silhouette.
 Hence, having two centers might be a better choice for the number of clusters.</p>
 
@@ -1376,66 +1377,66 @@ Hence, having two centers might be a better choice for the number of clusters.</
 </div>
 
   <div class="chapter-nav">
-<div class="prev"><a href="extending.html"><span class="header-section-number">6</span> Extending</a></div>
-<div class="next"><a href="interpretation.html"><span class="header-section-number">8</span> Model Interpretation</a></div>
+<div class="prev"><a href="extending.html"><span class="header-section-number">7</span> Extending</a></div>
+<div class="next"><a href="interpretation.html"><span class="header-section-number">9</span> Model Interpretation</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#special-tasks"><span class="header-section-number">7</span> Special Tasks</a></li>
+<li><a class="nav-link" href="#special-tasks"><span class="header-section-number">8</span> Special Tasks</a></li>
 <li>
-<a class="nav-link" href="#survival"><span class="header-section-number">7.1</span> Survival Analysis</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#tasksurv"><span class="header-section-number">7.1.1</span> TaskSurv</a></li>
-<li><a class="nav-link" href="#predict-types---crank-lp-and-distr"><span class="header-section-number">7.1.2</span> Predict Types - crank, lp, and distr</a></li>
-<li><a class="nav-link" href="#composition"><span class="header-section-number">7.1.3</span> Composition</a></li>
-<li><a class="nav-link" href="#benchmark-experiment"><span class="header-section-number">7.1.4</span> Benchmark Experiment</a></li>
+<a class="nav-link" href="#survival"><span class="header-section-number">8.1</span> Survival Analysis</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#tasksurv"><span class="header-section-number">8.1.1</span> TaskSurv</a></li>
+<li><a class="nav-link" href="#predict-types---crank-lp-and-distr"><span class="header-section-number">8.1.2</span> Predict Types - crank, lp, and distr</a></li>
+<li><a class="nav-link" href="#composition"><span class="header-section-number">8.1.3</span> Composition</a></li>
+<li><a class="nav-link" href="#benchmark-experiment"><span class="header-section-number">8.1.4</span> Benchmark Experiment</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#density"><span class="header-section-number">7.2</span> Density Estimation</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#train-and-predict-1"><span class="header-section-number">7.2.1</span> Train and Predict</a></li>
-<li><a class="nav-link" href="#benchmark-experiment-1"><span class="header-section-number">7.2.2</span> Benchmark Experiment</a></li>
+<a class="nav-link" href="#density"><span class="header-section-number">8.2</span> Density Estimation</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#train-and-predict-1"><span class="header-section-number">8.2.1</span> Train and Predict</a></li>
+<li><a class="nav-link" href="#benchmark-experiment-1"><span class="header-section-number">8.2.2</span> Benchmark Experiment</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#spatiotemporal"><span class="header-section-number">7.3</span> Spatiotemporal Analysis</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#creating-a-spatial-task"><span class="header-section-number">7.3.1</span> Creating a spatial Task</a></li>
-<li><a class="nav-link" href="#spatiotemporal-intro"><span class="header-section-number">7.3.2</span> Autocorrelation</a></li>
-<li><a class="nav-link" href="#sp-vs-nsp-cv"><span class="header-section-number">7.3.3</span> Spatial CV vs. Non-Spatial CV</a></li>
-<li><a class="nav-link" href="#vis-spt-partitions"><span class="header-section-number">7.3.4</span> Visualization of Spatiotemporal Partitions</a></li>
-<li><a class="nav-link" href="#vis-spatial-block"><span class="header-section-number">7.3.5</span> Spatial Block Visualization</a></li>
-<li><a class="nav-link" href="#choose-spt-rsmp"><span class="header-section-number">7.3.6</span> Choosing a Resampling Method</a></li>
-<li><a class="nav-link" href="#spatial-prediction"><span class="header-section-number">7.3.7</span> Spatial Prediction</a></li>
+<a class="nav-link" href="#spatiotemporal"><span class="header-section-number">8.3</span> Spatiotemporal Analysis</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#creating-a-spatial-task"><span class="header-section-number">8.3.1</span> Creating a spatial Task</a></li>
+<li><a class="nav-link" href="#spatiotemporal-intro"><span class="header-section-number">8.3.2</span> Autocorrelation</a></li>
+<li><a class="nav-link" href="#sp-vs-nsp-cv"><span class="header-section-number">8.3.3</span> Spatial CV vs. Non-Spatial CV</a></li>
+<li><a class="nav-link" href="#vis-spt-partitions"><span class="header-section-number">8.3.4</span> Visualization of Spatiotemporal Partitions</a></li>
+<li><a class="nav-link" href="#vis-spatial-block"><span class="header-section-number">8.3.5</span> Spatial Block Visualization</a></li>
+<li><a class="nav-link" href="#choose-spt-rsmp"><span class="header-section-number">8.3.6</span> Choosing a Resampling Method</a></li>
+<li><a class="nav-link" href="#spatial-prediction"><span class="header-section-number">8.3.7</span> Spatial Prediction</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#ordinal"><span class="header-section-number">7.4</span> Ordinal Analysis</a></li>
+<li><a class="nav-link" href="#ordinal"><span class="header-section-number">8.4</span> Ordinal Analysis</a></li>
 <li>
-<a class="nav-link" href="#functional"><span class="header-section-number">7.5</span> Functional Analysis</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#how-to-model-functional-data"><span class="header-section-number">7.5.1</span> How to model functional data?</a></li></ul>
+<a class="nav-link" href="#functional"><span class="header-section-number">8.5</span> Functional Analysis</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#how-to-model-functional-data"><span class="header-section-number">8.5.1</span> How to model functional data?</a></li></ul>
 </li>
-<li><a class="nav-link" href="#multilabel"><span class="header-section-number">7.6</span> Multilabel Classification</a></li>
+<li><a class="nav-link" href="#multilabel"><span class="header-section-number">8.6</span> Multilabel Classification</a></li>
 <li>
-<a class="nav-link" href="#cost-sens"><span class="header-section-number">7.7</span> Cost-Sensitive Classification</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#a-first-model"><span class="header-section-number">7.7.1</span> A First Model</a></li>
-<li><a class="nav-link" href="#cost-sensitive-measure"><span class="header-section-number">7.7.2</span> Cost-sensitive Measure</a></li>
-<li><a class="nav-link" href="#thresholding"><span class="header-section-number">7.7.3</span> Thresholding</a></li>
-<li><a class="nav-link" href="#threshold-tuning-1"><span class="header-section-number">7.7.4</span> Threshold Tuning</a></li>
-<li><a class="nav-link" href="#adjusting-thresholds-two-strategies"><span class="header-section-number">7.7.5</span> Adjusting thresholds: Two strategies</a></li>
-<li><a class="nav-link" href="#pipeopthreshold"><span class="header-section-number">7.7.6</span> PipeOpThreshold</a></li>
-<li><a class="nav-link" href="#pipeoptunethreshold"><span class="header-section-number">7.7.7</span> PipeOpTunethreshold</a></li>
+<a class="nav-link" href="#cost-sens"><span class="header-section-number">8.7</span> Cost-Sensitive Classification</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#a-first-model"><span class="header-section-number">8.7.1</span> A First Model</a></li>
+<li><a class="nav-link" href="#cost-sensitive-measure"><span class="header-section-number">8.7.2</span> Cost-sensitive Measure</a></li>
+<li><a class="nav-link" href="#thresholding-1"><span class="header-section-number">8.7.3</span> Thresholding</a></li>
+<li><a class="nav-link" href="#threshold-tuning"><span class="header-section-number">8.7.4</span> Threshold Tuning</a></li>
+<li><a class="nav-link" href="#adjusting-thresholds-two-strategies"><span class="header-section-number">8.7.5</span> Adjusting thresholds: Two strategies</a></li>
+<li><a class="nav-link" href="#pipeopthreshold"><span class="header-section-number">8.7.6</span> PipeOpThreshold</a></li>
+<li><a class="nav-link" href="#pipeoptunethreshold"><span class="header-section-number">8.7.7</span> PipeOpTunethreshold</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#cluster"><span class="header-section-number">7.8</span> Cluster Analysis</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#train-and-predict-2"><span class="header-section-number">7.8.1</span> Train and Predict</a></li>
-<li><a class="nav-link" href="#measures"><span class="header-section-number">7.8.2</span> Measures</a></li>
-<li><a class="nav-link" href="#visualization"><span class="header-section-number">7.8.3</span> Visualization</a></li>
+<a class="nav-link" href="#cluster"><span class="header-section-number">8.8</span> Cluster Analysis</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#train-and-predict-2"><span class="header-section-number">8.8.1</span> Train and Predict</a></li>
+<li><a class="nav-link" href="#measures"><span class="header-section-number">8.8.2</span> Measures</a></li>
+<li><a class="nav-link" href="#visualization"><span class="header-section-number">8.8.3</span> Visualization</a></li>
 </ul>
 </li>
 </ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/mlr-org/mlr3book/blob/main/bookdown/07-special.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/mlr-org/mlr3book/edit/main/bookdown/07-special.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/mlr-org/mlr3book/blob/main/bookdown/08-special.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/mlr-org/mlr3book/edit/main/bookdown/08-special.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -1447,7 +1448,7 @@ Hence, having two centers might be a better choice for the number of clusters.</
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-10-07.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-10-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

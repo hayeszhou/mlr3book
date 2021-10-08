@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>6 Extending | mlr3 book</title>
+<title>7 Extending | mlr3 book</title>
 <meta name="author" content="Marc Becker">
 <meta name="author" content="Martin Binder">
 <meta name="author" content="Bernd Bischl">
@@ -18,13 +18,13 @@
 <meta name="author" content="Damir Pulatov">
 <meta name="description" content="This chapter gives instructions on how to extend mlr3 and its extension packages with custom objects. The approach is always the same: determine the base class you want to inherit from, extend the...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
-<meta property="og:title" content="6 Extending | mlr3 book">
+<meta property="og:title" content="7 Extending | mlr3 book">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://mlr3book.mlr-org.com/extending.html">
 <meta property="og:image" content="https://mlr3book.mlr-org.com//block.png">
 <meta property="og:description" content="This chapter gives instructions on how to extend mlr3 and its extension packages with custom objects. The approach is always the same: determine the base class you want to inherit from, extend the...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="6 Extending | mlr3 book">
+<meta name="twitter:title" content="7 Extending | mlr3 book">
 <meta name="twitter:description" content="This chapter gives instructions on how to extend mlr3 and its extension packages with custom objects. The approach is always the same: determine the base class you want to inherit from, extend the...">
 <meta name="twitter:image" content="https://mlr3book.mlr-org.com//block.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -55,13 +55,14 @@
 <li><a class="" href="index.html">Quickstart</a></li>
 <li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction and Overview</a></li>
 <li><a class="" href="basics.html"><span class="header-section-number">2</span> Basics</a></li>
-<li><a class="" href="optimization.html"><span class="header-section-number">3</span> Model Optimization</a></li>
-<li><a class="" href="pipelines.html"><span class="header-section-number">4</span> Pipelines</a></li>
-<li><a class="" href="technical.html"><span class="header-section-number">5</span> Technical</a></li>
-<li><a class="active" href="extending.html"><span class="header-section-number">6</span> Extending</a></li>
-<li><a class="" href="special-tasks.html"><span class="header-section-number">7</span> Special Tasks</a></li>
-<li><a class="" href="interpretation.html"><span class="header-section-number">8</span> Model Interpretation</a></li>
-<li><a class="" href="appendix.html"><span class="header-section-number">9</span> Appendix</a></li>
+<li><a class="" href="perf-eval-cmp.html"><span class="header-section-number">3</span> Performance Evaluation and Comparison</a></li>
+<li><a class="" href="optimization.html"><span class="header-section-number">4</span> Model Optimization</a></li>
+<li><a class="" href="pipelines.html"><span class="header-section-number">5</span> Pipelines</a></li>
+<li><a class="" href="technical.html"><span class="header-section-number">6</span> Technical</a></li>
+<li><a class="active" href="extending.html"><span class="header-section-number">7</span> Extending</a></li>
+<li><a class="" href="special-tasks.html"><span class="header-section-number">8</span> Special Tasks</a></li>
+<li><a class="" href="interpretation.html"><span class="header-section-number">9</span> Model Interpretation</a></li>
+<li><a class="" href="appendix.html"><span class="header-section-number">10</span> Appendix</a></li>
 <li><a class="" href="citation-info.html">Citation Info</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
@@ -71,9 +72,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="extending" class="section level1" number="6">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="extending" class="section level1" number="7">
 <h1>
-<span class="header-section-number">6</span> Extending<a class="anchor" aria-label="anchor" href="#extending"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7</span> Extending<a class="anchor" aria-label="anchor" href="#extending"><i class="fas fa-link"></i></a>
 </h1>
 <p>This chapter gives instructions on how to extend <a href="https://mlr3.mlr-org.com">mlr3</a> and its extension packages with custom objects.</p>
 <p>The approach is always the same:</p>
@@ -85,9 +86,9 @@
 </ol>
 <p>The chapter <a href="extending.html#extending-learners">Create a new learner</a> illustrates the steps needed to create a custom learner in <a href="https://mlr3.mlr-org.com">mlr3</a>.</p>
 
-<div id="extending-learners" class="section level2" number="6.1">
+<div id="extending-learners" class="section level2" number="7.1">
 <h2>
-<span class="header-section-number">6.1</span> Adding new Learners<a class="anchor" aria-label="anchor" href="#extending-learners"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1</span> Adding new Learners<a class="anchor" aria-label="anchor" href="#extending-learners"><i class="fas fa-link"></i></a>
 </h2>
 <p>Here, we show how to create a custom mlr3learner step-by-step using <a href="https://mlr3extralearners.mlr-org.com/reference/create_learner.html"><code>mlr3extralearners::create_learner</code></a>.</p>
 <p><strong>It is strongly recommended</strong> that you <strong>first</strong> open a <a href="https://github.com/mlr-org/mlr3extralearners/issues/new?assignees=&amp;labels=new+learner&amp;template=learner-request-template.md&amp;title=%5BLRNRQ%5D+Add+%3Calgorithm%3E+from+package+%3Cpackage%3E">learner request issue</a> to discuss the learner you want to implement if you plan on creating a pull request to the mlr-org. This allows us to discuss the purpose and necessity of the learner before you start to put the real work in!</p>
@@ -110,9 +111,9 @@ See the <a href="extending.html#learner-faq">Learner FAQ subsection</a> for help
 <li>Open a <a href="https://github.com/mlr-org/mlr3extralearners/pulls">pull request</a> with the new learner template.</li>
 </ol>
 <p><strong>(Do not copy/paste the code shown in this section. Use the create_learner to start.)</strong></p>
-<div id="setup" class="section level3" number="6.1.1">
+<div id="setup" class="section level3" number="7.1.1">
 <h3>
-<span class="header-section-number">6.1.1</span> Setting-up mlr3extralearners<a class="anchor" aria-label="anchor" href="#setup"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1.1</span> Setting-up mlr3extralearners<a class="anchor" aria-label="anchor" href="#setup"><i class="fas fa-link"></i></a>
 </h3>
 <p>In order to use the <a href="https://mlr3extralearners.mlr-org.com/reference/create_learner.html"><code>mlr3extralearners::create_learner</code></a> function you must have a local copy of the <code>mlr3extralearners</code> repository and must specify the correct path to the package. To do so, follow these steps:</p>
 <ol style="list-style-type: decimal">
@@ -138,9 +139,9 @@ See the <a href="extending.html#learner-faq">Learner FAQ subsection</a> for help
 <a href="https://www.rdocumentation.org/packages/devtools/topics/check"><code>devtools::check</code></a> - Checks that the package still passes all tests locally.</li>
 </ul>
 </div>
-<div id="create-learner" class="section level3" number="6.1.2">
+<div id="create-learner" class="section level3" number="7.1.2">
 <h3>
-<span class="header-section-number">6.1.2</span> Calling create_learner<a class="anchor" aria-label="anchor" href="#create-learner"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1.2</span> Calling create_learner<a class="anchor" aria-label="anchor" href="#create-learner"><i class="fas fa-link"></i></a>
 </h3>
 <p>The learner <code>classif.rpart</code> will be used as a running example throughout this section.</p>
 <div class="sourceCode" id="cb651"><pre class="downlit sourceCode r">
@@ -188,9 +189,9 @@ See the <a href="extending.html#learner-faq">Learner FAQ subsection</a> for help
 </ol>
 <p>The sections below demonstrate what happens after the function has been run and the files that are created.</p>
 </div>
-<div id="learner_package_type_key.r" class="section level3" number="6.1.3">
+<div id="learner_package_type_key.r" class="section level3" number="7.1.3">
 <h3>
-<span class="header-section-number">6.1.3</span> learner_package_type_key.R<a class="anchor" aria-label="anchor" href="#learner_package_type_key.r"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1.3</span> learner_package_type_key.R<a class="anchor" aria-label="anchor" href="#learner_package_type_key.r"><i class="fas fa-link"></i></a>
 </h3>
 <p>The first script to complete after running <code>create_learner</code> is the file with the form <code>learner_package_type_key.R</code>, in our case this will actually be <code>learner_rpart_classif_rpart.key</code>. <strong>This name must not be changed</strong> as triggering automated tests rely on a strict naming scheme. For our example, the resulting script looks like this:</p>
 <div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="extending.html#cb652-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' @title Classification Decision Tree Learner</span></span>
@@ -293,9 +294,9 @@ See the <a href="extending.html#learner-faq">Learner FAQ subsection</a> for help
 <li>Fill in the private <a href="extending.html#learner-predict"><code>.predict</code></a> method, which operates on the model in <code>self$model</code> (stored during <code>$train()</code>) and a (differently subsetted) <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a> to return a named list of predictions.</li>
 </ol>
 </div>
-<div id="learner-meta-information" class="section level3" number="6.1.4">
+<div id="learner-meta-information" class="section level3" number="7.1.4">
 <h3>
-<span class="header-section-number">6.1.4</span> Meta-information<a class="anchor" aria-label="anchor" href="#learner-meta-information"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1.4</span> Meta-information<a class="anchor" aria-label="anchor" href="#learner-meta-information"><i class="fas fa-link"></i></a>
 </h3>
 <p>In the constructor (<code>initialize()</code>) the constructor of the super class (e.g. <a href="https://mlr3.mlr-org.com/reference/LearnerClassif.html"><code>LearnerClassif</code></a>) is called with meta information about the learner which should be constructed.
 This includes:</p>
@@ -374,9 +375,9 @@ If this property is set, you must also implement a public method <code>selected_
 This is used within the <code>$help()</code> method of the super class to open the help page of the learner.</li>
 </ul>
 </div>
-<div id="param-set" class="section level3" number="6.1.5">
+<div id="param-set" class="section level3" number="7.1.5">
 <h3>
-<span class="header-section-number">6.1.5</span> ParamSet<a class="anchor" aria-label="anchor" href="#param-set"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1.5</span> ParamSet<a class="anchor" aria-label="anchor" href="#param-set"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <code>param_set</code> is the set of hyperparameters used in model training and predicting, this is given as a <a href="https://paradox.mlr-org.com/reference/ParamSet.html"><code>paradox::ParamSet</code></a>. The set consists of a list of hyperparameters, each has a specific class for the hyperparameter type (see above).</p>
 <p>For <code>classif.rpart</code> the following replace <code>&lt;param_set&gt;</code> above:</p>
@@ -426,9 +427,9 @@ The parameter is used during <code>"train"</code>.</li>
 <span class="co">#'   - Adjusted default: &lt;value&gt;</span>
 <span class="co">#'   - Reason for change: &lt;text&gt;</span></code></pre></div>
 </div>
-<div id="learner-train" class="section level3" number="6.1.6">
+<div id="learner-train" class="section level3" number="7.1.6">
 <h3>
-<span class="header-section-number">6.1.6</span> Train function<a class="anchor" aria-label="anchor" href="#learner-train"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1.6</span> Train function<a class="anchor" aria-label="anchor" href="#learner-train"><i class="fas fa-link"></i></a>
 </h3>
 <p>Let’s talk about the <code>.train()</code> method.
 The train function takes a <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a> as input and must return a model.</p>
@@ -453,9 +454,9 @@ The latter is simply an optimized version of <code><a href="https://rdrr.io/r/ba
                    .args <span class="op">=</span> <span class="va">pars</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 </div>
-<div id="learner-predict" class="section level3" number="6.1.7">
+<div id="learner-predict" class="section level3" number="7.1.7">
 <h3>
-<span class="header-section-number">6.1.7</span> Predict function<a class="anchor" aria-label="anchor" href="#learner-predict"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1.7</span> Predict function<a class="anchor" aria-label="anchor" href="#learner-predict"><i class="fas fa-link"></i></a>
 </h3>
 <p>The internal predict method <code>.predict()</code> also operates on a <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a> as well as on the fitted model that has been created by the <code>train()</code> call previously and has been stored in <code>self$model</code>.</p>
 <p>The return value is a <a href="https://mlr3.mlr-org.com/reference/Prediction.html"><code>Prediction</code></a> object.
@@ -496,9 +497,9 @@ We start with a version without any <code>mlr3</code> objects and continue to re
 <span class="op">}</span></code></pre></div>
 <p>Note that you cannot rely on the column order of the data returned by <code>task$data()</code> as the order of columns may be different from the order of the columns during <code>$.train</code>. The <code>newdata</code> line ensures the ordering is the same by calling the saved order set in <code>$.train</code>, don’t delete either of these lines!</p>
 </div>
-<div id="learner-control" class="section level3" number="6.1.8">
+<div id="learner-control" class="section level3" number="7.1.8">
 <h3>
-<span class="header-section-number">6.1.8</span> Control objects/functions of learners<a class="anchor" aria-label="anchor" href="#learner-control"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1.8</span> Control objects/functions of learners<a class="anchor" aria-label="anchor" href="#learner-control"><i class="fas fa-link"></i></a>
 </h3>
 <p>Some learners rely on a “control” object/function such as <code><a href="https://glmnet.stanford.edu/reference/glmnet.control.html">glmnet::glmnet.control()</a></code>.
 Accounting for such depends on how the underlying package works:</p>
@@ -516,14 +517,14 @@ See example below.</li>
 <span id="cb660-5"><a href="extending.html#cb660-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb660-6"><a href="extending.html#cb660-6" aria-hidden="true" tabindex="-1"></a>mlr3misc<span class="sc">::</span><span class="fu">invoke</span>([...], <span class="at">.args =</span> train_pars, <span class="at">control =</span> control_pars)</span></code></pre></div>
 </div>
-<div id="learner-test" class="section level3" number="6.1.9">
+<div id="learner-test" class="section level3" number="7.1.9">
 <h3>
-<span class="header-section-number">6.1.9</span> Testing the learner<a class="anchor" aria-label="anchor" href="#learner-test"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1.9</span> Testing the learner<a class="anchor" aria-label="anchor" href="#learner-test"><i class="fas fa-link"></i></a>
 </h3>
 <p>Once your learner is created, you are ready to start testing if it works, there are three types of tests: <a href="extending.html#learner-test-manual">manual</a>, <a href="extending.html#learner-test-unit">unit</a> and <a href="extending.html#learner-test-parameter">parameter</a>.</p>
-<div id="learner-test-manual" class="section level4" number="6.1.9.1">
+<div id="learner-test-manual" class="section level4" number="7.1.9.1">
 <h4>
-<span class="header-section-number">6.1.9.1</span> Train and Predict<a class="anchor" aria-label="anchor" href="#learner-test-manual"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1.9.1</span> Train and Predict<a class="anchor" aria-label="anchor" href="#learner-test-manual"><i class="fas fa-link"></i></a>
 </h4>
 <p>For a bare-bone check you can just try to run a simple <code>train()</code> call locally.</p>
 <div class="sourceCode" id="cb661"><pre class="downlit sourceCode r">
@@ -534,9 +535,9 @@ See example below.</li>
 <span class="va">p</span><span class="op">$</span><span class="va">confusion</span></code></pre></div>
 <p>If it runs without erroring, that’s a very good start!</p>
 </div>
-<div id="learner-test-unit" class="section level4" number="6.1.9.2">
+<div id="learner-test-unit" class="section level4" number="7.1.9.2">
 <h4>
-<span class="header-section-number">6.1.9.2</span> Autotest<a class="anchor" aria-label="anchor" href="#learner-test-unit"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1.9.2</span> Autotest<a class="anchor" aria-label="anchor" href="#learner-test-unit"><i class="fas fa-link"></i></a>
 </h4>
 <p>To ensure that your learner is able to handle all kinds of different properties and feature types, we have written an “autotest” that checks the learner for different combinations of such.</p>
 <p>The “autotest” setup is generated automatically by <code>create_learner</code> and will open after running the function, it will have a name with the form <code>test_package_type_key.R</code>, in our case this will actually be <code>test_rpart_classif_rpart.key</code>. <strong>This name must not be changed</strong> as triggering automated tests rely on a strict naming scheme. In our example this will create the following script, for which no changes are required to pass (assuming the learner was correctly created):</p>
@@ -555,9 +556,9 @@ Currently the <code>run_autotest()</code> function lives in <a href="https://git
 This should change in the near future.</p>
 <p>To finally run the test suite, call <code><a href="https://devtools.r-lib.org//reference/test.html">devtools::test()</a></code> or hit <code>CTRL + Shift + T</code> if you are using RStudio.</p>
 </div>
-<div id="learner-test-parameter" class="section level4" number="6.1.9.3">
+<div id="learner-test-parameter" class="section level4" number="7.1.9.3">
 <h4>
-<span class="header-section-number">6.1.9.3</span> Checking Parameters<a class="anchor" aria-label="anchor" href="#learner-test-parameter"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1.9.3</span> Checking Parameters<a class="anchor" aria-label="anchor" href="#learner-test-parameter"><i class="fas fa-link"></i></a>
 </h4>
 <p>Some learners have a high number of parameters and it is easy to miss out on some during the creation of a new learner.
 In addition, if the maintainer of the upstream package changes something with respect to the arguments of the algorithm, the learner is in danger to break.
@@ -618,9 +619,9 @@ Also, new arguments could be added upstream and manually checking for new additi
 <span class="op">}</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="cleaning" class="section level3" number="6.1.10">
+<div id="cleaning" class="section level3" number="7.1.10">
 <h3>
-<span class="header-section-number">6.1.10</span> Package Cleaning<a class="anchor" aria-label="anchor" href="#cleaning"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1.10</span> Package Cleaning<a class="anchor" aria-label="anchor" href="#cleaning"><i class="fas fa-link"></i></a>
 </h3>
 <p>Once all tests are passing, run the following functions to ensure that the package remains clean and tidy</p>
 <ol style="list-style-type: decimal">
@@ -634,16 +635,16 @@ Also, new arguments could be added upstream and manually checking for new additi
 <p>Please fix any errors indicated by <code>lintr</code> before creating a pull request. Finally ensure that all <code>FIXME</code> are resolved and deleted in the generated files.</p>
 <p>You are now ready to add your learner to the mlr3 ecosystem! Simply open a pull request to  with the new learner template and complete the checklist in there. Once the pull request is approved and merged, your learner will automatically appear on the <a href="https://mlr3extralearners.mlr-org.com/">package website</a>.</p>
 </div>
-<div id="thanks-and-maintenance" class="section level3" number="6.1.11">
+<div id="thanks-and-maintenance" class="section level3" number="7.1.11">
 <h3>
-<span class="header-section-number">6.1.11</span> Thanks and Maintenance<a class="anchor" aria-label="anchor" href="#thanks-and-maintenance"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1.11</span> Thanks and Maintenance<a class="anchor" aria-label="anchor" href="#thanks-and-maintenance"><i class="fas fa-link"></i></a>
 </h3>
 <p>Thank you for contributing to the mlr3 ecosystem!</p>
 <p>When you created the learner you would have given your GitHub handle, meaning that you are now listed as the learner author and maintainer. This means that if the learner breaks it is your responsibility to fix the learner - you can view the status of your learner <a href="https://mlr3extralearners.mlr-org.com/articles/learners/learner_status.html">here</a>.</p>
 </div>
-<div id="learner-faq" class="section level3" number="6.1.12">
+<div id="learner-faq" class="section level3" number="7.1.12">
 <h3>
-<span class="header-section-number">6.1.12</span> Learner FAQ<a class="anchor" aria-label="anchor" href="#learner-faq"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1.12</span> Learner FAQ<a class="anchor" aria-label="anchor" href="#learner-faq"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Question 1</strong></p>
 <p>How to deal with Parameters which have no default?</p>
@@ -699,9 +700,9 @@ If a parameter is tagged as <code>"required"</code> in the ParamSet, the call ab
 
 </div>
 </div>
-<div id="extending-measures" class="section level2" number="6.2">
+<div id="extending-measures" class="section level2" number="7.2">
 <h2>
-<span class="header-section-number">6.2</span> Adding new Measures<a class="anchor" aria-label="anchor" href="#extending-measures"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.2</span> Adding new Measures<a class="anchor" aria-label="anchor" href="#extending-measures"><i class="fas fa-link"></i></a>
 </h2>
 <p>In this section we showcase how to implement a custom performance measure.</p>
 <p>A good starting point is writing down the loss function independently of mlr3 (we also did this in the <a href="https://mlr3measures.mlr-org.com">mlr3measures</a> package).
@@ -785,9 +786,9 @@ Defaults to the “test” set.</li>
 ## * Predict type: response</code></pre>
 
 </div>
-<div id="extending-pipeops" class="section level2" number="6.3">
+<div id="extending-pipeops" class="section level2" number="7.3">
 <h2>
-<span class="header-section-number">6.3</span> Adding new PipeOps<a class="anchor" aria-label="anchor" href="#extending-pipeops"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3</span> Adding new PipeOps<a class="anchor" aria-label="anchor" href="#extending-pipeops"><i class="fas fa-link"></i></a>
 </h2>
 <p>This section showcases how the <code>mlr3pipelines</code> package can be extended to include custom <code>PipeOp</code>s.
 To run the following examples, we will need a <code>Task</code>; we are using the well-known “Iris” task:</p>
@@ -810,18 +811,18 @@ To run the following examples, we will need a <code>Task</code>; we are using th
 <p><code>mlr3pipelines</code> is fundamentally built around <a href="https://r6.r-lib.org/"><code>R6</code></a>. When planning to create custom <a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.html"><code>PipeOp</code></a> objects, it can only help to <a href="https://adv-r.hadley.nz/r6.html">familiarize yourself with it</a>.</p>
 <p>In principle, all a <code>PipeOp</code> must do is inherit from the <code>PipeOp</code> R6 class and implement the <code>.train()</code> and <code>.predict()</code> functions.
 There are, however, several auxiliary subclasses that can make the creation of <em>certain</em> operations much easier.</p>
-<div id="ext-pipeopcopy" class="section level3" number="6.3.1">
+<div id="ext-pipeopcopy" class="section level3" number="7.3.1">
 <h3>
-<span class="header-section-number">6.3.1</span> General Case Example: <code>PipeOpCopy</code><a class="anchor" aria-label="anchor" href="#ext-pipeopcopy"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.1</span> General Case Example: <code>PipeOpCopy</code><a class="anchor" aria-label="anchor" href="#ext-pipeopcopy"><i class="fas fa-link"></i></a>
 </h3>
 <p>A very simple yet useful <code>PipeOp</code> is <code>PipeOpCopy</code>, which takes a single input and creates a variable number of output channels, all of which receive a copy of the input data.
 It is a simple example that showcases the important steps in defining a custom <code>PipeOp</code>.
 We will show a simplified version here, <strong><code>PipeOpCopyTwo</code></strong>, that creates exactly two copies of its input data.</p>
 <p>The following figure visualizes how our <code>PipeOp</code> is situated in the <code>Pipeline</code> and the significant in- and outputs.</p>
 <div class="inline-figure"><img src="images/po_multi_viz.png" width="430" style="display: block; margin: auto;"></div>
-<div id="first-steps-inheriting-from-pipeop" class="section level4" number="6.3.1.1">
+<div id="first-steps-inheriting-from-pipeop" class="section level4" number="7.3.1.1">
 <h4>
-<span class="header-section-number">6.3.1.1</span> First Steps: Inheriting from <code>PipeOp</code><a class="anchor" aria-label="anchor" href="#first-steps-inheriting-from-pipeop"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.1.1</span> First Steps: Inheriting from <code>PipeOp</code><a class="anchor" aria-label="anchor" href="#first-steps-inheriting-from-pipeop"><i class="fas fa-link"></i></a>
 </h4>
 <p>The first part of creating a custom <code>PipeOp</code> is inheriting from <code>PipeOp</code>.
 We make a mental note that we need to implement a <code>.train()</code> and a <code>.predict()</code> function, and that we probably want to have an <code>initialize()</code> as well:</p>
@@ -845,9 +846,9 @@ We make a mental note that we need to implement a <code>.train()</code> and a <c
 <span class="op">)</span></code></pre></div>
 <p>Note, that <strong>private</strong> methods, e.g. <code>.train</code> and <code>.predict</code> etc are prefixed with a <code>.</code>.</p>
 </div>
-<div id="channel-definitions" class="section level4" number="6.3.1.2">
+<div id="channel-definitions" class="section level4" number="7.3.1.2">
 <h4>
-<span class="header-section-number">6.3.1.2</span> Channel Definitions<a class="anchor" aria-label="anchor" href="#channel-definitions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.1.2</span> Channel Definitions<a class="anchor" aria-label="anchor" href="#channel-definitions"><i class="fas fa-link"></i></a>
 </h4>
 <p>We need to tell the <code>PipeOp</code> the layout of its channels: How many there are, what their names are going to be, and what types are acceptable.
 This is done on initialization of the <code>PipeOp</code> (using a <code>super$initialize</code> call) by giving the <code>input</code> and <code>output</code> <code>data.table</code> objects.
@@ -870,9 +871,9 @@ A special value for these classes is <code>"*"</code>, which indicates that any 
       <span class="op">)</span>
     <span class="op">}</span></code></pre></div>
 </div>
-<div id="train-and-predict" class="section level4" number="6.3.1.3">
+<div id="train-and-predict" class="section level4" number="7.3.1.3">
 <h4>
-<span class="header-section-number">6.3.1.3</span> Train and Predict<a class="anchor" aria-label="anchor" href="#train-and-predict"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.1.3</span> Train and Predict<a class="anchor" aria-label="anchor" href="#train-and-predict"><i class="fas fa-link"></i></a>
 </h4>
 <p>Both <code>.train()</code> and <code>.predict()</code> will receive a <code>list</code> as input and must give a <code>list</code> in return.
 According to our <code>input</code> and <code>output</code> definitions, we will always get a list with a single element as input, and will need to return a list with two elements. Because all we want to do is create two copies, we will just create the copies using <code><a href="https://rdrr.io/r/base/c.html">c(inputs, inputs)</a></code>.</p>
@@ -896,9 +897,9 @@ This is because a <code>PipeOp</code> may never modify its input object by refer
   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">inputs</span>, <span class="va">inputs</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 </div>
-<div id="putting-it-together" class="section level4" number="6.3.1.4">
+<div id="putting-it-together" class="section level4" number="7.3.1.4">
 <h4>
-<span class="header-section-number">6.3.1.4</span> Putting it Together<a class="anchor" aria-label="anchor" href="#putting-it-together"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.1.4</span> Putting it Together<a class="anchor" aria-label="anchor" href="#putting-it-together"><i class="fas fa-link"></i></a>
 </h4>
 <p>The whole definition thus becomes</p>
 <div class="sourceCode" id="cb679"><pre class="downlit sourceCode r">
@@ -944,9 +945,9 @@ This is because a <code>PipeOp</code> may never modify its input object by refer
 ##  $ copy.two.output2:Classes 'TaskClassif', 'TaskSupervised', 'Task', 'R6' &lt;TaskClassif:iris&gt;</code></pre>
 </div>
 </div>
-<div id="ext-pipe-preproc" class="section level3" number="6.3.2">
+<div id="ext-pipe-preproc" class="section level3" number="7.3.2">
 <h3>
-<span class="header-section-number">6.3.2</span> Special Case: Preprocessing<a class="anchor" aria-label="anchor" href="#ext-pipe-preproc"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.2</span> Special Case: Preprocessing<a class="anchor" aria-label="anchor" href="#ext-pipe-preproc"><i class="fas fa-link"></i></a>
 </h3>
 <p>Many <a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.html"><code>PipeOp</code></a>s perform an operation on exactly one <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a>, and return exactly one <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a>. They may even not care about the “Target” / “Outcome” variable of that task, and only do some modification of some input data.
 However, it is usually important to them that the <code>Task</code> on which they perform prediction has the same data columns as the <code>Task</code> on which they train.
@@ -955,9 +956,9 @@ It inherits from <a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.htm
 <p>When inheriting from <a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html"><code>PipeOpTaskPreproc</code></a>, one must either implement the private methods <code>.train_task()</code> and <code>.predict_task()</code>, or the methods <code>.train_dt()</code>, <code>.predict_dt()</code>, depending on whether wants to operate on a <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a> object or on its data as <code>data.table</code>s.
 In the second case, one can optionally also overload the <code>.select_cols()</code> method, which chooses which of the incoming <code>Task</code>’s features are given to the <code>.train_dt()</code> / <code>.predict_dt()</code> functions.</p>
 <p>The following will show two examples: <code>PipeOpDropNA</code>, which removes a <code>Task</code>’s rows with missing values during training (and implements <code>.train_task()</code> and <code>.predict_task()</code>), and <code>PipeOpScale</code>, which scales a <code>Task</code>’s numeric columns (and implements <code>.train_dt()</code>, <code>.predict_dt()</code>, and <code>.select_cols()</code>).</p>
-<div id="example-pipeopdropna" class="section level4" number="6.3.2.1">
+<div id="example-pipeopdropna" class="section level4" number="7.3.2.1">
 <h4>
-<span class="header-section-number">6.3.2.1</span> Example: <code>PipeOpDropNA</code><a class="anchor" aria-label="anchor" href="#example-pipeopdropna"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.2.1</span> Example: <code>PipeOpDropNA</code><a class="anchor" aria-label="anchor" href="#example-pipeopdropna"><i class="fas fa-link"></i></a>
 </h4>
 <p>Dropping rows with missing values may be important when training a model that can not handle them.</p>
 <p>Because <code>mlr3</code> <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Tasks</code></a> only contain a view to the underlying data, it is not necessary to modify data to remove rows with missing values.
@@ -1018,9 +1019,9 @@ Note that it inherits from <a href="https://mlr3pipelines.mlr-org.com/reference/
 ## 2:  virginica          5.0         1.5          6.0         2.2
 ## 3:  virginica          5.1         1.8          5.9         3.0</code></pre>
 </div>
-<div id="example-pipeopscalealways" class="section level4" number="6.3.2.2">
+<div id="example-pipeopscalealways" class="section level4" number="7.3.2.2">
 <h4>
-<span class="header-section-number">6.3.2.2</span> Example: <code>PipeOpScaleAlways</code><a class="anchor" aria-label="anchor" href="#example-pipeopscalealways"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.2.2</span> Example: <code>PipeOpScaleAlways</code><a class="anchor" aria-label="anchor" href="#example-pipeopscalealways"><i class="fas fa-link"></i></a>
 </h4>
 <p>An often-applied preprocessing step is to simply <strong>center</strong> and/or <strong>scale</strong> the data to mean <span class="math inline">\(0\)</span> and standard deviation <span class="math inline">\(1\)</span>.
 This fits the <a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html"><code>PipeOpTaskPreproc</code></a> pattern quite well.
@@ -1087,9 +1088,9 @@ Compare the resulting data to the original “iris” <code>Task</code> data pri
 ## 150: virginica       0.7602      0.7880      0.06843    -0.13154</code></pre>
 </div>
 </div>
-<div id="special-case-preprocessing-with-simple-train" class="section level3" number="6.3.3">
+<div id="special-case-preprocessing-with-simple-train" class="section level3" number="7.3.3">
 <h3>
-<span class="header-section-number">6.3.3</span> Special Case: Preprocessing with Simple Train<a class="anchor" aria-label="anchor" href="#special-case-preprocessing-with-simple-train"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.3</span> Special Case: Preprocessing with Simple Train<a class="anchor" aria-label="anchor" href="#special-case-preprocessing-with-simple-train"><i class="fas fa-link"></i></a>
 </h3>
 <p>It is possible to make even further simplifications for many <a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.html"><code>PipeOp</code></a>s that perform mostly the same operation during training and prediction.
 The point of <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a> preprocessing is often to modify the training data in mostly the same way as prediction data (but in a way that <em>may</em> depend on training data).</p>
@@ -1101,9 +1102,9 @@ This is done in the <a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpT
 Just like <a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html"><code>PipeOpTaskPreproc</code></a>, one can inherit from this and overload these functions to get a <code>PipeOp</code> that performs preprocessing with very little boilerplate code.</p>
 <p>Just like <a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html"><code>PipeOpTaskPreproc</code></a>, <a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreprocSimple.html"><code>PipeOpTaskPreprocSimple</code></a> offers the possibility to instead overload the <code>.get_state_dt(dt, levels)</code> and <code>.transform_dt(dt, levels)</code> methods (and optionally, again, the <code>.select_cols(task)</code> function) to operate on <code>data.table</code> feature data instead of the whole <code>Task</code>.</p>
 <p>Even some methods that do not use <a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreprocSimple.html"><code>PipeOpTaskPreprocSimple</code></a> <em>could</em> work in a similar way: The <code>PipeOpScaleAlways</code> example from above will be shown to also work with this paradigm.</p>
-<div id="example-pipeopdropconst" class="section level4" number="6.3.3.1">
+<div id="example-pipeopdropconst" class="section level4" number="7.3.3.1">
 <h4>
-<span class="header-section-number">6.3.3.1</span> Example: <code>PipeOpDropConst</code><a class="anchor" aria-label="anchor" href="#example-pipeopdropconst"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.3.1</span> Example: <code>PipeOpDropConst</code><a class="anchor" aria-label="anchor" href="#example-pipeopdropconst"><i class="fas fa-link"></i></a>
 </h4>
 <p>A typical example of a preprocessing operation that does almost the same operation during training and prediction is an operation that drops features depending on a criterion that is evaluated during training.
 One simple example of this is dropping constant features.
@@ -1198,9 +1199,9 @@ Calling <code>$.predict()</code> with this graph, even with different data (the 
 ## 149: virginica          5.4          6.2         3.4
 ## 150: virginica          5.1          5.9         3.0</code></pre>
 </div>
-<div id="example-pipeopscalealwayssimple" class="section level4" number="6.3.3.2">
+<div id="example-pipeopscalealwayssimple" class="section level4" number="7.3.3.2">
 <h4>
-<span class="header-section-number">6.3.3.2</span> Example: <code>PipeOpScaleAlwaysSimple</code><a class="anchor" aria-label="anchor" href="#example-pipeopscalealwayssimple"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.3.2</span> Example: <code>PipeOpScaleAlwaysSimple</code><a class="anchor" aria-label="anchor" href="#example-pipeopscalealwayssimple"><i class="fas fa-link"></i></a>
 </h4>
 <p>This example will show how a <code>PipeOpTaskPreprocSimple</code> can be used when only working on feature data in form of a <code>data.table</code>.
 Instead of calling the <code><a href="https://rdrr.io/r/base/scale.html">scale()</a></code> function, the <code>center</code> and <code>scale</code> values are calculated directly and saved to the <code>$state</code> slot.
@@ -1269,9 +1270,9 @@ As in the <a href="extending.html#example-pipeopscalealways"><code>PipeOpScaleAl
 ## 150: virginica       0.7602      0.7880      0.06843    -0.13154</code></pre>
 </div>
 </div>
-<div id="ext-pipe-hyperpars" class="section level3" number="6.3.4">
+<div id="ext-pipe-hyperpars" class="section level3" number="7.3.4">
 <h3>
-<span class="header-section-number">6.3.4</span> Hyperparameters<a class="anchor" aria-label="anchor" href="#ext-pipe-hyperpars"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.4</span> Hyperparameters<a class="anchor" aria-label="anchor" href="#ext-pipe-hyperpars"><i class="fas fa-link"></i></a>
 </h3>
 <p><code>mlr3pipelines</code> uses the <a href="https://paradox.mlr-org.com"><code>paradox</code></a> package to define parameter spaces for <code>PipeOp</code>s.
 Parameters for <code>PipeOp</code>s can modify their behavior in certain ways, e.g. switch centering or scaling off in the <code>PipeOpScale</code> operator.
@@ -1290,9 +1291,9 @@ This is because setting <code>$values</code> checks against the current <code>$p
 <p>When using an underlying library function (the <code>scale</code> function in <code>PipeOpScale</code>, say), then there is usually a “default” behaviour of that function when a parameter is not given.
 It is good practice to use this default behaviour whenever a parameter is not set (or when it was removed).
 This can easily be done when using the <a href="https://mlr3misc.mlr-org.com">mlr3misc</a> library’s <a href="https://mlr3misc.mlr-org.com/reference/invoke.html"><code>mlr3misc::invoke()</code></a> function, which has functionality similar to <a href="https://www.rdocumentation.org/packages/base/topics/do.call"><code>do.call()</code></a>.</p>
-<div id="hyperparameter-example-pipeopscale" class="section level4" number="6.3.4.1">
+<div id="hyperparameter-example-pipeopscale" class="section level4" number="7.3.4.1">
 <h4>
-<span class="header-section-number">6.3.4.1</span> Hyperparameter Example: <code>PipeOpScale</code><a class="anchor" aria-label="anchor" href="#hyperparameter-example-pipeopscale"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.4.1</span> Hyperparameter Example: <code>PipeOpScale</code><a class="anchor" aria-label="anchor" href="#hyperparameter-example-pipeopscale"><i class="fas fa-link"></i></a>
 </h4>
 <p>How to use hyperparameters can best be shown through the example of <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_scale.html"><code>PipeOpScale</code></a>, which is very similar to the example above, <code>PipeOpScaleAlways</code>.
 The difference is made by the presence of hyperparameters.
@@ -1361,9 +1362,9 @@ This has the advantage over calling <code><a href="https://rdrr.io/r/base/scale.
 </div>
 </div>
 </div>
-<div id="extending-tuners" class="section level2" number="6.4">
+<div id="extending-tuners" class="section level2" number="7.4">
 <h2>
-<span class="header-section-number">6.4</span> Adding new Tuners<a class="anchor" aria-label="anchor" href="#extending-tuners"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4</span> Adding new Tuners<a class="anchor" aria-label="anchor" href="#extending-tuners"><i class="fas fa-link"></i></a>
 </h2>
 <p>In this section, we show how to implement a custom tuner for <a href="https://mlr3tuning.mlr-org.com">mlr3tuning</a>.
 The main task of a tuner is to iteratively propose new hyperparameter configurations that we want to evaluate for a given task, learner and validation strategy.
@@ -1375,9 +1376,9 @@ This package does not only provide basic black box optimization algorithms and b
 a ) If your new tuner can be applied to any kind of optimization problem it should be implemented as a <code><a href="https://bbotk.mlr-org.com/reference/Optimizer.html">bbotk::Optimizer</a></code>.
 Any <code><a href="https://bbotk.mlr-org.com/reference/Optimizer.html">bbotk::Optimizer</a></code> can be easily transformed to a <code><a href="https://mlr3tuning.mlr-org.com/reference/Tuner.html">mlr3tuning::Tuner</a></code>.
 b) If the new custom tuner is only usable for hyperparameter tuning, for example because it needs to access the task, learner or resampling objects it should be directly implemented in <a href="https://mlr3tuning.mlr-org.com">mlr3tuning</a> as a <code><a href="https://mlr3tuning.mlr-org.com/reference/Tuner.html">mlr3tuning::Tuner</a></code>.</p>
-<div id="extending-tuners-summary" class="section level3" number="6.4.1">
+<div id="extending-tuners-summary" class="section level3" number="7.4.1">
 <h3>
-<span class="header-section-number">6.4.1</span> Adding a new Tuner<a class="anchor" aria-label="anchor" href="#extending-tuners-summary"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4.1</span> Adding a new Tuner<a class="anchor" aria-label="anchor" href="#extending-tuners-summary"><i class="fas fa-link"></i></a>
 </h3>
 <p>This is a summary of steps for adding a new tuner.
 The fifth step is only required if the new tuner is added via <a href="https://bbotk.mlr-org.com">bbotk</a>.</p>
@@ -1391,9 +1392,9 @@ The fifth step is only required if the new tuner is added via <a href="https://b
 <li>Open a new pull request for the <a href="https://github.com/mlr-org/mlr3tuning/pulls"><code>mlr3tuning::Tuner</code></a> and optionally a second one for the <a href="https://github.com/mlr-org/bbotk/pulls"><code>bbotk::Optimizer</code></a>.</li>
 </ol>
 </div>
-<div id="tuner-template" class="section level3" number="6.4.2">
+<div id="tuner-template" class="section level3" number="7.4.2">
 <h3>
-<span class="header-section-number">6.4.2</span> Template<a class="anchor" aria-label="anchor" href="#tuner-template"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4.2</span> Template<a class="anchor" aria-label="anchor" href="#tuner-template"><i class="fas fa-link"></i></a>
 </h3>
 <p>If the new custom tuner is implemented via <a href="https://bbotk.mlr-org.com">bbotk</a>, use one of the existing optimizer as a template e.g. <a href="https://github.com/mlr-org/bbotk/blob/master/R/OptimizerRandomSearch.R"><code>bbotk::OptimizerRandomSearch</code></a>. There are currently only two tuners that are not based on a <code><a href="https://bbotk.mlr-org.com/reference/Optimizer.html">bbotk::Optimizer</a></code>: <a href="https://github.com/mlr-org/mlr3hyperband/blob/master/R/TunerHyperband.R"><code>mlr3hyperband::TunerHyperband</code></a> and <a href="https://github.com/mlr-org/mlr3tuning/blob/master/R/TunerIrace.R"><code>mlr3tuning::TunerIrace</code></a>. Both are rather complex but you can still use the documentation and class structure as a template. The following steps are identical for optimizers and tuners.</p>
 <p>Rewrite the meta information in the documentation and create a new class name.
@@ -1402,16 +1403,16 @@ The example and dictionary sections of the documentation are auto-generated base
 Change the parameter set of the optimizer / tuner and document them under <code>@section Parameters</code>.
 Do not forget to change <code>mlr_optimizers$add()</code> / <code>mlr_tuners$add()</code> in the last line which adds the optimizer / tuner to the dictionary.</p>
 </div>
-<div id="tuner-optimize" class="section level3" number="6.4.3">
+<div id="tuner-optimize" class="section level3" number="7.4.3">
 <h3>
-<span class="header-section-number">6.4.3</span> Optimize method<a class="anchor" aria-label="anchor" href="#tuner-optimize"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4.3</span> Optimize method<a class="anchor" aria-label="anchor" href="#tuner-optimize"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <code>$.optimize()</code> private method is the main part of the tuner.
 It takes an instance, proposes new points and calls the <code>$eval_batch()</code> method of the instance to evaluate them.
 Here you can go two ways: Implement the iterative process yourself or call an external optimization function that resides in another package.</p>
-<div id="writing-a-custom-iteration" class="section level4" number="6.4.3.1">
+<div id="writing-a-custom-iteration" class="section level4" number="7.4.3.1">
 <h4>
-<span class="header-section-number">6.4.3.1</span> Writing a custom iteration<a class="anchor" aria-label="anchor" href="#writing-a-custom-iteration"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4.3.1</span> Writing a custom iteration<a class="anchor" aria-label="anchor" href="#writing-a-custom-iteration"><i class="fas fa-link"></i></a>
 </h4>
 <p>Usually, the proposal and evaluation is done in a <code>repeat</code>-loop which you have to implement.
 Please consider the following points:</p>
@@ -1422,36 +1423,36 @@ Please consider the following points:</p>
 <li>If you want to log additional information for each evaluation of the <code>bbotk::Objective`` in the</code>bbotk::Archive<code>you can simply add columns to the</code>data.table<code>object that is passed to</code>$eval_batch()`.</li>
 </ul>
 </div>
-<div id="calling-an-external-optimization-function" class="section level4" number="6.4.3.2">
+<div id="calling-an-external-optimization-function" class="section level4" number="7.4.3.2">
 <h4>
-<span class="header-section-number">6.4.3.2</span> Calling an external optimization function<a class="anchor" aria-label="anchor" href="#calling-an-external-optimization-function"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4.3.2</span> Calling an external optimization function<a class="anchor" aria-label="anchor" href="#calling-an-external-optimization-function"><i class="fas fa-link"></i></a>
 </h4>
 <p>Optimization functions from external packages usually take an objective function as an argument.
 In this case, you can pass <code>inst$objective_function</code> which internally calls <code>$eval_batch()</code>.
 Check out <a href="https://github.com/mlr-org/bbotk/blob/master/R/OptimizerGenSA.R"><code>OptimizerGenSA</code></a> for an example.</p>
 </div>
 </div>
-<div id="tuner-add-result" class="section level3" number="6.4.4">
+<div id="tuner-add-result" class="section level3" number="7.4.4">
 <h3>
-<span class="header-section-number">6.4.4</span> Assign result method<a class="anchor" aria-label="anchor" href="#tuner-add-result"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4.4</span> Assign result method<a class="anchor" aria-label="anchor" href="#tuner-add-result"><i class="fas fa-link"></i></a>
 </h3>
 <p>The default <code>$.assign_result()</code> private method simply obtains the best performing result from the archive.
 The default method can be overwritten if the new tuner determines the result of the optimization in a different way.
 The new function must call the <code>$assign_result()</code> method of the instance to write the final result to the instance.
 See <a href="https://github.com/mlr-org/mlr3tuning/blob/master/R/TunerIrace.R"><code>mlr3tuning::TunerIrace</code></a> for an implementation of <code>$.assign_result()</code>.</p>
 </div>
-<div id="tuner-from-optimizer" class="section level3" number="6.4.5">
+<div id="tuner-from-optimizer" class="section level3" number="7.4.5">
 <h3>
-<span class="header-section-number">6.4.5</span> Transform optimizer to tuner<a class="anchor" aria-label="anchor" href="#tuner-from-optimizer"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4.5</span> Transform optimizer to tuner<a class="anchor" aria-label="anchor" href="#tuner-from-optimizer"><i class="fas fa-link"></i></a>
 </h3>
 <p>This step is only needed if you implement via <a href="https://bbotk.mlr-org.com">bbotk</a>.
 The <code><a href="https://mlr3tuning.mlr-org.com/reference/TunerFromOptimizer.html">mlr3tuning::TunerFromOptimizer</a></code> class transforms a <code><a href="https://bbotk.mlr-org.com/reference/Optimizer.html">bbotk::Optimizer</a></code> to a <code><a href="https://mlr3tuning.mlr-org.com/reference/Tuner.html">mlr3tuning::Tuner</a></code>.
 Just add the <code><a href="https://bbotk.mlr-org.com/reference/Optimizer.html">bbotk::Optimizer</a></code> to the <code>optimizer</code> field.
 See <a href="https://github.com/mlr-org/mlr3tuning/blob/master/R/TunerRandomSearch.R"><code>mlr3tuning::TunerRandomSearch</code></a> for an example.</p>
 </div>
-<div id="tuner-test" class="section level3" number="6.4.6">
+<div id="tuner-test" class="section level3" number="7.4.6">
 <h3>
-<span class="header-section-number">6.4.6</span> Add unit tests<a class="anchor" aria-label="anchor" href="#tuner-test"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4.6</span> Add unit tests<a class="anchor" aria-label="anchor" href="#tuner-test"><i class="fas fa-link"></i></a>
 </h3>
 <p>The new custom tuner should be thoroughly tested with unit tests.
 <code><a href="https://mlr3tuning.mlr-org.com/reference/Tuner.html">mlr3tuning::Tuner</a></code>s can be tested with the <code>test_tuner()</code> helper function.
@@ -1461,53 +1462,53 @@ If you added the Tuner via a <code><a href="https://bbotk.mlr-org.com/reference/
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="technical.html"><span class="header-section-number">5</span> Technical</a></div>
-<div class="next"><a href="special-tasks.html"><span class="header-section-number">7</span> Special Tasks</a></div>
+<div class="prev"><a href="technical.html"><span class="header-section-number">6</span> Technical</a></div>
+<div class="next"><a href="special-tasks.html"><span class="header-section-number">8</span> Special Tasks</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#extending"><span class="header-section-number">6</span> Extending</a></li>
+<li><a class="nav-link" href="#extending"><span class="header-section-number">7</span> Extending</a></li>
 <li>
-<a class="nav-link" href="#extending-learners"><span class="header-section-number">6.1</span> Adding new Learners</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#setup"><span class="header-section-number">6.1.1</span> Setting-up mlr3extralearners</a></li>
-<li><a class="nav-link" href="#create-learner"><span class="header-section-number">6.1.2</span> Calling create_learner</a></li>
-<li><a class="nav-link" href="#learner_package_type_key.r"><span class="header-section-number">6.1.3</span> learner_package_type_key.R</a></li>
-<li><a class="nav-link" href="#learner-meta-information"><span class="header-section-number">6.1.4</span> Meta-information</a></li>
-<li><a class="nav-link" href="#param-set"><span class="header-section-number">6.1.5</span> ParamSet</a></li>
-<li><a class="nav-link" href="#learner-train"><span class="header-section-number">6.1.6</span> Train function</a></li>
-<li><a class="nav-link" href="#learner-predict"><span class="header-section-number">6.1.7</span> Predict function</a></li>
-<li><a class="nav-link" href="#learner-control"><span class="header-section-number">6.1.8</span> Control objects/functions of learners</a></li>
-<li><a class="nav-link" href="#learner-test"><span class="header-section-number">6.1.9</span> Testing the learner</a></li>
-<li><a class="nav-link" href="#cleaning"><span class="header-section-number">6.1.10</span> Package Cleaning</a></li>
-<li><a class="nav-link" href="#thanks-and-maintenance"><span class="header-section-number">6.1.11</span> Thanks and Maintenance</a></li>
-<li><a class="nav-link" href="#learner-faq"><span class="header-section-number">6.1.12</span> Learner FAQ</a></li>
+<a class="nav-link" href="#extending-learners"><span class="header-section-number">7.1</span> Adding new Learners</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#setup"><span class="header-section-number">7.1.1</span> Setting-up mlr3extralearners</a></li>
+<li><a class="nav-link" href="#create-learner"><span class="header-section-number">7.1.2</span> Calling create_learner</a></li>
+<li><a class="nav-link" href="#learner_package_type_key.r"><span class="header-section-number">7.1.3</span> learner_package_type_key.R</a></li>
+<li><a class="nav-link" href="#learner-meta-information"><span class="header-section-number">7.1.4</span> Meta-information</a></li>
+<li><a class="nav-link" href="#param-set"><span class="header-section-number">7.1.5</span> ParamSet</a></li>
+<li><a class="nav-link" href="#learner-train"><span class="header-section-number">7.1.6</span> Train function</a></li>
+<li><a class="nav-link" href="#learner-predict"><span class="header-section-number">7.1.7</span> Predict function</a></li>
+<li><a class="nav-link" href="#learner-control"><span class="header-section-number">7.1.8</span> Control objects/functions of learners</a></li>
+<li><a class="nav-link" href="#learner-test"><span class="header-section-number">7.1.9</span> Testing the learner</a></li>
+<li><a class="nav-link" href="#cleaning"><span class="header-section-number">7.1.10</span> Package Cleaning</a></li>
+<li><a class="nav-link" href="#thanks-and-maintenance"><span class="header-section-number">7.1.11</span> Thanks and Maintenance</a></li>
+<li><a class="nav-link" href="#learner-faq"><span class="header-section-number">7.1.12</span> Learner FAQ</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#extending-measures"><span class="header-section-number">6.2</span> Adding new Measures</a></li>
+<li><a class="nav-link" href="#extending-measures"><span class="header-section-number">7.2</span> Adding new Measures</a></li>
 <li>
-<a class="nav-link" href="#extending-pipeops"><span class="header-section-number">6.3</span> Adding new PipeOps</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#ext-pipeopcopy"><span class="header-section-number">6.3.1</span> General Case Example: PipeOpCopy</a></li>
-<li><a class="nav-link" href="#ext-pipe-preproc"><span class="header-section-number">6.3.2</span> Special Case: Preprocessing</a></li>
-<li><a class="nav-link" href="#special-case-preprocessing-with-simple-train"><span class="header-section-number">6.3.3</span> Special Case: Preprocessing with Simple Train</a></li>
-<li><a class="nav-link" href="#ext-pipe-hyperpars"><span class="header-section-number">6.3.4</span> Hyperparameters</a></li>
+<a class="nav-link" href="#extending-pipeops"><span class="header-section-number">7.3</span> Adding new PipeOps</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#ext-pipeopcopy"><span class="header-section-number">7.3.1</span> General Case Example: PipeOpCopy</a></li>
+<li><a class="nav-link" href="#ext-pipe-preproc"><span class="header-section-number">7.3.2</span> Special Case: Preprocessing</a></li>
+<li><a class="nav-link" href="#special-case-preprocessing-with-simple-train"><span class="header-section-number">7.3.3</span> Special Case: Preprocessing with Simple Train</a></li>
+<li><a class="nav-link" href="#ext-pipe-hyperpars"><span class="header-section-number">7.3.4</span> Hyperparameters</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#extending-tuners"><span class="header-section-number">6.4</span> Adding new Tuners</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#extending-tuners-summary"><span class="header-section-number">6.4.1</span> Adding a new Tuner</a></li>
-<li><a class="nav-link" href="#tuner-template"><span class="header-section-number">6.4.2</span> Template</a></li>
-<li><a class="nav-link" href="#tuner-optimize"><span class="header-section-number">6.4.3</span> Optimize method</a></li>
-<li><a class="nav-link" href="#tuner-add-result"><span class="header-section-number">6.4.4</span> Assign result method</a></li>
-<li><a class="nav-link" href="#tuner-from-optimizer"><span class="header-section-number">6.4.5</span> Transform optimizer to tuner</a></li>
-<li><a class="nav-link" href="#tuner-test"><span class="header-section-number">6.4.6</span> Add unit tests</a></li>
+<a class="nav-link" href="#extending-tuners"><span class="header-section-number">7.4</span> Adding new Tuners</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#extending-tuners-summary"><span class="header-section-number">7.4.1</span> Adding a new Tuner</a></li>
+<li><a class="nav-link" href="#tuner-template"><span class="header-section-number">7.4.2</span> Template</a></li>
+<li><a class="nav-link" href="#tuner-optimize"><span class="header-section-number">7.4.3</span> Optimize method</a></li>
+<li><a class="nav-link" href="#tuner-add-result"><span class="header-section-number">7.4.4</span> Assign result method</a></li>
+<li><a class="nav-link" href="#tuner-from-optimizer"><span class="header-section-number">7.4.5</span> Transform optimizer to tuner</a></li>
+<li><a class="nav-link" href="#tuner-test"><span class="header-section-number">7.4.6</span> Add unit tests</a></li>
 </ul>
 </li>
 </ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/mlr-org/mlr3book/blob/main/bookdown/06-extending.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/mlr-org/mlr3book/edit/main/bookdown/06-extending.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/mlr-org/mlr3book/blob/main/bookdown/07-extending.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/mlr-org/mlr3book/edit/main/bookdown/07-extending.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -1519,7 +1520,7 @@ If you added the Tuner via a <code><a href="https://bbotk.mlr-org.com/reference/
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-10-07.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-10-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

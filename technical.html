@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>5 Technical | mlr3 book</title>
+<title>6 Technical | mlr3 book</title>
 <meta name="author" content="Marc Becker">
 <meta name="author" content="Martin Binder">
 <meta name="author" content="Bernd Bischl">
@@ -18,13 +18,13 @@
 <meta name="author" content="Damir Pulatov">
 <meta name="description" content="This chapter provides an overview of technical details of the mlr3 framework. Parallelization At first, some details about Parallelization and the usage of the future are given. Parallelization...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
-<meta property="og:title" content="5 Technical | mlr3 book">
+<meta property="og:title" content="6 Technical | mlr3 book">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://mlr3book.mlr-org.com/technical.html">
 <meta property="og:image" content="https://mlr3book.mlr-org.com//block.png">
 <meta property="og:description" content="This chapter provides an overview of technical details of the mlr3 framework. Parallelization At first, some details about Parallelization and the usage of the future are given. Parallelization...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="5 Technical | mlr3 book">
+<meta name="twitter:title" content="6 Technical | mlr3 book">
 <meta name="twitter:description" content="This chapter provides an overview of technical details of the mlr3 framework. Parallelization At first, some details about Parallelization and the usage of the future are given. Parallelization...">
 <meta name="twitter:image" content="https://mlr3book.mlr-org.com//block.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -55,13 +55,14 @@
 <li><a class="" href="index.html">Quickstart</a></li>
 <li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction and Overview</a></li>
 <li><a class="" href="basics.html"><span class="header-section-number">2</span> Basics</a></li>
-<li><a class="" href="optimization.html"><span class="header-section-number">3</span> Model Optimization</a></li>
-<li><a class="" href="pipelines.html"><span class="header-section-number">4</span> Pipelines</a></li>
-<li><a class="active" href="technical.html"><span class="header-section-number">5</span> Technical</a></li>
-<li><a class="" href="extending.html"><span class="header-section-number">6</span> Extending</a></li>
-<li><a class="" href="special-tasks.html"><span class="header-section-number">7</span> Special Tasks</a></li>
-<li><a class="" href="interpretation.html"><span class="header-section-number">8</span> Model Interpretation</a></li>
-<li><a class="" href="appendix.html"><span class="header-section-number">9</span> Appendix</a></li>
+<li><a class="" href="perf-eval-cmp.html"><span class="header-section-number">3</span> Performance Evaluation and Comparison</a></li>
+<li><a class="" href="optimization.html"><span class="header-section-number">4</span> Model Optimization</a></li>
+<li><a class="" href="pipelines.html"><span class="header-section-number">5</span> Pipelines</a></li>
+<li><a class="active" href="technical.html"><span class="header-section-number">6</span> Technical</a></li>
+<li><a class="" href="extending.html"><span class="header-section-number">7</span> Extending</a></li>
+<li><a class="" href="special-tasks.html"><span class="header-section-number">8</span> Special Tasks</a></li>
+<li><a class="" href="interpretation.html"><span class="header-section-number">9</span> Model Interpretation</a></li>
+<li><a class="" href="appendix.html"><span class="header-section-number">10</span> Appendix</a></li>
 <li><a class="" href="citation-info.html">Citation Info</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
@@ -71,9 +72,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="technical" class="section level1" number="5">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="technical" class="section level1" number="6">
 <h1>
-<span class="header-section-number">5</span> Technical<a class="anchor" aria-label="anchor" href="#technical"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6</span> Technical<a class="anchor" aria-label="anchor" href="#technical"><i class="fas fa-link"></i></a>
 </h1>
 <p>This chapter provides an overview of technical details of the <a href="https://mlr3.mlr-org.com">mlr3</a> framework.</p>
 <p><strong>Parallelization</strong></p>
@@ -100,16 +101,16 @@ The section provides an illustration of how to implement <a href="technical.html
 <p>The sub-chapter on <a href="technical.html#logging">Logging and Verbosity</a> shows how to change the most important settings related to logging.
 In <a href="https://mlr3.mlr-org.com">mlr3</a> we use the <a href="https://cran.r-project.org/package=lgr">lgr</a> package.</p>
 
-<div id="parallelization" class="section level2" number="5.1">
+<div id="parallelization" class="section level2" number="6.1">
 <h2>
-<span class="header-section-number">5.1</span> Parallelization<a class="anchor" aria-label="anchor" href="#parallelization"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.1</span> Parallelization<a class="anchor" aria-label="anchor" href="#parallelization"><i class="fas fa-link"></i></a>
 </h2>
 <p>Parallelization refers to the process of running multiple jobs in parallel, simultaneously.
 This process allows for significant savings in computing power.
 We distinguish between implicit parallelism and explicit parallelism.</p>
-<div id="implicit-parallelization" class="section level3" number="5.1.1">
+<div id="implicit-parallelization" class="section level3" number="6.1.1">
 <h3>
-<span class="header-section-number">5.1.1</span> Implicit Parallelization<a class="anchor" aria-label="anchor" href="#implicit-parallelization"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.1.1</span> Implicit Parallelization<a class="anchor" aria-label="anchor" href="#implicit-parallelization"><i class="fas fa-link"></i></a>
 </h3>
 <p>We talk about implicit parallelization in this context if we call external code (i.e., code from foreign CRAN packages) which runs in parallel.
 Many machine learning algorithms can parallelize their model fit using threading, e.g. <a href="https://mlr3learners.mlr-org.com/reference/mlr_learners_classif.ranger.html"><code>ranger</code></a>
@@ -178,9 +179,9 @@ For this reason, we introduced the convention that implicit parallelization is t
 ##         id    class lower upper nlevels default value
 ## 1: threads ParamInt     0   Inf     Inf       0     4</code></pre>
 </div>
-<div id="explicit-parallelization" class="section level3" number="5.1.2">
+<div id="explicit-parallelization" class="section level3" number="6.1.2">
 <h3>
-<span class="header-section-number">5.1.2</span> Explicit Parallelization<a class="anchor" aria-label="anchor" href="#explicit-parallelization"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.1.2</span> Explicit Parallelization<a class="anchor" aria-label="anchor" href="#explicit-parallelization"><i class="fas fa-link"></i></a>
 </h3>
 <p>We talk about explicit parallelization here if <a href="https://mlr3.mlr-org.com">mlr3</a> starts the parallelization itself.
 The abstraction implemented in <a href="https://cran.r-project.org/package=future">future</a> is used to support a broad range of parallel backends.
@@ -212,9 +213,9 @@ All kind of events are rolled out on the same level.
 Therefore, there is no need to decide whether you want to parallelize the tuning OR the resampling.</p>
 <p>Just lean back and let the machine do the work :-)</p>
 </div>
-<div id="nested-resampling-parallelization" class="section level3" number="5.1.3">
+<div id="nested-resampling-parallelization" class="section level3" number="6.1.3">
 <h3>
-<span class="header-section-number">5.1.3</span> Nested Resampling Parallelization<a class="anchor" aria-label="anchor" href="#nested-resampling-parallelization"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.1.3</span> Nested Resampling Parallelization<a class="anchor" aria-label="anchor" href="#nested-resampling-parallelization"><i class="fas fa-link"></i></a>
 </h3>
 <p><a href="optimization.html#nested-resampling">Nested resampling</a> results in two nested resampling loops.
 We can choose different parallelization backends for the inner and outer resampling loop, respectively.
@@ -235,9 +236,9 @@ The <a href="https://cran.r-project.org/web/packages/future/vignettes/future-3-t
 
 </div>
 </div>
-<div id="error-handling" class="section level2" number="5.2">
+<div id="error-handling" class="section level2" number="6.2">
 <h2>
-<span class="header-section-number">5.2</span> Error Handling<a class="anchor" aria-label="anchor" href="#error-handling"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.2</span> Error Handling<a class="anchor" aria-label="anchor" href="#error-handling"><i class="fas fa-link"></i></a>
 </h2>
 <p>To demonstrate how to properly deal with misbehaving learners, <a href="https://mlr3.mlr-org.com">mlr3</a> ships with the learner <a href="https://mlr3.mlr-org.com/reference/mlr_learners_classif.debug.html"><code>classif.debug</code></a>:</p>
 <div class="sourceCode" id="cb473"><pre class="downlit sourceCode r">
@@ -297,9 +298,9 @@ Thus, we need a mechanism to</p>
 <li>a statistically sound way to proceed the calculation and be able to aggregate over partial results.</li>
 </ol>
 <p>These two mechanisms are explained in the following subsections.</p>
-<div id="encapsulation" class="section level3" number="5.2.1">
+<div id="encapsulation" class="section level3" number="6.2.1">
 <h3>
-<span class="header-section-number">5.2.1</span> Encapsulation<a class="anchor" aria-label="anchor" href="#encapsulation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.2.1</span> Encapsulation<a class="anchor" aria-label="anchor" href="#encapsulation"><i class="fas fa-link"></i></a>
 </h3>
 <p>With encapsulation, exceptions do not stop the program flow and all output is logged to the learner (instead of printed to the console).
 Each <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a> has a field <code>encapsulate</code> to control how the train or predict steps are executed.
@@ -338,9 +339,9 @@ On the downside, starting new processes comes with a computational overhead.</p>
 <pre><code>## Error: Cannot predict, Learner 'classif.debug' has not been trained yet</code></pre>
 <p>To handle the missing predictions in a graceful way during <a href="https://mlr3.mlr-org.com/reference/resample.html"><code>resample()</code></a> or <a href="https://mlr3.mlr-org.com/reference/benchmark.html"><code>benchmark()</code></a>, fallback learners are introduced next.</p>
 </div>
-<div id="fallback-learners" class="section level3" number="5.2.2">
+<div id="fallback-learners" class="section level3" number="6.2.2">
 <h3>
-<span class="header-section-number">5.2.2</span> Fallback learners<a class="anchor" aria-label="anchor" href="#fallback-learners"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.2.2</span> Fallback learners<a class="anchor" aria-label="anchor" href="#fallback-learners"><i class="fas fa-link"></i></a>
 </h3>
 <p>Fallback learners have the purpose to allow scoring results in cases where a <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a> is misbehaving in some sense.
 Some typical examples include:</p>
@@ -393,16 +394,17 @@ We re-parametrize the debug learner to fail in roughly 30% of the resampling ite
 ## 1:  1 &lt;ResampleResult[20]&gt;    iris classif.debug            cv    10        0
 ## 2:  2 &lt;ResampleResult[20]&gt;    iris classif.rpart            cv    10        0
 ##    errors classif.ce
-## 1:      3    0.70667
-## 2:      0    0.05333</code></pre>
+## 1:      4    0.74000
+## 2:      0    0.07333</code></pre>
 <p>To further investigate the errors, we can extract the <a href="https://mlr3.mlr-org.com/reference/ResampleResult.html"><code>ResampleResult</code></a>:</p>
 <div class="sourceCode" id="cb500"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">rr</span> <span class="op">=</span> <span class="va">aggr</span><span class="op">[</span><span class="va">learner_id</span> <span class="op">==</span> <span class="st">"classif.debug"</span><span class="op">]</span><span class="op">$</span><span class="va">resample_result</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span>
 <span class="va">rr</span><span class="op">$</span><span class="va">errors</span></code></pre></div>
 <pre><code>##    iteration                               msg
-## 1:         1 Error from classif.debug-&gt;train()
-## 2:         2 Error from classif.debug-&gt;train()
-## 3:         4 Error from classif.debug-&gt;train()</code></pre>
+## 1:         3 Error from classif.debug-&gt;train()
+## 2:         4 Error from classif.debug-&gt;train()
+## 3:         6 Error from classif.debug-&gt;train()
+## 4:        10 Error from classif.debug-&gt;train()</code></pre>
 <p>A similar yet different problem emerges when a learner predicts only a subset of the observations in the test set (and predicts <code>NA</code> for others).
 Handling such predictions in a statistically sound way is not straight-forward and a common source for over-optimism when reporting results.
 Imagine that our goal is to benchmark two algorithms using a 10-fold cross validation on some binary classification task:</p>
@@ -430,7 +432,7 @@ This is illustrated in the following example:</p>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="va">response</span>, useNA <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ##     setosa versicolor  virginica       &lt;NA&gt; 
-##          0          0         75         75</code></pre>
+##         75          0          0         75</code></pre>
 <div class="sourceCode" id="cb504"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># with fallback</span>
 <span class="va">learner</span><span class="op">$</span><span class="va">fallback</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.featureless"</span><span class="op">)</span>
@@ -438,22 +440,22 @@ This is illustrated in the following example:</p>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="va">response</span>, useNA <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ##     setosa versicolor  virginica       &lt;NA&gt; 
-##         75         75          0          0</code></pre>
+##          0          0        150          0</code></pre>
 <p>Summed up, by combining encapsulation and fallback learners, it is possible to benchmark even quite unreliable or instable learning algorithms in a convenient way.</p>
 
 </div>
 </div>
-<div id="backends" class="section level2" number="5.3">
+<div id="backends" class="section level2" number="6.3">
 <h2>
-<span class="header-section-number">5.3</span> Database Backends<a class="anchor" aria-label="anchor" href="#backends"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.3</span> Database Backends<a class="anchor" aria-label="anchor" href="#backends"><i class="fas fa-link"></i></a>
 </h2>
 <p>In mlr3, <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a>s store their data in an abstract data format, the <a href="https://mlr3.mlr-org.com/reference/DataBackend.html"><code>DataBackend</code></a>.
 The default backend uses <a href="https://cran.r-project.org/package=data.table">data.table</a> via the <a href="https://mlr3.mlr-org.com/reference/DataBackendDataTable.html"><code>DataBackendDataTable</code></a> as an in-memory data base.</p>
 <p>For larger data, or when working with many tasks in parallel, it can be advantageous to interface an out-of-memory data.
 We use the excellent R package <a href="https://cran.r-project.org/package=dbplyr">dbplyr</a> which extends <a href="https://cran.r-project.org/package=dplyr">dplyr</a> to work on many popular data bases like <a href="https://mariadb.org/">MariaDB</a>, <a href="https://www.postgresql.org/">PostgreSQL</a> or <a href="https://www.sqlite.org">SQLite</a>.</p>
-<div id="use-case-nyc-flights" class="section level3" number="5.3.1">
+<div id="use-case-nyc-flights" class="section level3" number="6.3.1">
 <h3>
-<span class="header-section-number">5.3.1</span> Use Case: NYC Flights<a class="anchor" aria-label="anchor" href="#use-case-nyc-flights"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.3.1</span> Use Case: NYC Flights<a class="anchor" aria-label="anchor" href="#use-case-nyc-flights"><i class="fas fa-link"></i></a>
 </h3>
 <p>To generate a halfway realistic scenario, we use the NYC flights data set from package <a href="https://cran.r-project.org/package=nycflights13">nycflights13</a>:</p>
 <div class="sourceCode" id="cb506"><pre class="downlit sourceCode r">
@@ -502,9 +504,9 @@ We use the excellent R package <a href="https://cran.r-project.org/package=dbply
 <span class="co"># remove in-memory data</span>
 <span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">flights</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="preprocessing-with-dplyr" class="section level3" number="5.3.2">
+<div id="preprocessing-with-dplyr" class="section level3" number="6.3.2">
 <h3>
-<span class="header-section-number">5.3.2</span> Preprocessing with <code>dplyr</code><a class="anchor" aria-label="anchor" href="#preprocessing-with-dplyr"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.3.2</span> Preprocessing with <code>dplyr</code><a class="anchor" aria-label="anchor" href="#preprocessing-with-dplyr"><i class="fas fa-link"></i></a>
 </h3>
 <p>With the SQLite database in <code>path</code>, we now re-establish a connection and switch to <a href="https://cran.r-project.org/package=dplyr">dplyr</a>/<a href="https://cran.r-project.org/package=dbplyr">dbplyr</a> for some essential preprocessing.</p>
 <div class="sourceCode" id="cb515"><pre class="downlit sourceCode r">
@@ -548,9 +550,9 @@ We use the excellent R package <a href="https://cran.r-project.org/package=dbply
     <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">carrier</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 </div>
-<div id="databackenddplyr" class="section level3" number="5.3.3">
+<div id="databackenddplyr" class="section level3" number="6.3.3">
 <h3>
-<span class="header-section-number">5.3.3</span> DataBackendDplyr<a class="anchor" aria-label="anchor" href="#databackenddplyr"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.3.3</span> DataBackendDplyr<a class="anchor" aria-label="anchor" href="#databackenddplyr"><i class="fas fa-link"></i></a>
 </h3>
 <p>The processed table is now used to create a <a href="https://mlr3db.mlr-org.com/reference/DataBackendDplyr.html"><code>mlr3db::DataBackendDplyr</code></a> from <a href="https://mlr3db.mlr-org.com">mlr3db</a>:</p>
 <div class="sourceCode" id="cb527"><pre class="downlit sourceCode r">
@@ -581,9 +583,9 @@ We use the excellent R package <a href="https://cran.r-project.org/package=dbply
 ## 6:     1005        -3</code></pre>
 <p>Note that the <a href="https://mlr3db.mlr-org.com/reference/DataBackendDplyr.html"><code>DataBackendDplyr</code></a> does not know about any rows or columns we have filtered out with <a href="https://cran.r-project.org/package=dplyr">dplyr</a> before, it just operates on the view we provided.</p>
 </div>
-<div id="model-fitting" class="section level3" number="5.3.4">
+<div id="model-fitting" class="section level3" number="6.3.4">
 <h3>
-<span class="header-section-number">5.3.4</span> Model fitting<a class="anchor" aria-label="anchor" href="#model-fitting"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.3.4</span> Model fitting<a class="anchor" aria-label="anchor" href="#model-fitting"><i class="fas fa-link"></i></a>
 </h3>
 <p>We create the following <a href="https://mlr3.mlr-org.com">mlr3</a> objects:</p>
 <ul>
@@ -611,11 +613,11 @@ In each iteration, only the required subset of the data is queried from the SQLi
 <div class="sourceCode" id="cb537"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="fu">aggregate</span><span class="op">(</span><span class="va">measures</span><span class="op">)</span></code></pre></div>
 <pre><code>##     regr.mse   time_train time_predict 
-##         1286            0            0</code></pre>
+##         1222            0            0</code></pre>
 </div>
-<div id="cleanup" class="section level3" number="5.3.5">
+<div id="cleanup" class="section level3" number="6.3.5">
 <h3>
-<span class="header-section-number">5.3.5</span> Cleanup<a class="anchor" aria-label="anchor" href="#cleanup"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.3.5</span> Cleanup<a class="anchor" aria-label="anchor" href="#cleanup"><i class="fas fa-link"></i></a>
 </h3>
 <p>Finally, we remove the <code>tbl</code> object and close the connection.</p>
 <div class="sourceCode" id="cb539"><pre class="downlit sourceCode r">
@@ -624,9 +626,9 @@ In each iteration, only the required subset of the data is queried from the SQLi
 
 </div>
 </div>
-<div id="paradox" class="section level2" number="5.4">
+<div id="paradox" class="section level2" number="6.4">
 <h2>
-<span class="header-section-number">5.4</span> Parameters (using <code>paradox</code>)<a class="anchor" aria-label="anchor" href="#paradox"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4</span> Parameters (using <code>paradox</code>)<a class="anchor" aria-label="anchor" href="#paradox"><i class="fas fa-link"></i></a>
 </h2>
 <p>The <a href="https://paradox.mlr-org.com">paradox</a> package offers a language for the description of <em>parameter spaces</em>, as well as tools for useful operations on these parameter spaces.
 A parameter space is often useful when describing:</p>
@@ -644,9 +646,9 @@ A parameter space is often useful when describing:</p>
 </ul>
 <p><a href="https://paradox.mlr-org.com">paradox</a> is, by nature, an auxiliary package that derives its usefulness from other packages that make use of it.
 It is heavily utilized in other <a href="https://github.com/mlr-org">mlr-org</a> packages such as <a href="https://mlr3.mlr-org.com">mlr3</a>, <a href="https://mlr3pipelines.mlr-org.com">mlr3pipelines</a>, and <a href="https://mlr3tuning.mlr-org.com">mlr3tuning</a>.</p>
-<div id="reference-based-objects" class="section level3" number="5.4.1">
+<div id="reference-based-objects" class="section level3" number="6.4.1">
 <h3>
-<span class="header-section-number">5.4.1</span> Reference Based Objects<a class="anchor" aria-label="anchor" href="#reference-based-objects"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.1</span> Reference Based Objects<a class="anchor" aria-label="anchor" href="#reference-based-objects"><i class="fas fa-link"></i></a>
 </h3>
 <p><a href="https://paradox.mlr-org.com">paradox</a> is the spiritual successor to the <a href="https://cran.r-project.org/package=ParamHelpers">ParamHelpers</a> package and was written from scratch using the <a href="https://cran.r-project.org/package=R6">R6</a> class system.
 The most important consequence of this is that all objects created in <code>paradox</code> are “reference-based”, unlike most other objects in R.
@@ -678,13 +680,13 @@ To create an independent copy of a <code>ParamSet</code>, the <code>$clone()</co
 <pre><code>## &lt;ParamSet&gt;
 ## Empty.</code></pre>
 </div>
-<div id="defining-a-parameter-space" class="section level3" number="5.4.2">
+<div id="defining-a-parameter-space" class="section level3" number="6.4.2">
 <h3>
-<span class="header-section-number">5.4.2</span> Defining a Parameter Space<a class="anchor" aria-label="anchor" href="#defining-a-parameter-space"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.2</span> Defining a Parameter Space<a class="anchor" aria-label="anchor" href="#defining-a-parameter-space"><i class="fas fa-link"></i></a>
 </h3>
-<div id="single-parameters" class="section level4" number="5.4.2.1">
+<div id="single-parameters" class="section level4" number="6.4.2.1">
 <h4>
-<span class="header-section-number">5.4.2.1</span> Single Parameters<a class="anchor" aria-label="anchor" href="#single-parameters"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.2.1</span> Single Parameters<a class="anchor" aria-label="anchor" href="#single-parameters"><i class="fas fa-link"></i></a>
 </h4>
 <p>The basic building block for describing parameter spaces is the <strong><code>Param</code></strong> class.
 It represents a single parameter, which usually can take a single atomic value.
@@ -745,9 +747,9 @@ Besides the possible values that can be given to a constructor, there are also t
 <code class="sourceCode R"><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">parA</span><span class="op">)</span></code></pre></div>
 <pre><code>##    id    class lower upper      levels nlevels is_bounded special_vals        default storage_type tags
 ## 1:  A ParamLgl    NA    NA  TRUE,FALSE       2       TRUE    &lt;list[0]&gt; &lt;NoDefault[3]&gt;      logical</code></pre>
-<div id="type-range-checking" class="section level5" number="5.4.2.1.1">
+<div id="type-range-checking" class="section level5" number="6.4.2.1.1">
 <h5>
-<span class="header-section-number">5.4.2.1.1</span> Type / Range Checking<a class="anchor" aria-label="anchor" href="#type-range-checking"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.2.1.1</span> Type / Range Checking<a class="anchor" aria-label="anchor" href="#type-range-checking"><i class="fas fa-link"></i></a>
 </h5>
 <p>A <code>Param</code> object offers the possibility to check whether a value satisfies its condition, i.e. is of the right type, and also falls within the range of allowed values, using the <code>$test()</code>, <code>$check()</code>, and <code>$assert()</code> functions.
 <code><a href="https://Rdatatable.gitlab.io/data.table/reference/test.html">test()</a></code> should be used within conditional checks and returns <code>TRUE</code> or <code>FALSE</code>, while <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code> returns an error description when a value does not conform to the parameter (and thus plays well with the <a href="https://www.rdocumentation.org/packages/checkmate/topics/assert"><code>checkmate::assert()</code></a> function).
@@ -764,9 +766,9 @@ Besides the possible values that can be given to a constructor, there are also t
 <p>Instead of testing single parameters, it is often more convenient to check a whole set of parameters using a <code>ParamSet</code>.</p>
 </div>
 </div>
-<div id="parameter-sets" class="section level4" number="5.4.2.2">
+<div id="parameter-sets" class="section level4" number="6.4.2.2">
 <h4>
-<span class="header-section-number">5.4.2.2</span> Parameter Sets<a class="anchor" aria-label="anchor" href="#parameter-sets"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.2.2</span> Parameter Sets<a class="anchor" aria-label="anchor" href="#parameter-sets"><i class="fas fa-link"></i></a>
 </h4>
 <p>The ordered collection of parameters is handled in a <code>ParamSet</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Although the name is suggestive of a “Set”-valued &lt;code&gt;Param&lt;/code&gt;, this is unrelated to the other objects that follow the &lt;code&gt;ParamXxx&lt;/code&gt; naming scheme.&lt;/p&gt;"><sup>2</sup></a>.
 It is initialized using the <code>$new()</code> function and optionally takes a list of <code>Param</code>s as argument.
@@ -807,9 +809,9 @@ This makes it easy to subset parameters on certain conditions and aggregate info
 ## 3:  C ParamDbl     0     4                 Inf       TRUE    &lt;list[1]&gt; &lt;NoDefault[3]&gt;      numeric          
 ## 4:  D ParamFct    NA    NA       x,y,z       3       TRUE    &lt;list[0]&gt;              y    character          
 ## 5:  E ParamUty    NA    NA                 Inf      FALSE    &lt;list[0]&gt; &lt;NoDefault[3]&gt;         list</code></pre>
-<div id="type-range-checking-1" class="section level5" number="5.4.2.2.1">
+<div id="type-range-checking-1" class="section level5" number="6.4.2.2.1">
 <h5>
-<span class="header-section-number">5.4.2.2.1</span> Type / Range Checking<a class="anchor" aria-label="anchor" href="#type-range-checking-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.2.2.1</span> Type / Range Checking<a class="anchor" aria-label="anchor" href="#type-range-checking-1"><i class="fas fa-link"></i></a>
 </h5>
 <p>Similar to individual <code>Param</code>s, the <code>ParamSet</code> provides <code>$test()</code>, <code>$check()</code> and <code>$assert()</code> functions that allow for type and range checking of parameters.
 Their argument must be a named list with values that are checked against the respective parameters.
@@ -824,9 +826,9 @@ It is possible to check only a subset of parameters.</p>
 <code class="sourceCode R"><span class="va">ps</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>Z <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "Parameter 'Z' not available. Did you mean 'A' / 'B' / 'C'?"</code></pre>
 </div>
-<div id="values-in-a-paramset" class="section level5" number="5.4.2.2.2">
+<div id="values-in-a-paramset" class="section level5" number="6.4.2.2.2">
 <h5>
-<span class="header-section-number">5.4.2.2.2</span> Values in a <code>ParamSet</code><a class="anchor" aria-label="anchor" href="#values-in-a-paramset"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.2.2.2</span> Values in a <code>ParamSet</code><a class="anchor" aria-label="anchor" href="#values-in-a-paramset"><i class="fas fa-link"></i></a>
 </h5>
 <p>Although a <code>ParamSet</code> fundamentally represents a value space, it also has a slot <code>$values</code> that can contain a point within that space.
 This is useful because many things that define a parameter space need similar operations (like parameter checking) that can be simplified.
@@ -846,9 +848,9 @@ When trying to set parameter values, e.g. for <code>mlr3</code> <code>Learner</
 <code class="sourceCode R"><span class="va">ps</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">B</span> <span class="op">=</span> <span class="fl">100</span></code></pre></div>
 <pre><code>## Error in self$assert(xs): Assertion on 'xs' failed: B: Element 1 is not &lt;= 10.</code></pre>
 </div>
-<div id="dependencies" class="section level5" number="5.4.2.2.3">
+<div id="dependencies" class="section level5" number="6.4.2.2.3">
 <h5>
-<span class="header-section-number">5.4.2.2.3</span> Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.2.2.3</span> Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"><i class="fas fa-link"></i></a>
 </h5>
 <p>It is often the case that certain parameters are irrelevant or should not be given depending on values of other parameters.
 An example would be a parameter that switches a certain algorithm feature (for example regularization) on or off, combined with another parameter that controls the behavior of that feature (e.g. a regularization parameter).
@@ -897,9 +899,9 @@ Therefore it is advised to be cautious.</p>
 ## 2:  B  D &lt;CondAnyOf[9]&gt;</code></pre>
 </div>
 </div>
-<div id="vector-parameters" class="section level4" number="5.4.2.3">
+<div id="vector-parameters" class="section level4" number="6.4.2.3">
 <h4>
-<span class="header-section-number">5.4.2.3</span> Vector Parameters<a class="anchor" aria-label="anchor" href="#vector-parameters"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.2.3</span> Vector Parameters<a class="anchor" aria-label="anchor" href="#vector-parameters"><i class="fas fa-link"></i></a>
 </h4>
 <p>Unlike in the old <code>ParamHelpers</code> package, there are no more vectorial parameters in <code>paradox</code>.
 Instead, it is now possible to create multiple copies of a single parameter using the <code>$rep</code> function.
@@ -951,25 +953,25 @@ To sample values for a method that needs a vectorial parameter, it is advised to
 ## [1] "x_rep"</code></pre>
 </div>
 </div>
-<div id="parameter-sampling" class="section level3" number="5.4.3">
+<div id="parameter-sampling" class="section level3" number="6.4.3">
 <h3>
-<span class="header-section-number">5.4.3</span> Parameter Sampling<a class="anchor" aria-label="anchor" href="#parameter-sampling"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.3</span> Parameter Sampling<a class="anchor" aria-label="anchor" href="#parameter-sampling"><i class="fas fa-link"></i></a>
 </h3>
 <p>It is often useful to have a list of possible parameter values that can be systematically iterated through, for example to find parameter values for which an algorithm performs particularly well (tuning).
 <code>paradox</code> offers a variety of functions that allow creating evenly-spaced parameter values in a “grid” design as well as random sampling.
 In the latter case, it is possible to influence the sampling distribution in more or less fine detail.</p>
 <p>A point to always keep in mind while sampling is that only numerical and factorial parameters that are bounded can be sampled from, i.e. not <code>ParamUty</code>.
 Furthermore, for most samplers <code>ParamInt</code> and <code>ParamDbl</code> must have finite lower and upper bounds.</p>
-<div id="parameter-designs" class="section level4" number="5.4.3.1">
+<div id="parameter-designs" class="section level4" number="6.4.3.1">
 <h4>
-<span class="header-section-number">5.4.3.1</span> Parameter Designs<a class="anchor" aria-label="anchor" href="#parameter-designs"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.3.1</span> Parameter Designs<a class="anchor" aria-label="anchor" href="#parameter-designs"><i class="fas fa-link"></i></a>
 </h4>
 <p>Functions that sample the parameter space fundamentally return an object of the <code>Design</code> class.
 These objects contain the sampled data as a <code>data.table</code> under the <code>$data</code> slot, and also offer conversion to a list of parameter-values using the <strong><code>$transpose()</code></strong> function.</p>
 </div>
-<div id="grid-design" class="section level4" number="5.4.3.2">
+<div id="grid-design" class="section level4" number="6.4.3.2">
 <h4>
-<span class="header-section-number">5.4.3.2</span> Grid Design<a class="anchor" aria-label="anchor" href="#grid-design"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.3.2</span> Grid Design<a class="anchor" aria-label="anchor" href="#grid-design"><i class="fas fa-link"></i></a>
 </h4>
 <p>The <code><a href="https://paradox.mlr-org.com/reference/generate_design_grid.html">generate_design_grid()</a></code> function is used to create grid designs that contain all combinations of parameter values: All possible values for <code>ParamLgl</code> and <code>ParamFct</code>, and values with a given resolution for <code>ParamInt</code> and <code>ParamDbl</code>.
 The resolution can be given for all numeric parameters, or for specific named parameters through the <code>param_resolutions</code> parameter.</p>
@@ -995,9 +997,9 @@ The resolution can be given for all numeric parameters, or for specific named pa
 ## 3: 0 4  TRUE
 ## 4: 0 4 FALSE</code></pre>
 </div>
-<div id="random-sampling" class="section level4" number="5.4.3.3">
+<div id="random-sampling" class="section level4" number="6.4.3.3">
 <h4>
-<span class="header-section-number">5.4.3.3</span> Random Sampling<a class="anchor" aria-label="anchor" href="#random-sampling"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.3.3</span> Random Sampling<a class="anchor" aria-label="anchor" href="#random-sampling"><i class="fas fa-link"></i></a>
 </h4>
 <p><code>paradox</code> offers different methods for random sampling, which vary in the degree to which they can be configured.
 The easiest way to get a uniformly random sample of parameters is <code>generate_design_random</code>.
@@ -1006,19 +1008,19 @@ LHS-sampling creates low-discrepancy sampled values that cover the parameter spa
 <div class="sourceCode" id="cb607"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pvrand</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/generate_design_random.html">generate_design_random</a></span><span class="op">(</span><span class="va">ps2d</span>, <span class="fl">500</span><span class="op">)</span>
 <span class="va">pvlhs</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/generate_design_lhs.html">generate_design_lhs</a></span><span class="op">(</span><span class="va">ps2d</span>, <span class="fl">500</span><span class="op">)</span></code></pre></div>
-<p><img src="05-technical-paradox_files/figure-html/05-technical-paradox-023-1.svg" width="45%" style="display: block; margin: auto;"><img src="05-technical-paradox_files/figure-html/05-technical-paradox-023-2.svg" width="45%" style="display: block; margin: auto;"></p>
+<p><img src="06-technical-paradox_files/figure-html/05-technical-paradox-023-1.svg" width="45%" style="display: block; margin: auto;"><img src="06-technical-paradox_files/figure-html/05-technical-paradox-023-2.svg" width="45%" style="display: block; margin: auto;"></p>
 </div>
-<div id="generalized-sampling-the-sampler-class" class="section level4" number="5.4.3.4">
+<div id="generalized-sampling-the-sampler-class" class="section level4" number="6.4.3.4">
 <h4>
-<span class="header-section-number">5.4.3.4</span> Generalized Sampling: The <code>Sampler</code> Class<a class="anchor" aria-label="anchor" href="#generalized-sampling-the-sampler-class"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.3.4</span> Generalized Sampling: The <code>Sampler</code> Class<a class="anchor" aria-label="anchor" href="#generalized-sampling-the-sampler-class"><i class="fas fa-link"></i></a>
 </h4>
 <p>It may sometimes be desirable to configure parameter sampling in more detail.
 <code>paradox</code> uses the <code>Sampler</code> abstract base class for sampling, which has many different sub-classes that can be parameterized and combined to control the sampling process.
 It is even possible to create further sub-classes of the <code>Sampler</code> class (or of any of <em>its</em> subclasses) for even more possibilities.</p>
 <p>Every <code>Sampler</code> object has a <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code> function, which takes one argument, the number of instances to sample, and returns a <a href="technical.html#parameter-designs"><code>Design</code></a> object.</p>
-<div id="d-samplers" class="section level5" number="5.4.3.4.1">
+<div id="d-samplers" class="section level5" number="6.4.3.4.1">
 <h5>
-<span class="header-section-number">5.4.3.4.1</span> 1D-Samplers<a class="anchor" aria-label="anchor" href="#d-samplers"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.3.4.1</span> 1D-Samplers<a class="anchor" aria-label="anchor" href="#d-samplers"><i class="fas fa-link"></i></a>
 </h5>
 <p>There is a variety of samplers that sample values for a single parameter.
 These are <code>Sampler1DUnif</code> (uniform sampling), <code>Sampler1DCateg</code> (sampling for categorical parameters), <code>Sampler1DNormal</code> (normally distributed sampling, truncated at parameter bounds), and <code>Sampler1DRfun</code> (arbitrary 1D sampling, given a random-function).
@@ -1030,13 +1032,13 @@ These are initialized with a single <code>Param</code>, and can then be used to 
 ##        A
 ## 1: FALSE
 ## 2:  TRUE
-## 3:  TRUE
+## 3: FALSE
 ## 4:  TRUE
 ## 5:  TRUE</code></pre>
 </div>
-<div id="hierarchical-sampler" class="section level5" number="5.4.3.4.2">
+<div id="hierarchical-sampler" class="section level5" number="6.4.3.4.2">
 <h5>
-<span class="header-section-number">5.4.3.4.2</span> Hierarchical Sampler<a class="anchor" aria-label="anchor" href="#hierarchical-sampler"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.3.4.2</span> Hierarchical Sampler<a class="anchor" aria-label="anchor" href="#hierarchical-sampler"><i class="fas fa-link"></i></a>
 </h5>
 <p>The <code>SamplerHierarchical</code> sampler is an auxiliary sampler that combines many 1D-Samplers to get a combined distribution.
 Its name “hierarchical” implies that it is able to respect parameter dependencies.
@@ -1055,12 +1057,12 @@ In the cases where <code>A</code> is <code>FALSE</code>, <code>B</code> is set t
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">sampled</span><span class="op">$</span><span class="va">data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span><span class="op">]</span>, useNA <span class="op">=</span> <span class="st">"ifany"</span><span class="op">)</span></code></pre></div>
 <pre><code>##        B
 ## A         0   1   2   3   4   5   6   7   8   9  10 &lt;NA&gt;
-##   FALSE   0   0   0   0   0   0   0   0   0   0   0  505
-##   TRUE   49  38  41  54  38  37  38  54  48  51  47    0</code></pre>
+##   FALSE   0   0   0   0   0   0   0   0   0   0   0  493
+##   TRUE   44  33  48  50  43  54  41  55  39  58  42    0</code></pre>
 </div>
-<div id="joint-sampler" class="section level5" number="5.4.3.4.3">
+<div id="joint-sampler" class="section level5" number="6.4.3.4.3">
 <h5>
-<span class="header-section-number">5.4.3.4.3</span> Joint Sampler<a class="anchor" aria-label="anchor" href="#joint-sampler"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.3.4.3</span> Joint Sampler<a class="anchor" aria-label="anchor" href="#joint-sampler"><i class="fas fa-link"></i></a>
 </h5>
 <p>Another way of combining samplers is the <code>SamplerJointIndep</code>.
 <code>SamplerJointIndep</code> also makes it possible to combine <code>Sampler</code>s that are not 1D.
@@ -1072,24 +1074,24 @@ However, <code>SamplerJointIndep</code> currently can not handle <code>ParamSet<
 <span class="op">)</span>
 <span class="va">sampJ</span><span class="op">$</span><span class="fu">sample</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;Design&gt; with 5 rows:
-##            x       y
-## 1: 0.4562968 0.03341
-## 2: 0.1005843 0.71145
-## 3: 0.0006767 0.05680
-## 4: 0.9447494 0.75907
-## 5: 0.1585277 0.47243</code></pre>
+##         x        y
+## 1: 0.4284 0.005773
+## 2: 0.4462 0.388388
+## 3: 0.9290 0.125240
+## 4: 0.5850 0.972192
+## 5: 0.8488 0.787475</code></pre>
 </div>
-<div id="samplerunif" class="section level5" number="5.4.3.4.4">
+<div id="samplerunif" class="section level5" number="6.4.3.4.4">
 <h5>
-<span class="header-section-number">5.4.3.4.4</span> SamplerUnif<a class="anchor" aria-label="anchor" href="#samplerunif"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.3.4.4</span> SamplerUnif<a class="anchor" aria-label="anchor" href="#samplerunif"><i class="fas fa-link"></i></a>
 </h5>
 <p>The <code>Sampler</code> used in <code>generate_design_random</code> is the <code>SamplerUnif</code> sampler, which corresponds to a <code>HierarchicalSampler</code> of <code>Sampler1DUnif</code> for all parameters.</p>
 </div>
 </div>
 </div>
-<div id="parameter-transformation" class="section level3" number="5.4.4">
+<div id="parameter-transformation" class="section level3" number="6.4.4">
 <h3>
-<span class="header-section-number">5.4.4</span> Parameter Transformation<a class="anchor" aria-label="anchor" href="#parameter-transformation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.4</span> Parameter Transformation<a class="anchor" aria-label="anchor" href="#parameter-transformation"><i class="fas fa-link"></i></a>
 </h3>
 <p>While the different <code>Sampler</code>s allow for a wide specification of parameter distributions, there are cases where the simplest way of getting a desired distribution is to sample parameters from a simple distribution (such as the uniform distribution) and then transform them.
 This can be done by assigning a function to the <code>$trafo</code> slot of a <code>ParamSet</code>.
@@ -1113,32 +1115,32 @@ The following, for example, creates a parameter that is exponentially distribute
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;Design&gt; with 2 rows:
 ##       par
-## 1: 0.8270
-## 2: 0.7561</code></pre>
+## 1: 0.3734
+## 2: 0.2793</code></pre>
 <div class="sourceCode" id="cb616"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">design</span><span class="op">$</span><span class="fu">transpose</span><span class="op">(</span><span class="op">)</span>  <span class="co"># trafo is TRUE</span></code></pre></div>
 <pre><code>## [[1]]
 ## [[1]]$par
-## [1] 0.19
+## [1] 0.985
 ## 
 ## 
 ## [[2]]
 ## [[2]]$par
-## [1] 0.2795</code></pre>
+## [1] 1.275</code></pre>
 <p>Compare this to <code>$transpose()</code> without transformation:</p>
 <div class="sourceCode" id="cb618"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">design</span><span class="op">$</span><span class="fu">transpose</span><span class="op">(</span>trafo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [[1]]$par
-## [1] 0.827
+## [1] 0.3734
 ## 
 ## 
 ## [[2]]
 ## [[2]]$par
-## [1] 0.7561</code></pre>
-<div id="transformation-between-types" class="section level4" number="5.4.4.1">
+## [1] 0.2793</code></pre>
+<div id="transformation-between-types" class="section level4" number="6.4.4.1">
 <h4>
-<span class="header-section-number">5.4.4.1</span> Transformation between Types<a class="anchor" aria-label="anchor" href="#transformation-between-types"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.4.1</span> Transformation between Types<a class="anchor" aria-label="anchor" href="#transformation-between-types"><i class="fas fa-link"></i></a>
 </h4>
 <p>Usually the design created with one <code>ParamSet</code> is then used to configure other objects that themselves have a <code>ParamSet</code> which defines the values they take.
 The <code>ParamSet</code>s which can be used for random sampling, however, are restricted in some ways:
@@ -1180,26 +1182,23 @@ This method would probably use the following <code>ParamSet</code>:</p>
 <code class="sourceCode R"><span class="va">design</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/generate_design_random.html">generate_design_random</a></span><span class="op">(</span><span class="va">samplingPS</span>, <span class="fl">2</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;Design&gt; with 2 rows:
-##       fun
-## 1: median
-## 2: median</code></pre>
+##     fun
+## 1:  max
+## 2: mean</code></pre>
 <p>Note that the <code>Design</code> only contains the column “<code>fun</code>” as a <code>character</code> column.
 To get a single value as a <em>function</em>, the <code>$transpose</code> function is used.</p>
 <div class="sourceCode" id="cb625"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">xvals</span> <span class="op">=</span> <span class="va">design</span><span class="op">$</span><span class="fu">transpose</span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">xvals</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <pre><code>## $fun
-## function (x, na.rm = FALSE, ...) 
-## UseMethod("median")
-## &lt;bytecode: 0x563bb8bc2b60&gt;
-## &lt;environment: namespace:stats&gt;</code></pre>
+## function (..., na.rm = FALSE)  .Primitive("max")</code></pre>
 <p>We can now check that it fits the requirements set by <code>methodPS</code>, and that <code>fun</code> it is in fact a function:</p>
 <div class="sourceCode" id="cb627"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">methodPS</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span><span class="va">xvals</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "fun: Must have exactly 1 formal arguments, but has 2"</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode" id="cb629"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">xvals</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">fun</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 5.5</code></pre>
+<pre><code>## [1] 10</code></pre>
 <p>Imagine now that a different kind of parametrization of the function is desired:
 The user wants to give a function that selects a certain quantile, where the quantile is set by a parameter.
 In that case the <code>$transpose</code> function could generate a function in a different way.
@@ -1221,8 +1220,8 @@ For interpretability, the parameter is called “<code>quantile</code>” before
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;Design&gt; with 2 rows:
 ##    quantile
-## 1:   0.5918
-## 2:   0.7456</code></pre>
+## 1:   0.3743
+## 2:   0.4293</code></pre>
 <p>The <code>Design</code> now contains the column “<code>quantile</code>” that will be used by the <code>$transpose</code> function to create the <code>fun</code> parameter.
 We also check that it fits the requirement set by <code>methodPS</code>, and that it is a function.</p>
 <div class="sourceCode" id="cb634"><pre class="downlit sourceCode r">
@@ -1230,26 +1229,26 @@ We also check that it fits the requirement set by <code>methodPS</code>, and tha
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">xvals</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <pre><code>## $fun
 ## function(input) quantile(input, x$quantile)
-## &lt;environment: 0x563bbaeba7d8&gt;</code></pre>
+## &lt;environment: 0x55d17db3ce30&gt;</code></pre>
 <div class="sourceCode" id="cb636"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">methodPS</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span><span class="va">xvals</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode" id="cb638"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">xvals</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">fun</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></code></pre></div>
-<pre><code>## 59.1802% 
-##    6.326</code></pre>
+<pre><code>## 37.42722% 
+##     4.368</code></pre>
 
 </div>
 </div>
 </div>
-<div id="logging" class="section level2" number="5.5">
+<div id="logging" class="section level2" number="6.5">
 <h2>
-<span class="header-section-number">5.5</span> Logging<a class="anchor" aria-label="anchor" href="#logging"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.5</span> Logging<a class="anchor" aria-label="anchor" href="#logging"><i class="fas fa-link"></i></a>
 </h2>
 <p>We use the <a href="https://cran.r-project.org/package=lgr">lgr</a> package for logging and progress output.</p>
-<div id="changing-mlr3-logging-levels" class="section level3" number="5.5.1">
+<div id="changing-mlr3-logging-levels" class="section level3" number="6.5.1">
 <h3>
-<span class="header-section-number">5.5.1</span> Changing mlr3 logging levels<a class="anchor" aria-label="anchor" href="#changing-mlr3-logging-levels"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.5.1</span> Changing mlr3 logging levels<a class="anchor" aria-label="anchor" href="#changing-mlr3-logging-levels"><i class="fas fa-link"></i></a>
 </h3>
 <p>To change the setting for <a href="https://mlr3.mlr-org.com">mlr3</a> for the current session, you need to retrieve the logger (which is a <a href="https://cran.r-project.org/package=R6">R6</a> object) from <a href="https://cran.r-project.org/package=lgr">lgr</a>, and then change the threshold of the like this:</p>
 <div class="sourceCode" id="cb640"><pre class="downlit sourceCode r">
@@ -1277,9 +1276,9 @@ and optionally change the logger <a href="https://bbotk.mlr-org.com">bbotk</a> t
 <code class="sourceCode R"><span class="fu">lgr</span><span class="fu">::</span><span class="fu"><a href="https://s-fleck.github.io/lgr/reference/get_logger.html">get_logger</a></span><span class="op">(</span><span class="st">"mlr3"</span><span class="op">)</span><span class="op">$</span><span class="fu">set_threshold</span><span class="op">(</span><span class="st">"warn"</span><span class="op">)</span>
 <span class="fu">lgr</span><span class="fu">::</span><span class="fu"><a href="https://s-fleck.github.io/lgr/reference/get_logger.html">get_logger</a></span><span class="op">(</span><span class="st">"bbotk"</span><span class="op">)</span><span class="op">$</span><span class="fu">set_threshold</span><span class="op">(</span><span class="st">"info"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="redirecting-output" class="section level3" number="5.5.2">
+<div id="redirecting-output" class="section level3" number="6.5.2">
 <h3>
-<span class="header-section-number">5.5.2</span> Redirecting output<a class="anchor" aria-label="anchor" href="#redirecting-output"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.5.2</span> Redirecting output<a class="anchor" aria-label="anchor" href="#redirecting-output"><i class="fas fa-link"></i></a>
 </h3>
 <p>Redirecting output is already extensively covered in the documentation and vignette of <a href="https://cran.r-project.org/package=lgr">lgr</a>.
 Here is just a short example which adds an additional appender to log events into a temporary file in <a href="https://en.wikipedia.org/wiki/JSON">JSON</a> format:</p>
@@ -1294,18 +1293,18 @@ Here is just a short example which adds an additional appender to log events int
 
 <span class="co"># signal a warning</span>
 <span class="va">logger</span><span class="op">$</span><span class="fu">warn</span><span class="op">(</span><span class="st">"this is a warning from mlr3"</span><span class="op">)</span></code></pre></div>
-<pre><code>## WARN  [14:33:53.144] this is a warning from mlr3</code></pre>
+<pre><code>## WARN  [09:35:34.257] this is a warning from mlr3</code></pre>
 <div class="sourceCode" id="cb648"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># print the contents of the file</span>
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## {"level":300,"timestamp":"2021-10-07 14:33:53","logger":"mlr","caller":"eval","msg":"this is a warning from mlr3"}</code></pre>
+<pre><code>## {"level":300,"timestamp":"2021-10-08 09:35:34","logger":"mlr","caller":"eval","msg":"this is a warning from mlr3"}</code></pre>
 <div class="sourceCode" id="cb650"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># remove the appender again</span>
 <span class="va">logger</span><span class="op">$</span><span class="fu">remove_appender</span><span class="op">(</span><span class="st">"json"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="immediate-log-feedback" class="section level3" number="5.5.3">
+<div id="immediate-log-feedback" class="section level3" number="6.5.3">
 <h3>
-<span class="header-section-number">5.5.3</span> Immediate Log Feedback<a class="anchor" aria-label="anchor" href="#immediate-log-feedback"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.5.3</span> Immediate Log Feedback<a class="anchor" aria-label="anchor" href="#immediate-log-feedback"><i class="fas fa-link"></i></a>
 </h3>
 <p><a href="https://mlr3.mlr-org.com">mlr3</a> uses the <a href="technical.html#parallelization">future</a> package and <a href="technical.html#encapsulation">encapsulation</a> to make evaluations fast, stable, and reproducible.
 However, this may lead to logs being delayed, out of order, or, in case of some errors, not present at all.
@@ -1318,55 +1317,55 @@ This should only be done to investigate problems, however, and not for productio
 </div>
 
   <div class="chapter-nav">
-<div class="prev"><a href="pipelines.html"><span class="header-section-number">4</span> Pipelines</a></div>
-<div class="next"><a href="extending.html"><span class="header-section-number">6</span> Extending</a></div>
+<div class="prev"><a href="pipelines.html"><span class="header-section-number">5</span> Pipelines</a></div>
+<div class="next"><a href="extending.html"><span class="header-section-number">7</span> Extending</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#technical"><span class="header-section-number">5</span> Technical</a></li>
+<li><a class="nav-link" href="#technical"><span class="header-section-number">6</span> Technical</a></li>
 <li>
-<a class="nav-link" href="#parallelization"><span class="header-section-number">5.1</span> Parallelization</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#implicit-parallelization"><span class="header-section-number">5.1.1</span> Implicit Parallelization</a></li>
-<li><a class="nav-link" href="#explicit-parallelization"><span class="header-section-number">5.1.2</span> Explicit Parallelization</a></li>
-<li><a class="nav-link" href="#nested-resampling-parallelization"><span class="header-section-number">5.1.3</span> Nested Resampling Parallelization</a></li>
+<a class="nav-link" href="#parallelization"><span class="header-section-number">6.1</span> Parallelization</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#implicit-parallelization"><span class="header-section-number">6.1.1</span> Implicit Parallelization</a></li>
+<li><a class="nav-link" href="#explicit-parallelization"><span class="header-section-number">6.1.2</span> Explicit Parallelization</a></li>
+<li><a class="nav-link" href="#nested-resampling-parallelization"><span class="header-section-number">6.1.3</span> Nested Resampling Parallelization</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#error-handling"><span class="header-section-number">5.2</span> Error Handling</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#encapsulation"><span class="header-section-number">5.2.1</span> Encapsulation</a></li>
-<li><a class="nav-link" href="#fallback-learners"><span class="header-section-number">5.2.2</span> Fallback learners</a></li>
+<a class="nav-link" href="#error-handling"><span class="header-section-number">6.2</span> Error Handling</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#encapsulation"><span class="header-section-number">6.2.1</span> Encapsulation</a></li>
+<li><a class="nav-link" href="#fallback-learners"><span class="header-section-number">6.2.2</span> Fallback learners</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#backends"><span class="header-section-number">5.3</span> Database Backends</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#use-case-nyc-flights"><span class="header-section-number">5.3.1</span> Use Case: NYC Flights</a></li>
-<li><a class="nav-link" href="#preprocessing-with-dplyr"><span class="header-section-number">5.3.2</span> Preprocessing with dplyr</a></li>
-<li><a class="nav-link" href="#databackenddplyr"><span class="header-section-number">5.3.3</span> DataBackendDplyr</a></li>
-<li><a class="nav-link" href="#model-fitting"><span class="header-section-number">5.3.4</span> Model fitting</a></li>
-<li><a class="nav-link" href="#cleanup"><span class="header-section-number">5.3.5</span> Cleanup</a></li>
+<a class="nav-link" href="#backends"><span class="header-section-number">6.3</span> Database Backends</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#use-case-nyc-flights"><span class="header-section-number">6.3.1</span> Use Case: NYC Flights</a></li>
+<li><a class="nav-link" href="#preprocessing-with-dplyr"><span class="header-section-number">6.3.2</span> Preprocessing with dplyr</a></li>
+<li><a class="nav-link" href="#databackenddplyr"><span class="header-section-number">6.3.3</span> DataBackendDplyr</a></li>
+<li><a class="nav-link" href="#model-fitting"><span class="header-section-number">6.3.4</span> Model fitting</a></li>
+<li><a class="nav-link" href="#cleanup"><span class="header-section-number">6.3.5</span> Cleanup</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#paradox"><span class="header-section-number">5.4</span> Parameters (using paradox)</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#reference-based-objects"><span class="header-section-number">5.4.1</span> Reference Based Objects</a></li>
-<li><a class="nav-link" href="#defining-a-parameter-space"><span class="header-section-number">5.4.2</span> Defining a Parameter Space</a></li>
-<li><a class="nav-link" href="#parameter-sampling"><span class="header-section-number">5.4.3</span> Parameter Sampling</a></li>
-<li><a class="nav-link" href="#parameter-transformation"><span class="header-section-number">5.4.4</span> Parameter Transformation</a></li>
+<a class="nav-link" href="#paradox"><span class="header-section-number">6.4</span> Parameters (using paradox)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#reference-based-objects"><span class="header-section-number">6.4.1</span> Reference Based Objects</a></li>
+<li><a class="nav-link" href="#defining-a-parameter-space"><span class="header-section-number">6.4.2</span> Defining a Parameter Space</a></li>
+<li><a class="nav-link" href="#parameter-sampling"><span class="header-section-number">6.4.3</span> Parameter Sampling</a></li>
+<li><a class="nav-link" href="#parameter-transformation"><span class="header-section-number">6.4.4</span> Parameter Transformation</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#logging"><span class="header-section-number">5.5</span> Logging</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#changing-mlr3-logging-levels"><span class="header-section-number">5.5.1</span> Changing mlr3 logging levels</a></li>
-<li><a class="nav-link" href="#redirecting-output"><span class="header-section-number">5.5.2</span> Redirecting output</a></li>
-<li><a class="nav-link" href="#immediate-log-feedback"><span class="header-section-number">5.5.3</span> Immediate Log Feedback</a></li>
+<a class="nav-link" href="#logging"><span class="header-section-number">6.5</span> Logging</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#changing-mlr3-logging-levels"><span class="header-section-number">6.5.1</span> Changing mlr3 logging levels</a></li>
+<li><a class="nav-link" href="#redirecting-output"><span class="header-section-number">6.5.2</span> Redirecting output</a></li>
+<li><a class="nav-link" href="#immediate-log-feedback"><span class="header-section-number">6.5.3</span> Immediate Log Feedback</a></li>
 </ul>
 </li>
 </ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/mlr-org/mlr3book/blob/main/bookdown/05-technical.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/mlr-org/mlr3book/edit/main/bookdown/05-technical.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/mlr-org/mlr3book/blob/main/bookdown/06-technical.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/mlr-org/mlr3book/edit/main/bookdown/06-technical.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -1378,7 +1377,7 @@ This should only be done to investigate problems, however, and not for productio
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-10-07.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-10-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

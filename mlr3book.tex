@@ -255,7 +255,7 @@
 
 \title{mlr3 book}
 \author{Marc Becker \and Martin Binder \and Bernd Bischl \and Lars Kotthoff \and Michel Lang \and Florian Pfisterer \and Nicholas G. Reich \and Jakob Richter \and Patrick Schratz \and Raphael Sonabend \and Damir Pulatov}
-\date{2021-10-08}
+\date{2021-10-09}
 
 \begin{document}
 \maketitle
@@ -1692,13 +1692,11 @@ We can now access the stored model via the field \texttt{\$model}:
 ## node), split, n, loss, yval, (yprob)
 ##       * denotes terminal node
 ## 
-## 1) root 275 154 Adelie (0.440000 0.200000 0.360000)  
-##   2) flipper_length< 206.5 171  51 Adelie (0.701754 0.292398 0.005848)  
-##     4) bill_length< 44.65 121   4 Adelie (0.966942 0.033058 0.000000) *
-##     5) bill_length>=44.65 50   4 Chinstrap (0.060000 0.920000 0.020000) *
-##   3) flipper_length>=206.5 104   6 Gentoo (0.009615 0.048077 0.942308)  
-##     6) bill_depth>=17.2 8   3 Chinstrap (0.125000 0.625000 0.250000) *
-##     7) bill_depth< 17.2 96   0 Gentoo (0.000000 0.000000 1.000000) *
+## 1) root 275 151 Adelie (0.450909 0.189091 0.360000)  
+##   2) flipper_length< 207.5 173  50 Adelie (0.710983 0.283237 0.005780)  
+##     4) bill_length< 43.35 122   3 Adelie (0.975410 0.024590 0.000000) *
+##     5) bill_length>=43.35 51   5 Chinstrap (0.078431 0.901961 0.019608) *
+##   3) flipper_length>=207.5 102   4 Gentoo (0.009804 0.029412 0.960784) *
 \end{verbatim}
 
 Inspecting the output, we see that the learner has identified features in the task that are predictive of the class (the type of penguin) and uses them to partition observations in the tree.
@@ -1721,13 +1719,13 @@ Remember that we \protect\hyperlink{split-data}{initially split the data} in \te
 \begin{verbatim}
 ## <PredictionClassif> for 69 observations:
 ##     row_ids     truth  response
-##           4    Adelie    Adelie
-##           9    Adelie    Adelie
-##          11    Adelie    Adelie
+##           1    Adelie    Adelie
+##           2    Adelie    Adelie
+##           3    Adelie    Adelie
 ## ---                            
-##         318 Chinstrap Chinstrap
-##         322 Chinstrap Chinstrap
-##         341 Chinstrap    Adelie
+##         342 Chinstrap Chinstrap
+##         343 Chinstrap    Gentoo
+##         344 Chinstrap Chinstrap
 \end{verbatim}
 
 The \texttt{\$predict()} method of the \href{https://mlr3.mlr-org.com/reference/Learner.html}{\texttt{Learner}} returns a \href{https://mlr3.mlr-org.com/reference/Prediction.html}{\texttt{Prediction}} object.
@@ -1744,12 +1742,12 @@ The simplest way to extract this information is by converting the \href{https://
 
 \begin{verbatim}
 ##    row_ids  truth response
-## 1:       4 Adelie   Adelie
-## 2:       9 Adelie   Adelie
-## 3:      11 Adelie   Adelie
-## 4:      13 Adelie   Adelie
-## 5:      14 Adelie   Adelie
-## 6:      28 Adelie   Adelie
+## 1:       1 Adelie   Adelie
+## 2:       2 Adelie   Adelie
+## 3:       3 Adelie   Adelie
+## 4:       6 Adelie   Adelie
+## 5:      11 Adelie   Adelie
+## 6:      29 Adelie   Adelie
 \end{verbatim}
 
 For classification, you can also extract the confusion matrix:
@@ -1763,9 +1761,9 @@ For classification, you can also extract the confusion matrix:
 \begin{verbatim}
 ##            truth
 ## response    Adelie Chinstrap Gentoo
-##   Adelie        30         2      0
-##   Chinstrap      1        11      0
-##   Gentoo         0         0     25
+##   Adelie        27         2      0
+##   Chinstrap      0        13      1
+##   Gentoo         1         1     24
 \end{verbatim}
 
 The confusion matrix shows, for each class, how many observations were predicted to be in that class and how many were actually in it (more information on \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia}).
@@ -1802,12 +1800,12 @@ The prediction object now contains probabilities for all class labels in additio
 
 \begin{verbatim}
 ##    row_ids  truth response prob.Adelie prob.Chinstrap prob.Gentoo
-## 1:       4 Adelie   Adelie      0.9669        0.03306           0
-## 2:       9 Adelie   Adelie      0.9669        0.03306           0
-## 3:      11 Adelie   Adelie      0.9669        0.03306           0
-## 4:      13 Adelie   Adelie      0.9669        0.03306           0
-## 5:      14 Adelie   Adelie      0.9669        0.03306           0
-## 6:      28 Adelie   Adelie      0.9669        0.03306           0
+## 1:       1 Adelie   Adelie      0.9754        0.02459           0
+## 2:       2 Adelie   Adelie      0.9754        0.02459           0
+## 3:       3 Adelie   Adelie      0.9754        0.02459           0
+## 4:       6 Adelie   Adelie      0.9754        0.02459           0
+## 5:      11 Adelie   Adelie      0.9754        0.02459           0
+## 6:      29 Adelie   Adelie      0.9754        0.02459           0
 \end{verbatim}
 
 \begin{Shaded}
@@ -1831,12 +1829,12 @@ The prediction object now contains probabilities for all class labels in additio
 
 \begin{verbatim}
 ##      Adelie Chinstrap Gentoo
-## [1,] 0.9669   0.03306      0
-## [2,] 0.9669   0.03306      0
-## [3,] 0.9669   0.03306      0
-## [4,] 0.9669   0.03306      0
-## [5,] 0.9669   0.03306      0
-## [6,] 0.9669   0.03306      0
+## [1,] 0.9754   0.02459      0
+## [2,] 0.9754   0.02459      0
+## [3,] 0.9754   0.02459      0
+## [4,] 0.9754   0.02459      0
+## [5,] 0.9754   0.02459      0
+## [6,] 0.9754   0.02459      0
 \end{verbatim}
 
 Similarly to predicting probabilities for classification, many \href{https://mlr3.mlr-org.com/reference/LearnerRegr.html}{\texttt{regression\ learners}} support the extraction of standard error estimates for predictions by setting the predict type to \texttt{"se"}.
@@ -2198,7 +2196,7 @@ These resulting indices are stored in the \href{https://mlr3.mlr-org.com/referen
 \end{Shaded}
 
 \begin{verbatim}
-##  int [1:275] 1 2 4 5 6 7 8 9 10 11 ...
+##  int [1:275] 1 3 4 5 6 7 8 9 10 11 ...
 \end{verbatim}
 
 \begin{Shaded}
@@ -2208,7 +2206,7 @@ These resulting indices are stored in the \href{https://mlr3.mlr-org.com/referen
 \end{Shaded}
 
 \begin{verbatim}
-##  int [1:69] 3 21 27 33 50 53 54 55 72 73 ...
+##  int [1:69] 2 14 22 26 28 44 45 52 55 75 ...
 \end{verbatim}
 
 Note that if you want to compare multiple \protect\hyperlink{learners}{Learners} in a fair manner, using the same instantiated resampling for each learner is mandatory, such that each learner gets exactly the same training data and the performance of the trained model is evaluated in exactly the same test set.
@@ -2257,7 +2255,7 @@ Here are a few examples:
 
 \begin{verbatim}
 ## classif.ce 
-##    0.06672
+##    0.08726
 \end{verbatim}
 \item
   Extract the performance for the individual resampling iterations:
@@ -2278,9 +2276,9 @@ Here are a few examples:
 ## 2: <ResamplingCV[19]>            cv         2 <PredictionClassif[19]>
 ## 3: <ResamplingCV[19]>            cv         3 <PredictionClassif[19]>
 ##    classif.ce
-## 1:    0.12174
-## 2:    0.06087
-## 3:    0.01754
+## 1:    0.07826
+## 2:    0.07826
+## 3:    0.10526
 \end{verbatim}
 
   This is useful to check if one (or more) of the iterations are very different from the average.
@@ -2338,7 +2336,7 @@ Here are a few examples:
 \end{Shaded}
 
 \begin{verbatim}
-##  int [1:115] 4 7 13 16 22 35 38 39 41 43 ...
+##  int [1:115] 2 4 10 11 14 16 17 18 22 23 ...
 \end{verbatim}
 
 \begin{Shaded}
@@ -2348,7 +2346,7 @@ Here are a few examples:
 \end{Shaded}
 
 \begin{verbatim}
-##  int [1:229] 1 2 5 8 14 15 17 18 20 21 ...
+##  int [1:229] 1 3 6 8 9 12 20 27 29 35 ...
 \end{verbatim}
 \item
   Retrieve the model trained in a specific iteration and inspect it, for example to investigate why the performance in this iteration was very different from the average:
@@ -2366,11 +2364,11 @@ Here are a few examples:
 ## node), split, n, loss, yval, (yprob)
 ##       * denotes terminal node
 ## 
-## 1) root 229 124 Adelie (0.458515 0.179039 0.362445)  
-##   2) bill_length< 42.75 106   3 Adelie (0.971698 0.009434 0.018868) *
-##   3) bill_length>=42.75 123  42 Gentoo (0.016260 0.325203 0.658537)  
-##     6) island=Dream,Torgersen 42   2 Chinstrap (0.047619 0.952381 0.000000) *
-##     7) island=Biscoe 81   0 Gentoo (0.000000 0.000000 1.000000) *
+## 1) root 229 132 Adelie (0.42358 0.20087 0.37555)  
+##   2) flipper_length< 207.5 141  45 Adelie (0.68085 0.31915 0.00000)  
+##     4) bill_length< 44.65 98   4 Adelie (0.95918 0.04082 0.00000) *
+##     5) bill_length>=44.65 43   2 Chinstrap (0.04651 0.95349 0.00000) *
+##   3) flipper_length>=207.5 88   2 Gentoo (0.01136 0.01136 0.97727) *
 \end{verbatim}
 \item
   Extract the individual predictions:
@@ -2383,14 +2381,14 @@ Here are a few examples:
 
 \begin{verbatim}
 ## <PredictionClassif> for 344 observations:
-##     row_ids     truth  response prob.Adelie prob.Chinstrap prob.Gentoo
-##           4    Adelie    Adelie     0.97170       0.009434     0.01887
-##           7    Adelie    Adelie     0.97170       0.009434     0.01887
-##          13    Adelie    Adelie     0.97170       0.009434     0.01887
-## ---                                                                   
-##         337 Chinstrap Chinstrap     0.28571       0.571429     0.14286
-##         339 Chinstrap Chinstrap     0.09524       0.904762     0.00000
-##         344 Chinstrap Chinstrap     0.09524       0.904762     0.00000
+##     row_ids     truth response prob.Adelie prob.Chinstrap prob.Gentoo
+##           2    Adelie   Adelie      0.9592        0.04082           0
+##           4    Adelie   Adelie      0.9592        0.04082           0
+##          10    Adelie   Adelie      0.9592        0.04082           0
+## ---                                                                  
+##         333 Chinstrap   Adelie      0.9596        0.04040           0
+##         336 Chinstrap   Adelie      0.9596        0.04040           0
+##         339 Chinstrap   Adelie      0.9596        0.04040           0
 \end{verbatim}
 
 \begin{Shaded}
@@ -2401,14 +2399,14 @@ Here are a few examples:
 
 \begin{verbatim}
 ## <PredictionClassif> for 115 observations:
-##     row_ids     truth  response prob.Adelie prob.Chinstrap prob.Gentoo
-##           4    Adelie    Adelie     0.97170       0.009434     0.01887
-##           7    Adelie    Adelie     0.97170       0.009434     0.01887
-##          13    Adelie    Adelie     0.97170       0.009434     0.01887
-## ---                                                                   
-##         338 Chinstrap Chinstrap     0.04762       0.952381     0.00000
-##         340 Chinstrap Chinstrap     0.04762       0.952381     0.00000
-##         341 Chinstrap Chinstrap     0.04762       0.952381     0.00000
+##     row_ids     truth response prob.Adelie prob.Chinstrap prob.Gentoo
+##           2    Adelie   Adelie     0.95918        0.04082      0.0000
+##           4    Adelie   Adelie     0.95918        0.04082      0.0000
+##          10    Adelie   Adelie     0.95918        0.04082      0.0000
+## ---                                                                  
+##         331 Chinstrap   Adelie     0.95918        0.04082      0.0000
+##         341 Chinstrap   Adelie     0.95918        0.04082      0.0000
+##         343 Chinstrap   Gentoo     0.01136        0.01136      0.9773
 \end{verbatim}
 \item
   Filter the result to only keep specified resampling iterations:
@@ -2519,6 +2517,10 @@ We can also plot the predictions of individual models:
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## Warning: Removed 1 rows containing missing values (geom_point).
+\end{verbatim}
+
 \begin{center}\includegraphics{03-perf-resampling_files/figure-latex/02-basics-resampling-017-1-1} \end{center}
 
 All available plot types are listed on the manual page of \href{https://mlr3viz.mlr-org.com/reference/autoplot.ResampleResult.html}{\texttt{autoplot.ResampleResult()}}.
@@ -2613,14 +2615,14 @@ We create two measures to calculate the area under the curve (AUC) for the train
 ## 8:  8 <ResampleResult[20]>         sonar       classif.rpart            cv
 ## 9:  9 <ResampleResult[20]>         sonar classif.featureless            cv
 ##    iters auc_train auc_test
-## 1:     3    0.9994   0.9855
-## 2:     3    0.8992   0.8933
+## 1:     3    0.9995   0.9851
+## 2:     3    0.8974   0.8826
 ## 3:     3    0.5000   0.5000
-## 4:     3    0.9983   0.7901
-## 5:     3    0.8145   0.7196
+## 4:     3    0.9986   0.7864
+## 5:     3    0.8242   0.6923
 ## 6:     3    0.5000   0.5000
-## 7:     3    1.0000   0.9249
-## 8:     3    0.9112   0.7690
+## 7:     3    1.0000   0.9124
+## 8:     3    0.9287   0.7355
 ## 9:     3    0.5000   0.5000
 \end{verbatim}
 
@@ -2740,7 +2742,7 @@ We can now investigate this resampling and even single resampling iterations usi
 
 \begin{verbatim}
 ## classif.auc 
-##      0.7901
+##      0.7864
 \end{verbatim}
 
 \begin{Shaded}
@@ -2771,7 +2773,7 @@ We can now investigate this resampling and even single resampling iterations usi
 \end{Shaded}
 
 \begin{verbatim}
-## [1]  2  5 11 18 19 26
+## [1]  3  6  8 13 14 15
 \end{verbatim}
 
 \hypertarget{converting-and-merging}{%
@@ -2900,31 +2902,30 @@ We discuss the following aspects in this part:
 \hypertarget{tuning}{%
 \section{Hyperparameter Tuning}\label{tuning}}
 
-Hyperparameters are second-order parameters of machine learning models that, while often not explicitly optimized during the model estimation process, can have an important impact on the outcome and predictive performance of a model.
-Typically, hyperparameters are fixed before training a model.
-However, because the output of a model can be sensitive to the specification of hyperparameters, it is often recommended to make an informed decision about which hyperparameter settings may yield better model performance.
-In many cases, hyperparameter settings may be chosen \emph{a priori}, but it can be advantageous to try different settings before fitting your model on the training data.
+Hyperparameters are the parameters of the learners that control how a model is fit to the data.
+They are sometimes called second-level or second-order parameters of machine learning -- the parameters of the \emph{models} are the first-order parameters and ``fit'' to the data durning model training.
+The hyerparameters of a learner can have a major impact on the perforamnce of a learned model, but are often only optimized in an ad-hoc manner or not at all.
 This process is often called model `tuning'.
 
 Hyperparameter tuning is supported via the \href{https://mlr3tuning.mlr-org.com}{mlr3tuning} extension package.
-Below you can find an illustration of the process:
+Below you can find an illustration of the general process:
 
 \begin{center}\includegraphics{images/tuning_process} \end{center}
 
-At the heart of \href{https://mlr3tuning.mlr-org.com}{mlr3tuning} are the R6 classes:
+At the heart of \href{https://mlr3tuning.mlr-org.com}{mlr3tuning} are the R6 classes
 
 \begin{itemize}
 \tightlist
 \item
-  \href{https://mlr3tuning.mlr-org.com/reference/TuningInstanceSingleCrit.html}{\texttt{TuningInstanceSingleCrit}}, \href{https://mlr3tuning.mlr-org.com/reference/TuningInstanceMultiCrit.html}{\texttt{TuningInstanceMultiCrit}}: These two classes describe the tuning problem and store the results.
+  \href{https://mlr3tuning.mlr-org.com/reference/TuningInstanceSingleCrit.html}{\texttt{TuningInstanceSingleCrit}}, \href{https://mlr3tuning.mlr-org.com/reference/TuningInstanceMultiCrit.html}{\texttt{TuningInstanceMultiCrit}} to describe the tuning problem and store the results, and
 \item
-  \href{https://mlr3tuning.mlr-org.com/reference/Tuner.html}{\texttt{Tuner}}: This class is the base class for implementations of tuning algorithms.
+  \href{https://mlr3tuning.mlr-org.com/reference/Tuner.html}{\texttt{Tuner}} as the base class for implementations of tuning algorithms.
 \end{itemize}
 
 \hypertarget{tuning-optimization}{%
 \subsection{\texorpdfstring{The \texttt{TuningInstance*} Classes}{The TuningInstance* Classes}}\label{tuning-optimization}}
 
-The following sub-section examines the optimization of a simple classification tree on the \href{https://mlr3.mlr-org.com/reference/mlr_tasks_pima.html}{\texttt{Pima\ Indian\ Diabetes}} data set.
+We will examine the optimization of a simple classification tree on the \href{https://mlr3.mlr-org.com/reference/mlr_tasks_pima.html}{\texttt{Pima\ Indian\ Diabetes}} data set as an introductory example here.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2943,8 +2944,10 @@ The following sub-section examines the optimization of a simple classification t
 ##     triceps
 \end{verbatim}
 
-We use the classification tree from \href{https://cran.r-project.org/package=rpart}{rpart} and choose a subset of the hyperparameters we want to tune.
+We use the \href{https://cran.r-project.org/package=rpart}{rpart} classification tree and choose a subset of the hyperparameters we want to tune.
 This is often referred to as the ``tuning space''.
+First, let's look at all the hyperparameters that are available.
+Information on what they do can be found in \href{https://www.rdocumentation.org/packages/rpart/topics/rpart.control}{\texttt{the\ documentation\ of\ the\ learner}}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2968,17 +2971,17 @@ This is often referred to as the ``tuning space''.
 ## 10:           xval ParamInt     0   Inf     Inf             10     0
 \end{verbatim}
 
-Here, we opt to tune two parameters:
+Here, we opt to tune two hyperparameters:
 
 \begin{itemize}
 \tightlist
 \item
-  The complexity \texttt{cp}
+  The complexity hyperparameter \texttt{cp} that controls when the learner considers introducing another branch.
 \item
-  The termination criterion \texttt{minsplit}
+  The \texttt{minsplit} hyperparameter that controls how many observations must be present in a leaf for another split to be attempted.
 \end{itemize}
 
-The tuning space needs to be bounded, therefore one has to set lower and upper bounds:
+The tuning space needs to be bounded with lower and upper bounds for the values of the hyperparameters:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2997,7 +3000,9 @@ The tuning space needs to be bounded, therefore one has to set lower and upper b
 ## 2: minsplit ParamInt 1.000  10.0      10 <NoDefault[3]>
 \end{verbatim}
 
-Next, we need to specify how to evaluate the performance.
+The bounds are usually set based on experience.
+
+Next, we need to specify how to evaluate the performance of a trained model.
 For this, we need to choose a \href{https://mlr3.mlr-org.com/reference/Resampling.html}{\texttt{resampling\ strategy}} and a \href{https://mlr3.mlr-org.com/reference/Measure.html}{\texttt{performance\ measure}}.
 
 \begin{Shaded}
@@ -3007,21 +3012,22 @@ For this, we need to choose a \href{https://mlr3.mlr-org.com/reference/Resamplin
 \end{Highlighting}
 \end{Shaded}
 
-Finally, one has to select the budget available, to solve this tuning instance.
-This is done by selecting one of the available \href{https://bbotk.mlr-org.com/reference/Terminator.html}{\texttt{Terminators}}:
+Finally, we have to specify the budget available for tuning.
+This is a crucial step, as exhaustively evaluating all possible hyperparameter configurations is usually not feasible.
+\texttt{mlr3} allows to specify complex termination criteria by selecting one of the available \href{https://bbotk.mlr-org.com/reference/Terminator.html}{\texttt{Terminators}}:
 
 \begin{itemize}
 \tightlist
 \item
-  Terminate after a given time (\href{https://bbotk.mlr-org.com/reference/mlr_terminators_clock_time.html}{\texttt{TerminatorClockTime}})
+  Terminate after a given time (\href{https://bbotk.mlr-org.com/reference/mlr_terminators_clock_time.html}{\texttt{TerminatorClockTime}}).
 \item
-  Terminate after a given amount of iterations (\href{https://bbotk.mlr-org.com/reference/mlr_terminators_evals.html}{\texttt{TerminatorEvals}})
+  Terminate after a given number of iterations (\href{https://bbotk.mlr-org.com/reference/mlr_terminators_evals.html}{\texttt{TerminatorEvals}}).
 \item
-  Terminate after a specific performance is reached (\href{https://bbotk.mlr-org.com/reference/mlr_terminators_perf_reached.html}{\texttt{TerminatorPerfReached}})
+  Terminate after a specific performance has been reached (\href{https://bbotk.mlr-org.com/reference/mlr_terminators_perf_reached.html}{\texttt{TerminatorPerfReached}}).
 \item
-  Terminate when tuning does not improve (\href{https://bbotk.mlr-org.com/reference/mlr_terminators_stagnation.html}{\texttt{TerminatorStagnation}})
+  Terminate when tuning does find a better configuration for a given number of iterations (\href{https://bbotk.mlr-org.com/reference/mlr_terminators_stagnation.html}{\texttt{TerminatorStagnation}}).
 \item
-  A combination of the above in an \emph{ALL} or \emph{ANY} fashion (\href{https://bbotk.mlr-org.com/reference/mlr_terminators_combo.html}{\texttt{TerminatorCombo}})
+  A combination of the above in an \emph{ALL} or \emph{ANY} fashion (\href{https://bbotk.mlr-org.com/reference/mlr_terminators_combo.html}{\texttt{TerminatorCombo}}).
 \end{itemize}
 
 For this short introduction, we specify a budget of 20 evaluations and then put everything together into a \href{https://mlr3tuning.mlr-org.com/reference/TuningInstanceSingleCrit.html}{\texttt{TuningInstanceSingleCrit}}:
@@ -3088,6 +3094,8 @@ The following algorithms are currently implemented in \href{https://mlr3tuning.m
   Non-Linear Optimization (\href{https://mlr3tuning.mlr-org.com/reference/mlr_tuners_nloptr.html}{\texttt{TunerNLoptr}})
 \end{itemize}
 
+If you're interested in learning more about these approaches, the \href{Hyperparameter_optimization}{Wikipedia page on hyperparameter optimization} is a good place to start.
+
 In this example, we will use a simple grid search with a grid resolution of 5.
 
 \begin{Shaded}
@@ -3096,10 +3104,10 @@ In this example, we will use a simple grid search with a grid resolution of 5.
 \end{Highlighting}
 \end{Shaded}
 
-Since we have only numeric parameters, \href{https://mlr3tuning.mlr-org.com/reference/mlr_tuners_grid_search.html}{\texttt{TunerGridSearch}} will create an equidistant grid between the respective upper and lower bounds.
-As we have two hyperparameters with a resolution of 5, the two-dimensional grid consists of \(5^2 = 25\) configurations.
-Each configuration serves as a hyperparameter setting for the previously defined \href{https://mlr3.mlr-org.com/reference/Learner.html}{\texttt{Learner}} which is then fitted on the task using the provided \href{https://mlr3.mlr-org.com/reference/Resampling.html}{\texttt{Resampling}}.
-All configurations will be examined by the tuner (in a random order), until either all configurations are evaluated or the \href{https://bbotk.mlr-org.com/reference/Terminator.html}{\texttt{Terminator}} signals that the budget is exhausted.
+As we have only numeric parameters, \href{https://mlr3tuning.mlr-org.com/reference/mlr_tuners_grid_search.html}{\texttt{TunerGridSearch}} will create an equidistant grid between the respective upper and lower bounds.
+Our two-dimensional grid of resolution 5 consists of \(5^2 = 25\) configurations.
+Each configuration is a distinct setting of hyperparameter values for the previously defined \href{https://mlr3.mlr-org.com/reference/Learner.html}{\texttt{Learner}} which is then fitted to the task and evaluated using the provided \href{https://mlr3.mlr-org.com/reference/Resampling.html}{\texttt{Resampling}}.
+All configurations will be examined by the tuner (in a random order), until either all configurations are evaluated or the \href{https://bbotk.mlr-org.com/reference/Terminator.html}{\texttt{Terminator}} signals that the budget is exhausted, i.e.~here the tuner will stop after evaluating 20 of the 25 total configurations.
 
 \hypertarget{tuning-triggering}{%
 \subsection{Triggering the Tuning}\label{tuning-triggering}}
@@ -3111,18 +3119,18 @@ The tuner proceeds as follows:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  The \href{https://mlr3tuning.mlr-org.com/reference/Tuner.html}{\texttt{Tuner}} proposes at least one hyperparameter configuration (the \href{https://mlr3tuning.mlr-org.com/reference/Tuner.html}{\texttt{Tuner}} may propose multiple points to improve parallelization, which can be controlled via the setting \texttt{batch\_size}).
+  The \href{https://mlr3tuning.mlr-org.com/reference/Tuner.html}{\texttt{Tuner}} proposes at least one hyperparameter configuration to evaluate (the \href{https://mlr3tuning.mlr-org.com/reference/Tuner.html}{\texttt{Tuner}} may propose multiple points to be able to evaluate them in parallel, which can be controlled via the setting \texttt{batch\_size}).
 \item
-  For each configuration, the given \href{https://mlr3.mlr-org.com/reference/Learner.html}{\texttt{Learner}} is fitted on the \href{https://mlr3.mlr-org.com/reference/Task.html}{\texttt{Task}} using the provided \href{https://mlr3.mlr-org.com/reference/Resampling.html}{\texttt{Resampling}}.
+  For each configuration, the given \href{https://mlr3.mlr-org.com/reference/Learner.html}{\texttt{Learner}} is fitted on the \href{https://mlr3.mlr-org.com/reference/Task.html}{\texttt{Task}} and evaluated using the provided \href{https://mlr3.mlr-org.com/reference/Resampling.html}{\texttt{Resampling}}.
   All evaluations are stored in the archive of the \href{https://mlr3tuning.mlr-org.com/reference/TuningInstanceSingleCrit.html}{\texttt{TuningInstanceSingleCrit}}.
 \item
   The \href{https://bbotk.mlr-org.com/reference/Terminator.html}{\texttt{Terminator}} is queried if the budget is exhausted.
-  If the budget is not exhausted, restart with 1) until it is.
+  If the budget is not exhausted, go back to 1), else terminate.
 \item
-  Determine the configuration with the best observed performance.
+  Determine the configurations with the best observed performance from the archive.
 \item
-  Store the best configurations as result in the instance object.
-  The best hyperparameter settings (\texttt{\$result\_learner\_param\_vals}) and the corresponding measured performance (\texttt{\$result\_y}) can be accessed from the instance.
+  Store the best configurations as result in the tuning instance object.
+  The best hyperparameter settings (\texttt{\$result\_learner\_param\_vals}) and the corresponding measured performance (\texttt{\$result\_y}) can be retrieved from the tuning instance.
 \end{enumerate}
 
 \begin{Shaded}
@@ -3132,128 +3140,128 @@ The tuner proceeds as follows:
 \end{Shaded}
 
 \begin{verbatim}
-## INFO  [14:49:49.497] [bbotk] Starting to optimize 2 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=20, k=0]' 
-## INFO  [14:49:49.540] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:49.733] [bbotk] Result of batch 1: 
-## INFO  [14:49:49.736] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:49.736] [bbotk]  0.07525        3     0.2539             0.02 
-## INFO  [14:49:49.736] [bbotk]                                 uhash 
-## INFO  [14:49:49.736] [bbotk]  d6747117-3ab2-4c60-a30c-1d36ca2bd649 
-## INFO  [14:49:49.738] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:49.847] [bbotk] Result of batch 2: 
-## INFO  [14:49:49.849] [bbotk]     cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:49.849] [bbotk]  0.001        1     0.3086            0.012 
-## INFO  [14:49:49.849] [bbotk]                                 uhash 
-## INFO  [14:49:49.849] [bbotk]  ee2746cb-447c-44b9-9944-769929e7c7db 
-## INFO  [14:49:49.851] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:49.976] [bbotk] Result of batch 3: 
-## INFO  [14:49:49.978] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:49.978] [bbotk]  0.02575        5     0.2539            0.013 
-## INFO  [14:49:49.978] [bbotk]                                 uhash 
-## INFO  [14:49:49.978] [bbotk]  79b76764-cd44-474d-a1fa-fcce25306a72 
-## INFO  [14:49:49.980] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:50.087] [bbotk] Result of batch 4: 
-## INFO  [14:49:50.089] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:50.089] [bbotk]  0.02575        8     0.2539            0.012 
-## INFO  [14:49:50.089] [bbotk]                                 uhash 
-## INFO  [14:49:50.089] [bbotk]  00c29e99-834c-4ddd-aa31-64d8da3d708f 
-## INFO  [14:49:50.091] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:50.200] [bbotk] Result of batch 5: 
-## INFO  [14:49:50.202] [bbotk]     cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:50.202] [bbotk]  0.001        5     0.3203            0.012 
-## INFO  [14:49:50.202] [bbotk]                                 uhash 
-## INFO  [14:49:50.202] [bbotk]  7d54dedd-4452-4c81-a15e-90b84c31771e 
-## INFO  [14:49:50.204] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:50.320] [bbotk] Result of batch 6: 
-## INFO  [14:49:50.322] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
-## INFO  [14:49:50.322] [bbotk]  0.1        1     0.2539            0.011 850052d1-b998-4345-a5bd-b1f055a2d06a 
-## INFO  [14:49:50.324] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:50.432] [bbotk] Result of batch 7: 
-## INFO  [14:49:50.434] [bbotk]      cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:50.434] [bbotk]  0.0505        8     0.2539            0.012 
-## INFO  [14:49:50.434] [bbotk]                                 uhash 
-## INFO  [14:49:50.434] [bbotk]  b7572d8b-9d90-4a5f-9de5-5279ef4ab0c2 
-## INFO  [14:49:50.436] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:50.541] [bbotk] Result of batch 8: 
-## INFO  [14:49:50.543] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:50.543] [bbotk]  0.02575       10     0.2539            0.011 
-## INFO  [14:49:50.543] [bbotk]                                 uhash 
-## INFO  [14:49:50.543] [bbotk]  172d7fb0-5d96-4951-9012-c9cb1af7409a 
-## INFO  [14:49:50.545] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:50.659] [bbotk] Result of batch 9: 
-## INFO  [14:49:50.661] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
-## INFO  [14:49:50.661] [bbotk]  0.1        5     0.2539             0.01 ebc063b3-74ed-4649-858f-db4a5ba955eb 
-## INFO  [14:49:50.663] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:50.768] [bbotk] Result of batch 10: 
-## INFO  [14:49:50.770] [bbotk]      cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:50.770] [bbotk]  0.0505        1     0.2539            0.011 
-## INFO  [14:49:50.770] [bbotk]                                 uhash 
-## INFO  [14:49:50.770] [bbotk]  139628c4-c362-4738-a0df-07566fdcae4f 
-## INFO  [14:49:50.772] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:50.879] [bbotk] Result of batch 11: 
-## INFO  [14:49:50.881] [bbotk]      cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:50.881] [bbotk]  0.0505        3     0.2539             0.01 
-## INFO  [14:49:50.881] [bbotk]                                 uhash 
-## INFO  [14:49:50.881] [bbotk]  0cb6dccc-3de4-4bcc-b565-fb5614572710 
-## INFO  [14:49:50.883] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:50.999] [bbotk] Result of batch 12: 
-## INFO  [14:49:51.001] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
-## INFO  [14:49:51.001] [bbotk]  0.1        8     0.2539             0.01 1db3bbbb-7010-4396-9e25-5d683debc3e2 
-## INFO  [14:49:51.003] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:51.116] [bbotk] Result of batch 13: 
-## INFO  [14:49:51.118] [bbotk]     cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:51.118] [bbotk]  0.001        3     0.3008            0.014 
-## INFO  [14:49:51.118] [bbotk]                                 uhash 
-## INFO  [14:49:51.118] [bbotk]  d0e57f70-6dc7-4604-baca-fe35dd39d491 
-## INFO  [14:49:51.120] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:51.229] [bbotk] Result of batch 14: 
-## INFO  [14:49:51.232] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:51.232] [bbotk]  0.02575        3     0.2539            0.012 
-## INFO  [14:49:51.232] [bbotk]                                 uhash 
-## INFO  [14:49:51.232] [bbotk]  c411eac6-91a0-4e58-becb-45134f46b55d 
-## INFO  [14:49:51.234] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:51.353] [bbotk] Result of batch 15: 
-## INFO  [14:49:51.355] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:51.355] [bbotk]  0.07525        8     0.2539            0.012 
-## INFO  [14:49:51.355] [bbotk]                                 uhash 
-## INFO  [14:49:51.355] [bbotk]  743a952b-8030-43a3-b0ce-2c9fd343dde1 
-## INFO  [14:49:51.357] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:51.461] [bbotk] Result of batch 16: 
-## INFO  [14:49:51.463] [bbotk]      cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:51.463] [bbotk]  0.0505       10     0.2539            0.011 
-## INFO  [14:49:51.463] [bbotk]                                 uhash 
-## INFO  [14:49:51.463] [bbotk]  5d2c95a8-8284-48fd-8112-98bfa67c9613 
-## INFO  [14:49:51.465] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:51.573] [bbotk] Result of batch 17: 
-## INFO  [14:49:51.575] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:51.575] [bbotk]  0.07525        5     0.2539            0.011 
-## INFO  [14:49:51.575] [bbotk]                                 uhash 
-## INFO  [14:49:51.575] [bbotk]  d4ebed71-4409-4415-ba10-9497fa528629 
-## INFO  [14:49:51.577] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:51.692] [bbotk] Result of batch 18: 
-## INFO  [14:49:51.694] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
-## INFO  [14:49:51.694] [bbotk]  0.1       10     0.2539            0.011 40082c90-cc2b-4072-beda-31123cce23f7 
-## INFO  [14:49:51.696] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:51.801] [bbotk] Result of batch 19: 
-## INFO  [14:49:51.804] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:51.804] [bbotk]  0.07525       10     0.2539            0.011 
-## INFO  [14:49:51.804] [bbotk]                                 uhash 
-## INFO  [14:49:51.804] [bbotk]  264b9963-0942-42db-8165-8eac8cc91a5b 
-## INFO  [14:49:51.806] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:51.914] [bbotk] Result of batch 20: 
-## INFO  [14:49:51.916] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:51.916] [bbotk]  0.02575        1     0.2539            0.012 
-## INFO  [14:49:51.916] [bbotk]                                 uhash 
-## INFO  [14:49:51.916] [bbotk]  72f2c70e-4137-499d-8072-eea3c01f9a1c 
-## INFO  [14:49:51.923] [bbotk] Finished optimizing after 20 evaluation(s) 
-## INFO  [14:49:51.924] [bbotk] Result: 
-## INFO  [14:49:51.926] [bbotk]       cp minsplit learner_param_vals  x_domain classif.ce 
-## INFO  [14:49:51.926] [bbotk]  0.07525        3          <list[3]> <list[2]>     0.2539
+## INFO  [10:04:05.188] [bbotk] Starting to optimize 2 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=20, k=0]' 
+## INFO  [10:04:05.228] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:05.402] [bbotk] Result of batch 1: 
+## INFO  [10:04:05.404] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
+## INFO  [10:04:05.404] [bbotk]  0.1        1     0.2812            0.018 9033086e-de78-42b2-bcbe-e828196d2eb7 
+## INFO  [10:04:05.406] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:05.505] [bbotk] Result of batch 2: 
+## INFO  [10:04:05.507] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:05.507] [bbotk]  0.07525        1     0.2812             0.01 
+## INFO  [10:04:05.507] [bbotk]                                 uhash 
+## INFO  [10:04:05.507] [bbotk]  9b15b742-b6da-4f89-a598-9e102550a8af 
+## INFO  [10:04:05.508] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:05.617] [bbotk] Result of batch 3: 
+## INFO  [10:04:05.619] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:05.619] [bbotk]  0.02575        3     0.2812             0.01 
+## INFO  [10:04:05.619] [bbotk]                                 uhash 
+## INFO  [10:04:05.619] [bbotk]  cecd6d68-b422-4cb1-a1a7-2b5db990370f 
+## INFO  [10:04:05.620] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:05.714] [bbotk] Result of batch 4: 
+## INFO  [10:04:05.716] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:05.716] [bbotk]  0.02575        8     0.2812            0.009 
+## INFO  [10:04:05.716] [bbotk]                                 uhash 
+## INFO  [10:04:05.716] [bbotk]  3a845db7-d4ec-43ab-ab28-514bc71e82e3 
+## INFO  [10:04:05.718] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:05.814] [bbotk] Result of batch 5: 
+## INFO  [10:04:05.816] [bbotk]     cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:05.816] [bbotk]  0.001       10     0.3281            0.011 
+## INFO  [10:04:05.816] [bbotk]                                 uhash 
+## INFO  [10:04:05.816] [bbotk]  ec452353-094c-4d62-930f-167001e1977a 
+## INFO  [10:04:05.818] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:05.921] [bbotk] Result of batch 6: 
+## INFO  [10:04:05.923] [bbotk]      cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:05.923] [bbotk]  0.0505        3     0.2812            0.009 
+## INFO  [10:04:05.923] [bbotk]                                 uhash 
+## INFO  [10:04:05.923] [bbotk]  bc475486-470c-470a-b567-73625c059aa6 
+## INFO  [10:04:05.925] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:06.021] [bbotk] Result of batch 7: 
+## INFO  [10:04:06.023] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:06.023] [bbotk]  0.02575       10     0.2812             0.01 
+## INFO  [10:04:06.023] [bbotk]                                 uhash 
+## INFO  [10:04:06.023] [bbotk]  d5b1ebbb-c522-49a2-bc7c-b183ca99ee99 
+## INFO  [10:04:06.025] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:06.123] [bbotk] Result of batch 8: 
+## INFO  [10:04:06.125] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:06.125] [bbotk]  0.02575        5     0.2812             0.01 
+## INFO  [10:04:06.125] [bbotk]                                 uhash 
+## INFO  [10:04:06.125] [bbotk]  bfc8795e-fda1-4c8b-bfe4-ae5bcd78c113 
+## INFO  [10:04:06.127] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:06.232] [bbotk] Result of batch 9: 
+## INFO  [10:04:06.234] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
+## INFO  [10:04:06.234] [bbotk]  0.1        3     0.2812             0.01 58fba7a9-4761-4425-b2c8-0c340dd96f57 
+## INFO  [10:04:06.235] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:06.332] [bbotk] Result of batch 10: 
+## INFO  [10:04:06.334] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
+## INFO  [10:04:06.334] [bbotk]  0.1       10     0.2812             0.01 d99bffe0-17e2-4179-83d2-385f103c36a3 
+## INFO  [10:04:06.336] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:06.436] [bbotk] Result of batch 11: 
+## INFO  [10:04:06.437] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:06.437] [bbotk]  0.07525       10     0.2812             0.01 
+## INFO  [10:04:06.437] [bbotk]                                 uhash 
+## INFO  [10:04:06.437] [bbotk]  f3180afa-e842-4145-bb54-40b201417dd1 
+## INFO  [10:04:06.439] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:06.542] [bbotk] Result of batch 12: 
+## INFO  [10:04:06.544] [bbotk]      cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:06.544] [bbotk]  0.0505        5     0.2812             0.01 
+## INFO  [10:04:06.544] [bbotk]                                 uhash 
+## INFO  [10:04:06.544] [bbotk]  07a6f6cd-cbc2-463b-8c57-993306c79a99 
+## INFO  [10:04:06.546] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:06.641] [bbotk] Result of batch 13: 
+## INFO  [10:04:06.643] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:06.643] [bbotk]  0.07525        3     0.2812             0.01 
+## INFO  [10:04:06.643] [bbotk]                                 uhash 
+## INFO  [10:04:06.643] [bbotk]  63636c2a-a5ea-4821-be6a-fabc2b193095 
+## INFO  [10:04:06.644] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:06.743] [bbotk] Result of batch 14: 
+## INFO  [10:04:06.745] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:06.745] [bbotk]  0.02575        1     0.2812             0.01 
+## INFO  [10:04:06.745] [bbotk]                                 uhash 
+## INFO  [10:04:06.745] [bbotk]  56921271-ae93-42cb-8bab-959d222786e9 
+## INFO  [10:04:06.746] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:06.851] [bbotk] Result of batch 15: 
+## INFO  [10:04:06.853] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:06.853] [bbotk]  0.07525        5     0.2812             0.01 
+## INFO  [10:04:06.853] [bbotk]                                 uhash 
+## INFO  [10:04:06.853] [bbotk]  f119b4a1-b197-457f-a2ed-c4af74e168f9 
+## INFO  [10:04:06.854] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:06.955] [bbotk] Result of batch 16: 
+## INFO  [10:04:06.957] [bbotk]     cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:06.957] [bbotk]  0.001        1     0.3359            0.012 
+## INFO  [10:04:06.957] [bbotk]                                 uhash 
+## INFO  [10:04:06.957] [bbotk]  5196c390-ab41-4c62-ab27-6da255e23b4a 
+## INFO  [10:04:06.959] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:07.057] [bbotk] Result of batch 17: 
+## INFO  [10:04:07.059] [bbotk]     cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:07.059] [bbotk]  0.001        5      0.332            0.011 
+## INFO  [10:04:07.059] [bbotk]                                 uhash 
+## INFO  [10:04:07.059] [bbotk]  ef6a3d4b-bfe4-4bfd-ad17-5ee2f9650f8f 
+## INFO  [10:04:07.061] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:07.169] [bbotk] Result of batch 18: 
+## INFO  [10:04:07.171] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
+## INFO  [10:04:07.171] [bbotk]  0.1        5     0.2812             0.01 c2aaa080-eb61-4352-a8d3-345046be0532 
+## INFO  [10:04:07.172] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:07.270] [bbotk] Result of batch 19: 
+## INFO  [10:04:07.272] [bbotk]     cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:07.272] [bbotk]  0.001        8     0.3281            0.012 
+## INFO  [10:04:07.272] [bbotk]                                 uhash 
+## INFO  [10:04:07.272] [bbotk]  ff099988-e8c5-4e19-8488-2a5c4493f446 
+## INFO  [10:04:07.273] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:07.369] [bbotk] Result of batch 20: 
+## INFO  [10:04:07.371] [bbotk]     cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:07.371] [bbotk]  0.001        3     0.3398            0.011 
+## INFO  [10:04:07.371] [bbotk]                                 uhash 
+## INFO  [10:04:07.371] [bbotk]  a66ca91b-d97c-4596-a93b-fd3167c39f55 
+## INFO  [10:04:07.378] [bbotk] Finished optimizing after 20 evaluation(s) 
+## INFO  [10:04:07.379] [bbotk] Result: 
+## INFO  [10:04:07.380] [bbotk]   cp minsplit learner_param_vals  x_domain classif.ce 
+## INFO  [10:04:07.380] [bbotk]  0.1        1          <list[3]> <list[2]>     0.2812
 \end{verbatim}
 
 \begin{verbatim}
-##         cp minsplit learner_param_vals  x_domain classif.ce
-## 1: 0.07525        3          <list[3]> <list[2]>     0.2539
+##     cp minsplit learner_param_vals  x_domain classif.ce
+## 1: 0.1        1          <list[3]> <list[2]>     0.2812
 \end{verbatim}
 
 \begin{Shaded}
@@ -3267,10 +3275,10 @@ The tuner proceeds as follows:
 ## [1] 0
 ## 
 ## $cp
-## [1] 0.07525
+## [1] 0.1
 ## 
 ## $minsplit
-## [1] 3
+## [1] 1
 \end{verbatim}
 
 \begin{Shaded}
@@ -3281,10 +3289,10 @@ The tuner proceeds as follows:
 
 \begin{verbatim}
 ## classif.ce 
-##     0.2539
+##     0.2812
 \end{verbatim}
 
-One can investigate all resamplings which were undertaken, as they are stored in the archive of the \href{https://mlr3tuning.mlr-org.com/reference/TuningInstanceSingleCrit.html}{\texttt{TuningInstanceSingleCrit}} and can be accessed by using \texttt{as.data.table()}:
+You can investigate all of the evaluations that were performed; they are stored in the archive of the \href{https://mlr3tuning.mlr-org.com/reference/TuningInstanceSingleCrit.html}{\texttt{TuningInstanceSingleCrit}} and can be accessed by using \texttt{as.data.table()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3294,52 +3302,52 @@ One can investigate all resamplings which were undertaken, as they are stored in
 
 \begin{verbatim}
 ##          cp minsplit classif.ce x_domain_cp x_domain_minsplit runtime_learners
-##  1: 0.07525        3     0.2539     0.07525                 3            0.020
-##  2: 0.00100        1     0.3086     0.00100                 1            0.012
-##  3: 0.02575        5     0.2539     0.02575                 5            0.013
-##  4: 0.02575        8     0.2539     0.02575                 8            0.012
-##  5: 0.00100        5     0.3203     0.00100                 5            0.012
-##  6: 0.10000        1     0.2539     0.10000                 1            0.011
-##  7: 0.05050        8     0.2539     0.05050                 8            0.012
-##  8: 0.02575       10     0.2539     0.02575                10            0.011
-##  9: 0.10000        5     0.2539     0.10000                 5            0.010
-## 10: 0.05050        1     0.2539     0.05050                 1            0.011
-## 11: 0.05050        3     0.2539     0.05050                 3            0.010
-## 12: 0.10000        8     0.2539     0.10000                 8            0.010
-## 13: 0.00100        3     0.3008     0.00100                 3            0.014
-## 14: 0.02575        3     0.2539     0.02575                 3            0.012
-## 15: 0.07525        8     0.2539     0.07525                 8            0.012
-## 16: 0.05050       10     0.2539     0.05050                10            0.011
-## 17: 0.07525        5     0.2539     0.07525                 5            0.011
-## 18: 0.10000       10     0.2539     0.10000                10            0.011
-## 19: 0.07525       10     0.2539     0.07525                10            0.011
-## 20: 0.02575        1     0.2539     0.02575                 1            0.012
+##  1: 0.10000        1     0.2812     0.10000                 1            0.018
+##  2: 0.07525        1     0.2812     0.07525                 1            0.010
+##  3: 0.02575        3     0.2812     0.02575                 3            0.010
+##  4: 0.02575        8     0.2812     0.02575                 8            0.009
+##  5: 0.00100       10     0.3281     0.00100                10            0.011
+##  6: 0.05050        3     0.2812     0.05050                 3            0.009
+##  7: 0.02575       10     0.2812     0.02575                10            0.010
+##  8: 0.02575        5     0.2812     0.02575                 5            0.010
+##  9: 0.10000        3     0.2812     0.10000                 3            0.010
+## 10: 0.10000       10     0.2812     0.10000                10            0.010
+## 11: 0.07525       10     0.2812     0.07525                10            0.010
+## 12: 0.05050        5     0.2812     0.05050                 5            0.010
+## 13: 0.07525        3     0.2812     0.07525                 3            0.010
+## 14: 0.02575        1     0.2812     0.02575                 1            0.010
+## 15: 0.07525        5     0.2812     0.07525                 5            0.010
+## 16: 0.00100        1     0.3359     0.00100                 1            0.012
+## 17: 0.00100        5     0.3320     0.00100                 5            0.011
+## 18: 0.10000        5     0.2812     0.10000                 5            0.010
+## 19: 0.00100        8     0.3281     0.00100                 8            0.012
+## 20: 0.00100        3     0.3398     0.00100                 3            0.011
 ##               timestamp batch_nr      resample_result
-##  1: 2021-10-08 14:49:49        1 <ResampleResult[20]>
-##  2: 2021-10-08 14:49:49        2 <ResampleResult[20]>
-##  3: 2021-10-08 14:49:49        3 <ResampleResult[20]>
-##  4: 2021-10-08 14:49:50        4 <ResampleResult[20]>
-##  5: 2021-10-08 14:49:50        5 <ResampleResult[20]>
-##  6: 2021-10-08 14:49:50        6 <ResampleResult[20]>
-##  7: 2021-10-08 14:49:50        7 <ResampleResult[20]>
-##  8: 2021-10-08 14:49:50        8 <ResampleResult[20]>
-##  9: 2021-10-08 14:49:50        9 <ResampleResult[20]>
-## 10: 2021-10-08 14:49:50       10 <ResampleResult[20]>
-## 11: 2021-10-08 14:49:50       11 <ResampleResult[20]>
-## 12: 2021-10-08 14:49:50       12 <ResampleResult[20]>
-## 13: 2021-10-08 14:49:51       13 <ResampleResult[20]>
-## 14: 2021-10-08 14:49:51       14 <ResampleResult[20]>
-## 15: 2021-10-08 14:49:51       15 <ResampleResult[20]>
-## 16: 2021-10-08 14:49:51       16 <ResampleResult[20]>
-## 17: 2021-10-08 14:49:51       17 <ResampleResult[20]>
-## 18: 2021-10-08 14:49:51       18 <ResampleResult[20]>
-## 19: 2021-10-08 14:49:51       19 <ResampleResult[20]>
-## 20: 2021-10-08 14:49:51       20 <ResampleResult[20]>
+##  1: 2021-10-09 10:04:05        1 <ResampleResult[20]>
+##  2: 2021-10-09 10:04:05        2 <ResampleResult[20]>
+##  3: 2021-10-09 10:04:05        3 <ResampleResult[20]>
+##  4: 2021-10-09 10:04:05        4 <ResampleResult[20]>
+##  5: 2021-10-09 10:04:05        5 <ResampleResult[20]>
+##  6: 2021-10-09 10:04:05        6 <ResampleResult[20]>
+##  7: 2021-10-09 10:04:06        7 <ResampleResult[20]>
+##  8: 2021-10-09 10:04:06        8 <ResampleResult[20]>
+##  9: 2021-10-09 10:04:06        9 <ResampleResult[20]>
+## 10: 2021-10-09 10:04:06       10 <ResampleResult[20]>
+## 11: 2021-10-09 10:04:06       11 <ResampleResult[20]>
+## 12: 2021-10-09 10:04:06       12 <ResampleResult[20]>
+## 13: 2021-10-09 10:04:06       13 <ResampleResult[20]>
+## 14: 2021-10-09 10:04:06       14 <ResampleResult[20]>
+## 15: 2021-10-09 10:04:06       15 <ResampleResult[20]>
+## 16: 2021-10-09 10:04:06       16 <ResampleResult[20]>
+## 17: 2021-10-09 10:04:07       17 <ResampleResult[20]>
+## 18: 2021-10-09 10:04:07       18 <ResampleResult[20]>
+## 19: 2021-10-09 10:04:07       19 <ResampleResult[20]>
+## 20: 2021-10-09 10:04:07       20 <ResampleResult[20]>
 \end{verbatim}
 
-In sum, the grid search evaluated 20/25 different configurations of the grid in a random order before the \href{https://bbotk.mlr-org.com/reference/Terminator.html}{\texttt{Terminator}} stopped the tuning.
+Altogether, the grid search evaluated 20/25 different hyperparameter configurations in a random order before the \href{https://bbotk.mlr-org.com/reference/Terminator.html}{\texttt{Terminator}} stopped the tuning.
 
-The associated resampling iterations can be accessed in the \href{https://mlr3.mlr-org.com/reference/BenchmarkResult.html}{\texttt{BenchmarkResult}}:
+The associated resampling iterations can be accessed in the \href{https://mlr3.mlr-org.com/reference/BenchmarkResult.html}{\texttt{BenchmarkResult}} of the tuning instance:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3372,7 +3380,7 @@ The associated resampling iterations can be accessed in the \href{https://mlr3.m
 ##  20    pima classif.rpart       holdout     1        0      0
 \end{verbatim}
 
-The \texttt{uhash} column links the resampling iterations to the evaluated configurations stored in \texttt{instance\$archive\$data}. This allows e.g.~to score the included \href{https://mlr3.mlr-org.com/reference/ResampleResult.html}{\texttt{ResampleResult}}s on a different measure.
+The \texttt{uhash} column links the resampling iterations to the evaluated configurations stored in \texttt{instance\$archive\$data}. This allows e.g.~to score the included \href{https://mlr3.mlr-org.com/reference/ResampleResult.html}{\texttt{ResampleResult}}s on a different performance measure.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3382,26 +3390,26 @@ The \texttt{uhash} column links the resampling iterations to the evaluated confi
 
 \begin{verbatim}
 ##                                    uhash nr              task task_id
-##  1: d6747117-3ab2-4c60-a30c-1d36ca2bd649  1 <TaskClassif[47]>    pima
-##  2: ee2746cb-447c-44b9-9944-769929e7c7db  2 <TaskClassif[47]>    pima
-##  3: 79b76764-cd44-474d-a1fa-fcce25306a72  3 <TaskClassif[47]>    pima
-##  4: 00c29e99-834c-4ddd-aa31-64d8da3d708f  4 <TaskClassif[47]>    pima
-##  5: 7d54dedd-4452-4c81-a15e-90b84c31771e  5 <TaskClassif[47]>    pima
-##  6: 850052d1-b998-4345-a5bd-b1f055a2d06a  6 <TaskClassif[47]>    pima
-##  7: b7572d8b-9d90-4a5f-9de5-5279ef4ab0c2  7 <TaskClassif[47]>    pima
-##  8: 172d7fb0-5d96-4951-9012-c9cb1af7409a  8 <TaskClassif[47]>    pima
-##  9: ebc063b3-74ed-4649-858f-db4a5ba955eb  9 <TaskClassif[47]>    pima
-## 10: 139628c4-c362-4738-a0df-07566fdcae4f 10 <TaskClassif[47]>    pima
-## 11: 0cb6dccc-3de4-4bcc-b565-fb5614572710 11 <TaskClassif[47]>    pima
-## 12: 1db3bbbb-7010-4396-9e25-5d683debc3e2 12 <TaskClassif[47]>    pima
-## 13: d0e57f70-6dc7-4604-baca-fe35dd39d491 13 <TaskClassif[47]>    pima
-## 14: c411eac6-91a0-4e58-becb-45134f46b55d 14 <TaskClassif[47]>    pima
-## 15: 743a952b-8030-43a3-b0ce-2c9fd343dde1 15 <TaskClassif[47]>    pima
-## 16: 5d2c95a8-8284-48fd-8112-98bfa67c9613 16 <TaskClassif[47]>    pima
-## 17: d4ebed71-4409-4415-ba10-9497fa528629 17 <TaskClassif[47]>    pima
-## 18: 40082c90-cc2b-4072-beda-31123cce23f7 18 <TaskClassif[47]>    pima
-## 19: 264b9963-0942-42db-8165-8eac8cc91a5b 19 <TaskClassif[47]>    pima
-## 20: 72f2c70e-4137-499d-8072-eea3c01f9a1c 20 <TaskClassif[47]>    pima
+##  1: 9033086e-de78-42b2-bcbe-e828196d2eb7  1 <TaskClassif[47]>    pima
+##  2: 9b15b742-b6da-4f89-a598-9e102550a8af  2 <TaskClassif[47]>    pima
+##  3: cecd6d68-b422-4cb1-a1a7-2b5db990370f  3 <TaskClassif[47]>    pima
+##  4: 3a845db7-d4ec-43ab-ab28-514bc71e82e3  4 <TaskClassif[47]>    pima
+##  5: ec452353-094c-4d62-930f-167001e1977a  5 <TaskClassif[47]>    pima
+##  6: bc475486-470c-470a-b567-73625c059aa6  6 <TaskClassif[47]>    pima
+##  7: d5b1ebbb-c522-49a2-bc7c-b183ca99ee99  7 <TaskClassif[47]>    pima
+##  8: bfc8795e-fda1-4c8b-bfe4-ae5bcd78c113  8 <TaskClassif[47]>    pima
+##  9: 58fba7a9-4761-4425-b2c8-0c340dd96f57  9 <TaskClassif[47]>    pima
+## 10: d99bffe0-17e2-4179-83d2-385f103c36a3 10 <TaskClassif[47]>    pima
+## 11: f3180afa-e842-4145-bb54-40b201417dd1 11 <TaskClassif[47]>    pima
+## 12: 07a6f6cd-cbc2-463b-8c57-993306c79a99 12 <TaskClassif[47]>    pima
+## 13: 63636c2a-a5ea-4821-be6a-fabc2b193095 13 <TaskClassif[47]>    pima
+## 14: 56921271-ae93-42cb-8bab-959d222786e9 14 <TaskClassif[47]>    pima
+## 15: f119b4a1-b197-457f-a2ed-c4af74e168f9 15 <TaskClassif[47]>    pima
+## 16: 5196c390-ab41-4c62-ab27-6da255e23b4a 16 <TaskClassif[47]>    pima
+## 17: ef6a3d4b-bfe4-4bfd-ad17-5ee2f9650f8f 17 <TaskClassif[47]>    pima
+## 18: c2aaa080-eb61-4352-a8d3-345046be0532 18 <TaskClassif[47]>    pima
+## 19: ff099988-e8c5-4e19-8488-2a5c4493f446 19 <TaskClassif[47]>    pima
+## 20: a66ca91b-d97c-4596-a93b-fd3167c39f55 20 <TaskClassif[47]>    pima
 ##                       learner    learner_id              resampling
 ##  1: <LearnerClassifRpart[36]> classif.rpart <ResamplingHoldout[19]>
 ##  2: <LearnerClassifRpart[36]> classif.rpart <ResamplingHoldout[19]>
@@ -3424,29 +3432,29 @@ The \texttt{uhash} column links the resampling iterations to the evaluated confi
 ## 19: <LearnerClassifRpart[36]> classif.rpart <ResamplingHoldout[19]>
 ## 20: <LearnerClassifRpart[36]> classif.rpart <ResamplingHoldout[19]>
 ##     resampling_id iteration              prediction classif.acc
-##  1:       holdout         1 <PredictionClassif[19]>      0.7461
-##  2:       holdout         1 <PredictionClassif[19]>      0.6914
-##  3:       holdout         1 <PredictionClassif[19]>      0.7461
-##  4:       holdout         1 <PredictionClassif[19]>      0.7461
-##  5:       holdout         1 <PredictionClassif[19]>      0.6797
-##  6:       holdout         1 <PredictionClassif[19]>      0.7461
-##  7:       holdout         1 <PredictionClassif[19]>      0.7461
-##  8:       holdout         1 <PredictionClassif[19]>      0.7461
-##  9:       holdout         1 <PredictionClassif[19]>      0.7461
-## 10:       holdout         1 <PredictionClassif[19]>      0.7461
-## 11:       holdout         1 <PredictionClassif[19]>      0.7461
-## 12:       holdout         1 <PredictionClassif[19]>      0.7461
-## 13:       holdout         1 <PredictionClassif[19]>      0.6992
-## 14:       holdout         1 <PredictionClassif[19]>      0.7461
-## 15:       holdout         1 <PredictionClassif[19]>      0.7461
-## 16:       holdout         1 <PredictionClassif[19]>      0.7461
-## 17:       holdout         1 <PredictionClassif[19]>      0.7461
-## 18:       holdout         1 <PredictionClassif[19]>      0.7461
-## 19:       holdout         1 <PredictionClassif[19]>      0.7461
-## 20:       holdout         1 <PredictionClassif[19]>      0.7461
+##  1:       holdout         1 <PredictionClassif[19]>      0.7188
+##  2:       holdout         1 <PredictionClassif[19]>      0.7188
+##  3:       holdout         1 <PredictionClassif[19]>      0.7188
+##  4:       holdout         1 <PredictionClassif[19]>      0.7188
+##  5:       holdout         1 <PredictionClassif[19]>      0.6719
+##  6:       holdout         1 <PredictionClassif[19]>      0.7188
+##  7:       holdout         1 <PredictionClassif[19]>      0.7188
+##  8:       holdout         1 <PredictionClassif[19]>      0.7188
+##  9:       holdout         1 <PredictionClassif[19]>      0.7188
+## 10:       holdout         1 <PredictionClassif[19]>      0.7188
+## 11:       holdout         1 <PredictionClassif[19]>      0.7188
+## 12:       holdout         1 <PredictionClassif[19]>      0.7188
+## 13:       holdout         1 <PredictionClassif[19]>      0.7188
+## 14:       holdout         1 <PredictionClassif[19]>      0.7188
+## 15:       holdout         1 <PredictionClassif[19]>      0.7188
+## 16:       holdout         1 <PredictionClassif[19]>      0.6641
+## 17:       holdout         1 <PredictionClassif[19]>      0.6680
+## 18:       holdout         1 <PredictionClassif[19]>      0.7188
+## 19:       holdout         1 <PredictionClassif[19]>      0.6719
+## 20:       holdout         1 <PredictionClassif[19]>      0.6602
 \end{verbatim}
 
-Now the optimized hyperparameters can take the previously created \href{https://mlr3.mlr-org.com/reference/Learner.html}{\texttt{Learner}}, set the returned hyperparameters and train it on the full dataset.
+Now we can take the optimized hyperparameters, set them for the previously-created \href{https://mlr3.mlr-org.com/reference/Learner.html}{\texttt{Learner}}, and train it on the full dataset.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3455,19 +3463,18 @@ Now the optimized hyperparameters can take the previously created \href{https://
 \end{Highlighting}
 \end{Shaded}
 
-The trained model can now be used to make a prediction on external data.
-Note that predicting on observations present in the \texttt{task}, should be avoided.
-The model has seen these observations already during tuning and therefore results would be statistically biased.
-Hence, the resulting performance measure would be over-optimistic.
-Instead, to get statistically unbiased performance estimates for the current task, \protect\hyperlink{nested-resampling}{nested resampling} is required.
+The trained model can now be used to make a prediction on new, external data.
+Note that predicting on observations present in the \texttt{task} should be avoided because the model has seen these observations already during tuning and training and therefore performance values would be statistically biased -- the resulting performance measure would be over-optimistic.
+To get statistically unbiased performance estimates for a given task, \protect\hyperlink{nested-resampling}{nested resampling} is required.
 
 \hypertarget{autotuner}{%
 \subsection{Automating the Tuning}\label{autotuner}}
 
-The \href{https://mlr3tuning.mlr-org.com/reference/AutoTuner.html}{\texttt{AutoTuner}} wraps a learner and augments it with an automatic tuning for a given set of hyperparameters.
+We can automate this entire process in \texttt{mlr3} so that learners are tuned transparently, without the need to extract information on the best hyperparameter settings at the end..
+The \href{https://mlr3tuning.mlr-org.com/reference/AutoTuner.html}{\texttt{AutoTuner}} wraps a learner and augments it with an automatic tuning process for a given set of hyperparameters.
 Because the \href{https://mlr3tuning.mlr-org.com/reference/AutoTuner.html}{\texttt{AutoTuner}} itself inherits from the \href{https://mlr3.mlr-org.com/reference/Learner.html}{\texttt{Learner}} base class, it can be used like any other learner.
-Analogously to the previous subsection, a new classification tree learner is created.
-This classification tree learner automatically tunes the parameters \texttt{cp} and \texttt{minsplit} using an inner resampling (holdout).
+In keeping with our example above, we create a classification learner that tunes itself automatically.
+This classification tree learner tunes the parameters \texttt{cp} and \texttt{minsplit} using an inner resampling (holdout).
 We create a terminator which allows 10 evaluations, and use a simple random search as tuning algorithm:
 
 \begin{Shaded}
@@ -3507,7 +3514,7 @@ We create a terminator which allows 10 evaluations, and use a simple random sear
 ##   twoclass, weights
 \end{verbatim}
 
-We can now use the learner like any other learner, calling the \texttt{\$train()} and \texttt{\$predict()} method.
+We can now use the learner like any other learner, calling the \texttt{\$train()} and \texttt{\$predict()} method. The differnce to a normal learner is that \texttt{\$train()} runs the tuning, which will take longer than a normal training process.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3516,74 +3523,74 @@ We can now use the learner like any other learner, calling the \texttt{\$train()
 \end{Shaded}
 
 \begin{verbatim}
-## INFO  [14:49:52.492] [bbotk] Starting to optimize 2 parameter(s) with '<OptimizerRandomSearch>' and '<TerminatorEvals> [n_evals=10, k=0]' 
-## INFO  [14:49:52.511] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:52.610] [bbotk] Result of batch 1: 
-## INFO  [14:49:52.612] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:52.612] [bbotk]  0.09512        6     0.2578             0.01 
-## INFO  [14:49:52.612] [bbotk]                                 uhash 
-## INFO  [14:49:52.612] [bbotk]  c52c3cc0-5f23-4374-a34c-fc27235d09a2 
-## INFO  [14:49:52.617] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:52.723] [bbotk] Result of batch 2: 
-## INFO  [14:49:52.725] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:52.725] [bbotk]  0.07473        1     0.2578            0.011 
-## INFO  [14:49:52.725] [bbotk]                                 uhash 
-## INFO  [14:49:52.725] [bbotk]  1898cb6c-1408-4ff6-898e-2f64e41db4a3 
-## INFO  [14:49:52.730] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:52.836] [bbotk] Result of batch 3: 
-## INFO  [14:49:52.838] [bbotk]      cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:52.838] [bbotk]  0.0205        2     0.2539            0.012 
-## INFO  [14:49:52.838] [bbotk]                                 uhash 
-## INFO  [14:49:52.838] [bbotk]  01f6912f-87e5-4d86-b07b-677c7a938ca9 
-## INFO  [14:49:52.843] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:52.957] [bbotk] Result of batch 4: 
-## INFO  [14:49:52.960] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:52.960] [bbotk]  0.04448        3     0.2578             0.01 
-## INFO  [14:49:52.960] [bbotk]                                 uhash 
-## INFO  [14:49:52.960] [bbotk]  288d4564-8ce0-4aac-b40b-ef96fa72fa1d 
-## INFO  [14:49:52.964] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:53.072] [bbotk] Result of batch 5: 
-## INFO  [14:49:53.074] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:53.074] [bbotk]  0.00389        1     0.3242            0.013 
-## INFO  [14:49:53.074] [bbotk]                                 uhash 
-## INFO  [14:49:53.074] [bbotk]  bbb62067-d636-49d4-a426-0d2ac421a111 
-## INFO  [14:49:53.078] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:53.183] [bbotk] Result of batch 6: 
-## INFO  [14:49:53.185] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:53.185] [bbotk]  0.08192        3     0.2578             0.01 
-## INFO  [14:49:53.185] [bbotk]                                 uhash 
-## INFO  [14:49:53.185] [bbotk]  13e51e3d-1331-4d1d-b5c4-675509e3b8a3 
-## INFO  [14:49:53.190] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:53.305] [bbotk] Result of batch 7: 
-## INFO  [14:49:53.307] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:53.307] [bbotk]  0.04362        5     0.2578            0.011 
-## INFO  [14:49:53.307] [bbotk]                                 uhash 
-## INFO  [14:49:53.307] [bbotk]  860bf8a9-cc8a-4250-b013-7424f439011a 
-## INFO  [14:49:53.312] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:53.419] [bbotk] Result of batch 8: 
-## INFO  [14:49:53.421] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:53.421] [bbotk]  0.09677        6     0.2578             0.01 
-## INFO  [14:49:53.421] [bbotk]                                 uhash 
-## INFO  [14:49:53.421] [bbotk]  8d721824-9b0a-4696-a5e2-7f485f70d397 
-## INFO  [14:49:53.425] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:53.536] [bbotk] Result of batch 9: 
-## INFO  [14:49:53.539] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:53.539] [bbotk]  0.07035        4     0.2578             0.01 
-## INFO  [14:49:53.539] [bbotk]                                 uhash 
-## INFO  [14:49:53.539] [bbotk]  340ac8b4-22c0-43bf-9efb-02d20aa67c9b 
-## INFO  [14:49:53.544] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:49:53.650] [bbotk] Result of batch 10: 
-## INFO  [14:49:53.652] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [14:49:53.652] [bbotk]  0.01371        7     0.2539             0.01 
-## INFO  [14:49:53.652] [bbotk]                                 uhash 
-## INFO  [14:49:53.652] [bbotk]  ba3d0fa5-f629-445f-930e-5c67b9cde54a 
-## INFO  [14:49:53.661] [bbotk] Finished optimizing after 10 evaluation(s) 
-## INFO  [14:49:53.662] [bbotk] Result: 
-## INFO  [14:49:53.664] [bbotk]      cp minsplit learner_param_vals  x_domain classif.ce 
-## INFO  [14:49:53.664] [bbotk]  0.0205        2          <list[3]> <list[2]>     0.2539
+## INFO  [10:04:07.899] [bbotk] Starting to optimize 2 parameter(s) with '<OptimizerRandomSearch>' and '<TerminatorEvals> [n_evals=10, k=0]' 
+## INFO  [10:04:07.917] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:08.009] [bbotk] Result of batch 1: 
+## INFO  [10:04:08.011] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:08.011] [bbotk]  0.05091        6      0.293             0.01 
+## INFO  [10:04:08.011] [bbotk]                                 uhash 
+## INFO  [10:04:08.011] [bbotk]  e55a0577-845e-4911-838f-ab777aefc4e3 
+## INFO  [10:04:08.016] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:08.115] [bbotk] Result of batch 2: 
+## INFO  [10:04:08.117] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:08.117] [bbotk]  0.07003        2      0.293             0.01 
+## INFO  [10:04:08.117] [bbotk]                                 uhash 
+## INFO  [10:04:08.117] [bbotk]  5004bdc2-6c08-42c0-ae59-fd066d281fd5 
+## INFO  [10:04:08.121] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:08.219] [bbotk] Result of batch 3: 
+## INFO  [10:04:08.221] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:08.221] [bbotk]  0.04026        9      0.293            0.009 
+## INFO  [10:04:08.221] [bbotk]                                 uhash 
+## INFO  [10:04:08.221] [bbotk]  5a4c436a-59a3-42dd-ad6c-fc3873949037 
+## INFO  [10:04:08.226] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:08.328] [bbotk] Result of batch 4: 
+## INFO  [10:04:08.329] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:08.329] [bbotk]  0.05806        8      0.293            0.009 
+## INFO  [10:04:08.329] [bbotk]                                 uhash 
+## INFO  [10:04:08.329] [bbotk]  cae6bd76-b43a-44d1-832b-b864aa2fb151 
+## INFO  [10:04:08.334] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:08.428] [bbotk] Result of batch 5: 
+## INFO  [10:04:08.430] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:08.430] [bbotk]  0.03073        5      0.293            0.009 
+## INFO  [10:04:08.430] [bbotk]                                 uhash 
+## INFO  [10:04:08.430] [bbotk]  624c75f4-1900-43d7-a392-cc5b2e570b79 
+## INFO  [10:04:08.434] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:08.526] [bbotk] Result of batch 6: 
+## INFO  [10:04:08.528] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:08.528] [bbotk]  0.04908        8      0.293            0.008 
+## INFO  [10:04:08.528] [bbotk]                                 uhash 
+## INFO  [10:04:08.528] [bbotk]  057228bf-f802-45e5-9e5c-b59187e5ea42 
+## INFO  [10:04:08.532] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:08.637] [bbotk] Result of batch 7: 
+## INFO  [10:04:08.638] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:08.638] [bbotk]  0.01709        5     0.2461            0.011 
+## INFO  [10:04:08.638] [bbotk]                                 uhash 
+## INFO  [10:04:08.638] [bbotk]  93d7d627-bf26-4ada-a79f-81557f56eeed 
+## INFO  [10:04:08.643] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:08.735] [bbotk] Result of batch 8: 
+## INFO  [10:04:08.737] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:08.737] [bbotk]  0.08837        4      0.293            0.009 
+## INFO  [10:04:08.737] [bbotk]                                 uhash 
+## INFO  [10:04:08.737] [bbotk]  2872221a-c419-4851-b8b7-7eb0e9d2a7fd 
+## INFO  [10:04:08.741] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:08.843] [bbotk] Result of batch 9: 
+## INFO  [10:04:08.846] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:08.846] [bbotk]  0.02134        8       0.25            0.009 
+## INFO  [10:04:08.846] [bbotk]                                 uhash 
+## INFO  [10:04:08.846] [bbotk]  fa6e5a71-b220-4e30-a2df-a18e1b9ef977 
+## INFO  [10:04:08.850] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:08.944] [bbotk] Result of batch 10: 
+## INFO  [10:04:08.946] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:04:08.946] [bbotk]  0.03376        7      0.293             0.01 
+## INFO  [10:04:08.946] [bbotk]                                 uhash 
+## INFO  [10:04:08.946] [bbotk]  8c6f1817-857d-4b68-b0a8-6decc10d2c0a 
+## INFO  [10:04:08.954] [bbotk] Finished optimizing after 10 evaluation(s) 
+## INFO  [10:04:08.955] [bbotk] Result: 
+## INFO  [10:04:08.956] [bbotk]       cp minsplit learner_param_vals  x_domain classif.ce 
+## INFO  [10:04:08.956] [bbotk]  0.01709        5          <list[3]> <list[2]>     0.2461
 \end{verbatim}
 
-We can also pass it to \href{https://mlr3.mlr-org.com/reference/resample.html}{\texttt{resample()}} and \href{https://mlr3.mlr-org.com/reference/benchmark.html}{\texttt{benchmark()}}. This is called \protect\hyperlink{nested-resampling}{nested resampling} which is discussed in the next chapter.
+We can also pass it to \href{https://mlr3.mlr-org.com/reference/resample.html}{\texttt{resample()}} and \href{https://mlr3.mlr-org.com/reference/benchmark.html}{\texttt{benchmark()}}, just like any other learner. This would result in a \protect\hyperlink{nested-resampling}{nested resampling}.
 
 \hypertarget{searchspace}{%
 \section{Tuning Search Spaces}\label{searchspace}}
@@ -4225,81 +4232,81 @@ We have to set \texttt{store\_models\ =\ TRUE} because we need the \href{https:/
 \end{Shaded}
 
 \begin{verbatim}
-## INFO  [14:50:03.882] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
-## INFO  [14:50:03.927] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:04.071] [bbotk] Result of batch 1: 
-## INFO  [14:50:04.075] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:04.075] [bbotk]  0.023     0.2573             0.02 17eed210-f771-473f-9e30-a4f651d1b6ba 
-## INFO  [14:50:04.077] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:04.189] [bbotk] Result of batch 2: 
-## INFO  [14:50:04.191] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:04.191] [bbotk]  0.012     0.2573            0.012 cfaed569-fd03-470a-94d7-14efa72f4d52 
-## INFO  [14:50:04.193] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:04.309] [bbotk] Result of batch 3: 
-## INFO  [14:50:04.311] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:04.311] [bbotk]  0.056     0.2515            0.012 447168c0-09ae-4511-8b9f-8c9c674f1798 
-## INFO  [14:50:04.313] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:04.435] [bbotk] Result of batch 4: 
-## INFO  [14:50:04.438] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:04.438] [bbotk]  0.045     0.2573            0.011 719bde6c-36f6-4c55-bcac-54d06a99954d 
-## INFO  [14:50:04.440] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:04.550] [bbotk] Result of batch 5: 
-## INFO  [14:50:04.552] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:04.552] [bbotk]  0.089     0.2515            0.011 6797c212-e9d0-4821-9191-b131cac0862c 
-## INFO  [14:50:04.560] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [14:50:04.561] [bbotk] Result: 
-## INFO  [14:50:04.562] [bbotk]     cp learner_param_vals  x_domain classif.ce 
-## INFO  [14:50:04.562] [bbotk]  0.056          <list[2]> <list[1]>     0.2515 
-## INFO  [14:50:04.639] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
-## INFO  [14:50:04.643] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:04.760] [bbotk] Result of batch 1: 
-## INFO  [14:50:04.763] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:04.763] [bbotk]  0.089     0.2807            0.011 a4ab862a-e091-4f08-a8dc-805ea2076603 
-## INFO  [14:50:04.765] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:04.886] [bbotk] Result of batch 2: 
-## INFO  [14:50:04.888] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:04.888] [bbotk]  0.012      0.269            0.011 f886234c-3ea9-47b9-92c7-3e6fe1787688 
-## INFO  [14:50:04.890] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:05.003] [bbotk] Result of batch 3: 
-## INFO  [14:50:05.005] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:05.005] [bbotk]  0.001     0.2807             0.01 bda3c099-8271-4d2e-939b-00c9f1e14a01 
-## INFO  [14:50:05.007] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:05.121] [bbotk] Result of batch 4: 
-## INFO  [14:50:05.123] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:05.123] [bbotk]  0.045     0.2807            0.012 a0bd14e3-4642-4632-867e-1dd851495485 
-## INFO  [14:50:05.125] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:05.242] [bbotk] Result of batch 5: 
-## INFO  [14:50:05.244] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:05.244] [bbotk]  0.023     0.2807             0.01 88ff585e-7b3c-4500-8829-42c1b5924b57 
-## INFO  [14:50:05.251] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [14:50:05.252] [bbotk] Result: 
-## INFO  [14:50:05.253] [bbotk]     cp learner_param_vals  x_domain classif.ce 
-## INFO  [14:50:05.253] [bbotk]  0.012          <list[2]> <list[1]>      0.269 
-## INFO  [14:50:05.323] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
-## INFO  [14:50:05.326] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:05.431] [bbotk] Result of batch 1: 
-## INFO  [14:50:05.433] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:05.433] [bbotk]  0.045     0.2632            0.011 b21ca7a4-d9b1-43ea-a8ee-53be6ab57aff 
-## INFO  [14:50:05.435] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:05.558] [bbotk] Result of batch 2: 
-## INFO  [14:50:05.560] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:05.560] [bbotk]  0.067     0.2632            0.011 ec1edaec-7da4-4891-84dd-f0e82fd9296f 
-## INFO  [14:50:05.562] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:05.668] [bbotk] Result of batch 3: 
-## INFO  [14:50:05.670] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:05.670] [bbotk]  0.001     0.2573            0.012 6eefa363-1a8c-4be4-bed8-02286e6e6a3b 
-## INFO  [14:50:05.672] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:05.779] [bbotk] Result of batch 4: 
-## INFO  [14:50:05.781] [bbotk]   cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:05.781] [bbotk]  0.1     0.3099             0.01 2a39440d-90f6-44a5-8b3a-1265542c9bbe 
-## INFO  [14:50:05.783] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:05.900] [bbotk] Result of batch 5: 
-## INFO  [14:50:05.902] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:05.902] [bbotk]  0.056     0.2632            0.011 923f1dbc-91ac-45da-83ae-faf86fb38a44 
-## INFO  [14:50:05.908] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [14:50:05.909] [bbotk] Result: 
-## INFO  [14:50:05.911] [bbotk]     cp learner_param_vals  x_domain classif.ce 
-## INFO  [14:50:05.911] [bbotk]  0.001          <list[2]> <list[1]>     0.2573
+## INFO  [10:04:17.936] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
+## INFO  [10:04:17.976] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:18.098] [bbotk] Result of batch 1: 
+## INFO  [10:04:18.102] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:18.102] [bbotk]  0.056     0.2865            0.016 c59973b0-eb52-414b-9c1c-4eab7c6bed11 
+## INFO  [10:04:18.103] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:18.202] [bbotk] Result of batch 2: 
+## INFO  [10:04:18.204] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:18.204] [bbotk]  0.001     0.2632             0.01 7e140d4f-fc8d-4d2f-9174-a960c33fa317 
+## INFO  [10:04:18.206] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:18.306] [bbotk] Result of batch 3: 
+## INFO  [10:04:18.308] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:18.308] [bbotk]  0.067     0.3216            0.009 ddb60f1d-c54b-46e2-b4c5-877ffda02d22 
+## INFO  [10:04:18.310] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:18.417] [bbotk] Result of batch 4: 
+## INFO  [10:04:18.419] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:18.419] [bbotk]  0.023     0.2865             0.01 70ffb048-b6ab-47e0-ba26-312fbabe4d38 
+## INFO  [10:04:18.421] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:18.516] [bbotk] Result of batch 5: 
+## INFO  [10:04:18.518] [bbotk]   cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:18.518] [bbotk]  0.1     0.2924            0.009 13fc5998-7086-4a60-9ac4-aa72f2c55789 
+## INFO  [10:04:18.524] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [10:04:18.525] [bbotk] Result: 
+## INFO  [10:04:18.527] [bbotk]     cp learner_param_vals  x_domain classif.ce 
+## INFO  [10:04:18.527] [bbotk]  0.001          <list[2]> <list[1]>     0.2632 
+## INFO  [10:04:18.587] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
+## INFO  [10:04:18.591] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:18.691] [bbotk] Result of batch 1: 
+## INFO  [10:04:18.693] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:18.693] [bbotk]  0.023     0.2515            0.009 87623580-e59d-4e7d-a27a-dc5aee00e763 
+## INFO  [10:04:18.694] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:18.788] [bbotk] Result of batch 2: 
+## INFO  [10:04:18.790] [bbotk]   cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:18.790] [bbotk]  0.1     0.2982            0.009 220a01d5-7259-4156-bd97-edfed891fda8 
+## INFO  [10:04:18.792] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:18.891] [bbotk] Result of batch 3: 
+## INFO  [10:04:18.893] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:18.893] [bbotk]  0.001     0.3392             0.01 7fb5ebb7-bca8-4f2f-b3dc-d5df02b804a3 
+## INFO  [10:04:18.895] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:18.994] [bbotk] Result of batch 4: 
+## INFO  [10:04:18.996] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:18.996] [bbotk]  0.012     0.2924             0.01 94fcbf27-f2e7-4e86-8ebc-7bad2182de20 
+## INFO  [10:04:18.998] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:19.100] [bbotk] Result of batch 5: 
+## INFO  [10:04:19.102] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:19.102] [bbotk]  0.056     0.2515             0.01 91711bad-7e8c-47fb-8e75-743a6a57de96 
+## INFO  [10:04:19.107] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [10:04:19.108] [bbotk] Result: 
+## INFO  [10:04:19.109] [bbotk]     cp learner_param_vals  x_domain classif.ce 
+## INFO  [10:04:19.109] [bbotk]  0.023          <list[2]> <list[1]>     0.2515 
+## INFO  [10:04:19.168] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
+## INFO  [10:04:19.171] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:19.261] [bbotk] Result of batch 1: 
+## INFO  [10:04:19.263] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:19.263] [bbotk]  0.089     0.2515            0.009 eae39255-769d-4956-95af-693e39a5b3f0 
+## INFO  [10:04:19.265] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:19.370] [bbotk] Result of batch 2: 
+## INFO  [10:04:19.372] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:19.372] [bbotk]  0.023     0.2222             0.01 b877e2cd-8363-4951-ba1f-9040c2284af1 
+## INFO  [10:04:19.373] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:19.471] [bbotk] Result of batch 3: 
+## INFO  [10:04:19.473] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:19.473] [bbotk]  0.078     0.2515            0.009 e827d1fb-81b0-42ef-b762-e2b708b67441 
+## INFO  [10:04:19.475] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:19.573] [bbotk] Result of batch 4: 
+## INFO  [10:04:19.575] [bbotk]   cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:19.575] [bbotk]  0.1     0.2515             0.01 f608c341-552f-4a17-9aae-90a603f4ce64 
+## INFO  [10:04:19.577] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:19.685] [bbotk] Result of batch 5: 
+## INFO  [10:04:19.687] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:19.687] [bbotk]  0.056     0.2515            0.009 61678c33-4843-43d3-83ae-c0d0eb3be6e4 
+## INFO  [10:04:19.692] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [10:04:19.693] [bbotk] Result: 
+## INFO  [10:04:19.695] [bbotk]     cp learner_param_vals  x_domain classif.ce 
+## INFO  [10:04:19.695] [bbotk]  0.023          <list[2]> <list[1]>     0.2222
 \end{verbatim}
 
 You can freely combine different inner and outer resampling strategies.
@@ -4325,9 +4332,9 @@ Usually, we aim for the selection of stable hyperparameters for all outer traini
 
 \begin{verbatim}
 ##    iteration    cp classif.ce learner_param_vals  x_domain task_id
-## 1:         1 0.001     0.2573          <list[2]> <list[1]>    pima
-## 2:         2 0.056     0.2515          <list[2]> <list[1]>    pima
-## 3:         3 0.012     0.2690          <list[2]> <list[1]>    pima
+## 1:         1 0.023     0.2222          <list[2]> <list[1]>    pima
+## 2:         2 0.001     0.2632          <list[2]> <list[1]>    pima
+## 3:         3 0.023     0.2515          <list[2]> <list[1]>    pima
 ##             learner_id resampling_id
 ## 1: classif.rpart.tuned            cv
 ## 2: classif.rpart.tuned            cv
@@ -4353,9 +4360,9 @@ Significantly lower predictive performances on the outer resampling indicate tha
 ## 2: <ResamplingCV[19]>            cv         2 <PredictionClassif[19]>
 ## 3: <ResamplingCV[19]>            cv         3 <PredictionClassif[19]>
 ##    classif.ce
-## 1:     0.2812
-## 2:     0.2656
-## 3:     0.2227
+## 1:     0.3008
+## 2:     0.2617
+## 3:     0.2500
 \end{verbatim}
 
 The aggregated performance of all outer resampling iterations is essentially the unbiased performance of the model with optimal hyperparameter found by grid search.
@@ -4368,7 +4375,7 @@ The aggregated performance of all outer resampling iterations is essentially the
 
 \begin{verbatim}
 ## classif.ce 
-##     0.2565
+##     0.2708
 \end{verbatim}
 
 Note that nested resampling is computationally expensive.
@@ -4388,31 +4395,31 @@ We can use the \href{https://mlr3tuning.mlr-org.com/reference/AutoTuner.html}{\t
 \end{Shaded}
 
 \begin{verbatim}
-## INFO  [14:50:06.315] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
-## INFO  [14:50:06.318] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:06.428] [bbotk] Result of batch 1: 
-## INFO  [14:50:06.430] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:06.430] [bbotk]  0.067     0.2891            0.011 3e130b8e-e783-4219-9ae4-d8b55d6c7b73 
-## INFO  [14:50:06.431] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:06.537] [bbotk] Result of batch 2: 
-## INFO  [14:50:06.539] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:06.539] [bbotk]  0.045     0.2891             0.01 c8e25c09-a8fc-473b-b99b-fb3e769a07ff 
-## INFO  [14:50:06.541] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:06.649] [bbotk] Result of batch 3: 
-## INFO  [14:50:06.651] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:06.651] [bbotk]  0.023     0.2852            0.011 a1a91c3c-f333-49ff-9ccd-178b9ec3a1d0 
-## INFO  [14:50:06.653] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:06.836] [bbotk] Result of batch 4: 
-## INFO  [14:50:06.838] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:06.838] [bbotk]  0.078     0.2891             0.01 914cf483-e7d5-400b-bda9-cb9f9dc49bd9 
-## INFO  [14:50:06.840] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:50:06.943] [bbotk] Result of batch 5: 
-## INFO  [14:50:06.945] [bbotk]   cp classif.ce runtime_learners                                uhash 
-## INFO  [14:50:06.945] [bbotk]  0.1     0.2891             0.01 109c136d-1437-4850-9b99-4da726c5e5ba 
-## INFO  [14:50:06.950] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [14:50:06.951] [bbotk] Result: 
-## INFO  [14:50:06.952] [bbotk]     cp learner_param_vals  x_domain classif.ce 
-## INFO  [14:50:06.952] [bbotk]  0.023          <list[2]> <list[1]>     0.2852
+## INFO  [10:04:20.071] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
+## INFO  [10:04:20.074] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:20.176] [bbotk] Result of batch 1: 
+## INFO  [10:04:20.178] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:20.178] [bbotk]  0.067     0.2227             0.01 0d7966b3-39d0-4a3c-b76a-ee48901d6ef7 
+## INFO  [10:04:20.179] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:20.277] [bbotk] Result of batch 2: 
+## INFO  [10:04:20.279] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:20.279] [bbotk]  0.045     0.2227             0.01 1a4a5bc5-3a5b-4840-9f30-ca7fc31b1b2d 
+## INFO  [10:04:20.281] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:20.383] [bbotk] Result of batch 3: 
+## INFO  [10:04:20.385] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:20.385] [bbotk]  0.078      0.293             0.01 1d93f281-4e46-4be7-a553-97c1cc9b289a 
+## INFO  [10:04:20.386] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:20.554] [bbotk] Result of batch 4: 
+## INFO  [10:04:20.556] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:20.556] [bbotk]  0.023     0.2227             0.01 9855f8bb-fd76-443c-965c-63775bd9979d 
+## INFO  [10:04:20.558] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:04:20.654] [bbotk] Result of batch 5: 
+## INFO  [10:04:20.656] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:04:20.656] [bbotk]  0.034     0.2227            0.011 12b2ff42-a13e-4379-9413-047b47f73a12 
+## INFO  [10:04:20.662] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [10:04:20.663] [bbotk] Result: 
+## INFO  [10:04:20.664] [bbotk]     cp learner_param_vals  x_domain classif.ce 
+## INFO  [10:04:20.664] [bbotk]  0.067          <list[2]> <list[1]>     0.2227
 \end{verbatim}
 
 The trained model can now be used to make predictions on new data.
@@ -4768,78 +4775,78 @@ Afterwards, the usual tuning can proceed.
 \end{Shaded}
 
 \begin{verbatim}
-## [14:50:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:19] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:19] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:19] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:19] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:19] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:19] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:19] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:19] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:20] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:20] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:20] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:20] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:21] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:21] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:21] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:22] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:22] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:22] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:22] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:22] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:22] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:22] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:22] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:22] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:22] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:23] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:23] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:23] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:23] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:23] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:24] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:24] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:24] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:25] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:25] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:25] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:25] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:25] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:25] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:25] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:26] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:26] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:26] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:26] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:27] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:27] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:27] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:27] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:27] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:28] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:28] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:28] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:28] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:28] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:28] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:28] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:29] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:29] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:29] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:29] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:29] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:29] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:29] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:29] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:29] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:29] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:29] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:29] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:29] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:29] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:29] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:29] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:32] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:32] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:32] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:32] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:33] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:33] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:33] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:35] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:35] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:35] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:35] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:35] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:36] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:36] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:36] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:37] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:37] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:37] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:37] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:37] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:37] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:37] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:38] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:38] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:38] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:38] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:39] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:39] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:39] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:39] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:39] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:39] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:39] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:40] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:40] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:40] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:40] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:40] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'multi:softprob' was changed from 'merror' to 'mlogloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
 \end{verbatim}
 
 \begin{verbatim}
@@ -4878,37 +4885,37 @@ To do this, simply specify more measures in the \href{https://mlr3tuning.mlr-org
 \end{Shaded}
 
 \begin{verbatim}
-## [14:50:30] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:30] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:30] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:31] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:33] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:33] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:33] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:33] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:34] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:35] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:36] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:36] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
-## [14:50:36] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:42] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:42] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:42] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:42] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:42] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:42] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:42] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:42] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:42] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:42] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:42] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:42] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:42] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:42] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:42] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:42] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:44] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:44] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:44] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:44] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:45] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:46] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:46] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:46] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:46] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:46] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:46] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:47] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:47] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:47] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
+## [10:04:47] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.
 \end{verbatim}
 
 \begin{verbatim}
@@ -5155,10 +5162,10 @@ Now you can use the \href{https://mlr3filters.mlr-org.com/reference/mlr_filters_
 \end{Shaded}
 
 \begin{verbatim}
-##         feature score
-## 1:  Petal.Width 44.39
-## 2: Petal.Length 42.65
-## 3: Sepal.Length 10.07
+##         feature  score
+## 1:  Petal.Width 45.933
+## 2: Petal.Length 41.177
+## 3: Sepal.Length  9.865
 \end{verbatim}
 
 \hypertarget{fs-wrapper}{%
@@ -5333,9 +5340,9 @@ To start the feature selection, we simply pass the \href{https://mlr3fselect.mlr
 
 \begin{verbatim}
 ##     age glucose insulin mass pedigree pregnant pressure triceps
-## 1: TRUE    TRUE   FALSE TRUE     TRUE     TRUE     TRUE    TRUE
-##                                           features classif.ce
-## 1: age,glucose,mass,pedigree,pregnant,pressure,...     0.2461
+## 1: TRUE    TRUE    TRUE TRUE     TRUE     TRUE    FALSE    TRUE
+##                                          features classif.ce
+## 1: age,glucose,insulin,mass,pedigree,pregnant,...     0.1953
 \end{verbatim}
 
 \begin{Shaded}
@@ -5345,7 +5352,7 @@ To start the feature selection, we simply pass the \href{https://mlr3fselect.mlr
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "age"      "glucose"  "mass"     "pedigree" "pregnant" "pressure" "triceps"
+## [1] "age"      "glucose"  "insulin"  "mass"     "pedigree" "pregnant" "triceps"
 \end{verbatim}
 
 \begin{Shaded}
@@ -5356,7 +5363,7 @@ To start the feature selection, we simply pass the \href{https://mlr3fselect.mlr
 
 \begin{verbatim}
 ## classif.ce 
-##     0.2461
+##     0.1953
 \end{verbatim}
 
 One can investigate all resamplings which were undertaken, as they are stored in the archive of the \href{https://mlr3fselect.mlr-org.com/reference/FSelectInstanceSingleCrit.html}{\texttt{FSelectInstanceSingleCrit}} and can be accessed by using \texttt{as.data.table()}:
@@ -5369,47 +5376,47 @@ One can investigate all resamplings which were undertaken, as they are stored in
 
 \begin{verbatim}
 ##       age glucose insulin  mass pedigree pregnant pressure triceps classif.ce
-##  1:  TRUE   FALSE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.3125
-##  2:  TRUE   FALSE   FALSE FALSE     TRUE     TRUE    FALSE    TRUE     0.3281
-##  3: FALSE    TRUE    TRUE  TRUE     TRUE    FALSE    FALSE    TRUE     0.2852
-##  4:  TRUE    TRUE   FALSE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2461
-##  5: FALSE   FALSE   FALSE  TRUE    FALSE    FALSE    FALSE   FALSE     0.3945
-##  6:  TRUE    TRUE    TRUE  TRUE     TRUE    FALSE    FALSE    TRUE     0.2578
-##  7: FALSE    TRUE    TRUE FALSE     TRUE     TRUE    FALSE    TRUE     0.2656
-##  8: FALSE   FALSE    TRUE  TRUE    FALSE    FALSE    FALSE   FALSE     0.3438
-##  9: FALSE   FALSE   FALSE FALSE    FALSE     TRUE    FALSE   FALSE     0.3477
-## 10:  TRUE   FALSE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.3125
-## 11:  TRUE   FALSE    TRUE FALSE     TRUE     TRUE     TRUE    TRUE     0.3438
-## 12: FALSE    TRUE   FALSE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2773
-## 13:  TRUE    TRUE    TRUE FALSE     TRUE    FALSE    FALSE   FALSE     0.2852
-## 14: FALSE   FALSE   FALSE FALSE    FALSE    FALSE     TRUE   FALSE     0.3750
-## 15: FALSE   FALSE   FALSE  TRUE     TRUE    FALSE    FALSE   FALSE     0.3086
-## 16:  TRUE   FALSE   FALSE FALSE    FALSE    FALSE    FALSE   FALSE     0.3438
-## 17: FALSE   FALSE    TRUE FALSE     TRUE     TRUE     TRUE   FALSE     0.3516
-## 18: FALSE   FALSE   FALSE FALSE    FALSE    FALSE     TRUE   FALSE     0.3750
-## 19: FALSE   FALSE   FALSE  TRUE     TRUE    FALSE    FALSE   FALSE     0.3086
-## 20: FALSE    TRUE   FALSE  TRUE    FALSE    FALSE    FALSE    TRUE     0.2734
+##  1: FALSE    TRUE   FALSE  TRUE    FALSE    FALSE     TRUE   FALSE     0.2109
+##  2:  TRUE    TRUE    TRUE FALSE     TRUE     TRUE     TRUE    TRUE     0.2461
+##  3:  TRUE    TRUE    TRUE  TRUE    FALSE     TRUE    FALSE   FALSE     0.2227
+##  4:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2188
+##  5:  TRUE   FALSE    TRUE  TRUE     TRUE     TRUE     TRUE   FALSE     0.3086
+##  6: FALSE   FALSE   FALSE FALSE    FALSE     TRUE     TRUE   FALSE     0.3164
+##  7:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2188
+##  8: FALSE   FALSE    TRUE FALSE     TRUE     TRUE     TRUE   FALSE     0.3906
+##  9: FALSE   FALSE    TRUE  TRUE    FALSE    FALSE     TRUE    TRUE     0.3359
+## 10:  TRUE    TRUE   FALSE FALSE     TRUE     TRUE     TRUE   FALSE     0.2578
+## 11: FALSE    TRUE   FALSE  TRUE    FALSE    FALSE    FALSE   FALSE     0.2031
+## 12:  TRUE   FALSE   FALSE  TRUE     TRUE    FALSE    FALSE    TRUE     0.3516
+## 13:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2188
+## 14:  TRUE   FALSE    TRUE FALSE    FALSE    FALSE     TRUE   FALSE     0.3320
+## 15:  TRUE   FALSE    TRUE  TRUE     TRUE    FALSE    FALSE    TRUE     0.3125
+## 16: FALSE    TRUE    TRUE FALSE    FALSE    FALSE    FALSE   FALSE     0.2734
+## 17:  TRUE    TRUE    TRUE  TRUE    FALSE     TRUE     TRUE    TRUE     0.2266
+## 18:  TRUE   FALSE   FALSE FALSE    FALSE    FALSE    FALSE   FALSE     0.3555
+## 19: FALSE    TRUE    TRUE  TRUE    FALSE     TRUE     TRUE    TRUE     0.2148
+## 20:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE    FALSE    TRUE     0.1953
 ##     runtime_learners           timestamp batch_nr      resample_result
-##  1:            0.077 2021-10-08 14:50:42        1 <ResampleResult[20]>
-##  2:            0.084 2021-10-08 14:50:42        2 <ResampleResult[20]>
-##  3:            0.070 2021-10-08 14:50:42        3 <ResampleResult[20]>
-##  4:            0.071 2021-10-08 14:50:42        4 <ResampleResult[20]>
-##  5:            0.070 2021-10-08 14:50:43        5 <ResampleResult[20]>
-##  6:            0.070 2021-10-08 14:50:43        6 <ResampleResult[20]>
-##  7:            0.074 2021-10-08 14:50:43        7 <ResampleResult[20]>
-##  8:            0.152 2021-10-08 14:50:44        8 <ResampleResult[20]>
-##  9:            0.067 2021-10-08 14:50:44        9 <ResampleResult[20]>
-## 10:            0.070 2021-10-08 14:50:44       10 <ResampleResult[20]>
-## 11:            0.073 2021-10-08 14:50:44       11 <ResampleResult[20]>
-## 12:            0.085 2021-10-08 14:50:45       12 <ResampleResult[20]>
-## 13:            0.081 2021-10-08 14:50:45       13 <ResampleResult[20]>
-## 14:            0.066 2021-10-08 14:50:45       14 <ResampleResult[20]>
-## 15:            0.069 2021-10-08 14:50:45       15 <ResampleResult[20]>
-## 16:            0.072 2021-10-08 14:50:45       16 <ResampleResult[20]>
-## 17:            0.071 2021-10-08 14:50:46       17 <ResampleResult[20]>
-## 18:            0.070 2021-10-08 14:50:46       18 <ResampleResult[20]>
-## 19:            0.082 2021-10-08 14:50:46       19 <ResampleResult[20]>
-## 20:            0.069 2021-10-08 14:50:47       20 <ResampleResult[20]>
+##  1:            0.067 2021-10-09 10:04:52        1 <ResampleResult[20]>
+##  2:            0.073 2021-10-09 10:04:53        2 <ResampleResult[20]>
+##  3:            0.066 2021-10-09 10:04:53        3 <ResampleResult[20]>
+##  4:            0.063 2021-10-09 10:04:53        4 <ResampleResult[20]>
+##  5:            0.062 2021-10-09 10:04:53        5 <ResampleResult[20]>
+##  6:            0.060 2021-10-09 10:04:53        6 <ResampleResult[20]>
+##  7:            0.071 2021-10-09 10:04:54        7 <ResampleResult[20]>
+##  8:            0.138 2021-10-09 10:04:54        8 <ResampleResult[20]>
+##  9:            0.061 2021-10-09 10:04:54        9 <ResampleResult[20]>
+## 10:            0.062 2021-10-09 10:04:54       10 <ResampleResult[20]>
+## 11:            0.062 2021-10-09 10:04:55       11 <ResampleResult[20]>
+## 12:            0.071 2021-10-09 10:04:55       12 <ResampleResult[20]>
+## 13:            0.072 2021-10-09 10:04:55       13 <ResampleResult[20]>
+## 14:            0.061 2021-10-09 10:04:55       14 <ResampleResult[20]>
+## 15:            0.063 2021-10-09 10:04:55       15 <ResampleResult[20]>
+## 16:            0.061 2021-10-09 10:04:56       16 <ResampleResult[20]>
+## 17:            0.061 2021-10-09 10:04:56       17 <ResampleResult[20]>
+## 18:            0.062 2021-10-09 10:04:56       18 <ResampleResult[20]>
+## 19:            0.074 2021-10-09 10:04:56       19 <ResampleResult[20]>
+## 20:            0.059 2021-10-09 10:04:57       20 <ResampleResult[20]>
 \end{verbatim}
 
 The associated resampling iterations can be accessed in the \href{https://mlr3.mlr-org.com/reference/BenchmarkResult.html}{\texttt{BenchmarkResult}}:
@@ -5530,8 +5537,8 @@ To compare the optimized feature subset with the complete feature set, we can us
 ## 1:  1 <ResampleResult[20]>    pima classif.rpart.fselector            cv     3
 ## 2:  2 <ResampleResult[20]>    pima           classif.rpart            cv     3
 ##    classif.ce time_train
-## 1:     0.2604          0
-## 2:     0.2448          0
+## 1:     0.2643          0
+## 2:     0.2474          0
 \end{verbatim}
 
 Note that we do not expect any significant differences since we only evaluated a small fraction of the possible feature subsets.
@@ -6328,13 +6335,13 @@ This pipeline can again be used in conjunction with \href{https://mlr3pipelines.
 \begin{verbatim}
 ## <PredictionClassif> for 30 observations:
 ##     row_ids     truth  response prob.setosa prob.versicolor prob.virginica
-##           4    setosa    setosa           1               0              0
+##           9    setosa    setosa           1               0              0
+##          10    setosa    setosa           1               0              0
 ##          11    setosa    setosa           1               0              0
-##          18    setosa    setosa           1               0              0
 ## ---                                                                       
+##         131 virginica virginica           0               0              1
+##         132 virginica virginica           0               0              1
 ##         141 virginica virginica           0               0              1
-##         144 virginica virginica           0               0              1
-##         149 virginica virginica           0               0              1
 \end{verbatim}
 
 In conjunction with different \texttt{Backends}, this can be a very powerful tool.
@@ -6411,13 +6418,13 @@ Now we can train another learner on top of the combined features:
 \begin{verbatim}
 ## <PredictionClassif> for 30 observations:
 ##     row_ids     truth  response
-##           4    setosa    setosa
+##           9    setosa    setosa
+##          10    setosa    setosa
 ##          11    setosa    setosa
-##          18    setosa    setosa
 ## ---                            
+##         131 virginica virginica
+##         132 virginica virginica
 ##         141 virginica virginica
-##         144 virginica virginica
-##         149 virginica virginica
 \end{verbatim}
 
 In this vignette, we showed a very simple use-case for stacking.
@@ -6621,7 +6628,7 @@ We can now connect the different operators and visualize the full graph:
 
 \begin{verbatim}
 ## classif.ce 
-##      0.325
+##     0.1667
 \end{verbatim}
 
 \hypertarget{feature-selection-pipeopfilter-and-pipeopselect}{%
@@ -7041,21 +7048,21 @@ The return value corresponds to the output of the \texttt{PipeOp} output channel
 
 \begin{verbatim}
 ##        Species Petal.Length Petal.Width Sepal.Length Sepal.Width
-##  1:     setosa      -1.3358     -1.3111      -1.1392     -0.1315
-##  2:     setosa      -1.2225     -1.3111      -1.2600      0.7862
-##  3:     setosa      -1.5623     -1.3111      -1.5015      1.2450
-##  4:     setosa      -1.2791     -1.3111      -0.7769      1.0156
-##  5:     setosa      -1.2791     -1.0487      -0.5354      0.7862
-##  6:     setosa      -1.2225     -1.3111      -0.8977      1.7039
-##  7: versicolor       0.4770      0.3945       0.7930     -0.5904
-##  8: versicolor       0.7036      0.6568       1.0345     -0.1315
-##  9: versicolor       0.1371      0.1321      -0.4146     -1.2787
-## 10: versicolor       0.4770      0.2633       0.3100     -0.1315
-## 11: versicolor      -0.4294     -0.1303      -0.8977     -1.2787
-## 12:  virginica       1.0434      1.3128       0.6722     -0.5904
-## 13:  virginica       0.7602      0.3945       0.5515     -0.5904
-## 14:  virginica       1.1001      1.7064       1.0345      0.5567
-## 15:  virginica       0.9302      1.4440       0.4307      0.7862
+##  1:     setosa      -1.5057     -1.4422     -1.86378    -0.13154
+##  2:     setosa      -1.2791     -1.0487     -0.17309     3.08046
+##  3:     setosa      -1.4490     -1.3111     -1.01844     0.32732
+##  4: versicolor       0.1371      0.1321     -0.41462    -1.73754
+##  5: versicolor       0.7036      0.6568      1.03454    -0.13154
+##  6: versicolor       0.4203      0.3945      0.18920    -0.36097
+##  7: versicolor       0.3070      0.1321      0.43072    -0.36097
+##  8:  virginica       0.7602      0.9192     -0.05233    -0.81982
+##  9:  virginica       1.6099      1.1816      2.12141    -0.13154
+## 10:  virginica       0.4203      0.6568     -1.13920    -1.27868
+## 11:  virginica       1.1567      0.7880      1.03454    -1.27868
+## 12:  virginica       0.7036      0.3945      0.18920    -1.96696
+## 13:  virginica       0.9868      0.7880      0.67225     0.09789
+## 14:  virginica       0.7602      0.9192     -0.05233    -0.81982
+## 15:  virginica       1.2134      1.4440      1.15530     0.32732
 \end{verbatim}
 
 \begin{Shaded}
@@ -7794,9 +7801,9 @@ With the learner's default settings, the learner will do nothing special: The le
 \begin{verbatim}
 ##             truth
 ## response     setosa versicolor virginica
-##   setosa          0          0         0
+##   setosa         50         50        50
 ##   versicolor      0          0         0
-##   virginica      50         50        50
+##   virginica       0          0         0
 \end{verbatim}
 
 We now set a hyperparameter to let the debug learner signal an error during the train step.
@@ -8002,8 +8009,8 @@ We re-parametrize the debug learner to fail in roughly 30\% of the resampling it
 ## 1:  1 <ResampleResult[20]>    iris classif.debug            cv    10        0
 ## 2:  2 <ResampleResult[20]>    iris classif.rpart            cv    10        0
 ##    errors classif.ce
-## 1:      3    0.72000
-## 2:      0    0.07333
+## 1:      3    0.75333
+## 2:      0    0.06667
 \end{verbatim}
 
 To further investigate the errors, we can extract the \href{https://mlr3.mlr-org.com/reference/ResampleResult.html}{\texttt{ResampleResult}}:
@@ -8017,9 +8024,9 @@ To further investigate the errors, we can extract the \href{https://mlr3.mlr-org
 
 \begin{verbatim}
 ##    iteration                               msg
-## 1:         3 Error from classif.debug->train()
+## 1:         1 Error from classif.debug->train()
 ## 2:         5 Error from classif.debug->train()
-## 3:        10 Error from classif.debug->train()
+## 3:         8 Error from classif.debug->train()
 \end{verbatim}
 
 A similar yet different problem emerges when a learner predicts only a subset of the observations in the test set (and predicts \texttt{NA} for others).
@@ -8076,7 +8083,7 @@ This is illustrated in the following example:
 \begin{verbatim}
 ## 
 ##     setosa versicolor  virginica       <NA> 
-##         75         75          0          0
+##         75          0         75          0
 \end{verbatim}
 
 Summed up, by combining encapsulation and fallback learners, it is possible to benchmark even quite unreliable or instable learning algorithms in a convenient way.
@@ -8376,7 +8383,7 @@ In each iteration, only the required subset of the data is queried from the SQLi
 
 \begin{verbatim}
 ##     regr.mse   time_train time_predict 
-##         1164            0            0
+##         1197            0            0
 \end{verbatim}
 
 \hypertarget{cleanup}{%
@@ -9062,11 +9069,11 @@ These are initialized with a single \texttt{Param}, and can then be used to samp
 \begin{verbatim}
 ## <Design> with 5 rows:
 ##        A
-## 1: FALSE
-## 2: FALSE
+## 1:  TRUE
+## 2:  TRUE
 ## 3:  TRUE
-## 4:  TRUE
-## 5: FALSE
+## 4: FALSE
+## 5:  TRUE
 \end{verbatim}
 
 \hypertarget{hierarchical-sampler}{%
@@ -9096,8 +9103,8 @@ In the cases where \texttt{A} is \texttt{FALSE}, \texttt{B} is set to \texttt{NA
 \begin{verbatim}
 ##        B
 ## A         0   1   2   3   4   5   6   7   8   9  10 <NA>
-##   FALSE   0   0   0   0   0   0   0   0   0   0   0  498
-##   TRUE   54  40  39  42  39  53  42  58  51  48  36    0
+##   FALSE   0   0   0   0   0   0   0   0   0   0   0  466
+##   TRUE   52  49  48  48  46  44  44  59  52  51  41    0
 \end{verbatim}
 
 \hypertarget{joint-sampler}{%
@@ -9120,11 +9127,11 @@ However, \texttt{SamplerJointIndep} currently can not handle \texttt{ParamSet}s 
 \begin{verbatim}
 ## <Design> with 5 rows:
 ##         x      y
-## 1: 0.9533 0.5919
-## 2: 0.9385 0.1680
-## 3: 0.7576 0.1566
-## 4: 0.9532 0.5906
-## 5: 0.5811 0.7426
+## 1: 0.1118 0.4899
+## 2: 0.2427 0.1116
+## 3: 0.1972 0.7698
+## 4: 0.9506 0.9799
+## 5: 0.4316 0.8716
 \end{verbatim}
 
 \hypertarget{samplerunif}{%
@@ -9166,9 +9173,9 @@ The following, for example, creates a parameter that is exponentially distribute
 
 \begin{verbatim}
 ## <Design> with 2 rows:
-##       par
-## 1: 0.3031
-## 2: 0.5694
+##        par
+## 1: 0.70555
+## 2: 0.06144
 \end{verbatim}
 
 \begin{Shaded}
@@ -9180,12 +9187,12 @@ The following, for example, creates a parameter that is exponentially distribute
 \begin{verbatim}
 ## [[1]]
 ## [[1]]$par
-## [1] 1.194
+## [1] 0.3488
 ## 
 ## 
 ## [[2]]
 ## [[2]]$par
-## [1] 0.5633
+## [1] 2.79
 \end{verbatim}
 
 Compare this to \texttt{\$transpose()} without transformation:
@@ -9199,12 +9206,12 @@ Compare this to \texttt{\$transpose()} without transformation:
 \begin{verbatim}
 ## [[1]]
 ## [[1]]$par
-## [1] 0.3031
+## [1] 0.7055
 ## 
 ## 
 ## [[2]]
 ## [[2]]$par
-## [1] 0.5694
+## [1] 0.06144
 \end{verbatim}
 
 \hypertarget{transformation-between-types}{%
@@ -9269,9 +9276,9 @@ If one wanted to sample this method, using one of four functions, a way to do th
 
 \begin{verbatim}
 ## <Design> with 2 rows:
-##    fun
-## 1: min
-## 2: min
+##       fun
+## 1: median
+## 2:    min
 \end{verbatim}
 
 Note that the \texttt{Design} only contains the column ``\texttt{fun}'' as a \texttt{character} column.
@@ -9286,7 +9293,10 @@ To get a single value as a \emph{function}, the \texttt{\$transpose} function is
 
 \begin{verbatim}
 ## $fun
-## function (..., na.rm = FALSE)  .Primitive("min")
+## function (x, na.rm = FALSE, ...) 
+## UseMethod("median")
+## <bytecode: 0x55a097c96b60>
+## <environment: namespace:stats>
 \end{verbatim}
 
 We can now check that it fits the requirements set by \texttt{methodPS}, and that \texttt{fun} it is in fact a function:
@@ -9298,7 +9308,7 @@ We can now check that it fits the requirements set by \texttt{methodPS}, and tha
 \end{Shaded}
 
 \begin{verbatim}
-## [1] TRUE
+## [1] "fun: Must have exactly 1 formal arguments, but has 2"
 \end{verbatim}
 
 \begin{Shaded}
@@ -9308,7 +9318,7 @@ We can now check that it fits the requirements set by \texttt{methodPS}, and tha
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 1
+## [1] 5.5
 \end{verbatim}
 
 Imagine now that a different kind of parametrization of the function is desired:
@@ -9342,8 +9352,8 @@ For interpretability, the parameter is called ``\texttt{quantile}'' before trans
 \begin{verbatim}
 ## <Design> with 2 rows:
 ##    quantile
-## 1:  0.01497
-## 2:  0.32441
+## 1:   0.4761
+## 2:   0.4471
 \end{verbatim}
 
 The \texttt{Design} now contains the column ``\texttt{quantile}'' that will be used by the \texttt{\$transpose} function to create the \texttt{fun} parameter.
@@ -9359,7 +9369,7 @@ We also check that it fits the requirement set by \texttt{methodPS}, and that it
 \begin{verbatim}
 ## $fun
 ## function(input) quantile(input, x$quantile)
-## <environment: 0x56479a81d5c8>
+## <environment: 0x55a09a34d830>
 \end{verbatim}
 
 \begin{Shaded}
@@ -9379,8 +9389,8 @@ We also check that it fits the requirement set by \texttt{methodPS}, and that it
 \end{Shaded}
 
 \begin{verbatim}
-## 1.4971% 
-##   1.135
+## 47.61403% 
+##     5.285
 \end{verbatim}
 
 \hypertarget{logging}{%
@@ -11517,13 +11527,13 @@ The example below uses the \href{https://mlr3proba.mlr-org.com/reference/mlr_tas
 \begin{verbatim}
 ## <PredictionSurv> for 60 observations:
 ##     row_ids time status  crank     lp     distr
-##           5  104  FALSE -3.125 -3.125 <list[1]>
-##           6  102  FALSE -3.125 -3.125 <list[1]>
-##          16   98  FALSE -2.213 -2.213 <list[1]>
+##           1  101  FALSE  0.454  0.454 <list[1]>
+##           5  104  FALSE -3.728 -3.728 <list[1]>
+##           6  102  FALSE -3.728 -3.728 <list[1]>
 ## ---                                            
-##         292  104  FALSE -1.438 -1.438 <list[1]>
-##         298   92  FALSE -1.422 -1.422 <list[1]>
-##         299  104  FALSE -2.300 -2.300 <list[1]>
+##         292  104  FALSE -2.317 -2.317 <list[1]>
+##         293   75   TRUE -3.097 -3.097 <list[1]>
+##         299  104  FALSE -3.084 -3.084 <list[1]>
 \end{verbatim}
 
 \hypertarget{composition}{%
@@ -11764,10 +11774,10 @@ Note that in prediction the points to evaluate the pdf and cdf are determined by
 ## [1] 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0 5.5
 ## 
 ## $counts
-## [1] 41 35  2  5 23 56 51  4
+## [1] 43 28  4  5 20 63 51  3
 ## 
 ## $density
-## [1] 0.37788 0.32258 0.01843 0.04608 0.21198 0.51613 0.47005 0.03687
+## [1] 0.39631 0.25806 0.03687 0.04608 0.18433 0.58065 0.47005 0.02765
 ## 
 ## $mids
 ## [1] 1.75 2.25 2.75 3.25 3.75 4.25 4.75 5.25
@@ -12291,8 +12301,8 @@ We first create a classification task, then resample the model using a 10-fold c
 \begin{verbatim}
 ##         truth
 ## response good bad
-##     good  607 150
-##     bad    93 150
+##     good  605 152
+##     bad    95 148
 \end{verbatim}
 
 To calculate the average costs like above, we can simply multiply the elements of the confusion matrix with the elements of the previously introduced cost matrix, and sum the values of the resulting matrix:
@@ -12305,7 +12315,7 @@ To calculate the average costs like above, we can simply multiply the elements o
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -0.06245
+## [1] -0.05975
 \end{verbatim}
 
 With an average loan of \$20,000, the logistic regression yields the following costs:
@@ -12317,7 +12327,7 @@ With an average loan of \$20,000, the logistic regression yields the following c
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -1249000
+## [1] -1195000
 \end{verbatim}
 
 Instead of losing over \$1,000,000, the credit institute now can expect a profit of more than \$1,000,000.
@@ -12369,9 +12379,9 @@ We compare the logistic regression to a simple featureless learner and to a rand
 ## 2:  2 <ResampleResult[20]> german_credit classif.featureless            cv
 ## 3:  3 <ResampleResult[20]> german_credit      classif.ranger            cv
 ##    iters classif.costs
-## 1:     3      -0.06332
-## 2:     3       0.05503
-## 3:     3      -0.05503
+## 1:     3      -0.05717
+## 2:     3       0.05499
+## 3:     3      -0.05565
 \end{verbatim}
 
 As expected, the featureless learner is performing comparably bad.
@@ -12405,13 +12415,13 @@ Note that we increase the number of false positives simultaneously, or, in other
 \begin{verbatim}
 ## <PredictionClassif> for 1000 observations:
 ##     row_ids truth response prob.good prob.bad
-##          11   bad      bad    0.3557  0.64432
-##          19   bad      bad    0.3721  0.62790
-##          23  good     good    0.8404  0.15958
+##          25  good     good    0.9960 0.003969
+##          26  good     good    0.7081 0.291872
+##          34  good     good    0.9725 0.027460
 ## ---                                          
-##         967   bad     good    0.6872  0.31285
-##         977  good     good    0.9247  0.07532
-##         986  good      bad    0.3692  0.63076
+##         972  good     good    0.8095 0.190510
+##         993  good     good    0.7520 0.247997
+##         995  good     good    0.9555 0.044518
 \end{verbatim}
 
 \begin{Shaded}
@@ -12430,12 +12440,12 @@ Note that we increase the number of false positives simultaneously, or, in other
 ## $confusion
 ##         truth
 ## response good bad
-##     good  606 154
-##     bad    94 146
+##     good  604 151
+##     bad    96 149
 ## 
 ## $costs
 ## classif.costs 
-##       -0.0581
+##       -0.0604
 \end{verbatim}
 
 \begin{Shaded}
@@ -12448,12 +12458,12 @@ Note that we increase the number of false positives simultaneously, or, in other
 ## $confusion
 ##         truth
 ## response good bad
-##     good  482  76
-##     bad   218 224
+##     good  474  76
+##     bad   226 224
 ## 
 ## $costs
 ## classif.costs 
-##       -0.0927
+##       -0.0899
 \end{verbatim}
 
 \begin{Shaded}
@@ -12466,12 +12476,12 @@ Note that we increase the number of false positives simultaneously, or, in other
 ## $confusion
 ##         truth
 ## response good bad
-##     good    0   0
-##     bad   700 300
+##     good    1   0
+##     bad   699 300
 ## 
 ## $costs
 ## classif.costs 
-##             0
+##      -0.00035
 \end{verbatim}
 
 \begin{Shaded}
@@ -12496,11 +12506,11 @@ Instead of manually trying different threshold values, one uses use \href{https:
 
 \begin{verbatim}
 ## $minimum
-## [1] 0.7289
+## [1] 0.7245
 ## 
 ## $objective
 ## classif.costs 
-##       -0.0933
+##       -0.0974
 \end{verbatim}
 
 \begin{Shaded}
@@ -12513,8 +12523,8 @@ Instead of manually trying different threshold values, one uses use \href{https:
 \begin{verbatim}
 ##         truth
 ## response good bad
-##     good  498  81
-##     bad   202 219
+##     good  504  79
+##     bad   196 221
 \end{verbatim}
 
 Note that the function \href{https://www.rdocumentation.org/packages/stats/topics/optimize}{\texttt{optimize()}} is intended for unimodal functions and therefore may converge to a local optimum here.
@@ -12633,41 +12643,41 @@ We now create a \texttt{AutoTuner}, which automatically tunes the supplied learn
 \end{Shaded}
 
 \begin{verbatim}
-## INFO  [14:52:49.706] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerRandomSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
-## INFO  [14:52:49.755] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:52:50.232] [bbotk] Result of batch 1: 
-## INFO  [14:52:50.234] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [14:52:50.234] [bbotk]                0.1545      0.275            0.275 
-## INFO  [14:52:50.234] [bbotk]                                 uhash 
-## INFO  [14:52:50.234] [bbotk]  c8df46c2-7106-4a06-b0dc-a399fb4da880 
-## INFO  [14:52:50.240] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:52:50.649] [bbotk] Result of batch 2: 
-## INFO  [14:52:50.651] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [14:52:50.651] [bbotk]                0.1298      0.275            0.235 
-## INFO  [14:52:50.651] [bbotk]                                 uhash 
-## INFO  [14:52:50.651] [bbotk]  0f228e70-6051-41d7-9160-a08e2ba9650d 
-## INFO  [14:52:50.654] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:52:51.025] [bbotk] Result of batch 3: 
-## INFO  [14:52:51.027] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [14:52:51.027] [bbotk]                0.5812      0.274            0.206 
-## INFO  [14:52:51.027] [bbotk]                                 uhash 
-## INFO  [14:52:51.027] [bbotk]  e2f2cd5f-802a-4abc-b487-b5e915caa44f 
-## INFO  [14:52:51.032] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:52:51.433] [bbotk] Result of batch 4: 
-## INFO  [14:52:51.441] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [14:52:51.441] [bbotk]                0.1853      0.272            0.226 
-## INFO  [14:52:51.441] [bbotk]                                 uhash 
-## INFO  [14:52:51.441] [bbotk]  fbbd0583-9538-4d7e-b50e-540ab522bbe4 
-## INFO  [14:52:51.446] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [14:52:51.839] [bbotk] Result of batch 5: 
-## INFO  [14:52:51.841] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [14:52:51.841] [bbotk]               0.09921      0.288            0.209 
-## INFO  [14:52:51.841] [bbotk]                                 uhash 
-## INFO  [14:52:51.841] [bbotk]  a1f67237-1d85-42d8-b39d-f8ef9ca6d17a 
-## INFO  [14:52:51.852] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [14:52:51.853] [bbotk] Result: 
-## INFO  [14:52:51.855] [bbotk]  threshold.thresholds learner_param_vals  x_domain classif.ce 
-## INFO  [14:52:51.855] [bbotk]                0.1853          <list[2]> <list[1]>      0.272
+## INFO  [10:06:46.815] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerRandomSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
+## INFO  [10:06:46.860] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:06:47.269] [bbotk] Result of batch 1: 
+## INFO  [10:06:47.271] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [10:06:47.271] [bbotk]                0.4731      0.273             0.23 
+## INFO  [10:06:47.271] [bbotk]                                 uhash 
+## INFO  [10:06:47.271] [bbotk]  78b6fdad-0351-456a-bbca-a778530c0b57 
+## INFO  [10:06:47.275] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:06:47.616] [bbotk] Result of batch 2: 
+## INFO  [10:06:47.618] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [10:06:47.618] [bbotk]                0.7307      0.277            0.173 
+## INFO  [10:06:47.618] [bbotk]                                 uhash 
+## INFO  [10:06:47.618] [bbotk]  861ed845-2c6f-4024-97ef-ce60ab5dcc4f 
+## INFO  [10:06:47.621] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:06:47.963] [bbotk] Result of batch 3: 
+## INFO  [10:06:47.965] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [10:06:47.965] [bbotk]               0.05288      0.296            0.187 
+## INFO  [10:06:47.965] [bbotk]                                 uhash 
+## INFO  [10:06:47.965] [bbotk]  901693a8-781f-4fd7-952e-9d7d172cbe50 
+## INFO  [10:06:47.969] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:06:48.306] [bbotk] Result of batch 4: 
+## INFO  [10:06:48.308] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [10:06:48.308] [bbotk]                0.2478      0.279            0.182 
+## INFO  [10:06:48.308] [bbotk]                                 uhash 
+## INFO  [10:06:48.308] [bbotk]  213e885e-6bbe-4e79-9e2d-7e503c8166f4 
+## INFO  [10:06:48.311] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:06:48.652] [bbotk] Result of batch 5: 
+## INFO  [10:06:48.654] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [10:06:48.654] [bbotk]                0.6851      0.272            0.185 
+## INFO  [10:06:48.654] [bbotk]                                 uhash 
+## INFO  [10:06:48.654] [bbotk]  63b55c10-92a5-495e-bf26-830de4b77579 
+## INFO  [10:06:48.663] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [10:06:48.664] [bbotk] Result: 
+## INFO  [10:06:48.665] [bbotk]  threshold.thresholds learner_param_vals  x_domain classif.ce 
+## INFO  [10:06:48.665] [bbotk]                0.6851          <list[2]> <list[1]>      0.272
 \end{verbatim}
 
 Inside the \texttt{trafo}, we simply collect all set params into a named vector via \texttt{map\_dbl} and store it
@@ -13562,9 +13572,9 @@ This function performs a series of internal checks so the output is a bit verbos
 ##   -> predict function  :  yhat.LearnerRegr  will be used (  default  )
 ##   -> predicted values  :  No value for predict function target column. (  default  )
 ##   -> model_info        :  package mlr3 , ver. 0.12.0 , task regression (  default  ) 
-##   -> predicted values  :  numerical, min =  450233 , mean =  7472980 , max =  88539667  
+##   -> predicted values  :  numerical, min =  459868 , mean =  7472460 , max =  89296733  
 ##   -> residual function :  difference between y and yhat (  default  )
-##   -> residuals         :  numerical, min =  -9050180 , mean =  307 , max =  17746033  
+##   -> residuals         :  numerical, min =  -7804165 , mean =  826.9 , max =  17406200  
 ##   A new explainer has been created!
 \end{verbatim}
 
@@ -13581,13 +13591,13 @@ The \href{https://www.rdocumentation.org/packages/DALEX/topics/model_parts}{\tex
 \end{Shaded}
 
 \begin{verbatim}
-##               variable mean_dropout_loss     label
-## 1         _full_model_           1378324 Ranger RF
-## 2            value_eur           1378324 Ranger RF
-## 3  goalkeeping_kicking           1444203 Ranger RF
-## 4     movement_balance           1445792 Ranger RF
-## 5            weight_kg           1447298 Ranger RF
-## 6 mentality_aggression           1447655 Ranger RF
+##              variable mean_dropout_loss     label
+## 1        _full_model_           1361418 Ranger RF
+## 2           value_eur           1361418 Ranger RF
+## 3           weight_kg           1426065 Ranger RF
+## 4    movement_balance           1426337 Ranger RF
+## 5           height_cm           1427211 Ranger RF
+## 6 goalkeeping_kicking           1439050 Ranger RF
 \end{verbatim}
 
 Results can be visualized with generic \texttt{plot()}. The chart for all 38 variables would be unreadable, so with the \texttt{max\_vars} argument, we limit the number of variables on the plot.
@@ -13616,12 +13626,12 @@ Once we know which variables are most important, we can use \href{https://pbiece
 \begin{verbatim}
 ## Top profiles    : 
 ##              _vname_   _label_ _x_  _yhat_ _ids_
-## 1 skill_ball_control Ranger RF   5 6802800     0
-## 2    skill_dribbling Ranger RF   7 7125480     0
-## 3    skill_dribbling Ranger RF  11 7122524     0
-## 4    skill_dribbling Ranger RF  12 7123899     0
-## 5    skill_dribbling Ranger RF  13 7123174     0
-## 6    skill_dribbling Ranger RF  14 7121885     0
+## 1 skill_ball_control Ranger RF   5 6965992     0
+## 2    skill_dribbling Ranger RF   7 7196766     0
+## 3    skill_dribbling Ranger RF  11 7191409     0
+## 4    skill_dribbling Ranger RF  12 7190694     0
+## 5    skill_dribbling Ranger RF  13 7188838     0
+## 6    skill_dribbling Ranger RF  14 7189654     0
 \end{verbatim}
 
 Again, the result of the explanation can be presented with the generic function \texttt{plot()}.
@@ -13658,12 +13668,12 @@ The function \texttt{predict\_parts} is an instance-level version of the \texttt
 
 \begin{verbatim}
 ##                                       contribution
-## Ranger RF: intercept                       7472980
-## Ranger RF: movement_reactions = 96        11091352
-## Ranger RF: skill_ball_control = 92         6439054
-## Ranger RF: attacking_finishing = 94        4447929
-## Ranger RF: mentality_positioning = 95      5298041
-## Ranger RF: skill_dribbling = 89            4539523
+## Ranger RF: intercept                       7472460
+## Ranger RF: movement_reactions = 96        11417712
+## Ranger RF: skill_ball_control = 92         6042869
+## Ranger RF: mentality_positioning = 95      5270596
+## Ranger RF: attacking_finishing = 94        3443275
+## Ranger RF: skill_dribbling = 89            4386853
 \end{verbatim}
 
 The generic \texttt{plot()} function shows the estimated contribution of variables to the final prediction.
@@ -14445,13 +14455,13 @@ In our case, this is \textbf{mean} and \textbf{standard deviation} of each colum
 ## $classif.rpart.output
 ## <PredictionClassif> for 30 observations:
 ##     row_ids      truth   response
-##          63 versicolor versicolor
-##          18     setosa     setosa
-##         100 versicolor versicolor
+##          72 versicolor versicolor
+##          79 versicolor versicolor
+##          81 versicolor versicolor
 ## ---                              
-##          21     setosa     setosa
-##         131  virginica  virginica
-##         146  virginica  virginica
+##         102  virginica  virginica
+##          32     setosa     setosa
+##          41     setosa     setosa
 \end{verbatim}
 
 \hypertarget{mlr3pipelines-vs.-mlr}{%
@@ -14729,7 +14739,7 @@ To cite this book, please use the following information:
   url = {https://mlr3book.mlr-org.com},
   year = {2021},
   month = {10},
-  day = {08},
+  day = {09},
 }
 \end{verbatim}
 

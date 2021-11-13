@@ -149,7 +149,7 @@ We focus on the parts of R6 that you need to know to use <a href="https://mlr3.m
 <ul>
 <li>Objects are created by calling the constructor of an <a href="https://www.rdocumentation.org/packages/R6/topics/R6Class"><code>R6::R6Class()</code></a> object, specifically the initialization method <code>$new()</code>.
 For example, <code>foo = Foo$new(bar = 1)</code> creates a new object of class <code>Foo</code>, setting the <code>bar</code> argument of the constructor to the value <code>1</code>.
-Most objects in mlr3 are created through special functions (e.g. <code><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn("regr.rpart")</a></code>) that encapsulate this and are also referred to as <em>sugar functions</em>.</li>
+Most objects in mlr3 are created through special functions (e.g. <code>lrn("regr.rpart")</code>) that encapsulate this and are also referred to as <em>sugar functions</em>.</li>
 <li>Objects have mutable state that is encapsulated in their fields, which can be accessed through the dollar operator.
 We can access the <code>bar</code> value in the <code>foo</code> variable from above through <code>foo$bar</code> and set its value by assigning the field, e.g. <code>foo$bar = 2</code>.</li>
 <li>In addition to fields, objects expose methods that allow to inspect the object’s state, retrieve information, or perform an action that changes the internal state of the object.
@@ -390,7 +390,7 @@ These can be passed as arguments to the <code>$data()</code> method to select sp
 ## 1: 21.0   6 160.0
 ## 2: 18.7   8 360.0
 ## 3: 19.2   6 167.6</code></pre>
-<p>Note that although the row IDs are typically just the sequence from <code>1</code> to <code><a href="https://rdrr.io/r/base/nrow.html">nrow(data)</a></code>, they are only guaranteed to be unique natural numbers.
+<p>Note that although the row IDs are typically just the sequence from <code>1</code> to <code>nrow(data)</code>, they are only guaranteed to be unique natural numbers.
 Keep that in mind, especially if you work with data stored in a real data base management system (see <a href="technical.html#backends">backends</a>).</p>
 <p>Similarly to row IDs, target and feature columns also have unique identifiers, i.e. names (stored as <code><a href="https://rdrr.io/r/base/character.html">character()</a></code>).
 Their names can be accessed via the public slots <code>$feature_names</code> and <code>$target_names</code>.
@@ -671,13 +671,20 @@ A full list of implemented learners across all packages is given in <a href="htt
 ## 4:   catboost classif   classif.catboost mlr3extralearners
 ## 5:    cforest classif    classif.cforest mlr3extralearners
 ## 6:      ctree classif      classif.ctree mlr3extralearners
-##         required_packages                                      properties
-## 1:                  RWeka                             multiclass,twoclass
-## 2:                 dbarts                                twoclass,weights
-## 3:                    C50            missings,multiclass,twoclass,weights
-## 4:               catboost importance,missings,multiclass,twoclass,weights
-## 5: partykit,sandwich,coin           multiclass,oob_error,twoclass,weights
-## 6: partykit,sandwich,coin                     multiclass,twoclass,weights
+##                           required_packages
+## 1:                  mlr3extralearners,RWeka
+## 2:                 mlr3extralearners,dbarts
+## 3:                    mlr3extralearners,C50
+## 4:               mlr3extralearners,catboost
+## 5: mlr3extralearners,partykit,sandwich,coin
+## 6: mlr3extralearners,partykit,sandwich,coin
+##                                         properties
+## 1:                             multiclass,twoclass
+## 2:                                twoclass,weights
+## 3:            missings,multiclass,twoclass,weights
+## 4: importance,missings,multiclass,twoclass,weights
+## 5:           multiclass,oob_error,twoclass,weights
+## 6:                     multiclass,twoclass,weights
 ##                     feature_types predict_types
 ## 1:         numeric,factor,ordered response,prob
 ## 2: integer,numeric,factor,ordered response,prob
@@ -723,7 +730,7 @@ We check the status of each learner’s integration automatically, he latest bui
 ##   surv.glmnet, surv.kaplan, surv.loghaz, surv.mboost, surv.nelson,
 ##   surv.obliqueRSF, surv.parametric, surv.pchazard, surv.penalized,
 ##   surv.ranger, surv.rfsrc, surv.rpart, surv.svm, surv.xgboost</code></pre>
-<p>To obtain an object from the dictionary you can also use the shortcut function <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>lrn()</code></a> or the generic <code>mlr_learners$get()</code> method, e.g. <code><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn("classif.rpart")</a></code>.</p>
+<p>To obtain an object from the dictionary you can also use the shortcut function <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>lrn()</code></a> or the generic <code>mlr_learners$get()</code> method, e.g. <code>lrn("classif.rpart")</code>.</p>
 </div>
 <div id="learner-api" class="section level3" number="2.3.2">
 <h3>
@@ -898,11 +905,11 @@ We can now access the stored model via the field <code>$model</code>:</p>
 ## node), split, n, loss, yval, (yprob)
 ##       * denotes terminal node
 ## 
-## 1) root 275 158 Adelie (0.425455 0.210909 0.363636)  
-##   2) flipper_length&lt; 206.5 171  56 Adelie (0.672515 0.321637 0.005848)  
-##     4) bill_length&lt; 43.15 113   3 Adelie (0.973451 0.026549 0.000000) *
-##     5) bill_length&gt;=43.15 58   6 Chinstrap (0.086207 0.896552 0.017241) *
-##   3) flipper_length&gt;=206.5 104   5 Gentoo (0.019231 0.028846 0.951923) *</code></pre>
+## 1) root 275 151 Adelie (0.45091 0.19273 0.35636)  
+##   2) flipper_length&lt; 207.5 173  51 Adelie (0.70520 0.28902 0.00578)  
+##     4) bill_length&lt; 43.35 124   5 Adelie (0.95968 0.04032 0.00000) *
+##     5) bill_length&gt;=43.35 49   4 Chinstrap (0.06122 0.91837 0.02041) *
+##   3) flipper_length&gt;=207.5 102   5 Gentoo (0.01961 0.02941 0.95098) *</code></pre>
 <p>Inspecting the output, we see that the learner has identified features in the task that are predictive of the class (the type of penguin) and uses them to partition observations in the tree.
 There are additional details on how the data is partitioned across branches of the tree; the textual representation of the model depends on the type of learner.
 For more information on this particular type of model, see <a href="https://www.rdocumentation.org/packages/rpart/topics/print.rpart"><code>rpart::print.rpart()</code></a>.</p>
@@ -918,13 +925,13 @@ Remember that we <a href="basics.html#split-data">initially split the data</a> i
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 69 observations:
 ##     row_ids     truth  response
-##           2    Adelie    Adelie
-##           3    Adelie    Adelie
+##           1    Adelie    Adelie
 ##           4    Adelie    Adelie
+##           8    Adelie    Adelie
 ## ---                            
-##         319 Chinstrap Chinstrap
-##         330 Chinstrap Chinstrap
-##         340 Chinstrap    Gentoo</code></pre>
+##         335 Chinstrap Chinstrap
+##         339 Chinstrap Chinstrap
+##         343 Chinstrap    Gentoo</code></pre>
 <p>The <code>$predict()</code> method of the <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a> returns a <a href="https://mlr3.mlr-org.com/reference/Prediction.html"><code>Prediction</code></a> object.
 More precisely, a <a href="https://mlr3.mlr-org.com/reference/LearnerClassif.html"><code>LearnerClassif</code></a> returns a <a href="https://mlr3.mlr-org.com/reference/PredictionClassif.html"><code>PredictionClassif</code></a> object.</p>
 <p>A prediction objects holds the row IDs of the test data, the respective true label of the target column and the respective predictions.
@@ -932,20 +939,20 @@ The simplest way to extract this information is by converting the <a href="https
 <div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span><span class="op">)</span> <span class="co"># show first six predictions</span></code></pre></div>
 <pre><code>##    row_ids  truth response
-## 1:       2 Adelie   Adelie
-## 2:       3 Adelie   Adelie
-## 3:       4 Adelie   Adelie
-## 4:       5 Adelie   Adelie
-## 5:       8 Adelie   Adelie
-## 6:       9 Adelie   Adelie</code></pre>
+## 1:       1 Adelie   Adelie
+## 2:       4 Adelie   Adelie
+## 3:       8 Adelie   Adelie
+## 4:       9 Adelie   Adelie
+## 5:      23 Adelie   Adelie
+## 6:      26 Adelie   Adelie</code></pre>
 <p>For classification, you can also extract the confusion matrix:</p>
 <div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">prediction</span><span class="op">$</span><span class="va">confusion</span></code></pre></div>
 <pre><code>##            truth
 ## response    Adelie Chinstrap Gentoo
-##   Adelie        34         1      0
-##   Chinstrap      1         7      0
-##   Gentoo         0         2     24</code></pre>
+##   Adelie        27         0      0
+##   Chinstrap      1        14      1
+##   Gentoo         0         1     25</code></pre>
 <p>The confusion matrix shows, for each class, how many observations were predicted to be in that class and how many were actually in it (more information on <a href="https://en.wikipedia.org/wiki/Confusion_matrix">Wikipedia</a>).
 The entries along the diagonal denote the correctly classified observations.
 In this case, we can see that our classifier is really quite good and correctly predicting almost all observations.</p>
@@ -970,12 +977,12 @@ To predict these probabilities, the <code>predict_type</code> field of a <a href
 <code class="sourceCode R"><span class="co"># data.table conversion</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span><span class="op">)</span> <span class="co"># show first six</span></code></pre></div>
 <pre><code>##    row_ids  truth response prob.Adelie prob.Chinstrap prob.Gentoo
-## 1:       2 Adelie   Adelie      0.9735        0.02655           0
-## 2:       3 Adelie   Adelie      0.9735        0.02655           0
-## 3:       4 Adelie   Adelie      0.9735        0.02655           0
-## 4:       5 Adelie   Adelie      0.9735        0.02655           0
-## 5:       8 Adelie   Adelie      0.9735        0.02655           0
-## 6:       9 Adelie   Adelie      0.9735        0.02655           0</code></pre>
+## 1:       1 Adelie   Adelie      0.9597        0.04032           0
+## 2:       4 Adelie   Adelie      0.9597        0.04032           0
+## 3:       8 Adelie   Adelie      0.9597        0.04032           0
+## 4:       9 Adelie   Adelie      0.9597        0.04032           0
+## 5:      23 Adelie   Adelie      0.9597        0.04032           0
+## 6:      26 Adelie   Adelie      0.9597        0.04032           0</code></pre>
 <div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># directly access the predicted labels:</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">$</span><span class="va">response</span><span class="op">)</span></code></pre></div>
@@ -985,12 +992,12 @@ To predict these probabilities, the <code>predict_type</code> field of a <a href
 <code class="sourceCode R"><span class="co"># directly access the matrix of probabilities:</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">$</span><span class="va">prob</span><span class="op">)</span></code></pre></div>
 <pre><code>##      Adelie Chinstrap Gentoo
-## [1,] 0.9735   0.02655      0
-## [2,] 0.9735   0.02655      0
-## [3,] 0.9735   0.02655      0
-## [4,] 0.9735   0.02655      0
-## [5,] 0.9735   0.02655      0
-## [6,] 0.9735   0.02655      0</code></pre>
+## [1,] 0.9597   0.04032      0
+## [2,] 0.9597   0.04032      0
+## [3,] 0.9597   0.04032      0
+## [4,] 0.9597   0.04032      0
+## [5,] 0.9597   0.04032      0
+## [6,] 0.9597   0.04032      0</code></pre>
 <p>Similarly to predicting probabilities for classification, many <a href="https://mlr3.mlr-org.com/reference/LearnerRegr.html"><code>regression learners</code></a> support the extraction of standard error estimates for predictions by setting the predict type to <code>"se"</code>.</p>
 </div>
 <div id="autoplot-prediction" class="section level3" number="2.4.6">
@@ -1108,7 +1115,7 @@ Note that if the prediction was made on a dataset without the target column, i.e
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-10-09.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-13.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

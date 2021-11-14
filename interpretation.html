@@ -222,13 +222,13 @@ Figure 9.3: Plot of the results from FeatureImp. FeatureImp visualizes the impor
 <p>First, we compare the feature importance on training and test set</p>
 <div class="sourceCode" id="cb833"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot on training</span>
-<span class="va">model</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/Predictor.html">Predictor</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">learner</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">[</span><span class="va">train_set</span>,<span class="op">]</span>, y <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span>
-<span class="va">effect</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/FeatureImp.html">FeatureImp</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">model</span>, loss <span class="op">=</span> <span class="st">"ce"</span> <span class="op">)</span>
+<span class="va">model</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/Predictor.html">Predictor</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">learner</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">[</span><span class="va">train_set</span>, <span class="op">]</span>, y <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span>
+<span class="va">effect</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/FeatureImp.html">FeatureImp</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">model</span>, loss <span class="op">=</span> <span class="st">"ce"</span><span class="op">)</span>
 <span class="va">plot_train</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">effect</span>, features <span class="op">=</span> <span class="va">num_features</span><span class="op">)</span>
 
 <span class="co"># plot on test data</span>
 <span class="va">model</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/Predictor.html">Predictor</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">learner</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">[</span><span class="va">test_set</span>, <span class="op">]</span>, y <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span>
-<span class="va">effect</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/FeatureImp.html">FeatureImp</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">model</span>, loss <span class="op">=</span> <span class="st">"ce"</span> <span class="op">)</span>
+<span class="va">effect</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/FeatureImp.html">FeatureImp</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">model</span>, loss <span class="op">=</span> <span class="st">"ce"</span><span class="op">)</span>
 <span class="va">plot_test</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">effect</span>, features <span class="op">=</span> <span class="va">num_features</span><span class="op">)</span>
 
 <span class="co"># combine into single plot</span>
@@ -243,7 +243,7 @@ Figure 9.4: FeatImp on train (left) and test (right)
 <p>The results of the train set for <code>FeatureImp</code> are very similar, which is expected.
 We follow a similar approach to compare the feature effects:</p>
 <div class="sourceCode" id="cb834"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">model</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/Predictor.html">Predictor</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">learner</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">[</span><span class="va">train_set</span>,<span class="op">]</span>, y <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">model</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/Predictor.html">Predictor</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">learner</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">[</span><span class="va">train_set</span>, <span class="op">]</span>, y <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span>
 <span class="va">effect</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/FeatureEffects.html">FeatureEffects</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">effect</span>, features <span class="op">=</span> <span class="va">num_features</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
@@ -253,7 +253,7 @@ Figure 9.5: FeatEffect train data set
 </p>
 </div>
 <div class="sourceCode" id="cb835"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">model</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/Predictor.html">Predictor</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">learner</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">[</span><span class="va">test_set</span>,<span class="op">]</span>, y <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">model</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/Predictor.html">Predictor</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">learner</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">[</span><span class="va">test_set</span>, <span class="op">]</span>, y <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span>
 <span class="va">effect</span> <span class="op">=</span> <span class="va"><a href="https://christophm.github.io/iml/reference/FeatureEffects.html">FeatureEffects</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">effect</span>, features <span class="op">=</span> <span class="va">num_features</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
@@ -300,7 +300,7 @@ Figure 9.7: Taxonomy of methods for model exploration presented in this chapter.
 <p>Examples presented in this chapter are based on data retrieved from the FIFA video game. We will use the data scrapped from the <a href="https://sofifa.com/">sofifa</a> website. The raw data is available at <a href="https://www.kaggle.com/stefanoleone992/fifa-20-complete-player-dataset">kaggle</a>. After some basic data cleaning, the processed data for the top 5000 football players is available in the DALEX package under the name <code>fifa</code>.</p>
 <div class="sourceCode" id="cb836"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://dalex.drwhy.ai">"DALEX"</a></span><span class="op">)</span>
-<span class="va">fifa</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"value_eur"</span>, <span class="st">"age"</span>, <span class="st">"height_cm"</span>, <span class="st">"nationality"</span>, <span class="st">"attacking_crossing"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<span class="va">fifa</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"value_eur"</span>, <span class="st">"age"</span>, <span class="st">"height_cm"</span>, <span class="st">"nationality"</span>, <span class="st">"attacking_crossing"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
 <pre><code>##                   value_eur age height_cm nationality attacking_crossing
 ## L. Messi           95500000  32       170   Argentina                 88
 ## Cristiano Ronaldo  58500000  34       187    Portugal                 84</code></pre>
@@ -574,8 +574,8 @@ One of the features, called <code>value_eur</code>, is the worth of the football
 </table></div>
 <p>In order to get a more stable model we remove four variables i.e. <code>nationality</code>, <code>overall</code>, <code>potential</code>, <code>wage_eur</code>.</p>
 <div class="sourceCode" id="cb840"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fifa</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'nationality'</span>, <span class="st">'overall'</span>, <span class="st">'potential'</span>, <span class="st">'wage_eur'</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
-<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">fifa</span><span class="op">)</span><span class="op">)</span>           <span class="va">fifa</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">fifa</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">fifa</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"nationality"</span>, <span class="st">"overall"</span>, <span class="st">"potential"</span>, <span class="st">"wage_eur"</span><span class="op">)</span><span class="op">]</span> <span class="op">=</span> <span class="cn">NULL</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">fifa</span><span class="op">)</span><span class="op">)</span> <span class="va">fifa</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">fifa</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="interpretability-train-ranger" class="section level3" number="9.2.3">
 <h3>
@@ -589,11 +589,11 @@ First, let’s load the required packages.</p>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3learners.mlr-org.com">"mlr3learners"</a></span><span class="op">)</span></code></pre></div>
 <p>Then we can define the regression task - prediction of the <code>value_eur</code> variable:</p>
 <div class="sourceCode" id="cb842"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fifa_task</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_task_regr.html">as_task_regr</a></span><span class="op">(</span><span class="va">fifa</span>, target <span class="op">=</span> <span class="st">"value_eur"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">fifa_task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_task_regr.html">as_task_regr</a></span><span class="op">(</span><span class="va">fifa</span>, target <span class="op">=</span> <span class="st">"value_eur"</span><span class="op">)</span></code></pre></div>
 <p>Finally, we train mlr3’s <a href="https://mlr3learners.mlr-org.com/reference/mlr_learners_regr.ranger.html"><code>ranger learner</code></a> with 250 trees. Note that in this example for brevity we do not split the data into a train/test data. The model is built on the whole data.</p>
 <div class="sourceCode" id="cb843"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fifa_ranger</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"regr.ranger"</span><span class="op">)</span>
-<span class="va">fifa_ranger</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>num.trees <span class="op">=</span> <span class="fl">250</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">fifa_ranger</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"regr.ranger"</span><span class="op">)</span>
+<span class="va">fifa_ranger</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>num.trees <span class="op">=</span> <span class="fl">250</span><span class="op">)</span>
 <span class="va">fifa_ranger</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">fifa_task</span><span class="op">)</span>
 <span class="va">fifa_ranger</span></code></pre></div>
 <pre><code>## &lt;LearnerRegrRanger:regr.ranger&gt;
@@ -625,11 +625,11 @@ First, let’s load the required packages.</p>
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://dalex.drwhy.ai">"DALEX"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ModelOriented.github.io/DALEXtra/">"DALEXtra"</a></span><span class="op">)</span>
 
-<span class="va">ranger_exp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ModelOriented.github.io/DALEXtra/reference/explain_mlr3.html">explain_mlr3</a></span><span class="op">(</span><span class="va">fifa_ranger</span>,
-        data     <span class="op">=</span> <span class="va">fifa</span>,
-        y        <span class="op">=</span> <span class="va">fifa</span><span class="op">$</span><span class="va">value_eur</span>,
-        label    <span class="op">=</span> <span class="st">"Ranger RF"</span>,
-        colorize <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<span class="va">ranger_exp</span> <span class="op">=</span> <span class="fu"><a href="https://ModelOriented.github.io/DALEXtra/reference/explain_mlr3.html">explain_mlr3</a></span><span class="op">(</span><span class="va">fifa_ranger</span>,
+  data     <span class="op">=</span> <span class="va">fifa</span>,
+  y        <span class="op">=</span> <span class="va">fifa</span><span class="op">$</span><span class="va">value_eur</span>,
+  label    <span class="op">=</span> <span class="st">"Ranger RF"</span>,
+  colorize <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>## Preparation of a new explainer is initiated
 ##   -&gt; model label       :  Ranger RF 
 ##   -&gt; data              :  5000  rows  38  cols 
@@ -637,9 +637,9 @@ First, let’s load the required packages.</p>
 ##   -&gt; predict function  :  yhat.LearnerRegr  will be used (  default  )
 ##   -&gt; predicted values  :  No value for predict function target column. (  default  )
 ##   -&gt; model_info        :  package mlr3 , ver. 0.12.0 , task regression (  default  ) 
-##   -&gt; predicted values  :  numerical, min =  436473 , mean =  7472069 , max =  90351067  
+##   -&gt; predicted values  :  numerical, min =  468054 , mean =  7477923 , max =  89168033  
 ##   -&gt; residual function :  difference between y and yhat (  default  )
-##   -&gt; residuals         :  numerical, min =  -7824947 , mean =  1218 , max =  18216267  
+##   -&gt; residuals         :  numerical, min =  -8062527 , mean =  -4636 , max =  17784300  
 ##   A new explainer has been created!</code></pre>
 </div>
 <div id="interpretability-dataset-level" class="section level3" number="9.2.5">
@@ -648,35 +648,35 @@ First, let’s load the required packages.</p>
 </h3>
 <p>The <a href="https://www.rdocumentation.org/packages/DALEX/topics/model_parts"><code>DALEX::model_parts()</code></a> function calculates the importance of variables using the <a href="https://pbiecek.github.io/ema/featureImportance.html">permutations based importance</a>.</p>
 <div class="sourceCode" id="cb848"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fifa_vi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/model_parts.html">model_parts</a></span><span class="op">(</span><span class="va">ranger_exp</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">fifa_vi</span> <span class="op">=</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/model_parts.html">model_parts</a></span><span class="op">(</span><span class="va">ranger_exp</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">fifa_vi</span><span class="op">)</span></code></pre></div>
-<pre><code>##              variable mean_dropout_loss     label
-## 1        _full_model_           1355793 Ranger RF
-## 2           value_eur           1355793 Ranger RF
-## 3           weight_kg           1410089 Ranger RF
-## 4 goalkeeping_kicking           1416061 Ranger RF
-## 5    movement_balance           1418883 Ranger RF
-## 6           height_cm           1422327 Ranger RF</code></pre>
+<pre><code>##               variable mean_dropout_loss     label
+## 1         _full_model_           1388098 Ranger RF
+## 2            value_eur           1388098 Ranger RF
+## 3            weight_kg           1449646 Ranger RF
+## 4     movement_balance           1460231 Ranger RF
+## 5 mentality_aggression           1461007 Ranger RF
+## 6  goalkeeping_kicking           1463719 Ranger RF</code></pre>
 <p>Results can be visualized with generic <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>. The chart for all 38 variables would be unreadable, so with the <code>max_vars</code> argument, we limit the number of variables on the plot.</p>
 <div class="sourceCode" id="cb850"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">fifa_vi</span>, max_vars <span class="op">=</span> <span class="fl">12</span>, show_boxplots <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="09-interpretation-dalex_files/figure-html/08-interpretation-dalex-011-1.svg" width="768" style="display: block; margin: auto;"></div>
 <p>Once we know which variables are most important, we can use <a href="https://pbiecek.github.io/ema/partialDependenceProfiles.html">Partial Dependence Plots</a> to show how the model, on average, changes with changes in selected variables. In this example, they show the average relation between the particular variables and players’ value.</p>
 <div class="sourceCode" id="cb851"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">selected_variables</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"movement_reactions"</span>,
-                <span class="st">"skill_ball_control"</span>, <span class="st">"skill_dribbling"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">selected_variables</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"movement_reactions"</span>,
+  <span class="st">"skill_ball_control"</span>, <span class="st">"skill_dribbling"</span><span class="op">)</span>
 
-<span class="va">fifa_pd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/model_profile.html">model_profile</a></span><span class="op">(</span><span class="va">ranger_exp</span>,
-                variables <span class="op">=</span> <span class="va">selected_variables</span><span class="op">)</span><span class="op">$</span><span class="va">agr_profiles</span>
+<span class="va">fifa_pd</span> <span class="op">=</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/model_profile.html">model_profile</a></span><span class="op">(</span><span class="va">ranger_exp</span>,
+  variables <span class="op">=</span> <span class="va">selected_variables</span><span class="op">)</span><span class="op">$</span><span class="va">agr_profiles</span>
 <span class="va">fifa_pd</span></code></pre></div>
 <pre><code>## Top profiles    : 
 ##              _vname_   _label_ _x_  _yhat_ _ids_
-## 1 skill_ball_control Ranger RF   5 6713089     0
-## 2    skill_dribbling Ranger RF   7 7015433     0
-## 3    skill_dribbling Ranger RF  11 7008550     0
-## 4    skill_dribbling Ranger RF  12 7006653     0
-## 5    skill_dribbling Ranger RF  13 7002929     0
-## 6    skill_dribbling Ranger RF  14 7003508     0</code></pre>
+## 1 skill_ball_control Ranger RF   5 6171696     0
+## 2    skill_dribbling Ranger RF   7 6497352     0
+## 3    skill_dribbling Ranger RF  11 6492340     0
+## 4    skill_dribbling Ranger RF  12 6491607     0
+## 5    skill_dribbling Ranger RF  13 6490407     0
+## 6    skill_dribbling Ranger RF  14 6491225     0</code></pre>
 <p>Again, the result of the explanation can be presented with the generic function <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>.</p>
 <div class="sourceCode" id="cb853"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span>
@@ -694,17 +694,17 @@ First, let’s load the required packages.</p>
 This can be done for any player, but this example we will use the Cristiano Ronaldo.</p>
 <p>The function <code>predict_parts</code> is an instance-level version of the <code>model_parts</code> function introduced in the previous section. For the background behind that method see the <a href="https://pbiecek.github.io/ema/breakDown.html">Introduction to Break Down</a>.</p>
 <div class="sourceCode" id="cb854"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ronaldo</span> <span class="op">&lt;-</span> <span class="va">fifa</span><span class="op">[</span><span class="st">"Cristiano Ronaldo"</span>,<span class="op">]</span>
-<span class="va">ronaldo_bd_ranger</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/predict_parts.html">predict_parts</a></span><span class="op">(</span><span class="va">ranger_exp</span>,
-                        new_observation <span class="op">=</span> <span class="va">ronaldo</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">ronaldo</span> <span class="op">=</span> <span class="va">fifa</span><span class="op">[</span><span class="st">"Cristiano Ronaldo"</span>, <span class="op">]</span>
+<span class="va">ronaldo_bd_ranger</span> <span class="op">=</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/predict_parts.html">predict_parts</a></span><span class="op">(</span><span class="va">ranger_exp</span>,
+  new_observation <span class="op">=</span> <span class="va">ronaldo</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ronaldo_bd_ranger</span><span class="op">)</span></code></pre></div>
 <pre><code>##                                       contribution
-## Ranger RF: intercept                       7472069
-## Ranger RF: movement_reactions = 96        10481400
-## Ranger RF: skill_ball_control = 92         6396236
-## Ranger RF: attacking_finishing = 94        4164046
-## Ranger RF: mentality_positioning = 95      4501857
-## Ranger RF: skill_dribbling = 89            4761415</code></pre>
+## Ranger RF: intercept                       7477923
+## Ranger RF: movement_reactions = 96        11081139
+## Ranger RF: skill_ball_control = 92         6299330
+## Ranger RF: attacking_finishing = 94        4532412
+## Ranger RF: mentality_positioning = 95      5826181
+## Ranger RF: skill_dribbling = 89            4602773</code></pre>
 <p>The generic <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function shows the estimated contribution of variables to the final prediction.</p>
 <p>Cristiano is a striker, therefore characteristics that influence his worth are those related to attack, like <code>attacking_volleys</code> or <code>skill_dribbling</code>. The only variable with negative attribution is <code>age</code>.</p>
 <div class="sourceCode" id="cb856"><pre class="downlit sourceCode r">
@@ -712,19 +712,19 @@ This can be done for any player, but this example we will use the Cristiano Rona
 <div class="inline-figure"><img src="09-interpretation-dalex_files/figure-html/08-interpretation-dalex-016-1.svg" width="768" style="display: block; margin: auto;"></div>
 <p>Another way to inspect the local behaviour of the model is to use <a href="https://pbiecek.github.io/ema/shapley.html">SHapley Additive exPlanations (SHAP)</a>. It locally shows the contribution of variables to a single observation, just like Break Down.</p>
 <div class="sourceCode" id="cb857"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ronaldo_shap_ranger</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/predict_parts.html">predict_parts</a></span><span class="op">(</span><span class="va">ranger_exp</span>,
-                        new_observation <span class="op">=</span> <span class="va">ronaldo</span>,
-                        type <span class="op">=</span> <span class="st">"shap"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">ronaldo_shap_ranger</span> <span class="op">=</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/predict_parts.html">predict_parts</a></span><span class="op">(</span><span class="va">ranger_exp</span>,
+  new_observation <span class="op">=</span> <span class="va">ronaldo</span>,
+  type <span class="op">=</span> <span class="st">"shap"</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ronaldo_shap_ranger</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span><span class="st">"Estimated value in Euro"</span>, labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_dollar.html">dollar_format</a></span><span class="op">(</span>suffix <span class="op">=</span> <span class="st">"€"</span>, prefix <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="09-interpretation-dalex_files/figure-html/08-interpretation-dalex-017-1.svg" width="768" style="display: block; margin: auto;"></div>
 <p>In the previous section, we’ve introduced a global explanation - Partial Dependence Plots. <a href="https://pbiecek.github.io/ema/ceterisParibus.html">Ceteris Paribus</a> is the instance level version of that plot. It shows the response of the model for observation when we change only one variable while others stay unchanged. Blue dot stands for the original value.</p>
 <div class="sourceCode" id="cb858"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">selected_variables</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"movement_reactions"</span>,
-                <span class="st">"skill_ball_control"</span>, <span class="st">"skill_dribbling"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">selected_variables</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"movement_reactions"</span>,
+  <span class="st">"skill_ball_control"</span>, <span class="st">"skill_dribbling"</span><span class="op">)</span>
 
-<span class="va">ronaldo_cp_ranger</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/predict_profile.html">predict_profile</a></span><span class="op">(</span><span class="va">ranger_exp</span>, <span class="va">ronaldo</span>, variables <span class="op">=</span> <span class="va">selected_variables</span><span class="op">)</span>
+<span class="va">ronaldo_cp_ranger</span> <span class="op">=</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/predict_profile.html">predict_profile</a></span><span class="op">(</span><span class="va">ranger_exp</span>, <span class="va">ronaldo</span>, variables <span class="op">=</span> <span class="va">selected_variables</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ronaldo_cp_ranger</span>, variables <span class="op">=</span> <span class="va">selected_variables</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span><span class="st">"Estimated value of Christiano Ronaldo"</span>, labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_dollar.html">dollar_format</a></span><span class="op">(</span>suffix <span class="op">=</span> <span class="st">"€"</span>, prefix <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span></code></pre></div>

@@ -118,72 +118,138 @@ They can be constructed directly using <code>PipeOp&lt;NAME&gt;$new()</code>, bu
 <div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3pipelines.mlr-org.com">"mlr3pipelines"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">mlr_pipeops</span><span class="op">)</span></code></pre></div>
-<pre><code>##                       key           packages                             tags
-##  1:                boxcox      bestNormalize                   data transform
-##  2:                branch                                                meta
-##  3:                 chunk                                                meta
-##  4:        classbalancing                      imbalanced data,data transform
-##  5:            classifavg              stats                         ensemble
-##  6:          classweights                      imbalanced data,data transform
-##  7:              colapply                                      data transform
-##  8:       collapsefactors                                      data transform
-##  9:              colroles                                      data transform
-## 10:                  copy                                                meta
-## 11:          datefeatures                                      data transform
-## 12:                encode              stats            encode,data transform
-## 13:          encodeimpact                               encode,data transform
-## 14:            encodelmer        lme4,nloptr            encode,data transform
-## 15:          featureunion                                            ensemble
-## 16:                filter                    feature selection,data transform
-## 17:            fixfactors                            robustify,data transform
-## 18:               histbin           graphics                   data transform
-## 19:                   ica            fastICA                   data transform
-## 20:        imputeconstant                                            missings
-## 21:            imputehist           graphics                         missings
-## 22:         imputelearner                                            missings
-## 23:            imputemean                                            missings
-## 24:          imputemedian              stats                         missings
-## 25:            imputemode                                            missings
-## 26:             imputeoor                                            missings
-## 27:          imputesample                                            missings
-## 28:             kernelpca            kernlab                   data transform
-## 29:               learner                                             learner
-## 30:            learner_cv                     learner,ensemble,data transform
-## 31:               missind                             missings,data transform
-## 32:           modelmatrix              stats                   data transform
-## 33:     multiplicityexply                                        multiplicity
-## 34:     multiplicityimply                                        multiplicity
-## 35:                mutate                                      data transform
-## 36:                   nmf           MASS,NMF                   data transform
-## 37:                   nop                                                meta
-## 38:              ovrsplit                       target transform,multiplicity
-## 39:              ovrunite                               multiplicity,ensemble
-## 40:                   pca                                      data transform
-## 41:                 proxy                                                meta
-## 42:           quantilebin              stats                   data transform
-## 43:      randomprojection                                      data transform
-## 44:        randomresponse                                            abstract
-## 45:               regravg                                            ensemble
-## 46:       removeconstants                            robustify,data transform
-## 47:         renamecolumns                                      data transform
-## 48:             replicate                                        multiplicity
-## 49:                 scale                                      data transform
-## 50:           scalemaxabs                                      data transform
-## 51:            scalerange                                      data transform
-## 52:                select                    feature selection,data transform
-## 53:                 smote        smotefamily   imbalanced data,data transform
-## 54:           spatialsign                                      data transform
-## 55:             subsample                                      data transform
-## 56:          targetinvert                                            abstract
-## 57:          targetmutate                                    target transform
-## 58: targettrafoscalerange                                    target transform
-## 59:        textvectorizer quanteda,stopwords                   data transform
-## 60:             threshold                                    target transform
-## 61:         tunethreshold              bbotk                 target transform
-## 62:              unbranch                                                meta
-## 63:                vtreat             vtreat   encode,missings,data transform
-## 64:            yeojohnson      bestNormalize                   data transform
-##                       key           packages                             tags
+<pre><code>##                       key                         packages
+##  1:                boxcox      mlr3pipelines,bestNormalize
+##  2:                branch                    mlr3pipelines
+##  3:                 chunk                    mlr3pipelines
+##  4:        classbalancing                    mlr3pipelines
+##  5:            classifavg              mlr3pipelines,stats
+##  6:          classweights                    mlr3pipelines
+##  7:              colapply                    mlr3pipelines
+##  8:       collapsefactors                    mlr3pipelines
+##  9:              colroles                    mlr3pipelines
+## 10:                  copy                    mlr3pipelines
+## 11:          datefeatures                    mlr3pipelines
+## 12:                encode              mlr3pipelines,stats
+## 13:          encodeimpact                    mlr3pipelines
+## 14:            encodelmer        mlr3pipelines,lme4,nloptr
+## 15:          featureunion                    mlr3pipelines
+## 16:                filter                    mlr3pipelines
+## 17:            fixfactors                    mlr3pipelines
+## 18:               histbin           mlr3pipelines,graphics
+## 19:                   ica            mlr3pipelines,fastICA
+## 20:        imputeconstant                    mlr3pipelines
+## 21:            imputehist           mlr3pipelines,graphics
+## 22:         imputelearner                    mlr3pipelines
+## 23:            imputemean                    mlr3pipelines
+## 24:          imputemedian              mlr3pipelines,stats
+## 25:            imputemode                    mlr3pipelines
+## 26:             imputeoor                    mlr3pipelines
+## 27:          imputesample                    mlr3pipelines
+## 28:             kernelpca            mlr3pipelines,kernlab
+## 29:               learner                    mlr3pipelines
+## 30:            learner_cv                    mlr3pipelines
+## 31:               missind                    mlr3pipelines
+## 32:           modelmatrix              mlr3pipelines,stats
+## 33:     multiplicityexply                    mlr3pipelines
+## 34:     multiplicityimply                    mlr3pipelines
+## 35:                mutate                    mlr3pipelines
+## 36:                   nmf           mlr3pipelines,MASS,NMF
+## 37:                   nop                    mlr3pipelines
+## 38:              ovrsplit                    mlr3pipelines
+## 39:              ovrunite                    mlr3pipelines
+## 40:                   pca                    mlr3pipelines
+## 41:                 proxy                    mlr3pipelines
+## 42:           quantilebin              mlr3pipelines,stats
+## 43:      randomprojection                    mlr3pipelines
+## 44:        randomresponse                    mlr3pipelines
+## 45:               regravg                    mlr3pipelines
+## 46:       removeconstants                    mlr3pipelines
+## 47:         renamecolumns                    mlr3pipelines
+## 48:             replicate                    mlr3pipelines
+## 49:                 scale                    mlr3pipelines
+## 50:           scalemaxabs                    mlr3pipelines
+## 51:            scalerange                    mlr3pipelines
+## 52:                select                    mlr3pipelines
+## 53:                 smote        mlr3pipelines,smotefamily
+## 54:           spatialsign                    mlr3pipelines
+## 55:             subsample                    mlr3pipelines
+## 56:          targetinvert                    mlr3pipelines
+## 57:          targetmutate                    mlr3pipelines
+## 58: targettrafoscalerange                    mlr3pipelines
+## 59:        textvectorizer mlr3pipelines,quanteda,stopwords
+## 60:             threshold                    mlr3pipelines
+## 61:         tunethreshold              mlr3pipelines,bbotk
+## 62:              unbranch                    mlr3pipelines
+## 63:                vtreat             mlr3pipelines,vtreat
+## 64:            yeojohnson      mlr3pipelines,bestNormalize
+##                       key                         packages
+##                                 tags
+##  1:                   data transform
+##  2:                             meta
+##  3:                             meta
+##  4:   imbalanced data,data transform
+##  5:                         ensemble
+##  6:   imbalanced data,data transform
+##  7:                   data transform
+##  8:                   data transform
+##  9:                   data transform
+## 10:                             meta
+## 11:                   data transform
+## 12:            encode,data transform
+## 13:            encode,data transform
+## 14:            encode,data transform
+## 15:                         ensemble
+## 16: feature selection,data transform
+## 17:         robustify,data transform
+## 18:                   data transform
+## 19:                   data transform
+## 20:                         missings
+## 21:                         missings
+## 22:                         missings
+## 23:                         missings
+## 24:                         missings
+## 25:                         missings
+## 26:                         missings
+## 27:                         missings
+## 28:                   data transform
+## 29:                          learner
+## 30:  learner,ensemble,data transform
+## 31:          missings,data transform
+## 32:                   data transform
+## 33:                     multiplicity
+## 34:                     multiplicity
+## 35:                   data transform
+## 36:                   data transform
+## 37:                             meta
+## 38:    target transform,multiplicity
+## 39:            multiplicity,ensemble
+## 40:                   data transform
+## 41:                             meta
+## 42:                   data transform
+## 43:                   data transform
+## 44:                         abstract
+## 45:                         ensemble
+## 46:         robustify,data transform
+## 47:                   data transform
+## 48:                     multiplicity
+## 49:                   data transform
+## 50:                   data transform
+## 51:                   data transform
+## 52: feature selection,data transform
+## 53:   imbalanced data,data transform
+## 54:                   data transform
+## 55:                   data transform
+## 56:                         abstract
+## 57:                 target transform
+## 58:                 target transform
+## 59:                   data transform
+## 60:                 target transform
+## 61:                 target transform
+## 62:                             meta
+## 63:   encode,missings,data transform
+## 64:                   data transform
+##                                 tags
 ##                                            feature_types input.num output.num
 ##  1:                                      numeric,integer         1          1
 ##  2:                                                   NA         1         NA
@@ -639,13 +705,13 @@ We can also create it using <strong>syntactic sugar</strong> via <code><a href="
 <span class="va">baglrn</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, <span class="va">test.idx</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 30 observations:
 ##     row_ids     truth  response prob.setosa prob.versicolor prob.virginica
-##           3    setosa    setosa           1               0              0
+##           1    setosa    setosa           1               0              0
+##           5    setosa    setosa           1               0              0
 ##           9    setosa    setosa           1               0              0
-##          13    setosa    setosa           1               0              0
 ## ---                                                                       
-##         143 virginica virginica           0               0              1
-##         147 virginica virginica           0               0              1
-##         149 virginica virginica           0               0              1</code></pre>
+##         140 virginica virginica           0               0              1
+##         141 virginica virginica           0               0              1
+##         145 virginica virginica           0               0              1</code></pre>
 <p>In conjunction with different <code>Backends</code>, this can be a very powerful tool.
 In cases when the data does not fully fit in memory, one can obtain a fraction of the data for each learner from a <a href="https://mlr3.mlr-org.com/reference/DataBackend.html"><code>DataBackend</code></a> and then aggregate predictions over all learners.</p>
 </div>
@@ -689,13 +755,13 @@ There it is combined with the predictions from our decision tree learner.</p>
 <span class="va">stacklrn</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, <span class="va">test.idx</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 30 observations:
 ##     row_ids     truth  response
-##           3    setosa    setosa
+##           1    setosa    setosa
+##           5    setosa    setosa
 ##           9    setosa    setosa
-##          13    setosa    setosa
 ## ---                            
-##         143 virginica virginica
-##         147 virginica virginica
-##         149 virginica virginica</code></pre>
+##         140 virginica virginica
+##         141 virginica virginica
+##         145 virginica virginica</code></pre>
 <p>In this vignette, we showed a very simple use-case for stacking.
 In many real-world applications, stacking is done for multiple levels and on multiple representations of the dataset.
 On a lower level, different preprocessing methods can be defined in conjunction with several learners.
@@ -758,7 +824,7 @@ for the different learner.</p>
   <span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, <span class="va">test.idx</span><span class="op">)</span><span class="op">$</span>
   <span class="fu">score</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## classif.ce 
-##    0.03333</code></pre>
+##        0.1</code></pre>
 
 </div>
 </div>
@@ -842,7 +908,7 @@ Additionally, we create 4 <a href="https://mlr3pipelines.mlr-org.com/reference/m
   <span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, <span class="va">train.idx</span><span class="op">)</span><span class="op">$</span>
   <span class="fu">score</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## classif.ce 
-##     0.2083</code></pre>
+##    0.05833</code></pre>
 </div>
 <div id="feature-selection-pipeopfilter-and-pipeopselect" class="section level3" number="5.6.4">
 <h3>
@@ -1153,21 +1219,21 @@ The return value corresponds to the output of the <code>PipeOp</code> output cha
 <div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##        Species Petal.Length Petal.Width Sepal.Length Sepal.Width
-##  1:     setosa      -1.1658     -1.0487     -0.53538     1.93331
-##  2:     setosa      -1.2225     -1.3111     -1.25996     0.78617
-##  3:     setosa      -1.3358     -1.4422     -1.25996    -0.13154
-##  4:     setosa      -1.3924     -1.0487     -0.53538     1.93331
-##  5:     setosa      -1.2791     -1.1799     -0.89767     1.70389
-##  6:     setosa      -1.1658     -1.3111     -0.53538     0.78617
-##  7:     setosa      -1.2225     -1.0487     -1.01844     0.78617
-##  8: versicolor      -0.2594     -0.2615     -1.13920    -1.50811
-##  9: versicolor       0.2504      0.3945      0.06843    -0.13154
-## 10:  virginica       1.1567      1.3128      0.79301    -0.13154
-## 11:  virginica       0.7036      1.0504     -0.17309    -1.27868
-## 12:  virginica       0.7036      0.3945      0.18920    -1.96696
-## 13:  virginica       1.2700      0.7880      1.63836     0.32732
-## 14:  virginica       0.7602      1.4440      1.27607     0.09789
-## 15:  virginica       0.7602      0.9192     -0.05233    -0.81982</code></pre>
+##  1:     setosa      -1.3358  -1.1798595     -1.50149     0.78617
+##  2:     setosa      -1.3358  -1.4422448     -1.25996    -0.13154
+##  3:     setosa      -1.4490  -1.3110521     -0.05233     2.16274
+##  4:     setosa      -1.3924  -1.0486668     -0.53538     1.93331
+##  5:     setosa      -1.5623  -1.3110521     -1.50149     1.24503
+##  6:     setosa      -1.3924  -1.3110521     -0.41462     1.01560
+##  7: versicolor       0.4203   0.3944526      0.67225     0.32732
+##  8: versicolor       0.5336   0.2632600      0.30996    -0.36097
+##  9: versicolor       0.5336   0.0008746      0.30996    -0.59040
+## 10: versicolor       0.5336   0.3944526      1.03454     0.09789
+## 11: versicolor       0.2504   0.1320673     -0.17309    -0.36097
+## 12:  virginica       0.7036   0.3944526      0.18920    -1.96696
+## 13:  virginica       1.0434   1.3128014      0.67225    -0.59040
+## 14:  virginica       0.5903   0.7880307      0.18920    -0.13154
+## 15:  virginica       0.7602   0.7880307      0.06843    -0.13154</code></pre>
 <div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">single_line_task</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##    Species Petal.Length Petal.Width Sepal.Length Sepal.Width
@@ -1244,7 +1310,7 @@ At that point, the <strong><code>$set_names()</code></strong>-method can be used
 <code class="sourceCode R"><span class="va">po1</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span>
 <span class="va">po2</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span>
 <span class="va">po1</span> <span class="op"><a href="https://mlr3pipelines.mlr-org.com//reference/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></span> <span class="va">po2</span> <span class="co">## name clash</span></code></pre></div>
-<pre><code>## Error in gunion(list(g1, g2)): Assertion on 'ids of pipe operators' failed: Must have unique names, but element 2 is duplicated.</code></pre>
+<pre><code>## Error in gunion(list(g1, g2), in_place = c(TRUE, TRUE)): Assertion on 'ids of pipe operators of graphs' failed: Must have unique names, but element 2 is duplicated.</code></pre>
 <div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">po2</span><span class="op">$</span><span class="va">id</span> <span class="op">=</span> <span class="st">"scale2"</span>
 <span class="va">gr</span> <span class="op">=</span> <span class="va">po1</span> <span class="op"><a href="https://mlr3pipelines.mlr-org.com//reference/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></span> <span class="va">po2</span>
@@ -1274,7 +1340,7 @@ At that point, the <strong><code>$set_names()</code></strong>-method can be used
 <code class="sourceCode R"><span class="co">## sometimes names of PipeOps within a Graph need to be changed</span>
 <span class="va">gr2</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span> <span class="op"><a href="https://mlr3pipelines.mlr-org.com//reference/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span><span class="op">)</span>
 <span class="va">gr</span> <span class="op"><a href="https://mlr3pipelines.mlr-org.com//reference/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></span> <span class="va">gr2</span></code></pre></div>
-<pre><code>## Error in gunion(list(g1, g2)): Assertion on 'ids of pipe operators' failed: Must have unique names, but element 3 is duplicated.</code></pre>
+<pre><code>## Error in gunion(list(g1, g2), in_place = c(TRUE, TRUE)): Assertion on 'ids of pipe operators of graphs' failed: Must have unique names, but element 3 is duplicated.</code></pre>
 <div class="sourceCode" id="cb435"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr2</span><span class="op">$</span><span class="fu">set_names</span><span class="op">(</span><span class="st">"scale"</span>, <span class="st">"scale3"</span><span class="op">)</span>
 <span class="va">gr</span> <span class="op"><a href="https://mlr3pipelines.mlr-org.com//reference/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></span> <span class="va">gr2</span></code></pre></div>
@@ -1517,7 +1583,7 @@ A <code>PipeOp</code>’s parameter names are prefixed with its <code>$id</code>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-14.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-15.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

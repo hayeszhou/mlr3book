@@ -699,7 +699,7 @@ We check the status of each learner’s integration automatically, the latest bu
 <code class="sourceCode R"><span class="co"># load most mlr3 packages to populate the dictionary</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3verse.mlr-org.com">"mlr3verse"</a></span><span class="op">)</span>
 <span class="va">mlr_learners</span></code></pre></div>
-<pre><code>## &lt;DictionaryLearner&gt; with 135 stored values
+<pre><code>## &lt;DictionaryLearner&gt; with 136 stored values
 ## Keys: classif.AdaBoostM1, classif.bart, classif.C50, classif.catboost,
 ##   classif.cforest, classif.ctree, classif.cv_glmnet, classif.debug,
 ##   classif.earth, classif.extratrees, classif.featureless, classif.fnn,
@@ -717,10 +717,10 @@ We check the status of each learner’s integration automatically, the latest bu
 ##   clust.SimpleKMeans, clust.xmeans, dens.hist, dens.kde, dens.kde_kd,
 ##   dens.kde_ks, dens.locfit, dens.logspline, dens.mixed, dens.nonpar,
 ##   dens.pen, dens.plug, dens.spline, regr.bart, regr.catboost,
-##   regr.cforest, regr.ctree, regr.cubist, regr.cv_glmnet, regr.earth,
-##   regr.extratrees, regr.featureless, regr.fnn, regr.gam, regr.gamboost,
-##   regr.gausspr, regr.gbm, regr.glm, regr.glmboost, regr.glmnet,
-##   regr.IBk, regr.kknn, regr.km, regr.ksvm, regr.liblinear,
+##   regr.cforest, regr.ctree, regr.cubist, regr.cv_glmnet, regr.debug,
+##   regr.earth, regr.extratrees, regr.featureless, regr.fnn, regr.gam,
+##   regr.gamboost, regr.gausspr, regr.gbm, regr.glm, regr.glmboost,
+##   regr.glmnet, regr.IBk, regr.kknn, regr.km, regr.ksvm, regr.liblinear,
 ##   regr.lightgbm, regr.lm, regr.M5Rules, regr.mars, regr.mob,
 ##   regr.randomForest, regr.ranger, regr.rfsrc, regr.rpart, regr.rvm,
 ##   regr.svm, regr.xgboost, surv.akritas, surv.blackboost, surv.cforest,
@@ -756,7 +756,7 @@ A complete list of these is available in the <a href="https://mlr3.mlr-org.com/r
 <pre><code>## &lt;LearnerClassifRpart:classif.rpart&gt;
 ## * Model: -
 ## * Parameters: xval=0
-## * Packages: rpart
+## * Packages: mlr3, rpart
 ## * Predict Type: response
 ## * Feature types: logical, integer, numeric, factor, ordered
 ## * Properties: importance, missings, multiclass, selected_features,
@@ -786,7 +786,7 @@ You can change the current hyperparameter values by assigning a named list to th
 <pre><code>## &lt;LearnerClassifRpart:classif.rpart&gt;
 ## * Model: -
 ## * Parameters: cp=0.01, xval=0
-## * Packages: rpart
+## * Packages: mlr3, rpart
 ## * Predict Type: response
 ## * Feature types: logical, integer, numeric, factor, ordered
 ## * Properties: importance, missings, multiclass, selected_features,
@@ -810,6 +810,7 @@ You can also get the current set of hyperparameter values, modify it, and write 
 ## 
 ## $cp
 ## [1] 0.001</code></pre>
+<p>More on this is discussed in the section on <a href="https://mlr3book.mlr-org.com/optimization.html#tuning">Hyperparameter Tuning</a>.</p>
 <div id="thresholding" class="section level4" number="2.3.2.1">
 <h4>
 <span class="header-section-number">2.3.2.1</span> Thresholding<a class="anchor" aria-label="anchor" href="#thresholding"><i class="fas fa-link"></i></a>
@@ -905,13 +906,13 @@ We can now access the stored model via the field <code>$model</code>:</p>
 ## node), split, n, loss, yval, (yprob)
 ##       * denotes terminal node
 ## 
-## 1) root 275 150 Adelie (0.45455 0.19273 0.35273)  
-##   2) flipper_length&lt; 206.5 173  50 Adelie (0.71098 0.28324 0.00578)  
-##     4) bill_length&lt; 44.2 125   4 Adelie (0.96800 0.03200 0.00000) *
-##     5) bill_length&gt;=44.2 48   3 Chinstrap (0.04167 0.93750 0.02083) *
-##   3) flipper_length&gt;=206.5 102   6 Gentoo (0.01961 0.03922 0.94118)  
-##     6) bill_depth&gt;=17.15 8   4 Chinstrap (0.25000 0.50000 0.25000) *
-##     7) bill_depth&lt; 17.15 94   0 Gentoo (0.00000 0.00000 1.00000) *</code></pre>
+## 1) root 275 149 Adelie (0.458182 0.192727 0.349091)  
+##   2) flipper_length&lt; 206.5 174  50 Adelie (0.712644 0.281609 0.005747)  
+##     4) bill_length&lt; 43.35 126   5 Adelie (0.960317 0.039683 0.000000) *
+##     5) bill_length&gt;=43.35 48   4 Chinstrap (0.062500 0.916667 0.020833) *
+##   3) flipper_length&gt;=206.5 101   6 Gentoo (0.019802 0.039604 0.940594)  
+##     6) bill_depth&gt;=17.2 8   4 Chinstrap (0.250000 0.500000 0.250000) *
+##     7) bill_depth&lt; 17.2 93   0 Gentoo (0.000000 0.000000 1.000000) *</code></pre>
 <p>Inspecting the output, we see that the learner has identified features in the task that are predictive of the class (the type of penguin) and uses them to partition observations in the tree.
 There are additional details on how the data is partitioned across branches of the tree; the textual representation of the model depends on the type of learner.
 For more information on this particular type of model, see <a href="https://www.rdocumentation.org/packages/rpart/topics/print.rpart"><code>rpart::print.rpart()</code></a>.</p>
@@ -927,13 +928,13 @@ Remember that we <a href="basics.html#split-data">initially split the data</a> i
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 69 observations:
 ##     row_ids     truth  response
-##          19    Adelie    Adelie
-##          21    Adelie    Adelie
-##          22    Adelie    Adelie
+##           3    Adelie    Adelie
+##          10    Adelie    Adelie
+##          16    Adelie    Adelie
 ## ---                            
-##         341 Chinstrap    Adelie
-##         342 Chinstrap Chinstrap
-##         343 Chinstrap Chinstrap</code></pre>
+##         328 Chinstrap Chinstrap
+##         333 Chinstrap Chinstrap
+##         334 Chinstrap Chinstrap</code></pre>
 <p>The <code>$predict()</code> method of the <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a> returns a <a href="https://mlr3.mlr-org.com/reference/Prediction.html"><code>Prediction</code></a> object.
 More precisely, a <a href="https://mlr3.mlr-org.com/reference/LearnerClassif.html"><code>LearnerClassif</code></a> returns a <a href="https://mlr3.mlr-org.com/reference/PredictionClassif.html"><code>PredictionClassif</code></a> object.</p>
 <p>A prediction objects holds the row IDs of the test data, the respective true label of the target column and the respective predictions.
@@ -941,20 +942,20 @@ The simplest way to extract this information is by converting the <a href="https
 <div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span><span class="op">)</span> <span class="co"># show first six predictions</span></code></pre></div>
 <pre><code>##    row_ids  truth response
-## 1:      19 Adelie   Adelie
-## 2:      21 Adelie   Adelie
-## 3:      22 Adelie   Adelie
-## 4:      26 Adelie   Adelie
-## 5:      38 Adelie   Adelie
-## 6:      44 Adelie   Adelie</code></pre>
+## 1:       3 Adelie   Adelie
+## 2:      10 Adelie   Adelie
+## 3:      16 Adelie   Adelie
+## 4:      17 Adelie   Adelie
+## 5:      21 Adelie   Adelie
+## 6:      26 Adelie   Adelie</code></pre>
 <p>For classification, you can also extract the confusion matrix:</p>
 <div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">prediction</span><span class="op">$</span><span class="va">confusion</span></code></pre></div>
 <pre><code>##            truth
 ## response    Adelie Chinstrap Gentoo
-##   Adelie        26         2      0
-##   Chinstrap      1        13      0
-##   Gentoo         0         0     27</code></pre>
+##   Adelie        25         0      0
+##   Chinstrap      1        15      0
+##   Gentoo         0         0     28</code></pre>
 <p>The confusion matrix shows, for each class, how many observations were predicted to be in that class and how many were actually in it (more information on <a href="https://en.wikipedia.org/wiki/Confusion_matrix">Wikipedia</a>).
 The entries along the diagonal denote the correctly classified observations.
 In this case, we can see that our classifier is really quite good and correctly predicting almost all observations.</p>
@@ -979,12 +980,12 @@ To predict these probabilities, the <code>predict_type</code> field of a <a href
 <code class="sourceCode R"><span class="co"># data.table conversion</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span><span class="op">)</span> <span class="co"># show first six</span></code></pre></div>
 <pre><code>##    row_ids  truth response prob.Adelie prob.Chinstrap prob.Gentoo
-## 1:      19 Adelie   Adelie       0.968          0.032           0
-## 2:      21 Adelie   Adelie       0.968          0.032           0
-## 3:      22 Adelie   Adelie       0.968          0.032           0
-## 4:      26 Adelie   Adelie       0.968          0.032           0
-## 5:      38 Adelie   Adelie       0.968          0.032           0
-## 6:      44 Adelie   Adelie       0.968          0.032           0</code></pre>
+## 1:       3 Adelie   Adelie      0.9603        0.03968           0
+## 2:      10 Adelie   Adelie      0.9603        0.03968           0
+## 3:      16 Adelie   Adelie      0.9603        0.03968           0
+## 4:      17 Adelie   Adelie      0.9603        0.03968           0
+## 5:      21 Adelie   Adelie      0.9603        0.03968           0
+## 6:      26 Adelie   Adelie      0.9603        0.03968           0</code></pre>
 <div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># directly access the predicted labels:</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">$</span><span class="va">response</span><span class="op">)</span></code></pre></div>
@@ -994,12 +995,12 @@ To predict these probabilities, the <code>predict_type</code> field of a <a href
 <code class="sourceCode R"><span class="co"># directly access the matrix of probabilities:</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">$</span><span class="va">prob</span><span class="op">)</span></code></pre></div>
 <pre><code>##      Adelie Chinstrap Gentoo
-## [1,]  0.968     0.032      0
-## [2,]  0.968     0.032      0
-## [3,]  0.968     0.032      0
-## [4,]  0.968     0.032      0
-## [5,]  0.968     0.032      0
-## [6,]  0.968     0.032      0</code></pre>
+## [1,] 0.9603   0.03968      0
+## [2,] 0.9603   0.03968      0
+## [3,] 0.9603   0.03968      0
+## [4,] 0.9603   0.03968      0
+## [5,] 0.9603   0.03968      0
+## [6,] 0.9603   0.03968      0</code></pre>
 <p>Similarly to predicting probabilities for classification, many <a href="https://mlr3.mlr-org.com/reference/LearnerRegr.html"><code>regression learners</code></a> support the extraction of standard error estimates for predictions by setting the predict type to <code>"se"</code>.</p>
 </div>
 <div id="autoplot-prediction" class="section level3" number="2.4.6">
@@ -1027,7 +1028,7 @@ Note that if the prediction was made on a dataset without the target column, i.e
 <p>Available measures are stored in <a href="https://mlr3.mlr-org.com/reference/mlr_measures.html"><code>mlr_measures</code></a> (with convenience getter function <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>msr()</code></a>):</p>
 <div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mlr_measures</span></code></pre></div>
-<pre><code>## &lt;DictionaryMeasure&gt; with 85 stored values
+<pre><code>## &lt;DictionaryMeasure&gt; with 87 stored values
 ## Keys: aic, bic, classif.acc, classif.auc, classif.bacc, classif.bbrier,
 ##   classif.ce, classif.costs, classif.dor, classif.fbeta, classif.fdr,
 ##   classif.fn, classif.fnr, classif.fomr, classif.fp, classif.fpr,
@@ -1039,21 +1040,22 @@ Note that if the prediction was made on a dataset without the target column, i.e
 ##   regr.bias, regr.ktau, regr.mae, regr.mape, regr.maxae, regr.medae,
 ##   regr.medse, regr.mse, regr.msle, regr.pbias, regr.rae, regr.rmse,
 ##   regr.rmsle, regr.rrse, regr.rse, regr.rsq, regr.sae, regr.smape,
-##   regr.srho, regr.sse, selected_features, surv.brier, surv.calib_alpha,
-##   surv.calib_beta, surv.chambless_auc, surv.cindex, surv.dcalib,
-##   surv.graf, surv.hung_auc, surv.intlogloss, surv.logloss, surv.mae,
-##   surv.mse, surv.nagelk_r2, surv.oquigley_r2, surv.rmse, surv.schmid,
-##   surv.song_auc, surv.song_tnr, surv.song_tpr, surv.uno_auc,
-##   surv.uno_tnr, surv.uno_tpr, surv.xu_r2, time_both, time_predict,
-##   time_train</code></pre>
+##   regr.srho, regr.sse, selected_features, sim.jaccard, sim.phi,
+##   surv.brier, surv.calib_alpha, surv.calib_beta, surv.chambless_auc,
+##   surv.cindex, surv.dcalib, surv.graf, surv.hung_auc, surv.intlogloss,
+##   surv.logloss, surv.mae, surv.mse, surv.nagelk_r2, surv.oquigley_r2,
+##   surv.rmse, surv.schmid, surv.song_auc, surv.song_tnr, surv.song_tpr,
+##   surv.uno_auc, surv.uno_tnr, surv.uno_tpr, surv.xu_r2, time_both,
+##   time_predict, time_train</code></pre>
 <p>We choose accuracy (<a href="https://mlr3.mlr-org.com/reference/mlr_measures_classif.acc.html"><code>classif.acc</code></a>) as our specific performance measure here and call the method <code>$score()</code> of the <code>prediction</code> object to quantify the predictive performance of our model.</p>
 <div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">measure</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"classif.acc"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">measure</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;MeasureClassifSimple:classif.acc&gt;
-## * Packages: mlr3measures
+## * Packages: mlr3, mlr3measures
 ## * Range: [0, 1]
 ## * Minimize: FALSE
+## * Average: macro
 ## * Parameters: list()
 ## * Properties: -
 ## * Predict type: response</code></pre>
@@ -1117,7 +1119,7 @@ Note that if the prediction was made on a dataset without the target column, i.e
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-15.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

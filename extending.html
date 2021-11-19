@@ -144,7 +144,7 @@ See the <a href="extending.html#learner-faq">Learner FAQ subsection</a> for help
 <span class="header-section-number">7.1.2</span> Calling create_learner<a class="anchor" aria-label="anchor" href="#create-learner"><i class="fas fa-link"></i></a>
 </h3>
 <p>The learner <code>classif.rpart</code> will be used as a running example throughout this section.</p>
-<div class="sourceCode" id="cb651"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb649"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"mlr3extralearners"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/mlr3extralearners/man/create_learner.html">create_learner</a></span><span class="op">(</span>
   pkg <span class="op">=</span> <span class="st">"."</span>,
@@ -194,93 +194,93 @@ See the <a href="extending.html#learner-faq">Learner FAQ subsection</a> for help
 <span class="header-section-number">7.1.3</span> learner_package_type_key.R<a class="anchor" aria-label="anchor" href="#learner_package_type_key.r"><i class="fas fa-link"></i></a>
 </h3>
 <p>The first script to complete after running <code>create_learner</code> is the file with the form <code>learner_package_type_key.R</code>, in our case this will actually be <code>learner_rpart_classif_rpart.key</code>. <strong>This name must not be changed</strong> as triggering automated tests rely on a strict naming scheme. For our example, the resulting script looks like this:</p>
-<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="extending.html#cb652-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' @title Classification Decision Tree Learner</span></span>
-<span id="cb652-2"><a href="extending.html#cb652-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' @author RaphaelS1</span></span>
-<span id="cb652-3"><a href="extending.html#cb652-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @name mlr_learners_classif.rpart</span></span>
-<span id="cb652-4"><a href="extending.html#cb652-4" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
-<span id="cb652-5"><a href="extending.html#cb652-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' @template class_learner</span></span>
-<span id="cb652-6"><a href="extending.html#cb652-6" aria-hidden="true" tabindex="-1"></a><span class="co">#' @templateVar id classif.rpart</span></span>
-<span id="cb652-7"><a href="extending.html#cb652-7" aria-hidden="true" tabindex="-1"></a><span class="co">#' @templateVar caller rpart</span></span>
-<span id="cb652-8"><a href="extending.html#cb652-8" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
-<span id="cb652-9"><a href="extending.html#cb652-9" aria-hidden="true" tabindex="-1"></a><span class="co">#' @references</span></span>
-<span id="cb652-10"><a href="extending.html#cb652-10" aria-hidden="true" tabindex="-1"></a><span class="co">#' &lt;</span><span class="al">FIXME</span><span class="co"> - DELETE THIS AND LINE ABOVE IF OMITTED&gt;</span></span>
-<span id="cb652-11"><a href="extending.html#cb652-11" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
-<span id="cb652-12"><a href="extending.html#cb652-12" aria-hidden="true" tabindex="-1"></a><span class="co">#' @template seealso_learner</span></span>
-<span id="cb652-13"><a href="extending.html#cb652-13" aria-hidden="true" tabindex="-1"></a><span class="co">#' @template example</span></span>
-<span id="cb652-14"><a href="extending.html#cb652-14" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
-<span id="cb652-15"><a href="extending.html#cb652-15" aria-hidden="true" tabindex="-1"></a>LearnerClassifRpart <span class="ot">=</span> <span class="fu">R6Class</span>(<span class="st">"LearnerClassifRpart"</span>,</span>
-<span id="cb652-16"><a href="extending.html#cb652-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">inherit =</span> LearnerClassif,</span>
-<span id="cb652-17"><a href="extending.html#cb652-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb652-18"><a href="extending.html#cb652-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">public =</span> <span class="fu">list</span>(</span>
-<span id="cb652-19"><a href="extending.html#cb652-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">#' @description</span></span>
-<span id="cb652-20"><a href="extending.html#cb652-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#' Creates a new instance of this [R6][R6::R6Class] class.</span></span>
-<span id="cb652-21"><a href="extending.html#cb652-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">initialize =</span> <span class="cf">function</span>() {</span>
-<span id="cb652-22"><a href="extending.html#cb652-22" aria-hidden="true" tabindex="-1"></a>      <span class="co"># </span><span class="al">FIXME</span><span class="co"> - MANUALLY ADD PARAM_SET BELOW AND THEN DELETE THIS LINE</span></span>
-<span id="cb652-23"><a href="extending.html#cb652-23" aria-hidden="true" tabindex="-1"></a>      ps <span class="ot">=</span> <span class="er">&lt;</span>param_set<span class="sc">&gt;</span></span>
-<span id="cb652-24"><a href="extending.html#cb652-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb652-25"><a href="extending.html#cb652-25" aria-hidden="true" tabindex="-1"></a>      <span class="co"># </span><span class="al">FIXME</span><span class="co"> - MANUALLY UPDATE PARAM VALUES BELOW IF APPLICABLE THEN DELETE THIS LINE.</span></span>
-<span id="cb652-26"><a href="extending.html#cb652-26" aria-hidden="true" tabindex="-1"></a>      <span class="co"># OTHERWISE DELETE THIS AND LINE BELOW.</span></span>
-<span id="cb652-27"><a href="extending.html#cb652-27" aria-hidden="true" tabindex="-1"></a>      ps<span class="sc">$</span>values <span class="ot">=</span> <span class="fu">list</span>(<span class="sc">&lt;</span>param_vals<span class="sc">&gt;</span>)</span>
-<span id="cb652-28"><a href="extending.html#cb652-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb652-29"><a href="extending.html#cb652-29" aria-hidden="true" tabindex="-1"></a>      super<span class="sc">$</span><span class="fu">initialize</span>(</span>
-<span id="cb652-30"><a href="extending.html#cb652-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">id =</span> <span class="st">"classif.rpart"</span>,</span>
-<span id="cb652-31"><a href="extending.html#cb652-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">packages =</span> <span class="st">"rpart"</span>,</span>
-<span id="cb652-32"><a href="extending.html#cb652-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">feature_types =</span> <span class="fu">c</span>(<span class="st">"logical"</span>, <span class="st">"integer"</span>, <span class="st">"numeric"</span>, <span class="st">"factor"</span>, <span class="st">"ordered"</span>),</span>
-<span id="cb652-33"><a href="extending.html#cb652-33" aria-hidden="true" tabindex="-1"></a>        <span class="at">predict_types =</span> <span class="fu">c</span>(<span class="st">"response"</span>, <span class="st">"prob"</span>),</span>
-<span id="cb652-34"><a href="extending.html#cb652-34" aria-hidden="true" tabindex="-1"></a>        <span class="at">param_set =</span> ps,</span>
-<span id="cb652-35"><a href="extending.html#cb652-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">properties =</span> <span class="fu">c</span>(<span class="st">"importance"</span>, <span class="st">"missings"</span>, <span class="st">"multiclass"</span>, <span class="st">"selected_features"</span>, <span class="st">"twoclass"</span>, <span class="st">"weights"</span>),</span>
-<span id="cb652-36"><a href="extending.html#cb652-36" aria-hidden="true" tabindex="-1"></a>        <span class="at">man =</span> <span class="st">"mlr3extralearners::mlr_learners_classif.rpart"</span></span>
-<span id="cb652-37"><a href="extending.html#cb652-37" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb652-38"><a href="extending.html#cb652-38" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb652-39"><a href="extending.html#cb652-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb652-40"><a href="extending.html#cb652-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span><span class="al">FIXME</span><span class="co"> - ADD IMPORTANCE METHOD HERE AND DELETE THIS LINE.</span></span>
-<span id="cb652-41"><a href="extending.html#cb652-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &lt;See LearnerRegrRandomForest for an example&gt;</span></span>
-<span id="cb652-42"><a href="extending.html#cb652-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">#' @description</span></span>
-<span id="cb652-43"><a href="extending.html#cb652-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">#' The importance scores are extracted from the slot &lt;</span><span class="al">FIXME</span><span class="co">&gt;.</span></span>
-<span id="cb652-44"><a href="extending.html#cb652-44" aria-hidden="true" tabindex="-1"></a>    <span class="co">#' @return Named `numeric()`.</span></span>
-<span id="cb652-45"><a href="extending.html#cb652-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">importance =</span> <span class="cf">function</span>() { }</span>
-<span id="cb652-46"><a href="extending.html#cb652-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb652-47"><a href="extending.html#cb652-47" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb652-48"><a href="extending.html#cb652-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb652-49"><a href="extending.html#cb652-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">private =</span> <span class="fu">list</span>(</span>
-<span id="cb652-50"><a href="extending.html#cb652-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb652-51"><a href="extending.html#cb652-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">.train =</span> <span class="cf">function</span>(task) {</span>
-<span id="cb652-52"><a href="extending.html#cb652-52" aria-hidden="true" tabindex="-1"></a>      pars <span class="ot">=</span> self<span class="sc">$</span>param_set<span class="sc">$</span><span class="fu">get_values</span>(<span class="at">tags =</span> <span class="st">"train"</span>)</span>
-<span id="cb652-53"><a href="extending.html#cb652-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb652-54"><a href="extending.html#cb652-54" aria-hidden="true" tabindex="-1"></a>      <span class="co"># set column names to ensure consistency in fit and predict</span></span>
-<span id="cb652-55"><a href="extending.html#cb652-55" aria-hidden="true" tabindex="-1"></a>      self<span class="sc">$</span>state<span class="sc">$</span>feature_names <span class="ot">=</span> task<span class="sc">$</span>feature_names</span>
-<span id="cb652-56"><a href="extending.html#cb652-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb652-57"><a href="extending.html#cb652-57" aria-hidden="true" tabindex="-1"></a>      <span class="co"># </span><span class="al">FIXME</span><span class="co"> - &lt;Create objects for the train call</span></span>
-<span id="cb652-58"><a href="extending.html#cb652-58" aria-hidden="true" tabindex="-1"></a>      <span class="co"># &lt;At least "data" and "formula" are required&gt;</span></span>
-<span id="cb652-59"><a href="extending.html#cb652-59" aria-hidden="true" tabindex="-1"></a>      formula <span class="ot">=</span> task<span class="sc">$</span><span class="fu">formula</span>()</span>
-<span id="cb652-60"><a href="extending.html#cb652-60" aria-hidden="true" tabindex="-1"></a>      data <span class="ot">=</span> task<span class="sc">$</span><span class="fu">data</span>()</span>
-<span id="cb652-61"><a href="extending.html#cb652-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb652-62"><a href="extending.html#cb652-62" aria-hidden="true" tabindex="-1"></a>      <span class="co"># </span><span class="al">FIXME</span><span class="co"> - &lt;here is space for some custom adjustments before proceeding to the</span></span>
-<span id="cb652-63"><a href="extending.html#cb652-63" aria-hidden="true" tabindex="-1"></a>      <span class="co"># train call. Check other learners for what can be done here&gt;</span></span>
-<span id="cb652-64"><a href="extending.html#cb652-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb652-65"><a href="extending.html#cb652-65" aria-hidden="true" tabindex="-1"></a>      <span class="co"># use the mlr3misc::invoke function (it's similar to do.call())</span></span>
-<span id="cb652-66"><a href="extending.html#cb652-66" aria-hidden="true" tabindex="-1"></a>      mlr3misc<span class="sc">::</span><span class="fu">invoke</span>(rpart<span class="sc">::</span>rpart,</span>
-<span id="cb652-67"><a href="extending.html#cb652-67" aria-hidden="true" tabindex="-1"></a>                       <span class="at">formula =</span> formula,</span>
-<span id="cb652-68"><a href="extending.html#cb652-68" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> data,</span>
-<span id="cb652-69"><a href="extending.html#cb652-69" aria-hidden="true" tabindex="-1"></a>                       <span class="at">.args =</span> pars)</span>
-<span id="cb652-70"><a href="extending.html#cb652-70" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb652-71"><a href="extending.html#cb652-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb652-72"><a href="extending.html#cb652-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">.predict =</span> <span class="cf">function</span>(task) {</span>
-<span id="cb652-73"><a href="extending.html#cb652-73" aria-hidden="true" tabindex="-1"></a>      <span class="co"># get parameters with tag "predict"</span></span>
-<span id="cb652-74"><a href="extending.html#cb652-74" aria-hidden="true" tabindex="-1"></a>      pars <span class="ot">=</span> self<span class="sc">$</span>param_set<span class="sc">$</span><span class="fu">get_values</span>(<span class="at">tags =</span> <span class="st">"predict"</span>)</span>
-<span id="cb652-75"><a href="extending.html#cb652-75" aria-hidden="true" tabindex="-1"></a>      <span class="co"># get newdata</span></span>
-<span id="cb652-76"><a href="extending.html#cb652-76" aria-hidden="true" tabindex="-1"></a>      newdata <span class="ot">=</span> task<span class="sc">$</span><span class="fu">data</span>(<span class="at">cols =</span> task<span class="sc">$</span>feature_names)</span>
-<span id="cb652-77"><a href="extending.html#cb652-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb652-78"><a href="extending.html#cb652-78" aria-hidden="true" tabindex="-1"></a>      pred <span class="ot">=</span> mlr3misc<span class="sc">::</span><span class="fu">invoke</span>(predict, self<span class="sc">$</span>model, <span class="at">newdata =</span> newdata,</span>
-<span id="cb652-79"><a href="extending.html#cb652-79" aria-hidden="true" tabindex="-1"></a>                              <span class="at">type =</span> type, <span class="at">.args =</span> pars)</span>
-<span id="cb652-80"><a href="extending.html#cb652-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb652-81"><a href="extending.html#cb652-81" aria-hidden="true" tabindex="-1"></a>      <span class="co"># </span><span class="al">FIXME</span><span class="co"> - ADD PREDICTIONS TO LIST BELOW</span></span>
-<span id="cb652-82"><a href="extending.html#cb652-82" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(...)</span>
-<span id="cb652-83"><a href="extending.html#cb652-83" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb652-84"><a href="extending.html#cb652-84" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb652-85"><a href="extending.html#cb652-85" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb652-86"><a href="extending.html#cb652-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb652-87"><a href="extending.html#cb652-87" aria-hidden="true" tabindex="-1"></a>.extralrns_dict<span class="sc">$</span><span class="fu">add</span>(<span class="st">"classif.rpart"</span>, LearnerClassifRpart)</span></code></pre></div>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="extending.html#cb650-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' @title Classification Decision Tree Learner</span></span>
+<span id="cb650-2"><a href="extending.html#cb650-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' @author RaphaelS1</span></span>
+<span id="cb650-3"><a href="extending.html#cb650-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @name mlr_learners_classif.rpart</span></span>
+<span id="cb650-4"><a href="extending.html#cb650-4" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb650-5"><a href="extending.html#cb650-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' @template class_learner</span></span>
+<span id="cb650-6"><a href="extending.html#cb650-6" aria-hidden="true" tabindex="-1"></a><span class="co">#' @templateVar id classif.rpart</span></span>
+<span id="cb650-7"><a href="extending.html#cb650-7" aria-hidden="true" tabindex="-1"></a><span class="co">#' @templateVar caller rpart</span></span>
+<span id="cb650-8"><a href="extending.html#cb650-8" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb650-9"><a href="extending.html#cb650-9" aria-hidden="true" tabindex="-1"></a><span class="co">#' @references</span></span>
+<span id="cb650-10"><a href="extending.html#cb650-10" aria-hidden="true" tabindex="-1"></a><span class="co">#' &lt;</span><span class="al">FIXME</span><span class="co"> - DELETE THIS AND LINE ABOVE IF OMITTED&gt;</span></span>
+<span id="cb650-11"><a href="extending.html#cb650-11" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb650-12"><a href="extending.html#cb650-12" aria-hidden="true" tabindex="-1"></a><span class="co">#' @template seealso_learner</span></span>
+<span id="cb650-13"><a href="extending.html#cb650-13" aria-hidden="true" tabindex="-1"></a><span class="co">#' @template example</span></span>
+<span id="cb650-14"><a href="extending.html#cb650-14" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
+<span id="cb650-15"><a href="extending.html#cb650-15" aria-hidden="true" tabindex="-1"></a>LearnerClassifRpart <span class="ot">=</span> <span class="fu">R6Class</span>(<span class="st">"LearnerClassifRpart"</span>,</span>
+<span id="cb650-16"><a href="extending.html#cb650-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">inherit =</span> LearnerClassif,</span>
+<span id="cb650-17"><a href="extending.html#cb650-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-18"><a href="extending.html#cb650-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">public =</span> <span class="fu">list</span>(</span>
+<span id="cb650-19"><a href="extending.html#cb650-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">#' @description</span></span>
+<span id="cb650-20"><a href="extending.html#cb650-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#' Creates a new instance of this [R6][R6::R6Class] class.</span></span>
+<span id="cb650-21"><a href="extending.html#cb650-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">initialize =</span> <span class="cf">function</span>() {</span>
+<span id="cb650-22"><a href="extending.html#cb650-22" aria-hidden="true" tabindex="-1"></a>      <span class="co"># </span><span class="al">FIXME</span><span class="co"> - MANUALLY ADD PARAM_SET BELOW AND THEN DELETE THIS LINE</span></span>
+<span id="cb650-23"><a href="extending.html#cb650-23" aria-hidden="true" tabindex="-1"></a>      ps <span class="ot">=</span> <span class="er">&lt;</span>param_set<span class="sc">&gt;</span></span>
+<span id="cb650-24"><a href="extending.html#cb650-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-25"><a href="extending.html#cb650-25" aria-hidden="true" tabindex="-1"></a>      <span class="co"># </span><span class="al">FIXME</span><span class="co"> - MANUALLY UPDATE PARAM VALUES BELOW IF APPLICABLE THEN DELETE THIS LINE.</span></span>
+<span id="cb650-26"><a href="extending.html#cb650-26" aria-hidden="true" tabindex="-1"></a>      <span class="co"># OTHERWISE DELETE THIS AND LINE BELOW.</span></span>
+<span id="cb650-27"><a href="extending.html#cb650-27" aria-hidden="true" tabindex="-1"></a>      ps<span class="sc">$</span>values <span class="ot">=</span> <span class="fu">list</span>(<span class="sc">&lt;</span>param_vals<span class="sc">&gt;</span>)</span>
+<span id="cb650-28"><a href="extending.html#cb650-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-29"><a href="extending.html#cb650-29" aria-hidden="true" tabindex="-1"></a>      super<span class="sc">$</span><span class="fu">initialize</span>(</span>
+<span id="cb650-30"><a href="extending.html#cb650-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">id =</span> <span class="st">"classif.rpart"</span>,</span>
+<span id="cb650-31"><a href="extending.html#cb650-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">packages =</span> <span class="st">"rpart"</span>,</span>
+<span id="cb650-32"><a href="extending.html#cb650-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">feature_types =</span> <span class="fu">c</span>(<span class="st">"logical"</span>, <span class="st">"integer"</span>, <span class="st">"numeric"</span>, <span class="st">"factor"</span>, <span class="st">"ordered"</span>),</span>
+<span id="cb650-33"><a href="extending.html#cb650-33" aria-hidden="true" tabindex="-1"></a>        <span class="at">predict_types =</span> <span class="fu">c</span>(<span class="st">"response"</span>, <span class="st">"prob"</span>),</span>
+<span id="cb650-34"><a href="extending.html#cb650-34" aria-hidden="true" tabindex="-1"></a>        <span class="at">param_set =</span> ps,</span>
+<span id="cb650-35"><a href="extending.html#cb650-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">properties =</span> <span class="fu">c</span>(<span class="st">"importance"</span>, <span class="st">"missings"</span>, <span class="st">"multiclass"</span>, <span class="st">"selected_features"</span>, <span class="st">"twoclass"</span>, <span class="st">"weights"</span>),</span>
+<span id="cb650-36"><a href="extending.html#cb650-36" aria-hidden="true" tabindex="-1"></a>        <span class="at">man =</span> <span class="st">"mlr3extralearners::mlr_learners_classif.rpart"</span></span>
+<span id="cb650-37"><a href="extending.html#cb650-37" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb650-38"><a href="extending.html#cb650-38" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb650-39"><a href="extending.html#cb650-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-40"><a href="extending.html#cb650-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span><span class="al">FIXME</span><span class="co"> - ADD IMPORTANCE METHOD HERE AND DELETE THIS LINE.</span></span>
+<span id="cb650-41"><a href="extending.html#cb650-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &lt;See LearnerRegrRandomForest for an example&gt;</span></span>
+<span id="cb650-42"><a href="extending.html#cb650-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">#' @description</span></span>
+<span id="cb650-43"><a href="extending.html#cb650-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">#' The importance scores are extracted from the slot &lt;</span><span class="al">FIXME</span><span class="co">&gt;.</span></span>
+<span id="cb650-44"><a href="extending.html#cb650-44" aria-hidden="true" tabindex="-1"></a>    <span class="co">#' @return Named `numeric()`.</span></span>
+<span id="cb650-45"><a href="extending.html#cb650-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">importance =</span> <span class="cf">function</span>() { }</span>
+<span id="cb650-46"><a href="extending.html#cb650-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-47"><a href="extending.html#cb650-47" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb650-48"><a href="extending.html#cb650-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-49"><a href="extending.html#cb650-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">private =</span> <span class="fu">list</span>(</span>
+<span id="cb650-50"><a href="extending.html#cb650-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-51"><a href="extending.html#cb650-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">.train =</span> <span class="cf">function</span>(task) {</span>
+<span id="cb650-52"><a href="extending.html#cb650-52" aria-hidden="true" tabindex="-1"></a>      pars <span class="ot">=</span> self<span class="sc">$</span>param_set<span class="sc">$</span><span class="fu">get_values</span>(<span class="at">tags =</span> <span class="st">"train"</span>)</span>
+<span id="cb650-53"><a href="extending.html#cb650-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-54"><a href="extending.html#cb650-54" aria-hidden="true" tabindex="-1"></a>      <span class="co"># set column names to ensure consistency in fit and predict</span></span>
+<span id="cb650-55"><a href="extending.html#cb650-55" aria-hidden="true" tabindex="-1"></a>      self<span class="sc">$</span>state<span class="sc">$</span>feature_names <span class="ot">=</span> task<span class="sc">$</span>feature_names</span>
+<span id="cb650-56"><a href="extending.html#cb650-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-57"><a href="extending.html#cb650-57" aria-hidden="true" tabindex="-1"></a>      <span class="co"># </span><span class="al">FIXME</span><span class="co"> - &lt;Create objects for the train call</span></span>
+<span id="cb650-58"><a href="extending.html#cb650-58" aria-hidden="true" tabindex="-1"></a>      <span class="co"># &lt;At least "data" and "formula" are required&gt;</span></span>
+<span id="cb650-59"><a href="extending.html#cb650-59" aria-hidden="true" tabindex="-1"></a>      formula <span class="ot">=</span> task<span class="sc">$</span><span class="fu">formula</span>()</span>
+<span id="cb650-60"><a href="extending.html#cb650-60" aria-hidden="true" tabindex="-1"></a>      data <span class="ot">=</span> task<span class="sc">$</span><span class="fu">data</span>()</span>
+<span id="cb650-61"><a href="extending.html#cb650-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-62"><a href="extending.html#cb650-62" aria-hidden="true" tabindex="-1"></a>      <span class="co"># </span><span class="al">FIXME</span><span class="co"> - &lt;here is space for some custom adjustments before proceeding to the</span></span>
+<span id="cb650-63"><a href="extending.html#cb650-63" aria-hidden="true" tabindex="-1"></a>      <span class="co"># train call. Check other learners for what can be done here&gt;</span></span>
+<span id="cb650-64"><a href="extending.html#cb650-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-65"><a href="extending.html#cb650-65" aria-hidden="true" tabindex="-1"></a>      <span class="co"># use the mlr3misc::invoke function (it's similar to do.call())</span></span>
+<span id="cb650-66"><a href="extending.html#cb650-66" aria-hidden="true" tabindex="-1"></a>      mlr3misc<span class="sc">::</span><span class="fu">invoke</span>(rpart<span class="sc">::</span>rpart,</span>
+<span id="cb650-67"><a href="extending.html#cb650-67" aria-hidden="true" tabindex="-1"></a>                       <span class="at">formula =</span> formula,</span>
+<span id="cb650-68"><a href="extending.html#cb650-68" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> data,</span>
+<span id="cb650-69"><a href="extending.html#cb650-69" aria-hidden="true" tabindex="-1"></a>                       <span class="at">.args =</span> pars)</span>
+<span id="cb650-70"><a href="extending.html#cb650-70" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb650-71"><a href="extending.html#cb650-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-72"><a href="extending.html#cb650-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">.predict =</span> <span class="cf">function</span>(task) {</span>
+<span id="cb650-73"><a href="extending.html#cb650-73" aria-hidden="true" tabindex="-1"></a>      <span class="co"># get parameters with tag "predict"</span></span>
+<span id="cb650-74"><a href="extending.html#cb650-74" aria-hidden="true" tabindex="-1"></a>      pars <span class="ot">=</span> self<span class="sc">$</span>param_set<span class="sc">$</span><span class="fu">get_values</span>(<span class="at">tags =</span> <span class="st">"predict"</span>)</span>
+<span id="cb650-75"><a href="extending.html#cb650-75" aria-hidden="true" tabindex="-1"></a>      <span class="co"># get newdata</span></span>
+<span id="cb650-76"><a href="extending.html#cb650-76" aria-hidden="true" tabindex="-1"></a>      newdata <span class="ot">=</span> task<span class="sc">$</span><span class="fu">data</span>(<span class="at">cols =</span> task<span class="sc">$</span>feature_names)</span>
+<span id="cb650-77"><a href="extending.html#cb650-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-78"><a href="extending.html#cb650-78" aria-hidden="true" tabindex="-1"></a>      pred <span class="ot">=</span> mlr3misc<span class="sc">::</span><span class="fu">invoke</span>(predict, self<span class="sc">$</span>model, <span class="at">newdata =</span> newdata,</span>
+<span id="cb650-79"><a href="extending.html#cb650-79" aria-hidden="true" tabindex="-1"></a>                              <span class="at">type =</span> type, <span class="at">.args =</span> pars)</span>
+<span id="cb650-80"><a href="extending.html#cb650-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-81"><a href="extending.html#cb650-81" aria-hidden="true" tabindex="-1"></a>      <span class="co"># </span><span class="al">FIXME</span><span class="co"> - ADD PREDICTIONS TO LIST BELOW</span></span>
+<span id="cb650-82"><a href="extending.html#cb650-82" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(...)</span>
+<span id="cb650-83"><a href="extending.html#cb650-83" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb650-84"><a href="extending.html#cb650-84" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb650-85"><a href="extending.html#cb650-85" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb650-86"><a href="extending.html#cb650-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-87"><a href="extending.html#cb650-87" aria-hidden="true" tabindex="-1"></a>.extralrns_dict<span class="sc">$</span><span class="fu">add</span>(<span class="st">"classif.rpart"</span>, LearnerClassifRpart)</span></code></pre></div>
 <p>Now we have to do the following (from top to bottom):</p>
 <ol style="list-style-type: decimal">
 <li>Fill in the references under “references” and delete the tag that starts “FIXME”</li>
@@ -381,7 +381,7 @@ This is used within the <code>$help()</code> method of the super class to open t
 </h3>
 <p>The <code>param_set</code> is the set of hyperparameters used in model training and predicting, this is given as a <a href="https://paradox.mlr-org.com/reference/ParamSet.html"><code>paradox::ParamSet</code></a>. The set consists of a list of hyperparameters, each has a specific class for the hyperparameter type (see above).</p>
 <p>For <code>classif.rpart</code> the following replace <code>&lt;param_set&gt;</code> above:</p>
-<div class="sourceCode" id="cb653"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb651"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ps</span> <span class="op">=</span> <span class="va"><a href="https://paradox.mlr-org.com/reference/ParamSet.html">ParamSet</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   <span class="va"><a href="https://paradox.mlr-org.com/reference/ParamInt.html">ParamInt</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"minsplit"</span>, default <span class="op">=</span> <span class="fl">20L</span>, lower <span class="op">=</span> <span class="fl">1L</span>, tags <span class="op">=</span> <span class="st">"train"</span><span class="op">)</span>,
   <span class="va"><a href="https://paradox.mlr-org.com/reference/ParamInt.html">ParamInt</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"minbucket"</span>, lower <span class="op">=</span> <span class="fl">1L</span>, tags <span class="op">=</span> <span class="st">"train"</span><span class="op">)</span>,
@@ -396,7 +396,7 @@ This is used within the <code>$help()</code> method of the super class to open t
 <span class="op">)</span><span class="op">)</span>
 <span class="va">ps</span><span class="op">$</span><span class="va">values</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>xval <span class="op">=</span> <span class="fl">0L</span><span class="op">)</span></code></pre></div>
 <p>Within mlr3 packages we suggest to stick to the lengthly definition for consistency, however the <code>&lt;param_set&gt;</code> can be written shorter, using the <a href="https://paradox.mlr-org.com/reference/ps.html"><code>paradox::ps</code></a> shortcut:</p>
-<div class="sourceCode" id="cb654"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb652"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ps</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>
   minsplit <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_int</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="fl">1L</span>, default <span class="op">=</span> <span class="fl">20L</span>, tags <span class="op">=</span> <span class="st">"train"</span><span class="op">)</span>,
   minbucket <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_int</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="fl">1L</span>, tags <span class="op">=</span> <span class="st">"train"</span><span class="op">)</span>,
@@ -420,7 +420,7 @@ The parameter is used during <code>"train"</code>.</li>
 <code>"keep_model"</code> is logical with a default of <code>FALSE</code> and is used during <code>"train"</code>.</li>
 </ul>
 <p>In some rare cases you may want to change the default parameter values. You can do this by passing a list to <code>&lt;param_vals&gt;</code> in the template script above. You can see we have done this for <code>"classif.rpart"</code> where the default for <code>xval</code> is changed to <code>0</code>. Note that the default in the <code>ParamSet</code> is recorded as our changed default (0), and not the original (10). It is strongly recommended to only change the defaults if absolutely required, when this is the case add the following to the learner documentation:</p>
-<div class="sourceCode" id="cb655"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb653"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#' @section Custom mlr3 defaults:</span>
 <span class="co">#' - `&lt;parameter&gt;`:</span>
 <span class="co">#'   - Actual default: &lt;value&gt;</span>
@@ -435,7 +435,7 @@ The parameter is used during <code>"train"</code>.</li>
 The train function takes a <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a> as input and must return a model.</p>
 <p>Let’s say we want to translate the following call of <code><a href="https://rdrr.io/pkg/rpart/man/rpart.html">rpart::rpart()</a></code> into code that can be used inside the <code>.train()</code> method.</p>
 <p>First, we write something down that works completely without <code>mlr3</code>:</p>
-<div class="sourceCode" id="cb656"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb654"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">=</span> <span class="va">iris</span>
 <span class="va">model</span> <span class="op">=</span> <span class="fu">rpart</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.html">rpart</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">iris</span>, xval <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
 <p>We need to pass the formula notation <code>Species ~ .</code>, the data and the hyperparameters.
@@ -443,7 +443,7 @@ To get the hyperparameters, we call <code>self$param_set$get_values()</code> and
 <p>The dataset is extracted from the <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a>.</p>
 <p>Last, we call the upstream function <code><a href="https://rdrr.io/pkg/rpart/man/rpart.html">rpart::rpart()</a></code> with the data and pass all hyperparameters via argument <code>.args</code> using the <code><a href="https://mlr3misc.mlr-org.com/reference/invoke.html">mlr3misc::invoke()</a></code> function.
 The latter is simply an optimized version of <code><a href="https://rdrr.io/r/base/do.call.html">do.call()</a></code> that we use within the mlr3 ecosystem.</p>
-<div class="sourceCode" id="cb657"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb655"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">.train</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">task</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">pars</span> <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="fu">get_values</span><span class="op">(</span>tags <span class="op">=</span> <span class="st">"train"</span><span class="op">)</span>
   <span class="va">formula</span> <span class="op">=</span> <span class="va">task</span><span class="op">$</span><span class="fu">formula</span><span class="op">(</span><span class="op">)</span>
@@ -462,7 +462,7 @@ The latter is simply an optimized version of <code><a href="https://rdrr.io/r/ba
 <p>The return value is a <a href="https://mlr3.mlr-org.com/reference/Prediction.html"><code>Prediction</code></a> object.
 We proceed analogously to what we did in the previous section.
 We start with a version without any <code>mlr3</code> objects and continue to replace objects until we have reached the desired interface:</p>
-<div class="sourceCode" id="cb658"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb656"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># inputs:</span>
 <span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"iris"</span><span class="op">)</span>
 <span class="va">self</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>model <span class="op">=</span> <span class="fu">rpart</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.html">rpart</a></span><span class="op">(</span><span class="va">task</span><span class="op">$</span><span class="fu">formula</span><span class="op">(</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">task</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
@@ -473,7 +473,7 @@ We start with a version without any <code>mlr3</code> objects and continue to re
 <p>The <a href="https://www.rdocumentation.org/packages/rpart/topics/predict.rpart"><code>rpart::predict.rpart()</code></a> function predicts class labels if argument <code>type</code> is set to to <code>"class"</code>, and class probabilities if set to <code>"prob"</code>.</p>
 <p>Next, we transition from <code>data</code> to a <code>task</code> again and construct a list with the return type requested by the user, this is stored in the <code>$predict_type</code> slot of a learner class. Note that the <code>task</code> is automatically passed to the prediction object, so all you need to do is return the predictions! Make sure the list names are identical to the task predict types.</p>
 <p>The final <code>.predict()</code> method is below, we could omit the <code>pars</code> line as there are no parameters with the <code>"predict"</code> tag but we keep it here to be consistent:</p>
-<div class="sourceCode" id="cb659"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb657"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">.predict</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">task</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">pars</span> <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="fu">get_values</span><span class="op">(</span>tags <span class="op">=</span> <span class="st">"predict"</span><span class="op">)</span>
   <span class="co"># get newdata and ensure same ordering in train and predict</span>
@@ -510,12 +510,12 @@ Both can be tagged with “train” in the ParamSet and just be handed over as s
 Afterwards they can be queried via their tag and passed separately to <code><a href="https://mlr3misc.mlr-org.com/reference/invoke.html">mlr3misc::invoke()</a></code>.
 See example below.</li>
 </ul>
-<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="extending.html#cb660-1" aria-hidden="true" tabindex="-1"></a>control_pars <span class="ot">=</span> mlr3misc<span class="sc">::</span>(<span class="sc">&lt;</span>package<span class="sc">&gt;</span><span class="er">::&lt;</span><span class="cf">function</span><span class="sc">&gt;</span>,</span>
-<span id="cb660-2"><a href="extending.html#cb660-2" aria-hidden="true" tabindex="-1"></a>   self<span class="sc">$</span>param_set<span class="sc">$</span><span class="fu">get_values</span>(<span class="at">tags =</span> <span class="st">"control"</span>))</span>
-<span id="cb660-3"><a href="extending.html#cb660-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb660-4"><a href="extending.html#cb660-4" aria-hidden="true" tabindex="-1"></a>train_pars <span class="ot">=</span> self<span class="sc">$</span>param_set<span class="sc">$</span><span class="fu">get_values</span>(<span class="at">tags =</span> <span class="st">"train"</span>)<span class="er">)</span></span>
-<span id="cb660-5"><a href="extending.html#cb660-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb660-6"><a href="extending.html#cb660-6" aria-hidden="true" tabindex="-1"></a>mlr3misc<span class="sc">::</span><span class="fu">invoke</span>([...], <span class="at">.args =</span> train_pars, <span class="at">control =</span> control_pars)</span></code></pre></div>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="extending.html#cb658-1" aria-hidden="true" tabindex="-1"></a>control_pars <span class="ot">=</span> mlr3misc<span class="sc">::</span>(<span class="sc">&lt;</span>package<span class="sc">&gt;</span><span class="er">::&lt;</span><span class="cf">function</span><span class="sc">&gt;</span>,</span>
+<span id="cb658-2"><a href="extending.html#cb658-2" aria-hidden="true" tabindex="-1"></a>   self<span class="sc">$</span>param_set<span class="sc">$</span><span class="fu">get_values</span>(<span class="at">tags =</span> <span class="st">"control"</span>))</span>
+<span id="cb658-3"><a href="extending.html#cb658-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb658-4"><a href="extending.html#cb658-4" aria-hidden="true" tabindex="-1"></a>train_pars <span class="ot">=</span> self<span class="sc">$</span>param_set<span class="sc">$</span><span class="fu">get_values</span>(<span class="at">tags =</span> <span class="st">"train"</span>)<span class="er">)</span></span>
+<span id="cb658-5"><a href="extending.html#cb658-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb658-6"><a href="extending.html#cb658-6" aria-hidden="true" tabindex="-1"></a>mlr3misc<span class="sc">::</span><span class="fu">invoke</span>([...], <span class="at">.args =</span> train_pars, <span class="at">control =</span> control_pars)</span></code></pre></div>
 </div>
 <div id="learner-test" class="section level3" number="7.1.9">
 <h3>
@@ -527,7 +527,7 @@ See example below.</li>
 <span class="header-section-number">7.1.9.1</span> Train and Predict<a class="anchor" aria-label="anchor" href="#learner-test-manual"><i class="fas fa-link"></i></a>
 </h4>
 <p>For a bare-bone check you can just try to run a simple <code>train()</code> call locally.</p>
-<div class="sourceCode" id="cb661"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb659"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"iris"</span><span class="op">)</span> <span class="co"># assuming a Classif learner</span>
 <span class="va">lrn</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/mlr3extralearners/man/lrn.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span>
 <span class="va">lrn</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
@@ -541,7 +541,7 @@ See example below.</li>
 </h4>
 <p>To ensure that your learner is able to handle all kinds of different properties and feature types, we have written an “autotest” that checks the learner for different combinations of such.</p>
 <p>The “autotest” setup is generated automatically by <code>create_learner</code> and will open after running the function, it will have a name with the form <code>test_package_type_key.R</code>, in our case this will actually be <code>test_rpart_classif_rpart.key</code>. <strong>This name must not be changed</strong> as triggering automated tests rely on a strict naming scheme. In our example this will create the following script, for which no changes are required to pass (assuming the learner was correctly created):</p>
-<div class="sourceCode" id="cb662"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb660"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/mlr3extralearners/man/install_learners.html">install_learners</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span>
 
 <span class="fu">test_that</span><span class="op">(</span><span class="st">"autotest"</span>, <span class="op">{</span>
@@ -572,7 +572,7 @@ Also, new arguments could be added upstream and manually checking for new additi
 </ul>
 <p>All excluded parameters should have a comment justifying their exclusion.</p>
 <p>In our example, the final paramtest script looks like:</p>
-<div class="sourceCode" id="cb663"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb661"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"mlr3extralearners"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/mlr3extralearners/man/install_learners.html">install_learners</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span>
 
@@ -663,7 +663,7 @@ This will install the upstream package during the installation of the mlr3learne
 <p><strong>Answer</strong></p>
 <p>If you set a custom default for the mlr3learner that does not cope with the one of the upstream package (think twice if this is really needed!), add this information to the help page of the respective learner.</p>
 <p>You can use the following skeleton for this:</p>
-<div class="sourceCode" id="cb664"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb662"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#' @section Custom mlr3 defaults:</span>
 <span class="co">#' - `&lt;parameter&gt;`:</span>
 <span class="co">#'   - Actual default: &lt;value&gt;</span>
@@ -681,20 +681,20 @@ This will install the upstream package during the installation of the mlr3learne
 Therefore, if a parameter has no default in the upstream function, a custom value is usually set for this parameter in the mlr3learner (remember to document such changes in the help page of the learner).</p>
 <p>Even though this practice ensures that no parameter is unset in an mlr3learner and partially removes the usefulness of the <code>"required"</code> tag, the tag is still useful in the following scenario:</p>
 <p>If a user sets custom parameters after construction of the learner</p>
-<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="extending.html#cb665-1" aria-hidden="true" tabindex="-1"></a>lrn <span class="ot">=</span> <span class="fu">lrn</span>(<span class="st">"&lt;id&gt;"</span>)</span>
-<span id="cb665-2"><a href="extending.html#cb665-2" aria-hidden="true" tabindex="-1"></a>lrn<span class="sc">$</span>param_set<span class="sc">$</span>values <span class="ot">=</span> <span class="fu">list</span>(<span class="st">"&lt;param&gt;"</span> <span class="ot">=</span> <span class="er">&lt;</span>value<span class="sc">&gt;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="extending.html#cb663-1" aria-hidden="true" tabindex="-1"></a>lrn <span class="ot">=</span> <span class="fu">lrn</span>(<span class="st">"&lt;id&gt;"</span>)</span>
+<span id="cb663-2"><a href="extending.html#cb663-2" aria-hidden="true" tabindex="-1"></a>lrn<span class="sc">$</span>param_set<span class="sc">$</span>values <span class="ot">=</span> <span class="fu">list</span>(<span class="st">"&lt;param&gt;"</span> <span class="ot">=</span> <span class="er">&lt;</span>value<span class="sc">&gt;</span>)</span></code></pre></div>
 <p>Here, all parameters besides the ones set in the list would be unset.
 See <code><a href="https://paradox.mlr-org.com/reference/ParamSet.html">paradox::ParamSet</a></code> for more information.
 If a parameter is tagged as <code>"required"</code> in the ParamSet, the call above would error and prompt the user that required parameters are missing.</p>
 <p><strong>Question 6</strong></p>
 <p>What is this error when I run <code><a href="https://devtools.r-lib.org//reference/load_all.html">devtools::load_all()</a></code></p>
-<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="extending.html#cb666-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"."</span>)</span>
-<span id="cb666-2"><a href="extending.html#cb666-2" aria-hidden="true" tabindex="-1"></a>Loading mlr3extralearners</span>
-<span id="cb666-3"><a href="extending.html#cb666-3" aria-hidden="true" tabindex="-1"></a>Warning message<span class="sc">:</span></span>
-<span id="cb666-4"><a href="extending.html#cb666-4" aria-hidden="true" tabindex="-1"></a>.onUnload failed <span class="cf">in</span> <span class="fu">unloadNamespace</span>() <span class="cf">for</span> <span class="st">'mlr3extralearners'</span>, details<span class="sc">:</span></span>
-<span id="cb666-5"><a href="extending.html#cb666-5" aria-hidden="true" tabindex="-1"></a>  call<span class="sc">:</span> <span class="fu">vapply</span>(hooks, <span class="cf">function</span>(x) <span class="fu">environment</span>(x)<span class="sc">$</span>pkgname, <span class="cn">NA_character_</span>)</span>
-<span id="cb666-6"><a href="extending.html#cb666-6" aria-hidden="true" tabindex="-1"></a>  error<span class="sc">:</span> values must be length <span class="dv">1</span>,</span>
-<span id="cb666-7"><a href="extending.html#cb666-7" aria-hidden="true" tabindex="-1"></a> but <span class="fu">FUN</span>(X[[<span class="dv">1</span>]]) result is length <span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="extending.html#cb664-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"."</span>)</span>
+<span id="cb664-2"><a href="extending.html#cb664-2" aria-hidden="true" tabindex="-1"></a>Loading mlr3extralearners</span>
+<span id="cb664-3"><a href="extending.html#cb664-3" aria-hidden="true" tabindex="-1"></a>Warning message<span class="sc">:</span></span>
+<span id="cb664-4"><a href="extending.html#cb664-4" aria-hidden="true" tabindex="-1"></a>.onUnload failed <span class="cf">in</span> <span class="fu">unloadNamespace</span>() <span class="cf">for</span> <span class="st">'mlr3extralearners'</span>, details<span class="sc">:</span></span>
+<span id="cb664-5"><a href="extending.html#cb664-5" aria-hidden="true" tabindex="-1"></a>  call<span class="sc">:</span> <span class="fu">vapply</span>(hooks, <span class="cf">function</span>(x) <span class="fu">environment</span>(x)<span class="sc">$</span>pkgname, <span class="cn">NA_character_</span>)</span>
+<span id="cb664-6"><a href="extending.html#cb664-6" aria-hidden="true" tabindex="-1"></a>  error<span class="sc">:</span> values must be length <span class="dv">1</span>,</span>
+<span id="cb664-7"><a href="extending.html#cb664-7" aria-hidden="true" tabindex="-1"></a> but <span class="fu">FUN</span>(X[[<span class="dv">1</span>]]) result is length <span class="dv">0</span></span></code></pre></div>
 <p><strong>Answer</strong></p>
 <p>This is not an error but a warning and you can safely ignore it!</p>
 
@@ -707,7 +707,7 @@ If a parameter is tagged as <code>"required"</code> in the ParamSet, the call ab
 <p>In this section we showcase how to implement a custom performance measure.</p>
 <p>A good starting point is writing down the loss function independently of mlr3 (we also did this in the <a href="https://mlr3measures.mlr-org.com">mlr3measures</a> package).
 Here, we illustrate writing measure by implementing the root of the mean squared error for regression problems:</p>
-<div class="sourceCode" id="cb667"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb665"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">root_mse</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">truth</span>, <span class="va">response</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">mse</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">truth</span> <span class="op">-</span> <span class="va">response</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">mse</span><span class="op">)</span>
@@ -718,7 +718,7 @@ Here, we illustrate writing measure by implementing the root of the mean squared
 <p>In the next step, we embed the <code>root_mse()</code> function into a new <a href="https://cran.r-project.org/package=R6">R6</a> class inheriting from base classes <a href="https://mlr3.mlr-org.com/reference/MeasureRegr.html"><code>MeasureRegr</code></a>/<a href="https://mlr3.mlr-org.com/reference/Measure.html"><code>Measure</code></a>.
 For classification measures, use <a href="https://mlr3.mlr-org.com/reference/MeasureClassif.html"><code>MeasureClassif</code></a>.
 We keep it simple here and only explain the most important parts of the <a href="https://mlr3.mlr-org.com/reference/Measure.html"><code>Measure</code></a> class:</p>
-<div class="sourceCode" id="cb669"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb667"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">MeasureRootMSE</span> <span class="op">=</span> <span class="fu">R6</span><span class="fu">::</span><span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"MeasureRootMSE"</span>,
   inherit <span class="op">=</span> <span class="fu">mlr3</span><span class="fu">::</span><span class="va"><a href="https://mlr3.mlr-org.com/reference/MeasureRegr.html">MeasureRegr</a></span>,
   public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -771,16 +771,17 @@ This is ignored for macro averaging.</li>
 Defaults to the “test” set.</li>
 </ul>
 <p>Finally, if you want to use your custom measure just like any other measure shipped with <a href="https://mlr3.mlr-org.com">mlr3</a> and access it via the <a href="https://mlr3.mlr-org.com/reference/mlr_measures.html"><code>mlr_measures</code></a> dictionary, you can easily add it:</p>
-<div class="sourceCode" id="cb670"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb668"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">mlr3</span><span class="fu">::</span><span class="va"><a href="https://mlr3.mlr-org.com/reference/mlr_measures.html">mlr_measures</a></span><span class="op">$</span><span class="fu">add</span><span class="op">(</span><span class="st">"root_mse"</span>, <span class="va">MeasureRootMSE</span><span class="op">)</span></code></pre></div>
 <p>Typically it is a good idea to put the measure together with the call to <code>mlr_measures$add()</code> in a new R file and just source it in your project.</p>
-<div class="sourceCode" id="cb671"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb669"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## source("measure_root_mse.R")</span>
 <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"root_mse"</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;MeasureRootMSE:root_mse&gt;
-## * Packages: -
+## * Packages: mlr3
 ## * Range: [0, Inf]
 ## * Minimize: TRUE
+## * Average: macro
 ## * Parameters: list()
 ## * Properties: -
 ## * Predict type: response</code></pre>
@@ -792,7 +793,7 @@ Defaults to the “test” set.</li>
 </h2>
 <p>This section showcases how the <code>mlr3pipelines</code> package can be extended to include custom <code>PipeOp</code>s.
 To run the following examples, we will need a <code>Task</code>; we are using the well-known “Iris” task:</p>
-<div class="sourceCode" id="cb673"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb671"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3.mlr-org.com">"mlr3"</a></span><span class="op">)</span>
 <span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"iris"</span><span class="op">)</span>
 <span class="va">task</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -826,7 +827,7 @@ We will show a simplified version here, <strong><code>PipeOpCopyTwo</code></stro
 </h4>
 <p>The first part of creating a custom <code>PipeOp</code> is inheriting from <code>PipeOp</code>.
 We make a mental note that we need to implement a <code>.train()</code> and a <code>.predict()</code> function, and that we probably want to have an <code>initialize()</code> as well:</p>
-<div class="sourceCode" id="cb675"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb673"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">PipeOpCopyTwo</span> <span class="op">=</span> <span class="fu">R6</span><span class="fu">::</span><span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"PipeOpCopyTwo"</span>,
   inherit <span class="op">=</span> <span class="fu">mlr3pipelines</span><span class="fu">::</span><span class="va"><a href="https://mlr3pipelines.mlr-org.com//reference/PipeOp.html">PipeOp</a></span>,
   public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -856,7 +857,7 @@ These must have three columns: a <code>"name"</code> column giving the names of 
 A special value for these classes is <code>"*"</code>, which indicates that any class will be accepted; our simple copy operator accepts any kind of input, so this will be useful. We have only one input, but two output channels.</p>
 <p>By convention, we name a single channel <code>"input"</code> or <code>"output"</code>, and a group of channels [<code>"input1"</code>, <code>"input2"</code>, …], unless there is a reason to give specific different names. Therefore, our <code>input</code> <code>data.table</code> will have a single row <code>&lt;"input", "*", "*"&gt;</code>, and our <code>output</code> table will have two rows, <code>&lt;"output1", "*", "*"&gt;</code> and <code>&lt;"output2", "*", "*"&gt;</code>.</p>
 <p>All of this is given to the <code>PipeOp</code> creator. Our <code>initialize()</code> will thus look as follows:</p>
-<div class="sourceCode" id="cb676"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb674"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">initialize</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span> <span class="op">=</span> <span class="st">"copy.two"</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">input</span> <span class="op">=</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"input"</span>, train <span class="op">=</span> <span class="st">"*"</span>, predict <span class="op">=</span> <span class="st">"*"</span><span class="op">)</span>
   <span class="co"># the following will create two rows and automatically fill the `train`</span>
@@ -887,12 +888,12 @@ However, if we were changing a reference-passed object, for example by changing 
 This is because a <code>PipeOp</code> may never modify its input object by reference.</p></li>
 </ul>
 <p>Our <code>.train()</code> and <code>.predict()</code> functions are now:</p>
-<div class="sourceCode" id="cb677"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb675"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">.train</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">inputs</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">self</span><span class="op">$</span><span class="va">state</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">inputs</span>, <span class="va">inputs</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<div class="sourceCode" id="cb678"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb676"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">.predict</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">inputs</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">inputs</span>, <span class="va">inputs</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
@@ -902,7 +903,7 @@ This is because a <code>PipeOp</code> may never modify its input object by refer
 <span class="header-section-number">7.3.1.4</span> Putting it Together<a class="anchor" aria-label="anchor" href="#putting-it-together"><i class="fas fa-link"></i></a>
 </h4>
 <p>The whole definition thus becomes</p>
-<div class="sourceCode" id="cb679"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb677"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">PipeOpCopyTwo</span> <span class="op">=</span> <span class="fu">R6</span><span class="fu">::</span><span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"PipeOpCopyTwo"</span>,
   inherit <span class="op">=</span> <span class="fu">mlr3pipelines</span><span class="fu">::</span><span class="va"><a href="https://mlr3pipelines.mlr-org.com//reference/PipeOp.html">PipeOp</a></span>,
   public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -926,7 +927,7 @@ This is because a <code>PipeOp</code> may never modify its input object by refer
   <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p>We can create an instance of our <code>PipeOp</code>, put it in a graph, and see what happens when we train it on something:</p>
-<div class="sourceCode" id="cb680"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb678"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3pipelines.mlr-org.com">"mlr3pipelines"</a></span><span class="op">)</span>
 <span class="va">poct</span> <span class="op">=</span> <span class="va">PipeOpCopyTwo</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
 <span class="va">gr</span> <span class="op">=</span> <span class="va"><a href="https://mlr3pipelines.mlr-org.com//reference/Graph.html">Graph</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
@@ -936,7 +937,7 @@ This is because a <code>PipeOp</code> may never modify its input object by refer
 <pre><code>## Graph with 1 PipeOps:
 ##        ID         State sccssors prdcssors
 ##  copy.two &lt;&lt;UNTRAINED&gt;&gt;</code></pre>
-<div class="sourceCode" id="cb682"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb680"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">result</span> <span class="op">=</span> <span class="va">gr</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></code></pre></div>
@@ -971,7 +972,7 @@ Furthermore, <code>mlr3</code> expects a <a href="https://mlr3.mlr-org.com/refer
 The only thing we do during <code>initialize()</code> is therefore to set an <code>id</code> (which can optionally be changed by the user).</p>
 <p>The complete <code>PipeOpDropNA</code> can therefore be written as follows.
 Note that it inherits from <a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html"><code>PipeOpTaskPreproc</code></a>, unlike the <code>PipeOpCopyTwo</code> example from above:</p>
-<div class="sourceCode" id="cb684"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb682"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">PipeOpDropNA</span> <span class="op">=</span> <span class="fu">R6</span><span class="fu">::</span><span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"PipeOpDropNA"</span>,
   inherit <span class="op">=</span> <span class="fu">mlr3pipelines</span><span class="fu">::</span><span class="va"><a href="https://mlr3pipelines.mlr-org.com//reference/PipeOpTaskPreproc.html">PipeOpTaskPreproc</a></span>,
   public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -995,7 +996,7 @@ Note that it inherits from <a href="https://mlr3pipelines.mlr-org.com/reference/
   <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p>To test this <code>PipeOp</code>, we create a small task with missing values:</p>
-<div class="sourceCode" id="cb685"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb683"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">smalliris</span> <span class="op">=</span> <span class="va">iris</span><span class="op">[</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">*</span> <span class="fl">30</span>, <span class="op">]</span>
 <span class="va">smalliris</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">=</span> <span class="cn">NA</span>
 <span class="va">smalliris</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">=</span> <span class="cn">NA</span>
@@ -1008,7 +1009,7 @@ Note that it inherits from <a href="https://mlr3pipelines.mlr-org.com/reference/
 ## 4:  virginica          5.0         1.5          6.0         2.2
 ## 5:  virginica          5.1         1.8          5.9         3.0</code></pre>
 <p>We test this by feeding it to a new <code>Graph</code> that uses <code>PipeOpDropNA</code>.</p>
-<div class="sourceCode" id="cb687"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb685"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span> <span class="op">=</span> <span class="va"><a href="https://mlr3pipelines.mlr-org.com//reference/Graph.html">Graph</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
 <span class="va">gr</span><span class="op">$</span><span class="fu">add_pipeop</span><span class="op">(</span><span class="va">PipeOpDropNA</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 
@@ -1036,7 +1037,7 @@ When working with numeric data, this argument can be ignored, but it should be u
 <p>This is the first <code>PipeOp</code> where we will be using the <code>$state</code> slot for something useful: We save the centering offset and scaling coefficient and use it in <code>$.predict()</code>!</p>
 <p>For simplicity, we are not using hyperparameters and will always scale and center all data.
 Compare this <code>PipeOpScaleAlways</code> operator to the one defined inside the <code>mlr3pipelines</code> package, <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_scale.html"><code>PipeOpScale</code></a>.</p>
-<div class="sourceCode" id="cb689"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb687"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">PipeOpScaleAlways</span> <span class="op">=</span> <span class="fu">R6</span><span class="fu">::</span><span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"PipeOpScaleAlways"</span>,
   inherit <span class="op">=</span> <span class="fu">mlr3pipelines</span><span class="fu">::</span><span class="va"><a href="https://mlr3pipelines.mlr-org.com//reference/PipeOpTaskPreproc.html">PipeOpTaskPreproc</a></span>,
   public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -1067,7 +1068,7 @@ Compare this <code>PipeOpScaleAlways</code> operator to the one defined inside t
 <p><em>(Note for the observant: If you check <code>PipeOpScale.R</code> from the <code>mlr3pipelines</code> package, you will notice that is uses “<code>get("type")</code>” and “<code>get("id")</code>” instead of “<code>type</code>” and “<code>id</code>”, because the static code checker on CRAN would otherwise complain about references to undefined variables. This is a “problem” with <code>data.table</code> and not exclusive to <code>mlr3pipelines</code>.)</em></p>
 <p>We can, again, create a new <a href="https://mlr3pipelines.mlr-org.com/reference/Graph.html"><code>Graph</code></a> that uses this <a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.html"><code>PipeOp</code></a> to test it.
 Compare the resulting data to the original “iris” <code>Task</code> data printed at the beginning:</p>
-<div class="sourceCode" id="cb690"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb688"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span> <span class="op">=</span> <span class="va"><a href="https://mlr3pipelines.mlr-org.com//reference/Graph.html">Graph</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
 <span class="va">gr</span><span class="op">$</span><span class="fu">add_pipeop</span><span class="op">(</span><span class="va">PipeOpScaleAlways</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 
@@ -1115,7 +1116,7 @@ For brevity, we use <code>length(unique(column)) &gt; 1</code> to check whether 
 <p>The <code>.transform()</code> method is evaluated both during training <em>and</em> prediction, and can rely on the <code>$state</code> slot being present.
 All it does here is call the <code>Task$select</code> function with the columns we chose to keep.</p>
 <p>The full <a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.html"><code>PipeOp</code></a> could be written as follows:</p>
-<div class="sourceCode" id="cb692"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb690"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">PipeOpDropConst</span> <span class="op">=</span> <span class="fu">R6</span><span class="fu">::</span><span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"PipeOpDropConst"</span>,
   inherit <span class="op">=</span> <span class="fu">mlr3pipelines</span><span class="fu">::</span><span class="va"><a href="https://mlr3pipelines.mlr-org.com//reference/PipeOpTaskPreprocSimple.html">PipeOpTaskPreprocSimple</a></span>,
   public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -1137,7 +1138,7 @@ All it does here is call the <code>Task$select</code> function with the columns 
   <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p>This can be tested using the first five rows of the “Iris” <code>Task</code>, for which one feature (<code>"Petal.Width"</code>) is constant:</p>
-<div class="sourceCode" id="cb693"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb691"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">irishead</span> <span class="op">=</span> <span class="va">task</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">filter</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>
 <span class="va">irishead</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##    Species Petal.Length Petal.Width Sepal.Length Sepal.Width
@@ -1146,7 +1147,7 @@ All it does here is call the <code>Task$select</code> function with the columns 
 ## 3:  setosa          1.3         0.2          4.7         3.2
 ## 4:  setosa          1.5         0.2          4.6         3.1
 ## 5:  setosa          1.4         0.2          5.0         3.6</code></pre>
-<div class="sourceCode" id="cb695"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb693"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span> <span class="op">=</span> <span class="va"><a href="https://mlr3pipelines.mlr-org.com//reference/Graph.html">Graph</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">add_pipeop</span><span class="op">(</span><span class="va">PipeOpDropConst</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">dropped_task</span> <span class="op">=</span> <span class="va">gr</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">irishead</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 
@@ -1159,7 +1160,7 @@ All it does here is call the <code>Task$select</code> function with the columns 
 ## 5:  setosa          1.4          5.0         3.6</code></pre>
 <p>We can also see that the <code>$state</code> was correctly set.
 Calling <code>$.predict()</code> with this graph, even with different data (the whole Iris <code>Task</code>!) will still drop the <code>"Petal.Width"</code> column, as it should.</p>
-<div class="sourceCode" id="cb697"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb695"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span><span class="op">$</span><span class="va">pipeops</span><span class="op">$</span><span class="va">drop.const</span><span class="op">$</span><span class="va">state</span></code></pre></div>
 <pre><code>## $cnames
 ## [1] "Petal.Length" "Sepal.Length" "Sepal.Width" 
@@ -1182,7 +1183,7 @@ Calling <code>$.predict()</code> with this graph, even with different data (the 
 ## 
 ## $outtaskshell
 ## Empty data.table (0 rows and 4 cols): Species,Petal.Length,Sepal.Length,Sepal.Width</code></pre>
-<div class="sourceCode" id="cb699"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb697"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dropped_predict</span> <span class="op">=</span> <span class="va">gr</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 
 <span class="va">dropped_predict</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -1207,7 +1208,7 @@ Calling <code>$.predict()</code> with this graph, even with different data (the 
 Instead of calling the <code><a href="https://rdrr.io/r/base/scale.html">scale()</a></code> function, the <code>center</code> and <code>scale</code> values are calculated directly and saved to the <code>$state</code> slot.
 The <code>.transform_dt()</code> function will then perform the same operation during both training and prediction: subtract the <code>center</code> and divide by the <code>scale</code> value.
 As in the <a href="extending.html#example-pipeopscalealways"><code>PipeOpScaleAlways</code> example above</a>, we use <code>.select_cols()</code> so that we only work on numeric columns.</p>
-<div class="sourceCode" id="cb701"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb699"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">PipeOpScaleAlwaysSimple</span> <span class="op">=</span> <span class="fu">R6</span><span class="fu">::</span><span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"PipeOpScaleAlwaysSimple"</span>,
   inherit <span class="op">=</span> <span class="fu">mlr3pipelines</span><span class="fu">::</span><span class="va"><a href="https://mlr3pipelines.mlr-org.com//reference/PipeOpTaskPreprocSimple.html">PipeOpTaskPreprocSimple</a></span>,
   public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -1234,13 +1235,13 @@ As in the <a href="extending.html#example-pipeopscalealways"><code>PipeOpScaleAl
   <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p>We can compare this <a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.html"><code>PipeOp</code></a> to the one above to show that it behaves the same.</p>
-<div class="sourceCode" id="cb702"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb700"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span> <span class="op">=</span> <span class="va"><a href="https://mlr3pipelines.mlr-org.com//reference/Graph.html">Graph</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">add_pipeop</span><span class="op">(</span><span class="va">PipeOpScaleAlways</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">result_posa</span> <span class="op">=</span> <span class="va">gr</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 
 <span class="va">gr</span> <span class="op">=</span> <span class="va"><a href="https://mlr3pipelines.mlr-org.com//reference/Graph.html">Graph</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">add_pipeop</span><span class="op">(</span><span class="va">PipeOpScaleAlwaysSimple</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">result_posa_simple</span> <span class="op">=</span> <span class="va">gr</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<div class="sourceCode" id="cb703"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb701"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">result_posa</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##        Species Petal.Length Petal.Width Sepal.Length Sepal.Width
 ##   1:    setosa      -1.3358     -1.3111     -0.89767     1.01560
@@ -1254,7 +1255,7 @@ As in the <a href="extending.html#example-pipeopscalealways"><code>PipeOpScaleAl
 ## 148: virginica       0.8169      1.0504      0.79301    -0.13154
 ## 149: virginica       0.9302      1.4440      0.43072     0.78617
 ## 150: virginica       0.7602      0.7880      0.06843    -0.13154</code></pre>
-<div class="sourceCode" id="cb705"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb703"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">result_posa_simple</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##        Species Petal.Length Petal.Width Sepal.Length Sepal.Width
 ##   1:    setosa      -1.3358     -1.3111     -0.89767     1.01560
@@ -1298,7 +1299,7 @@ This can easily be done when using the <a href="https://mlr3misc.mlr-org.com">ml
 <p>How to use hyperparameters can best be shown through the example of <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_scale.html"><code>PipeOpScale</code></a>, which is very similar to the example above, <code>PipeOpScaleAlways</code>.
 The difference is made by the presence of hyperparameters.
 <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_scale.html"><code>PipeOpScale</code></a> constructs a <code>ParamSet</code> in its <code>$initialize</code> function and passes this on to the <code>super$initialize</code> function:</p>
-<div class="sourceCode" id="cb707"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb705"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">PipeOpScale</span><span class="op">$</span><span class="va">public_methods</span><span class="op">$</span><span class="va">initialize</span></code></pre></div>
 <pre><code>## function (id = "scale", param_vals = list()) 
 ## .__PipeOpScale__initialize(self = self, private = private, super = super, 
@@ -1306,7 +1307,7 @@ The difference is made by the presence of hyperparameters.
 ## &lt;environment: namespace:mlr3pipelines&gt;</code></pre>
 <p>The user has access to this and can set and get parameters.
 Types are automatically checked:</p>
-<div class="sourceCode" id="cb709"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb707"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pss</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"scale"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">pss</span><span class="op">$</span><span class="va">param_set</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;ParamSet:scale&gt;
@@ -1315,7 +1316,7 @@ Types are automatically checked:</p>
 ## 2:          scale ParamLgl    NA    NA       2           TRUE      
 ## 3:         robust ParamLgl    NA    NA       2 &lt;NoDefault[3]&gt; FALSE
 ## 4: affect_columns ParamUty    NA    NA     Inf  &lt;Selector[1]&gt;</code></pre>
-<div class="sourceCode" id="cb711"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb709"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pss</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">center</span> <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">pss</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">)</span></code></pre></div>
 <pre><code>## $robust
@@ -1323,12 +1324,12 @@ Types are automatically checked:</p>
 ## 
 ## $center
 ## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb713"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb711"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pss</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">scale</span> <span class="op">=</span> <span class="st">"TRUE"</span> <span class="co"># bad input is checked!</span></code></pre></div>
 <pre><code>## Error in self$assert(xs): Assertion on 'xs' failed: scale: Must be of type 'logical flag', not 'character'.</code></pre>
 <p>How <a href="https://mlr3pipelines.mlr-org.com/reference/mlr_pipeops_scale.html"><code>PipeOpScale</code></a> handles its parameters can be seen in its <code>$.train_dt</code> method: It gets the relevant parameters from its <code>$values</code> slot and uses them in the <a href="https://mlr3misc.mlr-org.com/reference/invoke.html"><code>mlr3misc::invoke()</code></a> call.
 This has the advantage over calling <code><a href="https://rdrr.io/r/base/scale.html">scale()</a></code> directly that if a parameter is not given, its default value from the <a href="https://www.rdocumentation.org/packages/base/topics/scale"><code>scale()</code></a> function will be used.</p>
-<div class="sourceCode" id="cb715"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb713"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">PipeOpScale</span><span class="op">$</span><span class="va">private_methods</span><span class="op">$</span><span class="va">.train_dt</span></code></pre></div>
 <pre><code>## function (dt, levels, target) 
 ## .__PipeOpScale__.train_dt(self = self, private = private, super = super, 
@@ -1336,7 +1337,7 @@ This has the advantage over calling <code><a href="https://rdrr.io/r/base/scale.
 ## &lt;environment: namespace:mlr3pipelines&gt;</code></pre>
 <p>Another change that is necessary compared to <code>PipeOpScaleAlways</code> is that the attributes <code>"scaled:scale"</code> and <code>"scaled:center"</code> are not always present, depending on parameters, and possibly need to be set to default values <span class="math inline">\(1\)</span> or <span class="math inline">\(0\)</span>, respectively.</p>
 <p>It is now even possible (if a bit pointless) to call <code>PipeOpScale</code> with both <code>scale</code> and <code>center</code> set to <code>FALSE</code>, which returns the original dataset, unchanged.</p>
-<div class="sourceCode" id="cb717"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb715"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pss</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">scale</span> <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="va">pss</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">center</span> <span class="op">=</span> <span class="cn">FALSE</span>
 
@@ -1520,7 +1521,7 @@ If you added the Tuner via a <code><a href="https://bbotk.mlr-org.com/reference/
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-15.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

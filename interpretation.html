@@ -637,9 +637,9 @@ First, let’s load the required packages.</p>
 ##   -&gt; predict function  :  yhat.LearnerRegr  will be used (  default  )
 ##   -&gt; predicted values  :  No value for predict function target column. (  default  )
 ##   -&gt; model_info        :  package mlr3 , ver. 0.13.0 , task regression (  default  ) 
-##   -&gt; predicted values  :  numerical, min =  479558 , mean =  7479983 , max =  89586333  
+##   -&gt; predicted values  :  numerical, min =  445451 , mean =  7473884 , max =  88665467  
 ##   -&gt; residual function :  difference between y and yhat (  default  )
-##   -&gt; residuals         :  numerical, min =  -8930820 , mean =  -6696 , max =  16856533  
+##   -&gt; residuals         :  numerical, min =  -8899473 , mean =  -596.7 , max =  17521700  
 ##   A new explainer has been created!</code></pre>
 </div>
 <div id="interpretability-dataset-level" class="section level3" number="9.2.5">
@@ -651,12 +651,12 @@ First, let’s load the required packages.</p>
 <code class="sourceCode R"><span class="va">fifa_vi</span> <span class="op">=</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/model_parts.html">model_parts</a></span><span class="op">(</span><span class="va">ranger_exp</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">fifa_vi</span><span class="op">)</span></code></pre></div>
 <pre><code>##              variable mean_dropout_loss     label
-## 1        _full_model_           1399110 Ranger RF
-## 2           value_eur           1399110 Ranger RF
-## 3           weight_kg           1465276 Ranger RF
-## 4    movement_balance           1467431 Ranger RF
-## 5 goalkeeping_kicking           1467683 Ranger RF
-## 6           height_cm           1472940 Ranger RF</code></pre>
+## 1        _full_model_           1366352 Ranger RF
+## 2           value_eur           1366352 Ranger RF
+## 3           weight_kg           1430785 Ranger RF
+## 4    movement_balance           1434551 Ranger RF
+## 5 goalkeeping_kicking           1436641 Ranger RF
+## 6           height_cm           1439673 Ranger RF</code></pre>
 <p>Results can be visualized with generic <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>. The chart for all 38 variables would be unreadable, so with the <code>max_vars</code> argument, we limit the number of variables on the plot.</p>
 <div class="sourceCode" id="cb848"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">fifa_vi</span>, max_vars <span class="op">=</span> <span class="fl">12</span>, show_boxplots <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
@@ -671,12 +671,12 @@ First, let’s load the required packages.</p>
 <span class="va">fifa_pd</span></code></pre></div>
 <pre><code>## Top profiles    : 
 ##              _vname_   _label_ _x_  _yhat_ _ids_
-## 1 skill_ball_control Ranger RF   5 6996330     0
-## 2    skill_dribbling Ranger RF   7 7466492     0
-## 3    skill_dribbling Ranger RF  11 7445657     0
-## 4    skill_dribbling Ranger RF  12 7446737     0
-## 5    skill_dribbling Ranger RF  13 7446437     0
-## 6    skill_dribbling Ranger RF  14 7445815     0</code></pre>
+## 1 skill_ball_control Ranger RF   5 5915830     0
+## 2    skill_dribbling Ranger RF   7 6115428     0
+## 3    skill_dribbling Ranger RF  11 6110222     0
+## 4    skill_dribbling Ranger RF  12 6110017     0
+## 5    skill_dribbling Ranger RF  13 6108496     0
+## 6    skill_dribbling Ranger RF  14 6108854     0</code></pre>
 <p>Again, the result of the explanation can be presented with the generic function <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>.</p>
 <div class="sourceCode" id="cb851"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span>
@@ -699,12 +699,12 @@ This can be done for any player, but this example we will use the Cristiano Rona
   new_observation <span class="op">=</span> <span class="va">ronaldo</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ronaldo_bd_ranger</span><span class="op">)</span></code></pre></div>
 <pre><code>##                                       contribution
-## Ranger RF: intercept                       7479983
-## Ranger RF: movement_reactions = 96        11316024
-## Ranger RF: skill_ball_control = 92         6489576
-## Ranger RF: attacking_finishing = 94        3436700
-## Ranger RF: mentality_positioning = 95      5625044
-## Ranger RF: skill_dribbling = 89            4259960</code></pre>
+## Ranger RF: intercept                       7473884
+## Ranger RF: movement_reactions = 96        12307346
+## Ranger RF: skill_ball_control = 92         6406579
+## Ranger RF: attacking_finishing = 94        4000116
+## Ranger RF: mentality_positioning = 95      4577854
+## Ranger RF: skill_dribbling = 89            5965099</code></pre>
 <p>The generic <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function shows the estimated contribution of variables to the final prediction.</p>
 <p>Cristiano is a striker, therefore characteristics that influence his worth are those related to attack, like <code>attacking_volleys</code> or <code>skill_dribbling</code>. The only variable with negative attribution is <code>age</code>.</p>
 <div class="sourceCode" id="cb854"><pre class="downlit sourceCode r">
@@ -776,7 +776,7 @@ This can be done for any player, but this example we will use the Cristiano Rona
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-19.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

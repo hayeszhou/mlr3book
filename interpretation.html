@@ -637,9 +637,9 @@ First, let’s load the required packages.</p>
 ##   -&gt; predict function  :  yhat.LearnerRegr  will be used (  default  )
 ##   -&gt; predicted values  :  No value for predict function target column. (  default  )
 ##   -&gt; model_info        :  package mlr3 , ver. 0.13.0 , task regression (  default  ) 
-##   -&gt; predicted values  :  numerical, min =  499197 , mean =  7476182 , max =  90709667  
+##   -&gt; predicted values  :  numerical, min =  461955 , mean =  7466791 , max =  89817133  
 ##   -&gt; residual function :  difference between y and yhat (  default  )
-##   -&gt; residuals         :  numerical, min =  -8831800 , mean =  -2895 , max =  17896867  
+##   -&gt; residuals         :  numerical, min =  -7767700 , mean =  6496 , max =  19475820  
 ##   A new explainer has been created!</code></pre>
 </div>
 <div id="interpretability-dataset-level" class="section level3" number="9.2.5">
@@ -650,13 +650,13 @@ First, let’s load the required packages.</p>
 <div class="sourceCode" id="cb846"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fifa_vi</span> <span class="op">=</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/model_parts.html">model_parts</a></span><span class="op">(</span><span class="va">ranger_exp</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">fifa_vi</span><span class="op">)</span></code></pre></div>
-<pre><code>##               variable mean_dropout_loss     label
-## 1         _full_model_           1364697 Ranger RF
-## 2            value_eur           1364697 Ranger RF
-## 3  goalkeeping_kicking           1417978 Ranger RF
-## 4            weight_kg           1420682 Ranger RF
-## 5 mentality_aggression           1432927 Ranger RF
-## 6        power_jumping           1434808 Ranger RF</code></pre>
+<pre><code>##              variable mean_dropout_loss     label
+## 1        _full_model_           1372049 Ranger RF
+## 2           value_eur           1372049 Ranger RF
+## 3 goalkeeping_kicking           1434420 Ranger RF
+## 4    movement_balance           1439155 Ranger RF
+## 5           weight_kg           1442116 Ranger RF
+## 6           height_cm           1444721 Ranger RF</code></pre>
 <p>Results can be visualized with generic <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>. The chart for all 38 variables would be unreadable, so with the <code>max_vars</code> argument, we limit the number of variables on the plot.</p>
 <div class="sourceCode" id="cb848"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">fifa_vi</span>, max_vars <span class="op">=</span> <span class="fl">12</span>, show_boxplots <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
@@ -671,12 +671,12 @@ First, let’s load the required packages.</p>
 <span class="va">fifa_pd</span></code></pre></div>
 <pre><code>## Top profiles    : 
 ##              _vname_   _label_ _x_  _yhat_ _ids_
-## 1 skill_ball_control Ranger RF   5 6033833     0
-## 2    skill_dribbling Ranger RF   7 6281793     0
-## 3    skill_dribbling Ranger RF  11 6267810     0
-## 4    skill_dribbling Ranger RF  12 6267640     0
-## 5    skill_dribbling Ranger RF  13 6266898     0
-## 6    skill_dribbling Ranger RF  14 6265007     0</code></pre>
+## 1 skill_ball_control Ranger RF   5 7377480     0
+## 2    skill_dribbling Ranger RF   7 7750715     0
+## 3    skill_dribbling Ranger RF  11 7747629     0
+## 4    skill_dribbling Ranger RF  12 7746942     0
+## 5    skill_dribbling Ranger RF  13 7747571     0
+## 6    skill_dribbling Ranger RF  14 7748475     0</code></pre>
 <p>Again, the result of the explanation can be presented with the generic function <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>.</p>
 <div class="sourceCode" id="cb851"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span>
@@ -698,13 +698,13 @@ This can be done for any player, but this example we will use the Cristiano Rona
 <span class="va">ronaldo_bd_ranger</span> <span class="op">=</span> <span class="fu"><a href="https://dalex.drwhy.ai/reference/predict_parts.html">predict_parts</a></span><span class="op">(</span><span class="va">ranger_exp</span>,
   new_observation <span class="op">=</span> <span class="va">ronaldo</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ronaldo_bd_ranger</span><span class="op">)</span></code></pre></div>
-<pre><code>##                                       contribution
-## Ranger RF: intercept                       7476182
-## Ranger RF: movement_reactions = 96        12552994
-## Ranger RF: skill_ball_control = 92         6763630
-## Ranger RF: attacking_finishing = 94        5193960
-## Ranger RF: mentality_positioning = 95      3972628
-## Ranger RF: skill_dribbling = 89            5031745</code></pre>
+<pre><code>##                                         contribution
+## Ranger RF: intercept                         7466791
+## Ranger RF: movement_reactions = 96          12672927
+## Ranger RF: skill_ball_control = 92           7060484
+## Ranger RF: attacking_finishing = 94          3702349
+## Ranger RF: mentality_positioning = 95        3728288
+## Ranger RF: attacking_short_passing = 83      4926247</code></pre>
 <p>The generic <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function shows the estimated contribution of variables to the final prediction.</p>
 <p>Cristiano is a striker, therefore characteristics that influence his worth are those related to attack, like <code>attacking_volleys</code> or <code>skill_dribbling</code>. The only variable with negative attribution is <code>age</code>.</p>
 <div class="sourceCode" id="cb854"><pre class="downlit sourceCode r">
@@ -776,7 +776,7 @@ This can be done for any player, but this example we will use the Cristiano Rona
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-21.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

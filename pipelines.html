@@ -705,13 +705,13 @@ We can also create it using <strong>syntactic sugar</strong> via <code><a href="
 <span class="va">baglrn</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, <span class="va">test.idx</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 30 observations:
 ##     row_ids     truth   response prob.setosa prob.versicolor prob.virginica
-##           1    setosa     setosa           1             0.0            0.0
-##           4    setosa     setosa           1             0.0            0.0
-##           5    setosa     setosa           1             0.0            0.0
+##           3    setosa     setosa           1             0.0            0.0
+##           6    setosa     setosa           1             0.0            0.0
+##          31    setosa     setosa           1             0.0            0.0
 ## ---                                                                        
-##         114 virginica  virginica           0             0.1            0.9
-##         128 virginica  virginica           0             0.1            0.9
-##         135 virginica versicolor           0             0.7            0.3</code></pre>
+##         134 virginica versicolor           0             0.7            0.3
+##         136 virginica  virginica           0             0.0            1.0
+##         147 virginica  virginica           0             0.0            1.0</code></pre>
 <p>In conjunction with different <code>Backends</code>, this can be a very powerful tool.
 In cases when the data does not fully fit in memory, one can obtain a fraction of the data for each learner from a <a href="https://mlr3.mlr-org.com/reference/DataBackend.html"><code>DataBackend</code></a> and then aggregate predictions over all learners.</p>
 </div>
@@ -755,13 +755,13 @@ There it is combined with the predictions from our decision tree learner.</p>
 <span class="va">stacklrn</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, <span class="va">test.idx</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 30 observations:
 ##     row_ids     truth   response
-##           1    setosa     setosa
-##           4    setosa     setosa
-##           5    setosa     setosa
+##           3    setosa     setosa
+##           6    setosa     setosa
+##          31    setosa     setosa
 ## ---                             
-##         114 virginica  virginica
-##         128 virginica  virginica
-##         135 virginica versicolor</code></pre>
+##         134 virginica versicolor
+##         136 virginica  virginica
+##         147 virginica  virginica</code></pre>
 <p>In this vignette, we showed a very simple use-case for stacking.
 In many real-world applications, stacking is done for multiple levels and on multiple representations of the dataset.
 On a lower level, different preprocessing methods can be defined in conjunction with several learners.
@@ -824,7 +824,7 @@ for the different learner.</p>
   <span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, <span class="va">test.idx</span><span class="op">)</span><span class="op">$</span>
   <span class="fu">score</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## classif.ce 
-##          0</code></pre>
+##        0.1</code></pre>
 
 </div>
 </div>
@@ -908,7 +908,7 @@ Additionally, we create 4 <a href="https://mlr3pipelines.mlr-org.com/reference/m
   <span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, <span class="va">train.idx</span><span class="op">)</span><span class="op">$</span>
   <span class="fu">score</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## classif.ce 
-##    0.01667</code></pre>
+##      0.275</code></pre>
 </div>
 <div id="feature-selection-pipeopfilter-and-pipeopselect" class="section level3" number="5.6.4">
 <h3>
@@ -1219,21 +1219,21 @@ The return value corresponds to the output of the <code>PipeOp</code> output cha
 <div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##        Species Petal.Length Petal.Width Sepal.Length Sepal.Width
-##  1:     setosa      -1.1658     -1.1799      -0.1731     1.70389
-##  2:     setosa      -1.5623     -1.3111      -1.5015     1.24503
-##  3:     setosa      -1.2791     -1.4422      -0.7769     2.39217
-##  4:     setosa      -1.3358     -1.3111      -0.4146     2.62160
-##  5: versicolor       0.5336      0.2633       1.3968     0.32732
-##  6: versicolor       0.1371      0.1321      -0.4146    -1.73754
-##  7: versicolor       0.4203      0.3945      -0.5354    -0.13154
-##  8: versicolor       0.3070      0.1321       0.4307    -0.36097
-##  9:  virginica       1.1567      0.7880       1.0345    -1.27868
-## 10:  virginica       1.3267      1.7064       1.6384     1.24503
-## 11:  virginica       0.6469      0.7880       0.3100    -0.13154
-## 12:  virginica       0.7602      0.3945       0.5515    -0.59040
-## 13:  virginica       0.5903      0.7880       0.1892    -0.13154
-## 14:  virginica       0.9302      1.1816       1.2761     0.09789
-## 15:  virginica       0.8169      1.0504       0.7930    -0.13154</code></pre>
+##  1:     setosa      -1.3358     -1.3111      -0.8977      1.0156
+##  2:     setosa      -1.2791     -1.3111      -1.0184      0.7862
+##  3:     setosa      -1.1658     -0.9175      -0.8977      0.5567
+##  4:     setosa      -1.3358     -1.3111      -0.4146      2.6216
+##  5:     setosa      -1.2225     -1.3111      -0.8977      1.7039
+##  6: versicolor       0.4203      0.3945       0.6722      0.3273
+##  7: versicolor      -0.2594     -0.2615      -1.1392     -1.5081
+##  8: versicolor       0.4203      0.3945      -0.5354     -0.1315
+##  9: versicolor       0.1371      0.1321      -0.4146     -1.2787
+## 10: versicolor       0.2504      0.1321      -0.2939     -0.8198
+## 11: versicolor       0.2504      0.1321      -0.1731     -0.3610
+## 12:  virginica       1.2134      1.1816       1.5176     -0.1315
+## 13:  virginica       0.8735      0.9192       0.6722     -0.8198
+## 14:  virginica       1.7799      1.4440       2.2422     -1.0493
+## 15:  virginica       1.1001      1.4440       1.2761      0.3273</code></pre>
 <div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">single_line_task</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##    Species Petal.Length Petal.Width Sepal.Length Sepal.Width

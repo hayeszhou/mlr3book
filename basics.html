@@ -266,7 +266,7 @@ Printing it gives the keys (the names of the datasets):</p>
 ## 11:            zoo   classif  101   17 multiclass  15   1   0   0   0   0   0</code></pre>
 <p>Above, the columns <code>"lgl"</code> (<a href="https://www.rdocumentation.org/packages/base/topics/logical"><code>logical</code></a>), <code>"int"</code> (<a href="https://www.rdocumentation.org/packages/base/topics/integer"><code>integer</code></a>), <code>"dbl"</code> (<a href="https://www.rdocumentation.org/packages/base/topics/double"><code>double</code></a>), <code>"chr"</code> (<a href="https://www.rdocumentation.org/packages/base/topics/character"><code>character</code></a>), <code>"fct"</code> (<a href="https://www.rdocumentation.org/packages/base/topics/factor"><code>factor</code></a>), <code>"ord"</code> (<a href="https://www.rdocumentation.org/packages/base/topics/factor"><code>ordered factor</code></a>) and <code>"pxc"</code> (<a href="https://www.rdocumentation.org/packages/base/topics/DateTimeClasses"><code>POSIXct</code></a> time) show the number of features in the task of the respective type.</p>
 <p>To get a task from the dictionary, use the <code>$get()</code> method from the <code>mlr_tasks</code> class and assign the return value to a new variable
-As getting a task from a dictionary is a very common task, <code>mlr3</code> provides the shortcut function <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>tsk()</code></a>.
+As getting a task from a dictionary is a very common problem, <code>mlr3</code> provides the shortcut function <a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html"><code>tsk()</code></a>.
 Here, we retrieve the <a href="https://mlr3.mlr-org.com/reference/mlr_tasks_penguins.html"><code>palmer penguins task</code></a>, which is provided by the package <a href="https://cran.r-project.org/package=palmerpenguins">palmerpenguins</a>:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task_penguins</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"penguins"</span><span class="op">)</span>
@@ -442,9 +442,10 @@ If not explicitly set during construction, the positive class defaults to the fi
 <h4>
 <span class="header-section-number">2.2.4.3</span> Roles (Rows and Columns)<a class="anchor" aria-label="anchor" href="#tasks-roles"><i class="fas fa-link"></i></a>
 </h4>
-<p>It is possible to assign different roles to rows and columns.
+<p>We have seen that during task creation, target and feature roles are assigned to columns.
+Target refers to the variable we want to predict and features are the predictors (also called co-variates) for the target.
+It is possible to assign different roles to rows and columns.
 These roles affect the behavior of the task for different operations.
-We have already seen this for the target and feature roles that are assigned to columns when a task is created.
 For other possible roles and their meaning, see the documentation of <a href="https://mlr3.mlr-org.com/reference/Task.html"><code>Task</code></a>.</p>
 <p>For example, the previously-constructed <code>task_mtcars</code> task has the following column roles:</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
@@ -544,7 +545,7 @@ The additional convenience method <code>$filter()</code> subsets the current vie
 ## 1:  Adelie      3750            181
 ## 2:  Adelie      3800            186
 ## 3:  Adelie      3250            195</code></pre>
-<p>The methods above allow to subset the data; the methods <code>$rbind()</code> and <code>$cbind()</code> allow to add extra rows and columns to a task.
+<p>While the methods above allow us to subset the data, the methods <code>$rbind()</code> and <code>$cbind()</code> allow to add extra rows and columns to a task.
 Again, the original data is not changed.
 The additional rows or columns are only added to the view of the data.</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
@@ -906,13 +907,13 @@ We can now access the stored model via the field <code>$model</code>:</p>
 ## node), split, n, loss, yval, (yprob)
 ##       * denotes terminal node
 ## 
-## 1) root 275 159 Adelie (0.421818 0.214545 0.363636)  
-##   2) flipper_length&lt; 206.5 170  56 Adelie (0.670588 0.323529 0.005882)  
-##     4) bill_length&lt; 43.05 114   4 Adelie (0.964912 0.035088 0.000000) *
-##     5) bill_length&gt;=43.05 56   5 Chinstrap (0.071429 0.910714 0.017857) *
-##   3) flipper_length&gt;=206.5 105   6 Gentoo (0.019048 0.038095 0.942857)  
-##     6) bill_depth&gt;=17.15 8   4 Chinstrap (0.250000 0.500000 0.250000) *
-##     7) bill_depth&lt; 17.15 97   0 Gentoo (0.000000 0.000000 1.000000) *</code></pre>
+## 1) root 275 155 Adelie (0.436364 0.214545 0.349091)  
+##   2) flipper_length&lt; 207.5 174  56 Adelie (0.678161 0.316092 0.005747)  
+##     4) bill_length&lt; 43.15 119   4 Adelie (0.966387 0.033613 0.000000) *
+##     5) bill_length&gt;=43.15 55   4 Chinstrap (0.054545 0.927273 0.018182) *
+##   3) flipper_length&gt;=207.5 101   6 Gentoo (0.019802 0.039604 0.940594)  
+##     6) bill_depth&gt;=17.15 7   3 Chinstrap (0.285714 0.571429 0.142857) *
+##     7) bill_depth&lt; 17.15 94   0 Gentoo (0.000000 0.000000 1.000000) *</code></pre>
 <p>Inspecting the output, we see that the learner has identified features in the task that are predictive of the class (the type of penguin) and uses them to partition observations in the tree.
 There are additional details on how the data is partitioned across branches of the tree; the textual representation of the model depends on the type of learner.
 For more information on this particular type of model, see <a href="https://www.rdocumentation.org/packages/rpart/topics/print.rpart"><code>rpart::print.rpart()</code></a>.</p>
@@ -928,13 +929,13 @@ Remember that we <a href="basics.html#split-data">initially split the data</a> i
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 69 observations:
 ##     row_ids     truth  response
+##           3    Adelie    Adelie
 ##           5    Adelie    Adelie
-##           7    Adelie    Adelie
-##          12    Adelie    Adelie
+##          14    Adelie    Adelie
 ## ---                            
-##         326 Chinstrap Chinstrap
-##         327 Chinstrap Chinstrap
-##         328 Chinstrap Chinstrap</code></pre>
+##         306 Chinstrap Chinstrap
+##         325 Chinstrap Chinstrap
+##         337 Chinstrap Chinstrap</code></pre>
 <p>The <code>$predict()</code> method of the <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a> returns a <a href="https://mlr3.mlr-org.com/reference/Prediction.html"><code>Prediction</code></a> object.
 More precisely, a <a href="https://mlr3.mlr-org.com/reference/LearnerClassif.html"><code>LearnerClassif</code></a> returns a <a href="https://mlr3.mlr-org.com/reference/PredictionClassif.html"><code>PredictionClassif</code></a> object.</p>
 <p>A prediction objects holds the row IDs of the test data, the respective true label of the target column and the respective predictions.
@@ -942,20 +943,20 @@ The simplest way to extract this information is by converting the <a href="https
 <div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span><span class="op">)</span> <span class="co"># show first six predictions</span></code></pre></div>
 <pre><code>##    row_ids  truth response
-## 1:       5 Adelie   Adelie
-## 2:       7 Adelie   Adelie
-## 3:      12 Adelie   Adelie
-## 4:      21 Adelie   Adelie
-## 5:      22 Adelie   Adelie
-## 6:      24 Adelie   Adelie</code></pre>
+## 1:       3 Adelie   Adelie
+## 2:       5 Adelie   Adelie
+## 3:      14 Adelie   Adelie
+## 4:      17 Adelie   Adelie
+## 5:      24 Adelie   Adelie
+## 6:      28 Adelie   Adelie</code></pre>
 <p>For classification, you can also extract the confusion matrix:</p>
 <div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">prediction</span><span class="op">$</span><span class="va">confusion</span></code></pre></div>
 <pre><code>##            truth
 ## response    Adelie Chinstrap Gentoo
-##   Adelie        33         0      0
-##   Chinstrap      3         9      0
-##   Gentoo         0         0     24</code></pre>
+##   Adelie        29         0      0
+##   Chinstrap      3         9      2
+##   Gentoo         0         0     26</code></pre>
 <p>The confusion matrix shows, for each class, how many observations were predicted to be in that class and how many were actually in it (more information on <a href="https://en.wikipedia.org/wiki/Confusion_matrix">Wikipedia</a>).
 The entries along the diagonal denote the correctly classified observations.
 In this case, we can see that our classifier is really quite good and correctly predicting almost all observations.</p>
@@ -980,12 +981,12 @@ To predict these probabilities, the <code>predict_type</code> field of a <a href
 <code class="sourceCode R"><span class="co"># data.table conversion</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">)</span><span class="op">)</span> <span class="co"># show first six</span></code></pre></div>
 <pre><code>##    row_ids  truth response prob.Adelie prob.Chinstrap prob.Gentoo
-## 1:       5 Adelie   Adelie      0.9649        0.03509           0
-## 2:       7 Adelie   Adelie      0.9649        0.03509           0
-## 3:      12 Adelie   Adelie      0.9649        0.03509           0
-## 4:      21 Adelie   Adelie      0.9649        0.03509           0
-## 5:      22 Adelie   Adelie      0.9649        0.03509           0
-## 6:      24 Adelie   Adelie      0.9649        0.03509           0</code></pre>
+## 1:       3 Adelie   Adelie      0.9664        0.03361           0
+## 2:       5 Adelie   Adelie      0.9664        0.03361           0
+## 3:      14 Adelie   Adelie      0.9664        0.03361           0
+## 4:      17 Adelie   Adelie      0.9664        0.03361           0
+## 5:      24 Adelie   Adelie      0.9664        0.03361           0
+## 6:      28 Adelie   Adelie      0.9664        0.03361           0</code></pre>
 <div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># directly access the predicted labels:</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">$</span><span class="va">response</span><span class="op">)</span></code></pre></div>
@@ -995,12 +996,12 @@ To predict these probabilities, the <code>predict_type</code> field of a <a href
 <code class="sourceCode R"><span class="co"># directly access the matrix of probabilities:</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">prediction</span><span class="op">$</span><span class="va">prob</span><span class="op">)</span></code></pre></div>
 <pre><code>##      Adelie Chinstrap Gentoo
-## [1,] 0.9649   0.03509      0
-## [2,] 0.9649   0.03509      0
-## [3,] 0.9649   0.03509      0
-## [4,] 0.9649   0.03509      0
-## [5,] 0.9649   0.03509      0
-## [6,] 0.9649   0.03509      0</code></pre>
+## [1,] 0.9664   0.03361      0
+## [2,] 0.9664   0.03361      0
+## [3,] 0.9664   0.03361      0
+## [4,] 0.9664   0.03361      0
+## [5,] 0.9664   0.03361      0
+## [6,] 0.9664   0.03361      0</code></pre>
 <p>Similarly to predicting probabilities for classification, many <a href="https://mlr3.mlr-org.com/reference/LearnerRegr.html"><code>regression learners</code></a> support the extraction of standard error estimates for predictions by setting the predict type to <code>"se"</code>.</p>
 </div>
 <div id="autoplot-prediction" class="section level3" number="2.4.6">
@@ -1119,7 +1120,7 @@ Note that if the prediction was made on a dataset without the target column, i.e
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-22.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

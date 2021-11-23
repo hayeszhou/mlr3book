@@ -287,8 +287,8 @@ The <a href="https://cran.r-project.org/web/packages/future/vignettes/future-3-t
 <pre><code>##             truth
 ## response     setosa versicolor virginica
 ##   setosa          0          0         0
-##   versicolor      0          0         0
-##   virginica      50         50        50</code></pre>
+##   versicolor     50         50        50
+##   virginica       0          0         0</code></pre>
 <p>We now set a hyperparameter to let the debug learner signal an error during the train step.
 By default,<a href="https://github.com/mlr-org/mlr3">mlr3</a> does not catch conditions such as warnings or errors raised by third-party code like learners:</p>
 <div class="sourceCode" id="cb477"><pre class="downlit sourceCode r">
@@ -399,18 +399,16 @@ We re-parametrize the debug learner to fail in roughly 30% of the resampling ite
 ## 1:  1 &lt;ResampleResult[22]&gt;    iris classif.debug            cv    10        0
 ## 2:  2 &lt;ResampleResult[22]&gt;    iris classif.rpart            cv    10        0
 ##    errors classif.ce
-## 1:      5     0.7467
-## 2:      0     0.0800</code></pre>
+## 1:      3       0.66
+## 2:      0       0.08</code></pre>
 <p>To further investigate the errors, we can extract the <a href="https://mlr3.mlr-org.com/reference/ResampleResult.html"><code>ResampleResult</code></a>:</p>
 <div class="sourceCode" id="cb498"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">rr</span> <span class="op">=</span> <span class="va">aggr</span><span class="op">[</span><span class="va">learner_id</span> <span class="op">==</span> <span class="st">"classif.debug"</span><span class="op">]</span><span class="op">$</span><span class="va">resample_result</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span>
 <span class="va">rr</span><span class="op">$</span><span class="va">errors</span></code></pre></div>
 <pre><code>##    iteration                               msg
-## 1:         1 Error from classif.debug-&gt;train()
-## 2:         2 Error from classif.debug-&gt;train()
-## 3:         4 Error from classif.debug-&gt;train()
-## 4:         6 Error from classif.debug-&gt;train()
-## 5:         7 Error from classif.debug-&gt;train()</code></pre>
+## 1:         2 Error from classif.debug-&gt;train()
+## 2:         4 Error from classif.debug-&gt;train()
+## 3:         7 Error from classif.debug-&gt;train()</code></pre>
 <p>A similar yet different problem emerges when a learner predicts only a subset of the observations in the test set (and predicts <code>NA</code> for others).
 Handling such predictions in a statistically sound way is not straight-forward and a common source for over-optimism when reporting results.
 Imagine that our goal is to benchmark two algorithms using a 10-fold cross validation on some binary classification task:</p>
@@ -438,7 +436,7 @@ This is illustrated in the following example:</p>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="va">response</span>, useNA <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ##     setosa versicolor  virginica       &lt;NA&gt; 
-##         75          0          0         75</code></pre>
+##          0         75          0         75</code></pre>
 <div class="sourceCode" id="cb502"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># with fallback</span>
 <span class="va">learner</span><span class="op">$</span><span class="va">fallback</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.featureless"</span><span class="op">)</span>
@@ -446,7 +444,7 @@ This is illustrated in the following example:</p>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="va">response</span>, useNA <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ##     setosa versicolor  virginica       &lt;NA&gt; 
-##        150          0          0          0</code></pre>
+##         75          0         75          0</code></pre>
 <p>Summed up, by combining encapsulation and fallback learners, it is possible to benchmark even quite unreliable or instable learning algorithms in a convenient way.</p>
 
 </div>
@@ -618,7 +616,7 @@ In each iteration, only the required subset of the data is queried from the SQLi
 <div class="sourceCode" id="cb535"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="fu">aggregate</span><span class="op">(</span><span class="va">measures</span><span class="op">)</span></code></pre></div>
 <pre><code>##     regr.mse   time_train time_predict 
-##         1209            0            0</code></pre>
+##         1223            0            0</code></pre>
 </div>
 <div id="cleanup" class="section level3" number="6.3.5">
 <h3>
@@ -1036,7 +1034,7 @@ These are initialized with a single <code>Param</code>, and can then be used to 
 <pre><code>## &lt;Design&gt; with 5 rows:
 ##        A
 ## 1:  TRUE
-## 2: FALSE
+## 2:  TRUE
 ## 3: FALSE
 ## 4: FALSE
 ## 5:  TRUE</code></pre>
@@ -1062,8 +1060,8 @@ In the cases where <code>A</code> is <code>FALSE</code>, <code>B</code> is set t
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">sampled</span><span class="op">$</span><span class="va">data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span><span class="op">]</span>, useNA <span class="op">=</span> <span class="st">"ifany"</span><span class="op">)</span></code></pre></div>
 <pre><code>##        B
 ## A         0   1   2   3   4   5   6   7   8   9  10 &lt;NA&gt;
-##   FALSE   0   0   0   0   0   0   0   0   0   0   0  467
-##   TRUE   68  46  36  39  55  54  38  59  53  44  41    0</code></pre>
+##   FALSE   0   0   0   0   0   0   0   0   0   0   0  503
+##   TRUE   46  47  51  44  40  43  40  51  48  48  39    0</code></pre>
 </div>
 <div id="joint-sampler" class="section level5" number="6.4.3.4.3">
 <h5>
@@ -1079,12 +1077,12 @@ However, <code>SamplerJointIndep</code> currently can not handle <code>ParamSet<
 <span class="op">)</span>
 <span class="va">sampJ</span><span class="op">$</span><span class="fu">sample</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;Design&gt; with 5 rows:
-##         x      y
-## 1: 0.5636 0.6331
-## 2: 0.9162 0.1684
-## 3: 0.6808 0.8717
-## 4: 0.6002 0.2746
-## 5: 0.7125 0.7376</code></pre>
+##         x       y
+## 1: 0.5111 0.11831
+## 2: 0.4217 0.86059
+## 3: 0.8090 0.34656
+## 4: 0.9065 0.64270
+## 5: 0.7904 0.07438</code></pre>
 </div>
 <div id="samplerunif" class="section level5" number="6.4.3.4.4">
 <h5>
@@ -1120,29 +1118,29 @@ The following, for example, creates a parameter that is exponentially distribute
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;Design&gt; with 2 rows:
 ##       par
-## 1: 0.9995
-## 2: 0.8561</code></pre>
+## 1: 0.7426
+## 2: 0.1426</code></pre>
 <div class="sourceCode" id="cb614"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">design</span><span class="op">$</span><span class="fu">transpose</span><span class="op">(</span><span class="op">)</span>  <span class="co"># trafo is TRUE</span></code></pre></div>
 <pre><code>## [[1]]
 ## [[1]]$par
-## [1] 0.000519
+## [1] 0.2976
 ## 
 ## 
 ## [[2]]
 ## [[2]]$par
-## [1] 0.1554</code></pre>
+## [1] 1.948</code></pre>
 <p>Compare this to <code>$transpose()</code> without transformation:</p>
 <div class="sourceCode" id="cb616"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">design</span><span class="op">$</span><span class="fu">transpose</span><span class="op">(</span>trafo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [[1]]$par
-## [1] 0.9995
+## [1] 0.7426
 ## 
 ## 
 ## [[2]]
 ## [[2]]$par
-## [1] 0.8561</code></pre>
+## [1] 0.1426</code></pre>
 <div id="transformation-between-types" class="section level4" number="6.4.4.1">
 <h4>
 <span class="header-section-number">6.4.4.1</span> Transformation between Types<a class="anchor" aria-label="anchor" href="#transformation-between-types"><i class="fas fa-link"></i></a>
@@ -1187,9 +1185,9 @@ This method would probably use the following <code>ParamSet</code>:</p>
 <code class="sourceCode R"><span class="va">design</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/generate_design_random.html">generate_design_random</a></span><span class="op">(</span><span class="va">samplingPS</span>, <span class="fl">2</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;Design&gt; with 2 rows:
-##    fun
-## 1: max
-## 2: min</code></pre>
+##     fun
+## 1:  max
+## 2: mean</code></pre>
 <p>Note that the <code>Design</code> only contains the column “<code>fun</code>” as a <code>character</code> column.
 To get a single value as a <em>function</em>, the <code>$transpose</code> function is used.</p>
 <div class="sourceCode" id="cb623"><pre class="downlit sourceCode r">
@@ -1225,8 +1223,8 @@ For interpretability, the parameter is called “<code>quantile</code>” before
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;Design&gt; with 2 rows:
 ##    quantile
-## 1:   0.2854
-## 2:   0.5050</code></pre>
+## 1:  0.20971
+## 2:  0.03889</code></pre>
 <p>The <code>Design</code> now contains the column “<code>quantile</code>” that will be used by the <code>$transpose</code> function to create the <code>fun</code> parameter.
 We also check that it fits the requirement set by <code>methodPS</code>, and that it is a function.</p>
 <div class="sourceCode" id="cb632"><pre class="downlit sourceCode r">
@@ -1234,14 +1232,14 @@ We also check that it fits the requirement set by <code>methodPS</code>, and tha
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">xvals</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <pre><code>## $fun
 ## function(input) quantile(input, x$quantile)
-## &lt;environment: 0x5647ea9de1d0&gt;</code></pre>
+## &lt;environment: 0x5588463522e8&gt;</code></pre>
 <div class="sourceCode" id="cb634"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">methodPS</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span><span class="va">xvals</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode" id="cb636"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">xvals</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">fun</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></code></pre></div>
-<pre><code>## 28.53542% 
-##     3.568</code></pre>
+<pre><code>## 20.9712% 
+##    2.887</code></pre>
 
 </div>
 </div>
@@ -1298,11 +1296,11 @@ Here is just a short example which adds an additional appender to log events int
 
 <span class="co"># signal a warning</span>
 <span class="va">logger</span><span class="op">$</span><span class="fu">warn</span><span class="op">(</span><span class="st">"this is a warning from mlr3"</span><span class="op">)</span></code></pre></div>
-<pre><code>## WARN  [08:16:14.529] this is a warning from mlr3</code></pre>
+<pre><code>## WARN  [16:00:29.213] this is a warning from mlr3</code></pre>
 <div class="sourceCode" id="cb646"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># print the contents of the file</span>
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## {"level":300,"timestamp":"2021-11-22 08:16:14","logger":"mlr","caller":"eval","msg":"this is a warning from mlr3"}</code></pre>
+<pre><code>## {"level":300,"timestamp":"2021-11-23 16:00:29","logger":"mlr","caller":"eval","msg":"this is a warning from mlr3"}</code></pre>
 <div class="sourceCode" id="cb648"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># remove the appender again</span>
 <span class="va">logger</span><span class="op">$</span><span class="fu">remove_appender</span><span class="op">(</span><span class="st">"json"</span><span class="op">)</span></code></pre></div>
@@ -1382,7 +1380,7 @@ This should only be done to investigate problems, however, and not for productio
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-22.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

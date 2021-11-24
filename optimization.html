@@ -16,16 +16,16 @@
 <meta name="author" content="Patrick Schratz">
 <meta name="author" content="Raphael Sonabend">
 <meta name="author" content="Damir Pulatov">
-<meta name="description" content="A natural question that comes up sooner or later when working with machine learning is whether you’re getting the performance a model gives you can be improved by tweaking the hyperparameters of...">
+<meta name="description" content="In machine learning, when you are dissatisfied with the performance of a model, you might ask yourself how to best improve the model: * Can it be improved by tweaking the hyperparameters of the...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="4 Model Optimization | mlr3 book">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://mlr3book.mlr-org.com/optimization.html">
 <meta property="og:image" content="https://mlr3book.mlr-org.com//block.png">
-<meta property="og:description" content="A natural question that comes up sooner or later when working with machine learning is whether you’re getting the performance a model gives you can be improved by tweaking the hyperparameters of...">
+<meta property="og:description" content="In machine learning, when you are dissatisfied with the performance of a model, you might ask yourself how to best improve the model: * Can it be improved by tweaking the hyperparameters of the...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="4 Model Optimization | mlr3 book">
-<meta name="twitter:description" content="A natural question that comes up sooner or later when working with machine learning is whether you’re getting the performance a model gives you can be improved by tweaking the hyperparameters of...">
+<meta name="twitter:description" content="In machine learning, when you are dissatisfied with the performance of a model, you might ask yourself how to best improve the model: * Can it be improved by tweaking the hyperparameters of the...">
 <meta name="twitter:image" content="https://mlr3book.mlr-org.com//block.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -76,8 +76,10 @@
 <h1>
 <span class="header-section-number">4</span> Model Optimization<a class="anchor" aria-label="anchor" href="#optimization"><i class="fas fa-link"></i></a>
 </h1>
-<p>A natural question that comes up sooner or later when working with machine learning is whether you’re getting the performance a model gives you can be improved by tweaking the hyperparameters of the learner, i.e. the configuration options that affect its behavior.
-Or maybe you should use a completely different learner for this particular task?</p>
+<p>In machine learning, when you are dissatisfied with the performance of a model, you might ask yourself how to best improve the model:
+* Can it be improved by tweaking the hyperparameters of the learner, i.e. the configuration options that affect its behavior?
+* Or, should you just use a completely different learner for this particular task?
+This chapter might help answer this question.</p>
 <p><strong>Model Tuning</strong></p>
 <p>Machine learning algorithms have default values set for their hyperparameters.
 In many cases, these hyperparameters need to be changed by the user to achieve optimal performance on the given dataset.
@@ -122,8 +124,8 @@ The obtained importance values can be used to subset the data, which can then be
 Wrapper methods can be used with any learner but need to train the learner potentially many times, making this the most expensive method.</p>
 <p><strong>Nested Resampling</strong></p>
 <p>For hyperparameter tuning, a normal resampling (e.g. a cross-validation) is no longer sufficient to ensure an unbiased evaluation.
-Consider the following thought experiment for an intuitiion for why this is the case.
-Suppose that a learner has a hyperparameter that has no real effect on the fitted model, but only introduces random noise into the predictions.
+Consider the following thought experiment to gain intuition for why this is the case.
+Suppose a learner has a hyperparameter that has no real effect on the fitted model, but only introduces random noise into the predictions.
 Evaluating different values for this hyperparameter, one will show the best performance (purely randomly).
 This is the hyperparameter value that will be chosen as the best, although the hyperparameter has no real effect.
 To discover this, another separate validation set is required – it will reveal that the “optimized” setting really does not perform better than anything else.</p>
@@ -158,7 +160,7 @@ Below you can find an illustration of the general process:</p>
 <span class="header-section-number">4.1.1</span> The <code>TuningInstance*</code> Classes<a class="anchor" aria-label="anchor" href="#tuning-optimization"><i class="fas fa-link"></i></a>
 </h3>
 <p>We will examine the optimization of a simple classification tree on the <a href="https://mlr3.mlr-org.com/reference/mlr_tasks_pima.html"><code>Pima Indian Diabetes</code></a> data set as an introductory example here.</p>
-<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3verse.mlr-org.com">"mlr3verse"</a></span><span class="op">)</span>
 <span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"pima"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
@@ -172,7 +174,7 @@ Below you can find an illustration of the general process:</p>
 This is often referred to as the “tuning space”.
 First, let’s look at all the hyperparameters that are available.
 Information on what they do can be found in <a href="https://www.rdocumentation.org/packages/rpart/topics/rpart.control"><code>the documentation of the learner</code></a>.</p>
-<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span>
 <span class="va">learner</span><span class="op">$</span><span class="va">param_set</span></code></pre></div>
 <pre><code>## &lt;ParamSet&gt;
@@ -193,7 +195,7 @@ Information on what they do can be found in <a href="https://www.rdocumentation.
 <li>The <code>minsplit</code> hyperparameter that controls how many observations must be present in a leaf for another split to be attempted.</li>
 </ul>
 <p>The tuning space needs to be bounded with lower and upper bounds for the values of the hyperparameters:</p>
-<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">search_space</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>
   cp <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_dbl</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="fl">0.001</span>, upper <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>,
   minsplit <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_int</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="fl">1</span>, upper <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
@@ -206,7 +208,7 @@ Information on what they do can be found in <a href="https://www.rdocumentation.
 <p>The bounds are usually set based on experience.</p>
 <p>Next, we need to specify how to evaluate the performance of a trained model.
 For this, we need to choose a <a href="https://mlr3.mlr-org.com/reference/Resampling.html"><code>resampling strategy</code></a> and a <a href="https://mlr3.mlr-org.com/reference/Measure.html"><code>performance measure</code></a>.</p>
-<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">hout</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"holdout"</span><span class="op">)</span>
 <span class="va">measure</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"classif.ce"</span><span class="op">)</span></code></pre></div>
 <p>Finally, we have to specify the budget available for tuning.
@@ -220,10 +222,10 @@ This is a crucial step, as exhaustively evaluating all possible hyperparameter c
 <li>A combination of the above in an <em>ALL</em> or <em>ANY</em> fashion (<a href="https://bbotk.mlr-org.com/reference/mlr_terminators_combo.html"><code>TerminatorCombo</code></a>).</li>
 </ul>
 <p>For this short introduction, we specify a budget of 20 evaluations and then put everything together into a <a href="https://mlr3tuning.mlr-org.com/reference/TuningInstanceSingleCrit.html"><code>TuningInstanceSingleCrit</code></a>:</p>
-<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3tuning.mlr-org.com">"mlr3tuning"</a></span><span class="op">)</span></code></pre></div>
 <pre><code>## Loading required package: paradox</code></pre>
-<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">evals20</span> <span class="op">=</span> <span class="fu"><a href="https://bbotk.mlr-org.com/reference/trm.html">trm</a></span><span class="op">(</span><span class="st">"evals"</span>, n_evals <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>
 
 <span class="va">instance</span> <span class="op">=</span> <span class="va"><a href="https://mlr3tuning.mlr-org.com/reference/TuningInstanceSingleCrit.html">TuningInstanceSingleCrit</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>
@@ -265,7 +267,7 @@ In other words, we need to choose the <strong>optimization algorithm</strong> vi
 </ul>
 <p>If you’re interested in learning more about these approaches, the <a href="Hyperparameter_optimization">Wikipedia page on hyperparameter optimization</a> is a good place to start.</p>
 <p>In this example, we will use a simple grid search with a grid resolution of 5.</p>
-<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tuner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3tuning.mlr-org.com/reference/tnr.html">tnr</a></span><span class="op">(</span><span class="st">"grid_search"</span>, resolution <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></code></pre></div>
 <p>As we have only numeric parameters, <a href="https://mlr3tuning.mlr-org.com/reference/mlr_tuners_grid_search.html"><code>TunerGridSearch</code></a> will create an equidistant grid between the respective upper and lower bounds.
 Our two-dimensional grid of resolution 5 consists of <span class="math inline">\(5^2 = 25\)</span> configurations.
@@ -288,189 +290,191 @@ If the budget is not exhausted, go back to 1), else terminate.</li>
 <li>Store the best configurations as result in the tuning instance object.
 The best hyperparameter settings (<code>$result_learner_param_vals</code>) and the corresponding measured performance (<code>$result_y</code>) can be retrieved from the tuning instance.</li>
 </ol>
-<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tuner</span><span class="op">$</span><span class="fu">optimize</span><span class="op">(</span><span class="va">instance</span><span class="op">)</span></code></pre></div>
-<pre><code>## INFO  [16:00:27.522] [bbotk] Starting to optimize 2 parameter(s) with '&lt;OptimizerGridSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=20, k=0]' 
-## INFO  [16:00:27.566] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:27.749] [bbotk] Result of batch 1: 
-## INFO  [16:00:27.751] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
-## INFO  [16:00:27.751] [bbotk]  0.1       10     0.2812            0.019 02975842-aebf-424d-a59d-335f700fc548 
-## INFO  [16:00:27.753] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:27.844] [bbotk] Result of batch 2: 
-## INFO  [16:00:27.846] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:27.846] [bbotk]  0.07525        1     0.2812            0.013 
-## INFO  [16:00:27.846] [bbotk]                                 uhash 
-## INFO  [16:00:27.846] [bbotk]  e81b0951-8edb-439b-9086-511c00ce405e 
-## INFO  [16:00:27.848] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:27.947] [bbotk] Result of batch 3: 
-## INFO  [16:00:27.949] [bbotk]     cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:27.949] [bbotk]  0.001        8     0.2969            0.014 
-## INFO  [16:00:27.949] [bbotk]                                 uhash 
-## INFO  [16:00:27.949] [bbotk]  d84421fc-315b-4d99-8fa3-370facacf1f0 
-## INFO  [16:00:27.951] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:28.046] [bbotk] Result of batch 4: 
-## INFO  [16:00:28.048] [bbotk]      cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:28.048] [bbotk]  0.0505        8     0.2812            0.014 
-## INFO  [16:00:28.048] [bbotk]                                 uhash 
-## INFO  [16:00:28.048] [bbotk]  3e784504-79e5-4dfb-9111-ad934012b45f 
-## INFO  [16:00:28.050] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:28.166] [bbotk] Result of batch 5: 
-## INFO  [16:00:28.168] [bbotk]      cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:28.168] [bbotk]  0.0505        5     0.2812            0.022 
-## INFO  [16:00:28.168] [bbotk]                                 uhash 
-## INFO  [16:00:28.168] [bbotk]  a4d7b6d2-bf21-45c2-af80-03f6a78c4092 
-## INFO  [16:00:28.170] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:28.259] [bbotk] Result of batch 6: 
-## INFO  [16:00:28.261] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
-## INFO  [16:00:28.261] [bbotk]  0.1        3     0.2812            0.013 9763aeee-f84a-4bb8-b98a-a1ba379e53cd 
-## INFO  [16:00:28.263] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:28.440] [bbotk] Result of batch 7: 
-## INFO  [16:00:28.442] [bbotk]     cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:28.442] [bbotk]  0.001       10     0.2773            0.015 
-## INFO  [16:00:28.442] [bbotk]                                 uhash 
-## INFO  [16:00:28.442] [bbotk]  eee61cf7-1732-4fb5-baa2-d7c7a9ced5f2 
-## INFO  [16:00:28.444] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:28.543] [bbotk] Result of batch 8: 
-## INFO  [16:00:28.545] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:28.545] [bbotk]  0.02575        1     0.2812            0.013 
-## INFO  [16:00:28.545] [bbotk]                                 uhash 
-## INFO  [16:00:28.545] [bbotk]  22a51266-ffab-49ac-a37c-5ad83aee4725 
-## INFO  [16:00:28.547] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:28.648] [bbotk] Result of batch 9: 
-## INFO  [16:00:28.650] [bbotk]     cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:28.650] [bbotk]  0.001        3     0.3242            0.019 
-## INFO  [16:00:28.650] [bbotk]                                 uhash 
-## INFO  [16:00:28.650] [bbotk]  7d62281e-32df-4134-aced-4d5adc3870c5 
-## INFO  [16:00:28.652] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:28.748] [bbotk] Result of batch 10: 
-## INFO  [16:00:28.750] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:28.750] [bbotk]  0.02575        5     0.2812            0.019 
-## INFO  [16:00:28.750] [bbotk]                                 uhash 
-## INFO  [16:00:28.750] [bbotk]  94904e3d-2ce1-485d-a47a-ef78b99679cb 
-## INFO  [16:00:28.752] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:28.840] [bbotk] Result of batch 11: 
-## INFO  [16:00:28.842] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
-## INFO  [16:00:28.842] [bbotk]  0.1        8     0.2812            0.014 8064576e-89e4-4f72-8665-e910d09b86b6 
-## INFO  [16:00:28.844] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:28.951] [bbotk] Result of batch 12: 
-## INFO  [16:00:28.953] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:28.953] [bbotk]  0.02575        3     0.2812            0.013 
-## INFO  [16:00:28.953] [bbotk]                                 uhash 
-## INFO  [16:00:28.953] [bbotk]  2740207f-19a2-4d52-92ec-462480755436 
-## INFO  [16:00:28.955] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:29.053] [bbotk] Result of batch 13: 
-## INFO  [16:00:29.056] [bbotk]      cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:29.056] [bbotk]  0.0505       10     0.2812            0.016 
-## INFO  [16:00:29.056] [bbotk]                                 uhash 
-## INFO  [16:00:29.056] [bbotk]  b817826b-2df2-4ed3-8fad-d0502ee2463d 
-## INFO  [16:00:29.058] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:29.164] [bbotk] Result of batch 14: 
-## INFO  [16:00:29.166] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:29.166] [bbotk]  0.07525        3     0.2812            0.016 
-## INFO  [16:00:29.166] [bbotk]                                 uhash 
-## INFO  [16:00:29.166] [bbotk]  8a3e6f2e-94f3-489d-8ca9-602fda51674d 
-## INFO  [16:00:29.168] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:29.267] [bbotk] Result of batch 15: 
-## INFO  [16:00:29.270] [bbotk]      cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:29.270] [bbotk]  0.0505        1     0.2812            0.013 
-## INFO  [16:00:29.270] [bbotk]                                 uhash 
-## INFO  [16:00:29.270] [bbotk]  c7048197-c576-4bcc-8ac5-adaf8b139a53 
-## INFO  [16:00:29.271] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:29.365] [bbotk] Result of batch 16: 
-## INFO  [16:00:29.368] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:29.368] [bbotk]  0.07525        8     0.2812            0.015 
-## INFO  [16:00:29.368] [bbotk]                                 uhash 
-## INFO  [16:00:29.368] [bbotk]  df12bc59-b151-4bd7-8f09-96d0c67c3a0a 
-## INFO  [16:00:29.369] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:29.467] [bbotk] Result of batch 17: 
-## INFO  [16:00:29.469] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
-## INFO  [16:00:29.469] [bbotk]  0.1        1     0.2812            0.014 ab80cf2c-e3f8-489f-93f9-e145109ea84f 
-## INFO  [16:00:29.471] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:29.568] [bbotk] Result of batch 18: 
-## INFO  [16:00:29.570] [bbotk]     cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:29.570] [bbotk]  0.001        5     0.3086            0.014 
-## INFO  [16:00:29.570] [bbotk]                                 uhash 
-## INFO  [16:00:29.570] [bbotk]  cb7eff0a-3f09-4f2e-9f5e-76f9ec0cc9ad 
-## INFO  [16:00:29.572] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:29.666] [bbotk] Result of batch 19: 
-## INFO  [16:00:29.668] [bbotk]     cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:29.668] [bbotk]  0.001        1     0.3242            0.016 
-## INFO  [16:00:29.668] [bbotk]                                 uhash 
-## INFO  [16:00:29.668] [bbotk]  a16c14e6-0d8c-4a86-a2b0-661865daa57f 
-## INFO  [16:00:29.670] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:29.769] [bbotk] Result of batch 20: 
-## INFO  [16:00:29.772] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:29.772] [bbotk]  0.02575       10     0.2812            0.013 
-## INFO  [16:00:29.772] [bbotk]                                 uhash 
-## INFO  [16:00:29.772] [bbotk]  e1c0eebc-ca2b-4d93-b03d-72c469d8a9c9 
-## INFO  [16:00:29.779] [bbotk] Finished optimizing after 20 evaluation(s) 
-## INFO  [16:00:29.779] [bbotk] Result: 
-## INFO  [16:00:29.781] [bbotk]     cp minsplit learner_param_vals  x_domain classif.ce 
-## INFO  [16:00:29.781] [bbotk]  0.001       10          &lt;list[3]&gt; &lt;list[2]&gt;     0.2773</code></pre>
-<pre><code>##       cp minsplit learner_param_vals  x_domain classif.ce
-## 1: 0.001       10          &lt;list[3]&gt; &lt;list[2]&gt;     0.2773</code></pre>
-<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
+<pre><code>## INFO  [15:54:36.412] [bbotk] Starting to optimize 2 parameter(s) with '&lt;OptimizerGridSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=20, k=0]' 
+## INFO  [15:54:36.457] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:36.651] [bbotk] Result of batch 1: 
+## INFO  [15:54:36.654] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:36.654] [bbotk]  0.07525       10     0.2695            0.021 
+## INFO  [15:54:36.654] [bbotk]                                 uhash 
+## INFO  [15:54:36.654] [bbotk]  8130a6d4-73b8-43ad-8855-bd0ef13ec367 
+## INFO  [15:54:36.656] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:36.746] [bbotk] Result of batch 2: 
+## INFO  [15:54:36.748] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:36.748] [bbotk]  0.02575        8     0.2695            0.013 
+## INFO  [15:54:36.748] [bbotk]                                 uhash 
+## INFO  [15:54:36.748] [bbotk]  274c2137-c5ce-42f9-a39b-f8193ee8a4a7 
+## INFO  [15:54:36.750] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:36.850] [bbotk] Result of batch 3: 
+## INFO  [15:54:36.853] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:36.853] [bbotk]  0.02575        3     0.2695            0.016 
+## INFO  [15:54:36.853] [bbotk]                                 uhash 
+## INFO  [15:54:36.853] [bbotk]  04ac60fd-4ee8-4540-9b46-ceb033c33af3 
+## INFO  [15:54:36.854] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:36.943] [bbotk] Result of batch 4: 
+## INFO  [15:54:36.945] [bbotk]      cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:36.945] [bbotk]  0.0505        5     0.2695            0.013 
+## INFO  [15:54:36.945] [bbotk]                                 uhash 
+## INFO  [15:54:36.945] [bbotk]  3ffa8d3e-933c-40d0-bf25-ad9597628f0a 
+## INFO  [15:54:36.947] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:37.050] [bbotk] Result of batch 5: 
+## INFO  [15:54:37.052] [bbotk]      cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:37.052] [bbotk]  0.0505        3     0.2695            0.022 
+## INFO  [15:54:37.052] [bbotk]                                 uhash 
+## INFO  [15:54:37.052] [bbotk]  b571d1e7-a9cf-4b02-9cf7-6ca50ce91cdf 
+## INFO  [15:54:37.054] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:37.149] [bbotk] Result of batch 6: 
+## INFO  [15:54:37.153] [bbotk]     cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:37.153] [bbotk]  0.001        3     0.2812            0.014 
+## INFO  [15:54:37.153] [bbotk]                                 uhash 
+## INFO  [15:54:37.153] [bbotk]  33e6707e-9ca3-49d6-8949-c046a30ef222 
+## INFO  [15:54:37.154] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:37.342] [bbotk] Result of batch 7: 
+## INFO  [15:54:37.344] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
+## INFO  [15:54:37.344] [bbotk]  0.1        8     0.2695            0.013 7c165485-3c2e-458e-9337-8dfcedd76e03 
+## INFO  [15:54:37.346] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:37.436] [bbotk] Result of batch 8: 
+## INFO  [15:54:37.438] [bbotk]      cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:37.438] [bbotk]  0.0505        1     0.2695            0.013 
+## INFO  [15:54:37.438] [bbotk]                                 uhash 
+## INFO  [15:54:37.438] [bbotk]  fdbf2b4b-2a2d-4fec-811f-232c0e3e6d5f 
+## INFO  [15:54:37.440] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:37.535] [bbotk] Result of batch 9: 
+## INFO  [15:54:37.537] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:37.537] [bbotk]  0.02575        5     0.2695            0.015 
+## INFO  [15:54:37.537] [bbotk]                                 uhash 
+## INFO  [15:54:37.537] [bbotk]  6e69c2fc-50c5-4254-ab10-c23557206ab3 
+## INFO  [15:54:37.539] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:37.639] [bbotk] Result of batch 10: 
+## INFO  [15:54:37.641] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:37.641] [bbotk]  0.07525        8     0.2695             0.02 
+## INFO  [15:54:37.641] [bbotk]                                 uhash 
+## INFO  [15:54:37.641] [bbotk]  2cfc0833-832d-43dc-822e-46dfd8d4a5d0 
+## INFO  [15:54:37.643] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:37.732] [bbotk] Result of batch 11: 
+## INFO  [15:54:37.734] [bbotk]      cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:37.734] [bbotk]  0.0505        8     0.2695            0.014 
+## INFO  [15:54:37.734] [bbotk]                                 uhash 
+## INFO  [15:54:37.734] [bbotk]  55a189aa-5a34-42d7-a02e-54f610090ce1 
+## INFO  [15:54:37.736] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:37.844] [bbotk] Result of batch 12: 
+## INFO  [15:54:37.847] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
+## INFO  [15:54:37.847] [bbotk]  0.1       10     0.2695            0.019 0c792642-5e17-4593-bd27-2470804154ec 
+## INFO  [15:54:37.853] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:37.944] [bbotk] Result of batch 13: 
+## INFO  [15:54:37.946] [bbotk]     cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:37.946] [bbotk]  0.001        1     0.2891            0.015 
+## INFO  [15:54:37.946] [bbotk]                                 uhash 
+## INFO  [15:54:37.946] [bbotk]  91579f30-ed70-4148-b01b-6626bd2d0521 
+## INFO  [15:54:37.948] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:38.039] [bbotk] Result of batch 14: 
+## INFO  [15:54:38.041] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
+## INFO  [15:54:38.041] [bbotk]  0.1        1     0.2695            0.013 50fc484f-0f81-4f3c-8676-a88267f4a9ef 
+## INFO  [15:54:38.043] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:38.148] [bbotk] Result of batch 15: 
+## INFO  [15:54:38.150] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:38.150] [bbotk]  0.02575        1     0.2695            0.014 
+## INFO  [15:54:38.150] [bbotk]                                 uhash 
+## INFO  [15:54:38.150] [bbotk]  451f7c19-7fa1-4a81-a395-787bd981d287 
+## INFO  [15:54:38.152] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:38.248] [bbotk] Result of batch 16: 
+## INFO  [15:54:38.250] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:38.250] [bbotk]  0.07525        1     0.2695            0.014 
+## INFO  [15:54:38.250] [bbotk]                                 uhash 
+## INFO  [15:54:38.250] [bbotk]  5b0a0ab4-45d9-4a71-8d53-177f074441e1 
+## INFO  [15:54:38.252] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:38.352] [bbotk] Result of batch 17: 
+## INFO  [15:54:38.354] [bbotk]     cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:38.354] [bbotk]  0.001       10     0.2695            0.016 
+## INFO  [15:54:38.354] [bbotk]                                 uhash 
+## INFO  [15:54:38.354] [bbotk]  5009c9b6-a509-40f2-83d6-ff1001765206 
+## INFO  [15:54:38.356] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:38.446] [bbotk] Result of batch 18: 
+## INFO  [15:54:38.448] [bbotk]      cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:38.448] [bbotk]  0.0505       10     0.2695            0.013 
+## INFO  [15:54:38.448] [bbotk]                                 uhash 
+## INFO  [15:54:38.448] [bbotk]  b468228c-deda-4d6b-8f7a-40655ffc64ca 
+## INFO  [15:54:38.450] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:38.553] [bbotk] Result of batch 19: 
+## INFO  [15:54:38.555] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:38.555] [bbotk]  0.07525        3     0.2695            0.016 
+## INFO  [15:54:38.555] [bbotk]                                 uhash 
+## INFO  [15:54:38.555] [bbotk]  6dbbdec9-00b0-4271-a163-b185c316a38d 
+## INFO  [15:54:38.557] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:38.658] [bbotk] Result of batch 20: 
+## INFO  [15:54:38.660] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:38.660] [bbotk]  0.02575       10     0.2695            0.013 
+## INFO  [15:54:38.660] [bbotk]                                 uhash 
+## INFO  [15:54:38.660] [bbotk]  2e8c2e70-5d29-4ac9-a5bd-758467604d65 
+## INFO  [15:54:38.667] [bbotk] Finished optimizing after 20 evaluation(s) 
+## INFO  [15:54:38.668] [bbotk] Result: 
+## INFO  [15:54:38.669] [bbotk]       cp minsplit learner_param_vals  x_domain classif.ce 
+## INFO  [15:54:38.669] [bbotk]  0.07525       10          &lt;list[3]&gt; &lt;list[2]&gt;     0.2695</code></pre>
+<pre><code>##         cp minsplit learner_param_vals  x_domain classif.ce
+## 1: 0.07525       10          &lt;list[3]&gt; &lt;list[2]&gt;     0.2695</code></pre>
+<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">instance</span><span class="op">$</span><span class="va">result_learner_param_vals</span></code></pre></div>
 <pre><code>## $xval
 ## [1] 0
 ## 
 ## $cp
-## [1] 0.001
+## [1] 0.07525
 ## 
 ## $minsplit
 ## [1] 10</code></pre>
-<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">instance</span><span class="op">$</span><span class="va">result_y</span></code></pre></div>
 <pre><code>## classif.ce 
-##     0.2773</code></pre>
+##     0.2695</code></pre>
 <p>You can investigate all of the evaluations that were performed; they are stored in the archive of the <a href="https://mlr3tuning.mlr-org.com/reference/TuningInstanceSingleCrit.html"><code>TuningInstanceSingleCrit</code></a> and can be accessed by using <code><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table()</a></code>:</p>
-<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">instance</span><span class="op">$</span><span class="va">archive</span><span class="op">)</span></code></pre></div>
 <pre><code>##          cp minsplit classif.ce x_domain_cp x_domain_minsplit runtime_learners
-##  1: 0.10000       10     0.2812     0.10000                10            0.019
-##  2: 0.07525        1     0.2812     0.07525                 1            0.013
-##  3: 0.00100        8     0.2969     0.00100                 8            0.014
-##  4: 0.05050        8     0.2812     0.05050                 8            0.014
-##  5: 0.05050        5     0.2812     0.05050                 5            0.022
-##  6: 0.10000        3     0.2812     0.10000                 3            0.013
-##  7: 0.00100       10     0.2773     0.00100                10            0.015
-##  8: 0.02575        1     0.2812     0.02575                 1            0.013
-##  9: 0.00100        3     0.3242     0.00100                 3            0.019
-## 10: 0.02575        5     0.2812     0.02575                 5            0.019
-## 11: 0.10000        8     0.2812     0.10000                 8            0.014
-## 12: 0.02575        3     0.2812     0.02575                 3            0.013
-## 13: 0.05050       10     0.2812     0.05050                10            0.016
-## 14: 0.07525        3     0.2812     0.07525                 3            0.016
-## 15: 0.05050        1     0.2812     0.05050                 1            0.013
-## 16: 0.07525        8     0.2812     0.07525                 8            0.015
-## 17: 0.10000        1     0.2812     0.10000                 1            0.014
-## 18: 0.00100        5     0.3086     0.00100                 5            0.014
-## 19: 0.00100        1     0.3242     0.00100                 1            0.016
-## 20: 0.02575       10     0.2812     0.02575                10            0.013
+##  1: 0.07525       10     0.2695     0.07525                10            0.021
+##  2: 0.02575        8     0.2695     0.02575                 8            0.013
+##  3: 0.02575        3     0.2695     0.02575                 3            0.016
+##  4: 0.05050        5     0.2695     0.05050                 5            0.013
+##  5: 0.05050        3     0.2695     0.05050                 3            0.022
+##  6: 0.00100        3     0.2812     0.00100                 3            0.014
+##  7: 0.10000        8     0.2695     0.10000                 8            0.013
+##  8: 0.05050        1     0.2695     0.05050                 1            0.013
+##  9: 0.02575        5     0.2695     0.02575                 5            0.015
+## 10: 0.07525        8     0.2695     0.07525                 8            0.020
+## 11: 0.05050        8     0.2695     0.05050                 8            0.014
+## 12: 0.10000       10     0.2695     0.10000                10            0.019
+## 13: 0.00100        1     0.2891     0.00100                 1            0.015
+## 14: 0.10000        1     0.2695     0.10000                 1            0.013
+## 15: 0.02575        1     0.2695     0.02575                 1            0.014
+## 16: 0.07525        1     0.2695     0.07525                 1            0.014
+## 17: 0.00100       10     0.2695     0.00100                10            0.016
+## 18: 0.05050       10     0.2695     0.05050                10            0.013
+## 19: 0.07525        3     0.2695     0.07525                 3            0.016
+## 20: 0.02575       10     0.2695     0.02575                10            0.013
 ##               timestamp batch_nr      resample_result
-##  1: 2021-11-23 16:00:27        1 &lt;ResampleResult[22]&gt;
-##  2: 2021-11-23 16:00:27        2 &lt;ResampleResult[22]&gt;
-##  3: 2021-11-23 16:00:27        3 &lt;ResampleResult[22]&gt;
-##  4: 2021-11-23 16:00:28        4 &lt;ResampleResult[22]&gt;
-##  5: 2021-11-23 16:00:28        5 &lt;ResampleResult[22]&gt;
-##  6: 2021-11-23 16:00:28        6 &lt;ResampleResult[22]&gt;
-##  7: 2021-11-23 16:00:28        7 &lt;ResampleResult[22]&gt;
-##  8: 2021-11-23 16:00:28        8 &lt;ResampleResult[22]&gt;
-##  9: 2021-11-23 16:00:28        9 &lt;ResampleResult[22]&gt;
-## 10: 2021-11-23 16:00:28       10 &lt;ResampleResult[22]&gt;
-## 11: 2021-11-23 16:00:28       11 &lt;ResampleResult[22]&gt;
-## 12: 2021-11-23 16:00:28       12 &lt;ResampleResult[22]&gt;
-## 13: 2021-11-23 16:00:29       13 &lt;ResampleResult[22]&gt;
-## 14: 2021-11-23 16:00:29       14 &lt;ResampleResult[22]&gt;
-## 15: 2021-11-23 16:00:29       15 &lt;ResampleResult[22]&gt;
-## 16: 2021-11-23 16:00:29       16 &lt;ResampleResult[22]&gt;
-## 17: 2021-11-23 16:00:29       17 &lt;ResampleResult[22]&gt;
-## 18: 2021-11-23 16:00:29       18 &lt;ResampleResult[22]&gt;
-## 19: 2021-11-23 16:00:29       19 &lt;ResampleResult[22]&gt;
-## 20: 2021-11-23 16:00:29       20 &lt;ResampleResult[22]&gt;</code></pre>
+##  1: 2021-11-24 15:54:36        1 &lt;ResampleResult[22]&gt;
+##  2: 2021-11-24 15:54:36        2 &lt;ResampleResult[22]&gt;
+##  3: 2021-11-24 15:54:36        3 &lt;ResampleResult[22]&gt;
+##  4: 2021-11-24 15:54:36        4 &lt;ResampleResult[22]&gt;
+##  5: 2021-11-24 15:54:37        5 &lt;ResampleResult[22]&gt;
+##  6: 2021-11-24 15:54:37        6 &lt;ResampleResult[22]&gt;
+##  7: 2021-11-24 15:54:37        7 &lt;ResampleResult[22]&gt;
+##  8: 2021-11-24 15:54:37        8 &lt;ResampleResult[22]&gt;
+##  9: 2021-11-24 15:54:37        9 &lt;ResampleResult[22]&gt;
+## 10: 2021-11-24 15:54:37       10 &lt;ResampleResult[22]&gt;
+## 11: 2021-11-24 15:54:37       11 &lt;ResampleResult[22]&gt;
+## 12: 2021-11-24 15:54:37       12 &lt;ResampleResult[22]&gt;
+## 13: 2021-11-24 15:54:37       13 &lt;ResampleResult[22]&gt;
+## 14: 2021-11-24 15:54:38       14 &lt;ResampleResult[22]&gt;
+## 15: 2021-11-24 15:54:38       15 &lt;ResampleResult[22]&gt;
+## 16: 2021-11-24 15:54:38       16 &lt;ResampleResult[22]&gt;
+## 17: 2021-11-24 15:54:38       17 &lt;ResampleResult[22]&gt;
+## 18: 2021-11-24 15:54:38       18 &lt;ResampleResult[22]&gt;
+## 19: 2021-11-24 15:54:38       19 &lt;ResampleResult[22]&gt;
+## 20: 2021-11-24 15:54:38       20 &lt;ResampleResult[22]&gt;</code></pre>
 <p>Altogether, the grid search evaluated 20/25 different hyperparameter configurations in a random order before the <a href="https://bbotk.mlr-org.com/reference/Terminator.html"><code>Terminator</code></a> stopped the tuning.</p>
 <p>The associated resampling iterations can be accessed in the <a href="https://mlr3.mlr-org.com/reference/BenchmarkResult.html"><code>BenchmarkResult</code></a> of the tuning instance:</p>
-<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">instance</span><span class="op">$</span><span class="va">archive</span><span class="op">$</span><span class="va">benchmark_result</span></code></pre></div>
 <pre><code>## &lt;BenchmarkResult&gt; of 20 rows with 20 resampling runs
 ##  nr task_id    learner_id resampling_id iters warnings errors
@@ -495,29 +499,29 @@ The best hyperparameter settings (<code>$result_learner_param_vals</code>) and t
 ##  19    pima classif.rpart       holdout     1        0      0
 ##  20    pima classif.rpart       holdout     1        0      0</code></pre>
 <p>The <code>uhash</code> column links the resampling iterations to the evaluated configurations stored in <code>instance$archive$data</code>. This allows e.g. to score the included <a href="https://mlr3.mlr-org.com/reference/ResampleResult.html"><code>ResampleResult</code></a>s on a different performance measure.</p>
-<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">instance</span><span class="op">$</span><span class="va">archive</span><span class="op">$</span><span class="va">benchmark_result</span><span class="op">$</span><span class="fu">score</span><span class="op">(</span><span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"classif.acc"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##                                    uhash nr              task task_id
-##  1: 02975842-aebf-424d-a59d-335f700fc548  1 &lt;TaskClassif[49]&gt;    pima
-##  2: e81b0951-8edb-439b-9086-511c00ce405e  2 &lt;TaskClassif[49]&gt;    pima
-##  3: d84421fc-315b-4d99-8fa3-370facacf1f0  3 &lt;TaskClassif[49]&gt;    pima
-##  4: 3e784504-79e5-4dfb-9111-ad934012b45f  4 &lt;TaskClassif[49]&gt;    pima
-##  5: a4d7b6d2-bf21-45c2-af80-03f6a78c4092  5 &lt;TaskClassif[49]&gt;    pima
-##  6: 9763aeee-f84a-4bb8-b98a-a1ba379e53cd  6 &lt;TaskClassif[49]&gt;    pima
-##  7: eee61cf7-1732-4fb5-baa2-d7c7a9ced5f2  7 &lt;TaskClassif[49]&gt;    pima
-##  8: 22a51266-ffab-49ac-a37c-5ad83aee4725  8 &lt;TaskClassif[49]&gt;    pima
-##  9: 7d62281e-32df-4134-aced-4d5adc3870c5  9 &lt;TaskClassif[49]&gt;    pima
-## 10: 94904e3d-2ce1-485d-a47a-ef78b99679cb 10 &lt;TaskClassif[49]&gt;    pima
-## 11: 8064576e-89e4-4f72-8665-e910d09b86b6 11 &lt;TaskClassif[49]&gt;    pima
-## 12: 2740207f-19a2-4d52-92ec-462480755436 12 &lt;TaskClassif[49]&gt;    pima
-## 13: b817826b-2df2-4ed3-8fad-d0502ee2463d 13 &lt;TaskClassif[49]&gt;    pima
-## 14: 8a3e6f2e-94f3-489d-8ca9-602fda51674d 14 &lt;TaskClassif[49]&gt;    pima
-## 15: c7048197-c576-4bcc-8ac5-adaf8b139a53 15 &lt;TaskClassif[49]&gt;    pima
-## 16: df12bc59-b151-4bd7-8f09-96d0c67c3a0a 16 &lt;TaskClassif[49]&gt;    pima
-## 17: ab80cf2c-e3f8-489f-93f9-e145109ea84f 17 &lt;TaskClassif[49]&gt;    pima
-## 18: cb7eff0a-3f09-4f2e-9f5e-76f9ec0cc9ad 18 &lt;TaskClassif[49]&gt;    pima
-## 19: a16c14e6-0d8c-4a86-a2b0-661865daa57f 19 &lt;TaskClassif[49]&gt;    pima
-## 20: e1c0eebc-ca2b-4d93-b03d-72c469d8a9c9 20 &lt;TaskClassif[49]&gt;    pima
+##  1: 8130a6d4-73b8-43ad-8855-bd0ef13ec367  1 &lt;TaskClassif[49]&gt;    pima
+##  2: 274c2137-c5ce-42f9-a39b-f8193ee8a4a7  2 &lt;TaskClassif[49]&gt;    pima
+##  3: 04ac60fd-4ee8-4540-9b46-ceb033c33af3  3 &lt;TaskClassif[49]&gt;    pima
+##  4: 3ffa8d3e-933c-40d0-bf25-ad9597628f0a  4 &lt;TaskClassif[49]&gt;    pima
+##  5: b571d1e7-a9cf-4b02-9cf7-6ca50ce91cdf  5 &lt;TaskClassif[49]&gt;    pima
+##  6: 33e6707e-9ca3-49d6-8949-c046a30ef222  6 &lt;TaskClassif[49]&gt;    pima
+##  7: 7c165485-3c2e-458e-9337-8dfcedd76e03  7 &lt;TaskClassif[49]&gt;    pima
+##  8: fdbf2b4b-2a2d-4fec-811f-232c0e3e6d5f  8 &lt;TaskClassif[49]&gt;    pima
+##  9: 6e69c2fc-50c5-4254-ab10-c23557206ab3  9 &lt;TaskClassif[49]&gt;    pima
+## 10: 2cfc0833-832d-43dc-822e-46dfd8d4a5d0 10 &lt;TaskClassif[49]&gt;    pima
+## 11: 55a189aa-5a34-42d7-a02e-54f610090ce1 11 &lt;TaskClassif[49]&gt;    pima
+## 12: 0c792642-5e17-4593-bd27-2470804154ec 12 &lt;TaskClassif[49]&gt;    pima
+## 13: 91579f30-ed70-4148-b01b-6626bd2d0521 13 &lt;TaskClassif[49]&gt;    pima
+## 14: 50fc484f-0f81-4f3c-8676-a88267f4a9ef 14 &lt;TaskClassif[49]&gt;    pima
+## 15: 451f7c19-7fa1-4a81-a395-787bd981d287 15 &lt;TaskClassif[49]&gt;    pima
+## 16: 5b0a0ab4-45d9-4a71-8d53-177f074441e1 16 &lt;TaskClassif[49]&gt;    pima
+## 17: 5009c9b6-a509-40f2-83d6-ff1001765206 17 &lt;TaskClassif[49]&gt;    pima
+## 18: b468228c-deda-4d6b-8f7a-40655ffc64ca 18 &lt;TaskClassif[49]&gt;    pima
+## 19: 6dbbdec9-00b0-4271-a163-b185c316a38d 19 &lt;TaskClassif[49]&gt;    pima
+## 20: 2e8c2e70-5d29-4ac9-a5bd-758467604d65 20 &lt;TaskClassif[49]&gt;    pima
 ##                       learner    learner_id              resampling
 ##  1: &lt;LearnerClassifRpart[37]&gt; classif.rpart &lt;ResamplingHoldout[19]&gt;
 ##  2: &lt;LearnerClassifRpart[37]&gt; classif.rpart &lt;ResamplingHoldout[19]&gt;
@@ -540,28 +544,28 @@ The best hyperparameter settings (<code>$result_learner_param_vals</code>) and t
 ## 19: &lt;LearnerClassifRpart[37]&gt; classif.rpart &lt;ResamplingHoldout[19]&gt;
 ## 20: &lt;LearnerClassifRpart[37]&gt; classif.rpart &lt;ResamplingHoldout[19]&gt;
 ##     resampling_id iteration              prediction classif.acc
-##  1:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7188
-##  2:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7188
-##  3:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7031
-##  4:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7188
-##  5:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7188
+##  1:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
+##  2:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
+##  3:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
+##  4:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
+##  5:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
 ##  6:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7188
-##  7:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7227
-##  8:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7188
-##  9:       holdout         1 &lt;PredictionClassif[20]&gt;      0.6758
-## 10:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7188
-## 11:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7188
-## 12:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7188
-## 13:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7188
-## 14:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7188
-## 15:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7188
-## 16:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7188
-## 17:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7188
-## 18:       holdout         1 &lt;PredictionClassif[20]&gt;      0.6914
-## 19:       holdout         1 &lt;PredictionClassif[20]&gt;      0.6758
-## 20:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7188</code></pre>
+##  7:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
+##  8:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
+##  9:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
+## 10:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
+## 11:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
+## 12:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
+## 13:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7109
+## 14:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
+## 15:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
+## 16:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
+## 17:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
+## 18:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
+## 19:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305
+## 20:       holdout         1 &lt;PredictionClassif[20]&gt;      0.7305</code></pre>
 <p>Now we can take the optimized hyperparameters, set them for the previously-created <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a>, and train it on the full dataset.</p>
-<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span> <span class="op">=</span> <span class="va">instance</span><span class="op">$</span><span class="va">result_learner_param_vals</span>
 <span class="va">learner</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
 <p>The trained model can now be used to make a prediction on new, external data.
@@ -578,7 +582,7 @@ Because the <a href="https://mlr3tuning.mlr-org.com/reference/AutoTuner.html"><c
 In keeping with our example above, we create a classification learner that tunes itself automatically.
 This classification tree learner tunes the parameters <code>cp</code> and <code>minsplit</code> using an inner resampling (holdout).
 We create a terminator which allows 10 evaluations, and use a simple random search as tuning algorithm:</p>
-<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span>
 <span class="va">search_space</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>
   cp <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_dbl</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="fl">0.001</span>, upper <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>,
@@ -609,73 +613,73 @@ We create a terminator which allows 10 evaluations, and use a simple random sear
 ## * Properties: importance, missings, multiclass, selected_features,
 ##   twoclass, weights</code></pre>
 <p>We can now use the learner like any other learner, calling the <code>$train()</code> and <code>$predict()</code> method. The differnce to a normal learner is that <code>$train()</code> runs the tuning, which will take longer than a normal training process.</p>
-<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">at</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
-<pre><code>## INFO  [16:00:30.311] [bbotk] Starting to optimize 2 parameter(s) with '&lt;OptimizerRandomSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=10, k=0]' 
-## INFO  [16:00:30.329] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:30.417] [bbotk] Result of batch 1: 
-## INFO  [16:00:30.419] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:30.419] [bbotk]  0.06961        3     0.2539            0.013 
-## INFO  [16:00:30.419] [bbotk]                                 uhash 
-## INFO  [16:00:30.419] [bbotk]  a4022672-7b2e-40ac-a5ff-6ee865929261 
-## INFO  [16:00:30.423] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:30.516] [bbotk] Result of batch 2: 
-## INFO  [16:00:30.519] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:30.519] [bbotk]  0.01864        1     0.2578            0.014 
-## INFO  [16:00:30.519] [bbotk]                                 uhash 
-## INFO  [16:00:30.519] [bbotk]  00c3831a-9697-485c-bbe7-e975afafe8c3 
-## INFO  [16:00:30.523] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:30.626] [bbotk] Result of batch 3: 
-## INFO  [16:00:30.628] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:30.628] [bbotk]  0.00442        3     0.2773            0.015 
-## INFO  [16:00:30.628] [bbotk]                                 uhash 
-## INFO  [16:00:30.628] [bbotk]  ee6b9875-1f3f-48b5-801a-e92229bc14e5 
-## INFO  [16:00:30.632] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:30.725] [bbotk] Result of batch 4: 
-## INFO  [16:00:30.727] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:30.727] [bbotk]  0.06371       10     0.2539            0.013 
-## INFO  [16:00:30.727] [bbotk]                                 uhash 
-## INFO  [16:00:30.727] [bbotk]  eebbb2fc-5c76-47ee-bd7c-9a146afd41c5 
-## INFO  [16:00:30.731] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:30.831] [bbotk] Result of batch 5: 
-## INFO  [16:00:30.833] [bbotk]      cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:30.833] [bbotk]  0.0603        8     0.2539            0.014 
-## INFO  [16:00:30.833] [bbotk]                                 uhash 
-## INFO  [16:00:30.833] [bbotk]  b5edd375-b112-4056-baa7-590d6f6f1edf 
-## INFO  [16:00:30.837] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:30.928] [bbotk] Result of batch 6: 
-## INFO  [16:00:30.930] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:30.930] [bbotk]  0.08164        4     0.2539            0.014 
-## INFO  [16:00:30.930] [bbotk]                                 uhash 
-## INFO  [16:00:30.930] [bbotk]  3d1e4817-9991-4d05-9879-0f40d77ff81c 
-## INFO  [16:00:30.934] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:31.046] [bbotk] Result of batch 7: 
-## INFO  [16:00:31.048] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:31.048] [bbotk]  0.08213        9     0.2539            0.015 
-## INFO  [16:00:31.048] [bbotk]                                 uhash 
-## INFO  [16:00:31.048] [bbotk]  48cf42fd-e52c-47f8-9af6-3c2cc1a4de5b 
-## INFO  [16:00:31.052] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:31.146] [bbotk] Result of batch 8: 
-## INFO  [16:00:31.148] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:31.148] [bbotk]  0.09266        4     0.2539            0.014 
-## INFO  [16:00:31.148] [bbotk]                                 uhash 
-## INFO  [16:00:31.148] [bbotk]  72478416-80bc-44f8-a636-10afe47990a7 
-## INFO  [16:00:31.152] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:31.244] [bbotk] Result of batch 9: 
-## INFO  [16:00:31.246] [bbotk]        cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:31.246] [bbotk]  0.009367        9     0.2539            0.016 
-## INFO  [16:00:31.246] [bbotk]                                 uhash 
-## INFO  [16:00:31.246] [bbotk]  0102dbc6-4f53-4f56-932e-d57e8282f3d4 
-## INFO  [16:00:31.250] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:31.352] [bbotk] Result of batch 10: 
-## INFO  [16:00:31.355] [bbotk]      cp minsplit classif.ce runtime_learners 
-## INFO  [16:00:31.355] [bbotk]  0.0801        3     0.2539            0.013 
-## INFO  [16:00:31.355] [bbotk]                                 uhash 
-## INFO  [16:00:31.355] [bbotk]  8158582e-fc47-4fb5-b117-128465a2e3d0 
-## INFO  [16:00:31.363] [bbotk] Finished optimizing after 10 evaluation(s) 
-## INFO  [16:00:31.364] [bbotk] Result: 
-## INFO  [16:00:31.366] [bbotk]       cp minsplit learner_param_vals  x_domain classif.ce 
-## INFO  [16:00:31.366] [bbotk]  0.06961        3          &lt;list[3]&gt; &lt;list[2]&gt;     0.2539</code></pre>
+<pre><code>## INFO  [15:54:39.164] [bbotk] Starting to optimize 2 parameter(s) with '&lt;OptimizerRandomSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=10, k=0]' 
+## INFO  [15:54:39.182] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:39.278] [bbotk] Result of batch 1: 
+## INFO  [15:54:39.280] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:39.280] [bbotk]  0.02683        3     0.2734            0.015 
+## INFO  [15:54:39.280] [bbotk]                                 uhash 
+## INFO  [15:54:39.280] [bbotk]  ccdeb324-5db0-4aa5-b44e-9d619d6bbaf8 
+## INFO  [15:54:39.284] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:39.384] [bbotk] Result of batch 2: 
+## INFO  [15:54:39.386] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:39.386] [bbotk]  0.08535        9     0.3281            0.018 
+## INFO  [15:54:39.386] [bbotk]                                 uhash 
+## INFO  [15:54:39.386] [bbotk]  6bf6c292-a44a-4bf4-8afa-ec6f5d8c1226 
+## INFO  [15:54:39.390] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:39.488] [bbotk] Result of batch 3: 
+## INFO  [15:54:39.490] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:39.490] [bbotk]  0.01745        9     0.2773            0.014 
+## INFO  [15:54:39.490] [bbotk]                                 uhash 
+## INFO  [15:54:39.490] [bbotk]  0bb6a582-870b-4f61-aa35-8cec272f7276 
+## INFO  [15:54:39.494] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:39.587] [bbotk] Result of batch 4: 
+## INFO  [15:54:39.589] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:39.589] [bbotk]  0.06171        1     0.3281            0.014 
+## INFO  [15:54:39.589] [bbotk]                                 uhash 
+## INFO  [15:54:39.589] [bbotk]  718d20c5-aedc-4cc8-993b-696535b18cb5 
+## INFO  [15:54:39.593] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:39.691] [bbotk] Result of batch 5: 
+## INFO  [15:54:39.693] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:39.693] [bbotk]  0.09779        2     0.3281            0.015 
+## INFO  [15:54:39.693] [bbotk]                                 uhash 
+## INFO  [15:54:39.693] [bbotk]  44146d95-f05f-4f26-b148-211c7f68448b 
+## INFO  [15:54:39.697] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:39.787] [bbotk] Result of batch 6: 
+## INFO  [15:54:39.789] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:39.789] [bbotk]  0.06352        5     0.3281            0.015 
+## INFO  [15:54:39.789] [bbotk]                                 uhash 
+## INFO  [15:54:39.789] [bbotk]  6dc3ed3a-bef8-4161-b524-aaab0047a211 
+## INFO  [15:54:39.793] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:39.894] [bbotk] Result of batch 7: 
+## INFO  [15:54:39.896] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:39.896] [bbotk]  0.04071        2     0.2734            0.014 
+## INFO  [15:54:39.896] [bbotk]                                 uhash 
+## INFO  [15:54:39.896] [bbotk]  d7640d6c-4c28-49b9-90d7-c57eb0d5e134 
+## INFO  [15:54:39.900] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:39.991] [bbotk] Result of batch 8: 
+## INFO  [15:54:39.993] [bbotk]      cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:39.993] [bbotk]  0.0273        2     0.2734            0.013 
+## INFO  [15:54:39.993] [bbotk]                                 uhash 
+## INFO  [15:54:39.993] [bbotk]  3b50d16e-3beb-4b88-af04-f405ccc47dc7 
+## INFO  [15:54:39.998] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:40.093] [bbotk] Result of batch 9: 
+## INFO  [15:54:40.112] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:40.112] [bbotk]  0.02655        3     0.2734            0.014 
+## INFO  [15:54:40.112] [bbotk]                                 uhash 
+## INFO  [15:54:40.112] [bbotk]  bab450d1-ecf7-4269-a2f0-2b1ab8f0c8ae 
+## INFO  [15:54:40.117] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:40.209] [bbotk] Result of batch 10: 
+## INFO  [15:54:40.211] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [15:54:40.211] [bbotk]  0.01295        7     0.2812            0.014 
+## INFO  [15:54:40.211] [bbotk]                                 uhash 
+## INFO  [15:54:40.211] [bbotk]  6d3b59e4-c863-42d7-8b9f-9a092833bd37 
+## INFO  [15:54:40.219] [bbotk] Finished optimizing after 10 evaluation(s) 
+## INFO  [15:54:40.220] [bbotk] Result: 
+## INFO  [15:54:40.222] [bbotk]       cp minsplit learner_param_vals  x_domain classif.ce 
+## INFO  [15:54:40.222] [bbotk]  0.02683        3          &lt;list[3]&gt; &lt;list[2]&gt;     0.2734</code></pre>
 <p>We can also pass it to <a href="https://mlr3.mlr-org.com/reference/resample.html"><code>resample()</code></a> and <a href="https://mlr3.mlr-org.com/reference/benchmark.html"><code>benchmark()</code></a>, just like any other learner. This would result in a <a href="optimization.html#nested-resampling">nested resampling</a>.</p>
 
 </div>
@@ -704,7 +708,7 @@ See the <a href="technical.html#paradox">in-depth <code>paradox</code> chapter</
 <span class="header-section-number">4.2.1</span> Creating <code>ParamSet</code>s<a class="anchor" aria-label="anchor" href="#creating-paramsets"><i class="fas fa-link"></i></a>
 </h3>
 <p>An empty <a href="https://paradox.mlr-org.com/reference/ParamSet.html"><code>ParamSet</code></a> – not yet very useful – can be constructed using just the <a href="https://paradox.mlr-org.com/reference/ps.html"><code>ps</code></a> call:</p>
-<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3verse.mlr-org.com">"mlr3verse"</a></span><span class="op">)</span>
 
 <span class="va">search_space</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span><span class="op">)</span>
@@ -712,7 +716,7 @@ See the <a href="technical.html#paradox">in-depth <code>paradox</code> chapter</
 <pre><code>## &lt;ParamSet&gt;
 ## Empty.</code></pre>
 <p><a href="https://paradox.mlr-org.com/reference/ps.html"><code>ps</code></a> takes named <a href="https://paradox.mlr-org.com/reference/Domain.html"><code>Domain</code></a> arguments that are turned into parameters. A possible search space for the <code>"classif.svm"</code> learner could for example be:</p>
-<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">search_space</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>
   cost <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_dbl</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="fl">0.1</span>, upper <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,
   kernel <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_fct</a></span><span class="op">(</span>levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"polynomial"</span>, <span class="st">"radial"</span><span class="op">)</span><span class="op">)</span>
@@ -789,7 +793,7 @@ See the <a href="technical.html#paradox">in-depth <code>paradox</code> chapter</
 <strong><code>custom_check</code></strong>: Function that checks whether a value given to <code>p_uty</code> is valid. Not used for tuning search spaces.</li>
 </ul>
 <p>The <code>lower</code>, <code>upper</code>, or <code>levels</code> parameters are always at the first (or second, for <code>upper</code>) position of the respective constructors, so it is preferred to omit them when defining a <a href="https://paradox.mlr-org.com/reference/ParamSet.html"><code>ParamSet</code></a>, for improved conciseness:</p>
-<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">search_space</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_dbl</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">10</span><span class="op">)</span>, kernel <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_fct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"polynomial"</span>, <span class="st">"radial"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="searchspace-trafo" class="section level3" number="4.2.2">
@@ -798,7 +802,7 @@ See the <a href="technical.html#paradox">in-depth <code>paradox</code> chapter</
 </h3>
 <p>We can use the <a href="https://paradox.mlr-org.com">paradox</a> function <a href="https://paradox.mlr-org.com/reference/generate_design_grid.html"><code>generate_design_grid</code></a> to look at the values that would be evaluated by grid search.
 (We are using <code><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbindlist()</a></code> here because the result of <code>$transpose()</code> is a list that is harder to read. If we didn’t use <code>$transpose()</code>, on the other hand, the transformations that we investigate here are not applied.)</p>
-<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://r-datatable.com">"data.table"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbindlist</a></span><span class="op">(</span><span class="fu"><a href="https://paradox.mlr-org.com/reference/generate_design_grid.html">generate_design_grid</a></span><span class="op">(</span><span class="va">search_space</span>, <span class="fl">3</span><span class="op">)</span><span class="op">$</span><span class="fu">transpose</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##     cost     kernel
@@ -814,7 +818,7 @@ Therefore it makes more sense to tune it on a <em>logarithmic scale</em>.
 This is done by using a <strong>transformation</strong> (<code>trafo</code>).
 This is a function that is applied to a parameter after it has been sampled by the tuner.
 We can tune <code>cost</code> on a logarithmic scale by sampling on the linear scale <code>[-1, 1]</code> and computing <code>10^x</code> from that value.</p>
-<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">search_space</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>
   cost <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_dbl</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>, trafo <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">10</span><span class="op">^</span><span class="va">x</span><span class="op">)</span>,
   kernel <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_fct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"polynomial"</span>, <span class="st">"radial"</span><span class="op">)</span><span class="op">)</span>
@@ -832,7 +836,7 @@ It is given through the <code>.extra_trafo</code> argument and should be a funct
 This transformation can access all parameter values of an evaluation and modify them with interactions.
 It is even possible to add or remove parameters.
 (The following is a bit of a silly example.)</p>
-<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">search_space</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>
   cost <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_dbl</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>, trafo <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">10</span><span class="op">^</span><span class="va">x</span><span class="op">)</span>,
   kernel <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_fct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"polynomial"</span>, <span class="st">"radial"</span><span class="op">)</span><span class="op">)</span>,
@@ -857,7 +861,7 @@ These can not be defined in a search space <a href="https://paradox.mlr-org.com/
 When trying to tune over these hyperparameters, it is necessary to perform a Transformation that changes the type of a parameter.</p>
 <p>An example is the <code>class.weights</code> parameter of the SVM, which takes a named vector of class weights with one entry for each target class.
 The trafo that would tune <code>class.weights</code> for the <a href="https://mlr3.mlr-org.com/reference/mlr_tasks_spam.html"><code>tsk("spam")</code></a> dataset could be:</p>
-<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">search_space</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>
   class.weights <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_dbl</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.9</span>, trafo <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>spam <span class="op">=</span> <span class="va">x</span>, nonspam <span class="op">=</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span>
 <span class="op">)</span>
@@ -889,7 +893,7 @@ It may be the case that a hyperparameter accepts function objects as values and 
 Or it may be that a choice of special numeric values should be tried.
 For this, the <code>p_fct</code> constructor’s <code>level</code> argument may be a value that is not a <code>character</code> vector, but something else.
 If, for example, only the values <code>0.1</code>, <code>3</code>, and <code>10</code> should be tried for the <code>cost</code> parameter, even when doing random search, then the following search space would achieve that:</p>
-<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">search_space</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>
   cost <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_fct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">3</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>,
   kernel <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_fct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"polynomial"</span>, <span class="st">"radial"</span><span class="op">)</span><span class="op">)</span>
@@ -903,7 +907,7 @@ If, for example, only the values <code>0.1</code>, <code>3</code>, and <code>10<
 ## 5: 10.0 polynomial
 ## 6: 10.0     radial</code></pre>
 <p>This is equivalent to the following:</p>
-<div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">search_space</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>
   cost <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_fct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"0.1"</span>, <span class="st">"3"</span>, <span class="st">"10"</span><span class="op">)</span>,
     trafo <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>`0.1` <span class="op">=</span> <span class="fl">0.1</span>, `3` <span class="op">=</span> <span class="fl">3</span>, `10` <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,
@@ -918,7 +922,7 @@ If, for example, only the values <code>0.1</code>, <code>3</code>, and <code>10<
 ## 5: 10.0 polynomial
 ## 6: 10.0     radial</code></pre>
 <p>This may seem silly, but makes sense when considering that factorial tuning parameters are always <code>character</code> values:</p>
-<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">search_space</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>
   cost <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_fct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">3</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>,
   kernel <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_fct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"polynomial"</span>, <span class="st">"radial"</span><span class="op">)</span><span class="op">)</span>
@@ -930,7 +934,7 @@ Tuning algorithms that make use of ordering information of parameters, like gene
 For these algorithms, it may make more sense to define a <code>p_dbl</code> or <code>p_int</code> with a more fitting trafo.</p>
 <p>The <code>class.weights</code> case from above can also be implemented like this, if there are only a few candidates of <code>class.weights</code> vectors that should be tried.
 Note that the <code>levels</code> argument of <code>p_fct</code> must be named if there is no easy way for <code><a href="https://rdrr.io/r/base/character.html">as.character()</a></code> to create names:</p>
-<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb234"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">search_space</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>
   class.weights <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_fct</a></span><span class="op">(</span>
     <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -960,7 +964,7 @@ The SVM, for example, has the <code>degree</code> parameter that is only valid w
 This can be specified using the <code>depends</code> argument.
 It is an expression that must involve other parameters and be of the form <code>&lt;param&gt; == &lt;scalar&gt;</code>, <code>&lt;param&gt; %in% &lt;vector&gt;</code>, or multiple of these chained by <code>&amp;&amp;</code>.
 To tune the <code>degree</code> parameter, one would need to do the following:</p>
-<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">search_space</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>
   cost <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_dbl</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>, trafo <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">10</span><span class="op">^</span><span class="va">x</span><span class="op">)</span>,
   kernel <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_fct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"polynomial"</span>, <span class="st">"radial"</span><span class="op">)</span><span class="op">)</span>,
@@ -990,7 +994,7 @@ To tune the <code>degree</code> parameter, one would need to do the following:</
 This can be done in the same way that other hyperparameters are set to specific values.
 It can be understood as the hyperparameters being tagged for later tuning.
 The resulting <a href="https://paradox.mlr-org.com/reference/ParamSet.html"><code>ParamSet</code></a> used for tuning can be retrieved using the <code>$search_space()</code> method.</p>
-<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.svm"</span><span class="op">)</span>
 <span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">kernel</span> <span class="op">=</span> <span class="st">"polynomial"</span> <span class="co"># for example</span>
 <span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">degree</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/to_tune.html">to_tune</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="fl">1</span>, upper <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
@@ -999,7 +1003,7 @@ The resulting <a href="https://paradox.mlr-org.com/reference/ParamSet.html"><cod
 <pre><code>## &lt;ParamSet&gt;
 ##        id    class lower upper nlevels        default value
 ## 1: degree ParamInt     1     3       3 &lt;NoDefault[3]&gt;</code></pre>
-<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbindlist</a></span><span class="op">(</span><span class="fu"><a href="https://paradox.mlr-org.com/reference/generate_design_grid.html">generate_design_grid</a></span><span class="op">(</span><span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="fu">search_space</span><span class="op">(</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">$</span><span class="fu">transpose</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##    degree
 ## 1:      1
@@ -1008,7 +1012,7 @@ The resulting <a href="https://paradox.mlr-org.com/reference/ParamSet.html"><cod
 <p>It is possible to omit <code>lower</code> here, because it can be inferred from the lower bound of the <code>degree</code> parameter itself.
 For other parameters, that are already bounded, it is possible to not give any bounds at all, because their ranges are already bounded.
 An example is the logical <code>shrinking</code> hyperparameter:</p>
-<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">shrinking</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/to_tune.html">to_tune</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="fu">search_space</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -1016,7 +1020,7 @@ An example is the logical <code>shrinking</code> hyperparameter:</p>
 ##           id    class lower upper nlevels        default value
 ## 1:    degree ParamInt     1     3       3 &lt;NoDefault[3]&gt;      
 ## 2: shrinking ParamLgl    NA    NA       2           TRUE</code></pre>
-<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb244"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbindlist</a></span><span class="op">(</span><span class="fu"><a href="https://paradox.mlr-org.com/reference/generate_design_grid.html">generate_design_grid</a></span><span class="op">(</span><span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="fu">search_space</span><span class="op">(</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">$</span><span class="fu">transpose</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##    degree shrinking
 ## 1:      1      TRUE
@@ -1030,7 +1034,7 @@ This way it is possible to tune continuous parameters with discrete values, or t
 One could, for example, tune the <code>cost</code> as above on three given special values, and introduce a dependency of <code>shrinking</code> on it.
 Notice that a short form for <code>to_tune(&lt;levels&gt;)</code> is a short form of <code>to_tune(p_fct(&lt;levels&gt;))</code>.
 (When introducing the dependency, we need to use the <code>degree</code> value from <em>before</em> the implicit trafo, which is the name or <code><a href="https://rdrr.io/r/base/character.html">as.character()</a></code> of the respective value, here <code>"val2"</code>!)</p>
-<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">type</span> <span class="op">=</span> <span class="st">"C-classification"</span> <span class="co"># needs to be set because of a bug in paradox</span>
 <span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">cost</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/to_tune.html">to_tune</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>val1 <span class="op">=</span> <span class="fl">0.3</span>, val2 <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span><span class="op">)</span>
 <span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">shrinking</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/to_tune.html">to_tune</a></span><span class="op">(</span><span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_lgl</a></span><span class="op">(</span>depends <span class="op">=</span> <span class="va">cost</span> <span class="op">==</span> <span class="st">"val2"</span><span class="op">)</span><span class="op">)</span>
@@ -1042,7 +1046,7 @@ Notice that a short form for <code>to_tune(&lt;levels&gt;)</code> is a short for
 ## 2:    degree ParamInt     1     3       3 &lt;NoDefault[3]&gt;              
 ## 3: shrinking ParamLgl    NA    NA       2 &lt;NoDefault[3]&gt;    cost      
 ## Trafo is set.</code></pre>
-<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbindlist</a></span><span class="op">(</span><span class="fu"><a href="https://paradox.mlr-org.com/reference/generate_design_grid.html">generate_design_grid</a></span><span class="op">(</span><span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="fu">search_space</span><span class="op">(</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">$</span><span class="fu">transpose</span><span class="op">(</span><span class="op">)</span>, fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>##    degree cost shrinking
 ## 1:      1  0.3        NA
@@ -1057,7 +1061,7 @@ Notice that a short form for <code>to_tune(&lt;levels&gt;)</code> is a short for
 <p>The <code>search_space()</code> picks up dependencies fromt the underlying <a href="https://paradox.mlr-org.com/reference/ParamSet.html"><code>ParamSet</code></a> automatically.
 So if the <code>kernel</code> is tuned, then <code>degree</code> automatically gets the dependency on it, without us having to specify that.
 (Here we reset <code>cost</code> and <code>shrinking</code> to <code>NULL</code> for the sake of clarity of the generated output.)</p>
-<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">cost</span> <span class="op">=</span> <span class="cn">NULL</span>
 <span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">shrinking</span> <span class="op">=</span> <span class="cn">NULL</span>
 <span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">kernel</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/to_tune.html">to_tune</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"polynomial"</span>, <span class="st">"radial"</span><span class="op">)</span><span class="op">)</span>
@@ -1067,7 +1071,7 @@ So if the <code>kernel</code> is tuned, then <code>degree</code> automatically g
 ##        id    class lower upper nlevels        default parents value
 ## 1: degree ParamInt     1     3       3 &lt;NoDefault[3]&gt;  kernel      
 ## 2: kernel ParamFct    NA    NA       2 &lt;NoDefault[3]&gt;</code></pre>
-<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbindlist</a></span><span class="op">(</span><span class="fu"><a href="https://paradox.mlr-org.com/reference/generate_design_grid.html">generate_design_grid</a></span><span class="op">(</span><span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="fu">search_space</span><span class="op">(</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">$</span><span class="fu">transpose</span><span class="op">(</span><span class="op">)</span>, fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>##        kernel degree
 ## 1: polynomial      1
@@ -1078,7 +1082,7 @@ So if the <code>kernel</code> is tuned, then <code>degree</code> automatically g
 This may be especially useful for vector hyperparameters that should be searched along multiple dimensions.
 This <a href="https://paradox.mlr-org.com/reference/ParamSet.html"><code>ParamSet</code></a> must, however, have an <code>.extra_trafo</code> that returns a list with a single element, because it corresponds to a single hyperparameter that is being tuned.
 Suppose the <code>class.weights</code> hyperparameter should be tuned along two dimensions:</p>
-<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">learner</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span><span class="op">$</span><span class="va">class.weights</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/to_tune.html">to_tune</a></span><span class="op">(</span>
   <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>spam <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_dbl</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.9</span><span class="op">)</span>, nonspam <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_dbl</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.9</span><span class="op">)</span>,
     .extra_trafo <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">param_set</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>spam <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">spam</span>, nonspam <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">nonspam</span><span class="op">)</span><span class="op">)</span>
@@ -1149,7 +1153,7 @@ We continue the example and estimate the predictive performance of the model wit
 <p>We use a 4-fold cross-validation in the inner resampling loop.
 The <a href="https://mlr3tuning.mlr-org.com/reference/AutoTuner.html"><code>AutoTuner</code></a> executes the hyperparameter tuning and is stopped after 5 evaluations.
 The hyperparameter configurations are proposed by grid search.</p>
-<div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3verse.mlr-org.com">"mlr3verse"</a></span><span class="op">)</span>
 
 <span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span>
@@ -1164,86 +1168,86 @@ The hyperparameter configurations are proposed by grid search.</p>
 On each of the three outer train sets hyperparameter tuning is done and we receive three optimized hyperparameter configurations.
 To execute the nested resampling, we pass the <a href="https://mlr3tuning.mlr-org.com/reference/AutoTuner.html"><code>AutoTuner</code></a> to the <a href="https://mlr3.mlr-org.com/reference/resample.html"><code>resample()</code></a> function.
 We have to set <code>store_models = TRUE</code> because we need the <a href="https://mlr3tuning.mlr-org.com/reference/AutoTuner.html"><code>AutoTuner</code></a> models to investigate the inner tuning.</p>
-<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"pima"</span><span class="op">)</span>
 <span class="va">outer_resampling</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"cv"</span>, folds <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 
 <span class="va">rr</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/resample.html">resample</a></span><span class="op">(</span><span class="va">task</span>, <span class="va">at</span>, <span class="va">outer_resampling</span>, store_models <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code>## INFO  [16:00:40.915] [bbotk] Starting to optimize 1 parameter(s) with '&lt;OptimizerGridSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=5, k=0]' 
-## INFO  [16:00:40.957] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:41.166] [bbotk] Result of batch 1: 
-## INFO  [16:00:41.170] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:41.170] [bbotk]  0.089     0.2598            0.059 1c0c1aad-5a30-42a9-b275-883eb1b3f080 
-## INFO  [16:00:41.171] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:41.353] [bbotk] Result of batch 2: 
-## INFO  [16:00:41.355] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:41.355] [bbotk]  0.045     0.2598            0.059 a39f16ab-88cf-40b6-9cbb-755c78bf152c 
-## INFO  [16:00:41.357] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:41.534] [bbotk] Result of batch 3: 
-## INFO  [16:00:41.536] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:41.536] [bbotk]  0.023     0.2324            0.053 ef038135-1ae6-4384-a473-1a695b911a32 
-## INFO  [16:00:41.537] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:41.808] [bbotk] Result of batch 4: 
-## INFO  [16:00:41.810] [bbotk]   cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:41.810] [bbotk]  0.1     0.2598             0.05 77f7f1bd-3010-4dfd-8cae-8a9741f04478 
-## INFO  [16:00:41.812] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:42.005] [bbotk] Result of batch 5: 
-## INFO  [16:00:42.007] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:42.007] [bbotk]  0.078     0.2598            0.051 cd28fdbc-2212-4e42-b0a7-4946f2973954 
-## INFO  [16:00:42.014] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [16:00:42.015] [bbotk] Result: 
-## INFO  [16:00:42.016] [bbotk]     cp learner_param_vals  x_domain classif.ce 
-## INFO  [16:00:42.016] [bbotk]  0.023          &lt;list[2]&gt; &lt;list[1]&gt;     0.2324 
-## INFO  [16:00:42.097] [bbotk] Starting to optimize 1 parameter(s) with '&lt;OptimizerGridSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=5, k=0]' 
-## INFO  [16:00:42.101] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:42.290] [bbotk] Result of batch 1: 
-## INFO  [16:00:42.293] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:42.293] [bbotk]  0.001     0.2461            0.053 218edfb2-ff3b-4b98-876d-4d55a12624f8 
-## INFO  [16:00:42.295] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:42.486] [bbotk] Result of batch 2: 
-## INFO  [16:00:42.488] [bbotk]   cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:42.488] [bbotk]  0.1     0.2266            0.052 6d92afb2-4a23-4ebf-9f14-3a7aa867875b 
-## INFO  [16:00:42.490] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:42.689] [bbotk] Result of batch 3: 
-## INFO  [16:00:42.691] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:42.691] [bbotk]  0.078     0.2266            0.057 947d8f21-851e-4c19-ae80-a25076ed8099 
-## INFO  [16:00:42.693] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:42.876] [bbotk] Result of batch 4: 
-## INFO  [16:00:42.877] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:42.877] [bbotk]  0.023     0.2324            0.053 70799d02-01e8-4748-aeb5-0659f719fe01 
-## INFO  [16:00:42.879] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:43.076] [bbotk] Result of batch 5: 
-## INFO  [16:00:43.078] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:43.078] [bbotk]  0.045     0.2266            0.051 1bac3d67-3206-4d3d-945a-25c72695395f 
-## INFO  [16:00:43.084] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [16:00:43.085] [bbotk] Result: 
-## INFO  [16:00:43.087] [bbotk]   cp learner_param_vals  x_domain classif.ce 
-## INFO  [16:00:43.087] [bbotk]  0.1          &lt;list[2]&gt; &lt;list[1]&gt;     0.2266 
-## INFO  [16:00:43.165] [bbotk] Starting to optimize 1 parameter(s) with '&lt;OptimizerGridSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=5, k=0]' 
-## INFO  [16:00:43.168] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:43.351] [bbotk] Result of batch 1: 
-## INFO  [16:00:43.353] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:43.353] [bbotk]  0.089     0.2598            0.054 285353bf-ad84-499c-b841-ab25f1dcb464 
-## INFO  [16:00:43.355] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:43.532] [bbotk] Result of batch 2: 
-## INFO  [16:00:43.534] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:43.534] [bbotk]  0.078     0.2617            0.052 440d5419-065b-49a4-97fb-901ec430c4db 
-## INFO  [16:00:43.536] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:43.733] [bbotk] Result of batch 3: 
-## INFO  [16:00:43.736] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:43.736] [bbotk]  0.056     0.2617            0.051 53378e9d-f28c-47b1-b172-ac493e431970 
-## INFO  [16:00:43.738] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:43.936] [bbotk] Result of batch 4: 
-## INFO  [16:00:43.938] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:43.938] [bbotk]  0.001     0.2695            0.054 a1d2a22e-23d7-4631-b506-5d2509c0b824 
-## INFO  [16:00:43.940] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:44.138] [bbotk] Result of batch 5: 
-## INFO  [16:00:44.141] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:44.141] [bbotk]  0.012     0.2617            0.062 7692ae0c-db9a-4a4b-bd6e-265d4fa04c69 
-## INFO  [16:00:44.147] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [16:00:44.148] [bbotk] Result: 
-## INFO  [16:00:44.149] [bbotk]     cp learner_param_vals  x_domain classif.ce 
-## INFO  [16:00:44.149] [bbotk]  0.089          &lt;list[2]&gt; &lt;list[1]&gt;     0.2598</code></pre>
+<pre><code>## INFO  [15:54:50.035] [bbotk] Starting to optimize 1 parameter(s) with '&lt;OptimizerGridSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=5, k=0]' 
+## INFO  [15:54:50.081] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:50.299] [bbotk] Result of batch 1: 
+## INFO  [15:54:50.302] [bbotk]   cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:50.302] [bbotk]  0.1      0.252            0.059 d11b2e3b-349f-4c9b-918d-d22ca6398b57 
+## INFO  [15:54:50.304] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:50.496] [bbotk] Result of batch 2: 
+## INFO  [15:54:50.498] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:50.498] [bbotk]  0.001     0.2656            0.059 7e1ba166-f13a-4898-b557-0372dc727f9f 
+## INFO  [15:54:50.500] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:50.691] [bbotk] Result of batch 3: 
+## INFO  [15:54:50.693] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:50.693] [bbotk]  0.045     0.2324            0.057 6f2d37ab-1389-412a-8dc7-564340db8793 
+## INFO  [15:54:50.695] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:50.967] [bbotk] Result of batch 4: 
+## INFO  [15:54:50.970] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:50.970] [bbotk]  0.023     0.2266            0.052 06296d78-cbdc-42ec-b729-48bf3fbe4b74 
+## INFO  [15:54:50.971] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:51.163] [bbotk] Result of batch 5: 
+## INFO  [15:54:51.165] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:51.165] [bbotk]  0.012     0.2422            0.053 c147ae45-a134-4bd7-a456-102429dea513 
+## INFO  [15:54:51.172] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [15:54:51.173] [bbotk] Result: 
+## INFO  [15:54:51.174] [bbotk]     cp learner_param_vals  x_domain classif.ce 
+## INFO  [15:54:51.174] [bbotk]  0.023          &lt;list[2]&gt; &lt;list[1]&gt;     0.2266 
+## INFO  [15:54:51.264] [bbotk] Starting to optimize 1 parameter(s) with '&lt;OptimizerGridSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=5, k=0]' 
+## INFO  [15:54:51.267] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:51.449] [bbotk] Result of batch 1: 
+## INFO  [15:54:51.451] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:51.451] [bbotk]  0.034      0.252            0.052 c1135166-49ea-4266-860c-d6b19a2e7919 
+## INFO  [15:54:51.453] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:51.639] [bbotk] Result of batch 2: 
+## INFO  [15:54:51.641] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:51.641] [bbotk]  0.023     0.2441            0.052 11cef16f-8b96-4fdb-9153-65ea5d081a72 
+## INFO  [15:54:51.643] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:51.841] [bbotk] Result of batch 3: 
+## INFO  [15:54:51.843] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:51.843] [bbotk]  0.045       0.25            0.053 e349b4a3-3ecb-4303-a232-acfbe670b1ba 
+## INFO  [15:54:51.845] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:52.027] [bbotk] Result of batch 4: 
+## INFO  [15:54:52.029] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:52.029] [bbotk]  0.089       0.25            0.052 d4b939bc-1e47-4a36-8d5a-6a67a3047e0f 
+## INFO  [15:54:52.031] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:52.227] [bbotk] Result of batch 5: 
+## INFO  [15:54:52.229] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:52.229] [bbotk]  0.078       0.25            0.052 194cfec2-8694-4e1f-8eb2-7c7d61ca9cd8 
+## INFO  [15:54:52.235] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [15:54:52.235] [bbotk] Result: 
+## INFO  [15:54:52.237] [bbotk]     cp learner_param_vals  x_domain classif.ce 
+## INFO  [15:54:52.237] [bbotk]  0.023          &lt;list[2]&gt; &lt;list[1]&gt;     0.2441 
+## INFO  [15:54:52.317] [bbotk] Starting to optimize 1 parameter(s) with '&lt;OptimizerGridSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=5, k=0]' 
+## INFO  [15:54:52.320] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:52.512] [bbotk] Result of batch 1: 
+## INFO  [15:54:52.514] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:52.514] [bbotk]  0.078     0.2852            0.053 a2284ba1-e559-4bba-a70b-d27a49249c63 
+## INFO  [15:54:52.515] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:52.701] [bbotk] Result of batch 2: 
+## INFO  [15:54:52.703] [bbotk]   cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:52.703] [bbotk]  0.1     0.2852            0.051 b525ba36-e1a6-4b28-ae39-19a12679fbf0 
+## INFO  [15:54:52.704] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:52.897] [bbotk] Result of batch 3: 
+## INFO  [15:54:52.899] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:52.899] [bbotk]  0.001     0.2656            0.055 6830e69c-1c29-40fb-84fc-aa8da42a9b11 
+## INFO  [15:54:52.901] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:53.098] [bbotk] Result of batch 4: 
+## INFO  [15:54:53.100] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:53.100] [bbotk]  0.045     0.2871            0.053 ea0d7121-b2b6-43d4-b511-f354d3fd956f 
+## INFO  [15:54:53.102] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:53.307] [bbotk] Result of batch 5: 
+## INFO  [15:54:53.309] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:53.309] [bbotk]  0.012     0.2617            0.051 b4f9f989-0408-48fe-962a-8038520cad5f 
+## INFO  [15:54:53.318] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [15:54:53.319] [bbotk] Result: 
+## INFO  [15:54:53.320] [bbotk]     cp learner_param_vals  x_domain classif.ce 
+## INFO  [15:54:53.320] [bbotk]  0.012          &lt;list[2]&gt; &lt;list[1]&gt;     0.2617</code></pre>
 <p>You can freely combine different inner and outer resampling strategies.
 Nested resampling is not restricted to hyperparameter tuning.
 You can swap the <a href="https://mlr3tuning.mlr-org.com/reference/AutoTuner.html"><code>AutoTuner</code></a> for a <a href="https://mlr3fselect.mlr-org.com/reference/AutoFSelector.html"><code>AutoFSelector</code></a> and estimate the performance of a model which is fitted on an optimized feature subset.</p>
@@ -1258,19 +1262,19 @@ See the section on <a href="perf-eval-cmp.html#resampling">Resampling</a> for mo
 This means that the selected hyperparameters should not vary too much.
 We might observe unstable models in this example because the small data set and the low number of resampling iterations might introduces too much randomness.
 Usually, we aim for the selection of stable hyperparameters for all outer training sets.</p>
-<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://mlr3tuning.mlr-org.com/reference/extract_inner_tuning_results.html">extract_inner_tuning_results</a></span><span class="op">(</span><span class="va">rr</span><span class="op">)</span></code></pre></div>
 <pre><code>##    iteration    cp classif.ce learner_param_vals  x_domain task_id
-## 1:         1 0.100     0.2266          &lt;list[2]&gt; &lt;list[1]&gt;    pima
-## 2:         2 0.023     0.2324          &lt;list[2]&gt; &lt;list[1]&gt;    pima
-## 3:         3 0.089     0.2598          &lt;list[2]&gt; &lt;list[1]&gt;    pima
+## 1:         1 0.012     0.2617          &lt;list[2]&gt; &lt;list[1]&gt;    pima
+## 2:         2 0.023     0.2441          &lt;list[2]&gt; &lt;list[1]&gt;    pima
+## 3:         3 0.023     0.2266          &lt;list[2]&gt; &lt;list[1]&gt;    pima
 ##             learner_id resampling_id
 ## 1: classif.rpart.tuned            cv
 ## 2: classif.rpart.tuned            cv
 ## 3: classif.rpart.tuned            cv</code></pre>
 <p>Next, we want to compare the predictive performances estimated on the outer resampling to the inner resampling.
 Significantly lower predictive performances on the outer resampling indicate that the models with the optimized hyperparameters overfit the data.</p>
-<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="fu">score</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##                 task task_id         learner          learner_id
 ## 1: &lt;TaskClassif[49]&gt;    pima &lt;AutoTuner[41]&gt; classif.rpart.tuned
@@ -1281,14 +1285,14 @@ Significantly lower predictive performances on the outer resampling indicate tha
 ## 2: &lt;ResamplingCV[19]&gt;            cv         2 &lt;PredictionClassif[20]&gt;
 ## 3: &lt;ResamplingCV[19]&gt;            cv         3 &lt;PredictionClassif[20]&gt;
 ##    classif.ce
-## 1:     0.2500
-## 2:     0.2148
-## 3:     0.2852</code></pre>
+## 1:     0.2305
+## 2:     0.2188
+## 3:     0.2695</code></pre>
 <p>The aggregated performance of all outer resampling iterations is essentially the unbiased performance of the model with optimal hyperparameter found by grid search.</p>
-<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="fu">aggregate</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## classif.ce 
-##       0.25</code></pre>
+##     0.2396</code></pre>
 <p>Note that nested resampling is computationally expensive.
 For this reason we use relatively small number of hyperparameter configurations and a low number of resampling iterations in this example.
 In practice, you normally have to increase both.
@@ -1299,33 +1303,33 @@ As this is computationally intensive you might want to have a look at the sectio
 <span class="header-section-number">4.3.3</span> Final Model<a class="anchor" aria-label="anchor" href="#nested-final-model"><i class="fas fa-link"></i></a>
 </h3>
 <p>We can use the <a href="https://mlr3tuning.mlr-org.com/reference/AutoTuner.html"><code>AutoTuner</code></a> to tune the hyperparameters of our learner and fit the final model on the full data set.</p>
-<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">at</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
-<pre><code>## INFO  [16:00:44.507] [bbotk] Starting to optimize 1 parameter(s) with '&lt;OptimizerGridSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=5, k=0]' 
-## INFO  [16:00:44.510] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:44.709] [bbotk] Result of batch 1: 
-## INFO  [16:00:44.711] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:44.711] [bbotk]  0.067     0.2695            0.055 8af294cd-29c0-4ba7-a5e2-69841f8ee2e4 
-## INFO  [16:00:44.713] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:44.919] [bbotk] Result of batch 2: 
-## INFO  [16:00:44.921] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:44.921] [bbotk]  0.078     0.2695            0.055 ebfbfc8b-d022-4108-93d3-4d822f795f35 
-## INFO  [16:00:44.923] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:45.131] [bbotk] Result of batch 3: 
-## INFO  [16:00:45.133] [bbotk]   cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:45.133] [bbotk]  0.1     0.2695            0.058 906ffe89-39dd-45da-bc4f-25de4b85e21e 
-## INFO  [16:00:45.134] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:45.330] [bbotk] Result of batch 4: 
-## INFO  [16:00:45.332] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:45.332] [bbotk]  0.089     0.2695            0.052 ce3ac104-ad1b-47d4-83a5-4a5aeffb741f 
-## INFO  [16:00:45.334] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [16:00:45.530] [bbotk] Result of batch 5: 
-## INFO  [16:00:45.533] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [16:00:45.533] [bbotk]  0.001     0.2734            0.057 918aa110-ada2-4c93-bc6b-e6561093be64 
-## INFO  [16:00:45.540] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [16:00:45.541] [bbotk] Result: 
-## INFO  [16:00:45.543] [bbotk]     cp learner_param_vals  x_domain classif.ce 
-## INFO  [16:00:45.543] [bbotk]  0.067          &lt;list[2]&gt; &lt;list[1]&gt;     0.2695</code></pre>
+<pre><code>## INFO  [15:54:53.690] [bbotk] Starting to optimize 1 parameter(s) with '&lt;OptimizerGridSearch&gt;' and '&lt;TerminatorEvals&gt; [n_evals=5, k=0]' 
+## INFO  [15:54:53.693] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:53.890] [bbotk] Result of batch 1: 
+## INFO  [15:54:53.892] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:53.892] [bbotk]  0.023     0.2565            0.053 07fba27b-742f-4024-8219-7726ccb38dbe 
+## INFO  [15:54:53.894] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:54.094] [bbotk] Result of batch 2: 
+## INFO  [15:54:54.096] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:54.096] [bbotk]  0.089     0.2669            0.064 445b0aad-2883-40b8-a234-5c92add7f4c0 
+## INFO  [15:54:54.097] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:54.299] [bbotk] Result of batch 3: 
+## INFO  [15:54:54.301] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:54.301] [bbotk]  0.067     0.2669            0.058 fc70607e-cd5c-476b-ae4b-bc9e84914759 
+## INFO  [15:54:54.303] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:54.505] [bbotk] Result of batch 4: 
+## INFO  [15:54:54.508] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:54.508] [bbotk]  0.034     0.2669            0.053 88fd286a-644d-47cd-b564-9a2fa411578d 
+## INFO  [15:54:54.509] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [15:54:54.704] [bbotk] Result of batch 5: 
+## INFO  [15:54:54.707] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [15:54:54.707] [bbotk]  0.078     0.2669            0.056 9249f170-c266-47fd-b4b5-e2ef5893fa57 
+## INFO  [15:54:54.714] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [15:54:54.715] [bbotk] Result: 
+## INFO  [15:54:54.716] [bbotk]     cp learner_param_vals  x_domain classif.ce 
+## INFO  [15:54:54.716] [bbotk]  0.023          &lt;list[2]&gt; &lt;list[1]&gt;     0.2565</code></pre>
 <p>The trained model can now be used to make predictions on new data.
 A common mistake is to report the performance estimated on the resampling sets on which the tuning was performed (<code>at$tuning_result$classif.ce</code>) as the model’s performance.
 Instead, we report the performance estimated with nested resampling as the performance of the model.</p>
@@ -1491,7 +1495,7 @@ Even though different brackets are initialized with a different amount of config
 <p>The configurations at the start of each bracket are initialized by random, often uniform sampling.
 Note that currently all configurations are trained completely from the beginning, so no online updates of models from stage to stage is happening.</p>
 <p>To identify the budget for evaluating Hyperband, the user has to specify explicitly which hyperparameter of the learner influences the budget by extending a single hyperparameter in the <a href="https://paradox.mlr-org.com/reference/ParamSet.html"><code>ParamSet</code></a> with an argument (<code>tags = "budget"</code>), like in the following snippet:</p>
-<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3verse.mlr-org.com">"mlr3verse"</a></span><span class="op">)</span>
 
 <span class="co"># Hyperparameter subset of XGBoost</span>
@@ -1502,7 +1506,7 @@ Note that currently all configurations are trained completely from the beginning
 <p>Thanks to the broad ecosystem of the <a href="https://mlr3verse.mlr-org.com">mlr3verse</a> a learner does not require a natural budget parameter.
 A typical case of this would be decision trees.
 By using subsampling as preprocessing with <a href="https://mlr3pipelines.mlr-org.com">mlr3pipelines</a>, we can work around a lacking budget parameter.</p>
-<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 
 <span class="co"># extend "classif.rpart" with "subsampling" as preprocessing step</span>
@@ -1516,7 +1520,7 @@ By using subsampling as preprocessing with <a href="https://mlr3pipelines.mlr-or
 <span class="op">)</span></code></pre></div>
 <p>We can now plug the new learner with the extended hyperparameter set into a <a href="https://mlr3tuning.mlr-org.com/reference/TuningInstanceSingleCrit.html"><code>TuningInstanceSingleCrit</code></a> the same way as usual.
 Naturally, Hyperband terminates once all of its brackets are evaluated, so a <a href="https://bbotk.mlr-org.com/reference/Terminator.html"><code>Terminator</code></a> in the tuning instance acts as an upper bound and should be only set to a low value if one is unsure of how long Hyperband will take to finish under the given settings.</p>
-<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">instance</span> <span class="op">=</span> <span class="va"><a href="https://mlr3tuning.mlr-org.com/reference/TuningInstanceSingleCrit.html">TuningInstanceSingleCrit</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>
   task <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"iris"</span><span class="op">)</span>,
   learner <span class="op">=</span> <span class="va">ll</span>,
@@ -1526,11 +1530,11 @@ Naturally, Hyperband terminates once all of its brackets are evaluated, so a <a 
   search_space <span class="op">=</span> <span class="va">search_space</span>
 <span class="op">)</span></code></pre></div>
 <p>Now, we initialize a new instance of the <a href="https://www.rdocumentation.org/packages/mlr3hyperband/topics/mlr_tuners_hyperband"><code>mlr3hyperband::mlr_tuners_hyperband</code></a> class and start tuning with it.</p>
-<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3hyperband.mlr-org.com">"mlr3hyperband"</a></span><span class="op">)</span></code></pre></div>
 <pre><code>## Loading required package: mlr3tuning</code></pre>
 <pre><code>## Loading required package: paradox</code></pre>
-<div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tuner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3tuning.mlr-org.com/reference/tnr.html">tnr</a></span><span class="op">(</span><span class="st">"hyperband"</span>, eta <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 
 <span class="co"># reduce logging output</span>
@@ -1542,7 +1546,7 @@ Naturally, Hyperband terminates once all of its brackets are evaluated, so a <a 
 ##     x_domain classif.ce
 ## 1: &lt;list[3]&gt;       0.02</code></pre>
 <p>To receive the results of each sampled configuration, we simply run the following snippet.</p>
-<div class="sourceCode" id="cb276"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">instance</span><span class="op">$</span><span class="va">archive</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
   <span class="st">"subsample.frac"</span>,
   <span class="st">"classif.rpart.cp"</span>,
@@ -1574,13 +1578,13 @@ Naturally, Hyperband terminates once all of its brackets are evaluated, so a <a 
 ## 22:         1.0000          0.09141                      4       0.04
 ##     subsample.frac classif.rpart.cp classif.rpart.minsplit classif.ce</code></pre>
 <p>You can access the best found configuration through the instance object.</p>
-<div class="sourceCode" id="cb278"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">instance</span><span class="op">$</span><span class="va">result</span></code></pre></div>
 <pre><code>##    classif.rpart.cp classif.rpart.minsplit subsample.frac learner_param_vals
 ## 1:          0.07348                      5         0.1111          &lt;list[6]&gt;
 ##     x_domain classif.ce
 ## 1: &lt;list[3]&gt;       0.02</code></pre>
-<div class="sourceCode" id="cb280"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">instance</span><span class="op">$</span><span class="va">result_learner_param_vals</span></code></pre></div>
 <pre><code>## $subsample.frac
 ## [1] 0.1111
@@ -1599,7 +1603,7 @@ Naturally, Hyperband terminates once all of its brackets are evaluated, so a <a 
 ## 
 ## $classif.rpart.minsplit
 ## [1] 5</code></pre>
-<div class="sourceCode" id="cb282"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb281"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">instance</span><span class="op">$</span><span class="va">result_y</span></code></pre></div>
 <pre><code>## classif.ce 
 ##       0.02</code></pre>
@@ -1607,7 +1611,7 @@ Naturally, Hyperband terminates once all of its brackets are evaluated, so a <a 
 The answer is, with the help the internal rescaling of the budget parameter.
 <a href="https://mlr3hyperband.mlr-org.com">mlr3hyperband</a> automatically divides the budget parameters boundaries with its lower bound, ending up with a budget range starting again at <code>1</code>, like it is the case originally.
 If we want an overview of what bracket layout Hyperband created and how the rescaling in each bracket worked, we can print a compact table to see this information.</p>
-<div class="sourceCode" id="cb284"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb283"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/duplicated.html">unique</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">instance</span><span class="op">$</span><span class="va">archive</span><span class="op">)</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">bracket</span>, <span class="va">bracket_stage</span>, <span class="va">budget_scaled</span>, <span class="va">budget_real</span>, <span class="va">n_configs</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <pre><code>##    bracket bracket_stage budget_scaled budget_real n_configs
 ## 1:       2             0         1.111      0.1111         9
@@ -1618,7 +1622,7 @@ If we want an overview of what bracket layout Hyperband created and how the resc
 ## 6:       0             0        10.000      1.0000         3</code></pre>
 <p>In the traditional way, Hyperband uses uniform sampling to receive a configuration sample at the start of each bracket.
 But it is also possible to define a custom <a href="https://paradox.mlr-org.com/reference/Sampler.html"><code>Sampler</code></a> for each hyperparameter.</p>
-<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb285"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">search_space</span> <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/ps.html">ps</a></span><span class="op">(</span>
   nrounds <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_int</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="fl">1</span>, upper <span class="op">=</span> <span class="fl">16</span>, tags <span class="op">=</span> <span class="st">"budget"</span><span class="op">)</span>,
   eta <span class="op">=</span> <span class="fu"><a href="https://paradox.mlr-org.com/reference/Domain.html">p_dbl</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="fl">0</span>, upper <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
@@ -1642,19 +1646,19 @@ But it is also possible to define a custom <a href="https://paradox.mlr-org.com/
 <span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Then, the defined sampler has to be given as an argument during instance creation.
 Afterwards, the usual tuning can proceed.</p>
-<div class="sourceCode" id="cb287"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tuner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3tuning.mlr-org.com/reference/tnr.html">tnr</a></span><span class="op">(</span><span class="st">"hyperband"</span>, eta <span class="op">=</span> <span class="fl">2</span>, sampler <span class="op">=</span> <span class="va">sampler</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 <span class="va">tuner</span><span class="op">$</span><span class="fu">optimize</span><span class="op">(</span><span class="va">instance</span><span class="op">)</span></code></pre></div>
 <pre><code>##    nrounds    eta booster learner_param_vals  x_domain classif.ce
 ## 1:       1 0.2415    dart          &lt;list[5]&gt; &lt;list[3]&gt;       0.04</code></pre>
-<div class="sourceCode" id="cb289"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb288"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">instance</span><span class="op">$</span><span class="va">result</span></code></pre></div>
 <pre><code>##    nrounds    eta booster learner_param_vals  x_domain classif.ce
 ## 1:       1 0.2415    dart          &lt;list[5]&gt; &lt;list[3]&gt;       0.04</code></pre>
 <p>Furthermore, we extended the original algorithm, to make it also possible to use <a href="https://mlr3hyperband.mlr-org.com">mlr3hyperband</a> for multi-objective optimization.
 To do this, simply specify more measures in the <a href="https://mlr3tuning.mlr-org.com/reference/TuningInstanceMultiCrit.html"><code>TuningInstanceMultiCrit</code></a> and run the rest as usual.</p>
-<div class="sourceCode" id="cb291"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb290"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">instance</span> <span class="op">=</span> <span class="va"><a href="https://mlr3tuning.mlr-org.com/reference/TuningInstanceMultiCrit.html">TuningInstanceMultiCrit</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>
   task <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"pima"</span><span class="op">)</span>,
   learner <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.xgboost"</span><span class="op">)</span>,
@@ -1698,7 +1702,7 @@ To do this, simply specify more measures in the <a href="https://mlr3tuning.mlr-
 ## 14:      0.1818</code></pre>
 <p>Now the result is not a single best configuration but an estimated Pareto front.
 All red points are not dominated by another parameter configuration regarding their <em>fpr</em> and <em>tpr</em> performance measures.</p>
-<div class="sourceCode" id="cb293"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb292"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">instance</span><span class="op">$</span><span class="va">result</span></code></pre></div>
 <pre><code>##     nrounds     eta  booster learner_param_vals  x_domain classif.tpr
 ##  1:       1 0.34093 gblinear          &lt;list[5]&gt; &lt;list[3]&gt;      0.0000
@@ -1730,7 +1734,7 @@ All red points are not dominated by another parameter configuration regarding th
 ## 12:      0.1576
 ## 13:      0.1758
 ## 14:      0.1818</code></pre>
-<div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb294"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">classif.tpr</span> <span class="op">~</span> <span class="va">classif.fpr</span>, <span class="va">instance</span><span class="op">$</span><span class="va">archive</span><span class="op">$</span><span class="va">data</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">classif.tpr</span> <span class="op">~</span> <span class="va">classif.fpr</span>, <span class="va">instance</span><span class="op">$</span><span class="va">result</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="04-optimization-hyperband_files/figure-html/03-optimization-hyperband-013-1.svg" width="672" style="display: block; margin: auto;"></div>
@@ -1769,7 +1773,7 @@ Wrapper methods are implemented in the <a href="https://mlr3fselect.mlr-org.com"
 <p><strong>Embedded Methods</strong>:
 Many learners internally select a subset of the features which they find helpful for prediction.
 These subsets can usually be queried, as the following example demonstrates:</p>
-<div class="sourceCode" id="cb296"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mlr3verse.mlr-org.com">"mlr3verse"</a></span><span class="op">)</span>
 
 <span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"iris"</span><span class="op">)</span>
@@ -1804,7 +1808,7 @@ There is a list of all implemented filter methods in the <a href="appendix.html#
 <p>The first step it to create a new R object using the class of the desired filter method.
 Similar to other instances in <code>mlr3</code>, these are registered in a dictionary (<a href="https://mlr3filters.mlr-org.com/reference/mlr_filters.html"><code>mlr_filters</code></a>) with an associated shortcut function <a href="https://mlr3filters.mlr-org.com/reference/flt.html"><code>flt()</code></a>.
 Each object of class <code>Filter</code> has a <code>.$calculate()</code> method which computes the filter values and ranks them in a descending order.</p>
-<div class="sourceCode" id="cb298"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb297"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">filter</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3filters.mlr-org.com/reference/flt.html">flt</a></span><span class="op">(</span><span class="st">"jmim"</span><span class="op">)</span>
 
 <span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"iris"</span><span class="op">)</span>
@@ -1818,14 +1822,14 @@ Each object of class <code>Filter</code> has a <code>.$calculate()</code> method
 ## 4:  Sepal.Width 0.0000</code></pre>
 <p>Some filters support changing specific hyperparameters.
 This is similar to setting hyperparameters of a <a href="https://mlr3.mlr-org.com/reference/Learner.html"><code>Learner</code></a> using <code>.$param_set$values</code>:</p>
-<div class="sourceCode" id="cb300"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb299"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">filter_cor</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3filters.mlr-org.com/reference/flt.html">flt</a></span><span class="op">(</span><span class="st">"correlation"</span><span class="op">)</span>
 <span class="va">filter_cor</span><span class="op">$</span><span class="va">param_set</span></code></pre></div>
 <pre><code>## &lt;ParamSet&gt;
 ##        id    class lower upper nlevels    default value
 ## 1:    use ParamFct    NA    NA       5 everything      
 ## 2: method ParamFct    NA    NA       3    pearson</code></pre>
-<div class="sourceCode" id="cb302"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb301"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># change parameter 'method'</span>
 <span class="va">filter_cor</span><span class="op">$</span><span class="va">param_set</span><span class="op">$</span><span class="va">values</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span>
 <span class="va">filter_cor</span><span class="op">$</span><span class="va">param_set</span></code></pre></div>
@@ -1843,18 +1847,18 @@ This is similar to setting hyperparameters of a <a href="https://mlr3.mlr-org.co
 <p>For some learners the desired filter method needs to be set during learner creation.
 For example, learner <a href="https://mlr3learners.mlr-org.com/reference/mlr_learners_classif.ranger.html"><code>classif.ranger</code></a> comes with multiple integrated methods, c.f. the help page of <a href="https://www.rdocumentation.org/packages/ranger/topics/ranger"><code>ranger::ranger()</code></a>.
 To use method “impurity”, you need to set the filter method during construction.</p>
-<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb303"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lrn</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.ranger"</span>, importance <span class="op">=</span> <span class="st">"impurity"</span><span class="op">)</span></code></pre></div>
 <p>Now you can use the <a href="https://mlr3filters.mlr-org.com/reference/mlr_filters_importance.html"><code>FilterImportance</code></a> filter class for algorithm-embedded methods:</p>
-<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"iris"</span><span class="op">)</span>
 <span class="va">filter</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3filters.mlr-org.com/reference/flt.html">flt</a></span><span class="op">(</span><span class="st">"importance"</span>, learner <span class="op">=</span> <span class="va">lrn</span><span class="op">)</span>
 <span class="va">filter</span><span class="op">$</span><span class="fu">calculate</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">filter</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <pre><code>##         feature score
-## 1:  Petal.Width 43.68
-## 2: Petal.Length 42.58
-## 3: Sepal.Length 10.39</code></pre>
+## 1:  Petal.Width 44.02
+## 2: Petal.Length 42.70
+## 3: Sepal.Length 10.37</code></pre>
 </div>
 <div id="fs-wrapper" class="section level3" number="4.5.4">
 <h3>
@@ -1874,7 +1878,7 @@ At the heart of <a href="https://mlr3fselect.mlr-org.com">mlr3fselect</a> are th
 <span class="header-section-number">4.5.5</span> The <code>FSelectInstance</code> Classes<a class="anchor" aria-label="anchor" href="#fs-wrapper-optimization"><i class="fas fa-link"></i></a>
 </h3>
 <p>The following sub-section examines the feature selection on the <a href="https://mlr3.mlr-org.com/reference/mlr_tasks_pima.html"><code>Pima</code></a> data set which is used to predict whether or not a patient has diabetes.</p>
-<div class="sourceCode" id="cb307"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"pima"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;TaskClassif:pima&gt; (768 x 9)
@@ -1884,11 +1888,11 @@ At the heart of <a href="https://mlr3fselect.mlr-org.com">mlr3fselect</a> are th
 ##   - dbl (8): age, glucose, insulin, mass, pedigree, pregnant, pressure,
 ##     triceps</code></pre>
 <p>We use the classification tree from <a href="https://cran.r-project.org/package=rpart">rpart</a>.</p>
-<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb308"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span></code></pre></div>
 <p>Next, we need to specify how to evaluate the performance of the feature subsets.
 For this, we need to choose a <a href="https://mlr3.mlr-org.com/reference/Resampling.html"><code>resampling strategy</code></a> and a <a href="https://mlr3.mlr-org.com/reference/Measure.html"><code>performance measure</code></a>.</p>
-<div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">hout</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span><span class="op">(</span><span class="st">"holdout"</span><span class="op">)</span>
 <span class="va">measure</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"classif.ce"</span><span class="op">)</span></code></pre></div>
 <p>Finally, one has to choose the available budget for the feature selection.
@@ -1901,7 +1905,7 @@ This is done by selecting one of the available <a href="https://bbotk.mlr-org.co
 <li>A combination of the above in an <em>ALL</em> or <em>ANY</em> fashion (<a href="https://bbotk.mlr-org.com/reference/mlr_terminators_combo.html"><code>TerminatorCombo</code></a>)</li>
 </ul>
 <p>For this short introduction, we specify a budget of 20 evaluations and then put everything together into a <a href="https://mlr3fselect.mlr-org.com/reference/FSelectInstanceSingleCrit.html"><code>FSelectInstanceSingleCrit</code></a>:</p>
-<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">evals20</span> <span class="op">=</span> <span class="fu"><a href="https://bbotk.mlr-org.com/reference/trm.html">trm</a></span><span class="op">(</span><span class="st">"evals"</span>, n_evals <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>
 
 <span class="va">instance</span> <span class="op">=</span> <span class="va"><a href="https://mlr3fselect.mlr-org.com/reference/FSelectInstanceSingleCrit.html">FSelectInstanceSingleCrit</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>
@@ -1946,7 +1950,7 @@ This is done by selecting one of the available <a href="https://bbotk.mlr-org.co
 <li>Design Points (<a href="https://mlr3fselect.mlr-org.com/reference/FSelectorDesignPoints.html"><code>FSelectorDesignPoints</code></a>)</li>
 </ul>
 <p>In this example, we will use a simple random search and retrieve it from the dictionary <a href="https://mlr3fselect.mlr-org.com/reference/mlr_fselectors.html"><code>mlr_fselectors</code></a> with the <a href="https://mlr3fselect.mlr-org.com/reference/fs.html"><code>fs()</code></a> function:</p>
-<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb312"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fselector</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3fselect.mlr-org.com/reference/fs.html">fs</a></span><span class="op">(</span><span class="st">"random_search"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="wrapper-selection-triggering" class="section level3" number="4.5.7">
@@ -1964,69 +1968,69 @@ If the budget is not exhausted, restart with 1) until it is.</li>
 <li>Store the best feature subset as the result in the instance object.
 The best feature subset (<code>$result_feature_set</code>) and the corresponding measured performance (<code>$result_y</code>) can be accessed from the instance.</li>
 </ol>
-<div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># reduce logging output</span>
 <span class="fu">lgr</span><span class="fu">::</span><span class="fu"><a href="https://s-fleck.github.io/lgr/reference/get_logger.html">get_logger</a></span><span class="op">(</span><span class="st">"bbotk"</span><span class="op">)</span><span class="op">$</span><span class="fu">set_threshold</span><span class="op">(</span><span class="st">"warn"</span><span class="op">)</span>
 
 <span class="va">fselector</span><span class="op">$</span><span class="fu">optimize</span><span class="op">(</span><span class="va">instance</span><span class="op">)</span></code></pre></div>
-<pre><code>##     age glucose insulin  mass pedigree pregnant pressure triceps
-## 1: TRUE    TRUE    TRUE FALSE    FALSE    FALSE     TRUE   FALSE
-##                        features classif.ce
-## 1: age,glucose,insulin,pressure     0.2578</code></pre>
-<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
+<pre><code>##      age glucose insulin mass pedigree pregnant pressure triceps
+## 1: FALSE    TRUE    TRUE TRUE     TRUE     TRUE     TRUE    TRUE
+##                                               features classif.ce
+## 1: glucose,insulin,mass,pedigree,pregnant,pressure,...     0.2422</code></pre>
+<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">instance</span><span class="op">$</span><span class="va">result_feature_set</span></code></pre></div>
-<pre><code>## [1] "age"      "glucose"  "insulin"  "pressure"</code></pre>
-<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
+<pre><code>## [1] "glucose"  "insulin"  "mass"     "pedigree" "pregnant" "pressure" "triceps"</code></pre>
+<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">instance</span><span class="op">$</span><span class="va">result_y</span></code></pre></div>
 <pre><code>## classif.ce 
-##     0.2578</code></pre>
+##     0.2422</code></pre>
 <p>One can investigate all resamplings which were undertaken, as they are stored in the archive of the <a href="https://mlr3fselect.mlr-org.com/reference/FSelectInstanceSingleCrit.html"><code>FSelectInstanceSingleCrit</code></a> and can be accessed by using <code><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table()</a></code>:</p>
-<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">as.data.table</a></span><span class="op">(</span><span class="va">instance</span><span class="op">$</span><span class="va">archive</span><span class="op">)</span></code></pre></div>
 <pre><code>##       age glucose insulin  mass pedigree pregnant pressure triceps classif.ce
-##  1:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2969
-##  2: FALSE   FALSE   FALSE FALSE    FALSE    FALSE     TRUE   FALSE     0.3711
-##  3:  TRUE   FALSE   FALSE FALSE     TRUE    FALSE    FALSE   FALSE     0.3711
-##  4:  TRUE   FALSE   FALSE FALSE    FALSE    FALSE    FALSE   FALSE     0.3516
-##  5: FALSE    TRUE    TRUE FALSE     TRUE     TRUE     TRUE    TRUE     0.2852
-##  6:  TRUE    TRUE    TRUE FALSE     TRUE    FALSE    FALSE   FALSE     0.3242
-##  7: FALSE    TRUE   FALSE  TRUE     TRUE     TRUE     TRUE   FALSE     0.3086
-##  8: FALSE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.3125
-##  9:  TRUE    TRUE    TRUE FALSE     TRUE    FALSE     TRUE   FALSE     0.3203
-## 10:  TRUE    TRUE    TRUE FALSE    FALSE    FALSE     TRUE   FALSE     0.2578
-## 11: FALSE   FALSE    TRUE  TRUE     TRUE    FALSE    FALSE    TRUE     0.3398
-## 12:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2969
-## 13:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2969
-## 14:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2969
-## 15:  TRUE   FALSE   FALSE FALSE    FALSE    FALSE    FALSE    TRUE     0.3516
-## 16: FALSE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE   FALSE     0.3125
-## 17: FALSE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.3125
-## 18: FALSE   FALSE   FALSE FALSE     TRUE    FALSE    FALSE   FALSE     0.3828
-## 19: FALSE   FALSE    TRUE  TRUE     TRUE    FALSE    FALSE   FALSE     0.3398
-## 20: FALSE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.3125
+##  1: FALSE   FALSE    TRUE FALSE    FALSE    FALSE    FALSE   FALSE     0.3867
+##  2:  TRUE   FALSE    TRUE  TRUE    FALSE    FALSE     TRUE    TRUE     0.3086
+##  3: FALSE    TRUE    TRUE FALSE    FALSE    FALSE     TRUE    TRUE     0.2773
+##  4: FALSE   FALSE   FALSE FALSE    FALSE    FALSE    FALSE    TRUE     0.4141
+##  5:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2695
+##  6: FALSE   FALSE   FALSE  TRUE     TRUE    FALSE    FALSE   FALSE     0.3320
+##  7:  TRUE    TRUE    TRUE  TRUE     TRUE    FALSE    FALSE   FALSE     0.2852
+##  8: FALSE    TRUE    TRUE FALSE     TRUE     TRUE     TRUE    TRUE     0.2852
+##  9:  TRUE   FALSE    TRUE FALSE     TRUE     TRUE     TRUE    TRUE     0.3516
+## 10:  TRUE   FALSE   FALSE FALSE     TRUE    FALSE    FALSE    TRUE     0.3594
+## 11:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2695
+## 12:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE   FALSE     0.2695
+## 13: FALSE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2422
+## 14:  TRUE   FALSE    TRUE FALSE     TRUE     TRUE    FALSE    TRUE     0.3516
+## 15: FALSE   FALSE   FALSE  TRUE    FALSE    FALSE    FALSE   FALSE     0.4062
+## 16: FALSE   FALSE   FALSE FALSE    FALSE    FALSE    FALSE    TRUE     0.4141
+## 17:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2695
+## 18:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE    FALSE    TRUE     0.2617
+## 19:  TRUE   FALSE   FALSE  TRUE     TRUE    FALSE     TRUE    TRUE     0.3398
+## 20: FALSE    TRUE   FALSE  TRUE     TRUE     TRUE     TRUE   FALSE     0.2422
 ##     runtime_learners           timestamp batch_nr      resample_result
-##  1:            0.099 2021-11-23 16:01:16        1 &lt;ResampleResult[22]&gt;
-##  2:            0.084 2021-11-23 16:01:16        2 &lt;ResampleResult[22]&gt;
-##  3:            0.169 2021-11-23 16:01:16        3 &lt;ResampleResult[22]&gt;
-##  4:            0.079 2021-11-23 16:01:16        4 &lt;ResampleResult[22]&gt;
-##  5:            0.077 2021-11-23 16:01:17        5 &lt;ResampleResult[22]&gt;
-##  6:            0.073 2021-11-23 16:01:17        6 &lt;ResampleResult[22]&gt;
-##  7:            0.081 2021-11-23 16:01:17        7 &lt;ResampleResult[22]&gt;
-##  8:            0.075 2021-11-23 16:01:17        8 &lt;ResampleResult[22]&gt;
-##  9:            0.081 2021-11-23 16:01:18        9 &lt;ResampleResult[22]&gt;
-## 10:            0.085 2021-11-23 16:01:18       10 &lt;ResampleResult[22]&gt;
-## 11:            0.066 2021-11-23 16:01:18       11 &lt;ResampleResult[22]&gt;
-## 12:            0.072 2021-11-23 16:01:18       12 &lt;ResampleResult[22]&gt;
-## 13:            0.073 2021-11-23 16:01:19       13 &lt;ResampleResult[22]&gt;
-## 14:            0.073 2021-11-23 16:01:19       14 &lt;ResampleResult[22]&gt;
-## 15:            0.087 2021-11-23 16:01:19       15 &lt;ResampleResult[22]&gt;
-## 16:            0.101 2021-11-23 16:01:19       16 &lt;ResampleResult[22]&gt;
-## 17:            0.075 2021-11-23 16:01:20       17 &lt;ResampleResult[22]&gt;
-## 18:            0.073 2021-11-23 16:01:20       18 &lt;ResampleResult[22]&gt;
-## 19:            0.075 2021-11-23 16:01:20       19 &lt;ResampleResult[22]&gt;
-## 20:            0.082 2021-11-23 16:01:20       20 &lt;ResampleResult[22]&gt;</code></pre>
+##  1:            0.098 2021-11-24 15:55:25        1 &lt;ResampleResult[22]&gt;
+##  2:            0.096 2021-11-24 15:55:26        2 &lt;ResampleResult[22]&gt;
+##  3:            0.188 2021-11-24 15:55:26        3 &lt;ResampleResult[22]&gt;
+##  4:            0.075 2021-11-24 15:55:26        4 &lt;ResampleResult[22]&gt;
+##  5:            0.075 2021-11-24 15:55:26        5 &lt;ResampleResult[22]&gt;
+##  6:            0.074 2021-11-24 15:55:27        6 &lt;ResampleResult[22]&gt;
+##  7:            0.083 2021-11-24 15:55:27        7 &lt;ResampleResult[22]&gt;
+##  8:            0.080 2021-11-24 15:55:27        8 &lt;ResampleResult[22]&gt;
+##  9:            0.087 2021-11-24 15:55:27        9 &lt;ResampleResult[22]&gt;
+## 10:            0.082 2021-11-24 15:55:28       10 &lt;ResampleResult[22]&gt;
+## 11:            0.073 2021-11-24 15:55:28       11 &lt;ResampleResult[22]&gt;
+## 12:            0.073 2021-11-24 15:55:28       12 &lt;ResampleResult[22]&gt;
+## 13:            0.074 2021-11-24 15:55:29       13 &lt;ResampleResult[22]&gt;
+## 14:            0.073 2021-11-24 15:55:29       14 &lt;ResampleResult[22]&gt;
+## 15:            0.077 2021-11-24 15:55:29       15 &lt;ResampleResult[22]&gt;
+## 16:            0.099 2021-11-24 15:55:29       16 &lt;ResampleResult[22]&gt;
+## 17:            0.077 2021-11-24 15:55:30       17 &lt;ResampleResult[22]&gt;
+## 18:            0.071 2021-11-24 15:55:30       18 &lt;ResampleResult[22]&gt;
+## 19:            0.076 2021-11-24 15:55:30       19 &lt;ResampleResult[22]&gt;
+## 20:            0.079 2021-11-24 15:55:30       20 &lt;ResampleResult[22]&gt;</code></pre>
 <p>The associated resampling iterations can be accessed in the <a href="https://mlr3.mlr-org.com/reference/BenchmarkResult.html"><code>BenchmarkResult</code></a>:</p>
-<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">instance</span><span class="op">$</span><span class="va">archive</span><span class="op">$</span><span class="va">benchmark_result</span><span class="op">$</span><span class="va">data</span></code></pre></div>
 <pre><code>## Warning: '.__BenchmarkResult__data' is deprecated.
 ## Use 'as.data.table(benchmark_result)' instead.
@@ -2054,7 +2058,7 @@ The best feature subset (<code>$result_feature_set</code>) and the corresponding
 ##     get_view_index: function (view)</code></pre>
 <p>The <code>uhash</code> column links the resampling iterations to the evaluated feature subsets stored in <code>instance$archive$data()</code>. This allows e.g. to score the included <a href="https://mlr3.mlr-org.com/reference/ResampleResult.html"><code>ResampleResult</code></a>s on a different measure.</p>
 <p>Now the optimized feature subset can be used to subset the task and fit the model on all observations.</p>
-<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">task</span><span class="op">$</span><span class="fu">select</span><span class="op">(</span><span class="va">instance</span><span class="op">$</span><span class="va">result_feature_set</span><span class="op">)</span>
 <span class="va">learner</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span></code></pre></div>
 <p>The trained model can now be used to make a prediction on external data.
@@ -2072,7 +2076,7 @@ Because the <a href="https://mlr3fselect.mlr-org.com/reference/AutoFSelector.htm
 Analogously to the previous subsection, a new classification tree learner is created.
 This classification tree learner automatically starts a feature selection on the given task using an inner resampling (holdout).
 We create a terminator which allows 10 evaluations, and uses a simple random search as feature selection algorithm:</p>
-<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">learner</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span>
 <span class="va">terminator</span> <span class="op">=</span> <span class="fu"><a href="https://bbotk.mlr-org.com/reference/trm.html">trm</a></span><span class="op">(</span><span class="st">"evals"</span>, n_evals <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
 <span class="va">fselector</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3fselect.mlr-org.com/reference/fs.html">fs</a></span><span class="op">(</span><span class="st">"random_search"</span><span class="op">)</span>
@@ -2100,7 +2104,7 @@ The learner then undertakes predictions using the test set of the outer resampli
 This yields unbiased performance measures, as the observations in the test set have not been used during feature selection or fitting of the respective learner.
 This is called <a href="optimization.html#nested-resampling">nested resampling</a>.</p>
 <p>To compare the optimized feature subset with the complete feature set, we can use <a href="https://mlr3.mlr-org.com/reference/benchmark.html"><code>benchmark()</code></a>:</p>
-<div class="sourceCode" id="cb328"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">grid</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/benchmark_grid.html">benchmark_grid</a></span><span class="op">(</span>
   task <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">tsk</a></span><span class="op">(</span><span class="st">"pima"</span><span class="op">)</span>,
   learner <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">at</span>, <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">lrn</a></span><span class="op">(</span><span class="st">"classif.rpart"</span><span class="op">)</span><span class="op">)</span>,
@@ -2113,8 +2117,8 @@ This is called <a href="optimization.html#nested-resampling">nested resampling</
 ## 1:  1 &lt;ResampleResult[22]&gt;    pima classif.rpart.fselector            cv     3
 ## 2:  2 &lt;ResampleResult[22]&gt;    pima           classif.rpart            cv     3
 ##    classif.ce time_train
-## 1:     0.2617          0
-## 2:     0.2617          0</code></pre>
+## 1:     0.2604          0
+## 2:     0.2565          0</code></pre>
 <p>Note that we do not expect any significant differences since we only evaluated a small fraction of the possible feature subsets.</p>
 
 </div>
@@ -2181,7 +2185,7 @@ This is called <a href="optimization.html#nested-resampling">nested resampling</
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-23.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

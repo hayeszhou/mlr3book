@@ -704,14 +704,14 @@ We can also create it using <strong>syntactic sugar</strong> via <code><a href="
 <span class="va">baglrn</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span>, <span class="va">train.idx</span><span class="op">)</span>
 <span class="va">baglrn</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, <span class="va">test.idx</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 30 observations:
-##     row_ids     truth   response prob.setosa prob.versicolor prob.virginica
-##           1    setosa     setosa           1             0.0            0.0
-##           4    setosa     setosa           1             0.0            0.0
-##           8    setosa     setosa           1             0.0            0.0
-## ---                                                                        
-##         130 virginica versicolor           0             0.7            0.3
-##         142 virginica  virginica           0             0.0            1.0
-##         146 virginica  virginica           0             0.0            1.0</code></pre>
+##     row_ids     truth  response prob.setosa prob.versicolor prob.virginica
+##           3    setosa    setosa           1             0.0            0.0
+##          10    setosa    setosa           1             0.0            0.0
+##          37    setosa    setosa           1             0.0            0.0
+## ---                                                                       
+##         136 virginica virginica           0             0.0            1.0
+##         141 virginica virginica           0             0.0            1.0
+##         147 virginica virginica           0             0.3            0.7</code></pre>
 <p>In conjunction with different <code>Backends</code>, this can be a very powerful tool.
 In cases when the data does not fully fit in memory, one can obtain a fraction of the data for each learner from a <a href="https://mlr3.mlr-org.com/reference/DataBackend.html"><code>DataBackend</code></a> and then aggregate predictions over all learners.</p>
 </div>
@@ -754,14 +754,14 @@ There it is combined with the predictions from our decision tree learner.</p>
 <span class="va">stacklrn</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span>, <span class="va">train.idx</span><span class="op">)</span>
 <span class="va">stacklrn</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, <span class="va">test.idx</span><span class="op">)</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 30 observations:
-##     row_ids     truth   response
-##           1    setosa     setosa
-##           4    setosa     setosa
-##           8    setosa     setosa
-## ---                             
-##         130 virginica versicolor
-##         142 virginica  virginica
-##         146 virginica  virginica</code></pre>
+##     row_ids     truth  response
+##           3    setosa    setosa
+##          10    setosa    setosa
+##          37    setosa    setosa
+## ---                            
+##         136 virginica virginica
+##         141 virginica virginica
+##         147 virginica virginica</code></pre>
 <p>In this vignette, we showed a very simple use-case for stacking.
 In many real-world applications, stacking is done for multiple levels and on multiple representations of the dataset.
 On a lower level, different preprocessing methods can be defined in conjunction with several learners.
@@ -908,7 +908,7 @@ Additionally, we create 4 <a href="https://mlr3pipelines.mlr-org.com/reference/m
   <span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, <span class="va">train.idx</span><span class="op">)</span><span class="op">$</span>
   <span class="fu">score</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## classif.ce 
-##    0.01667</code></pre>
+##    0.03333</code></pre>
 </div>
 <div id="feature-selection-pipeopfilter-and-pipeopselect" class="section level3" number="5.6.4">
 <h3>
@@ -967,7 +967,7 @@ The training phase will typically generate a certain model of the data that is s
 The prediction phase will then operate on the input data depending on the trained model.</p>
 <p>An example of this behavior is the <em>principal component analysis</em> operation (“<code>PipeOpPCA</code>”):
 During training, it will transform incoming data by rotating it in a way that leads to uncorrelated features ordered by their contribution to total variance.
-It will <em>also</em> save the rotation matrix to be used during for new data.
+It will <em>also</em> save the rotation matrix to be use for new data during the “prediction phase”.
 This makes it possible to perform “prediction” with single rows of new data, where a row’s scores on each of the principal components (the components of the training data!) is computed.</p>
 <div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">po</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com//reference/po.html">po</a></span><span class="op">(</span><span class="st">"pca"</span><span class="op">)</span>
@@ -1219,21 +1219,21 @@ The return value corresponds to the output of the <code>PipeOp</code> output cha
 <div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##        Species Petal.Length Petal.Width Sepal.Length Sepal.Width
-##  1:     setosa     -1.33575  -1.3110521     -0.89767      1.0156
-##  2:     setosa     -1.33575  -1.4422448     -1.25996     -0.1315
-##  3:     setosa     -1.33575  -1.3110521     -0.77691      0.7862
-##  4:     setosa     -1.22246  -1.3110521     -1.38073      0.3273
-##  5:     setosa     -1.27910  -1.4422448     -0.77691      2.3922
-##  6:     setosa     -1.39240  -1.3110521     -0.41462      1.0156
-##  7: versicolor      0.13709  -0.2615107      0.18920     -1.9670
-##  8: versicolor      0.08044   0.0008746     -0.05233     -0.8198
-##  9: versicolor      0.25038   0.0008746     -0.17309     -0.1315
-## 10:  virginica      1.15675   0.7880307      1.03454     -1.2787
-## 11:  virginica      0.76021   1.0504160      0.79301      0.3273
-## 12:  virginica      0.64692   0.7880307      0.30996     -0.1315
-## 13:  virginica      0.76021   0.3944526      0.55149     -0.5904
-## 14:  virginica      1.04345   0.2632600      0.30996     -1.0493
-## 15:  virginica      1.04345   1.5751867      0.55149      0.7862</code></pre>
+##  1:     setosa      -1.3358     -1.3111      -0.8977     1.01560
+##  2:     setosa      -1.2791     -1.3111      -1.5015     0.09789
+##  3:     setosa      -1.3358     -1.4422      -1.2600    -0.13154
+##  4:     setosa      -1.2225     -1.0487      -1.0184     0.78617
+##  5:     setosa      -1.3358     -1.4422      -1.1392     1.24503
+##  6:     setosa      -1.2791     -1.3111      -0.8977     0.78617
+##  7:     setosa      -1.3924     -1.3111      -1.7430     0.32732
+##  8: versicolor       0.4203      0.1321      -0.1731    -0.59040
+##  9: versicolor       0.4770      0.1321       0.9138    -0.36097
+## 10: versicolor       0.5336      0.2633       0.3100    -0.36097
+## 11: versicolor      -0.0895      0.1321      -0.2939    -0.36097
+## 12: versicolor       0.7602      0.5256       0.1892    -0.81982
+## 13: versicolor       0.4203      0.3945      -0.5354    -0.13154
+## 14:  virginica       0.7036      1.0504      -0.1731    -1.27868
+## 15:  virginica       0.9302      1.4440       0.4307     0.78617</code></pre>
 <div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gr</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">single_line_task</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##    Species Petal.Length Petal.Width Sepal.Length Sepal.Width
@@ -1583,7 +1583,7 @@ A <code>PipeOp</code>’s parameter names are prefixed with its <code>$id</code>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-11-25.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-12-15.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

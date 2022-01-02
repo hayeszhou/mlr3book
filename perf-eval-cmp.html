@@ -253,10 +253,10 @@ These resulting indices are stored in the <a href="https://mlr3.mlr-org.com/refe
 <div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">resampling</span><span class="op">$</span><span class="fu">instantiate</span><span class="op">(</span><span class="va">task</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">resampling</span><span class="op">$</span><span class="fu">train_set</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##  int [1:275] 2 3 4 5 6 7 8 9 11 12 ...</code></pre>
+<pre><code>##  int [1:275] 2 3 4 6 7 8 10 11 12 13 ...</code></pre>
 <div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">resampling</span><span class="op">$</span><span class="fu">test_set</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##  int [1:69] 1 10 13 14 27 32 33 38 40 42 ...</code></pre>
+<pre><code>##  int [1:69] 1 5 9 15 17 29 31 35 40 45 ...</code></pre>
 <p>Note that if you want to compare multiple <a href="basics.html#learners">Learners</a> in a fair manner, using the same instantiated resampling for each learner is mandatory, such that each learner gets exactly the same training data and the performance of the trained model is evaluated in exactly the same test set.
 A way to greatly simplify the comparison of multiple learners is discussed in the <a href="perf-eval-cmp.html#benchmarking">section on benchmarking</a>.</p>
 </div>
@@ -289,7 +289,7 @@ Here are a few examples:</p>
 <div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="fu">aggregate</span><span class="op">(</span><span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"classif.ce"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## classif.ce 
-##    0.06397</code></pre>
+##     0.0581</code></pre>
 </li>
 <li>
 <p>Extract the performance for the individual resampling iterations:</p>
@@ -304,9 +304,9 @@ Here are a few examples:</p>
 ## 2: &lt;ResamplingCV[19]&gt;            cv         2 &lt;PredictionClassif[20]&gt;
 ## 3: &lt;ResamplingCV[19]&gt;            cv         3 &lt;PredictionClassif[20]&gt;
 ##    classif.ce
-## 1:    0.06087
-## 2:    0.06087
-## 3:    0.07018</code></pre>
+## 1:    0.03478
+## 2:    0.09565
+## 3:    0.04386</code></pre>
 <p>This is useful to check if one (or more) of the iterations are very different from the average.</p>
 </li>
 <li>
@@ -330,10 +330,10 @@ Here are a few examples:</p>
 <pre><code>## [1] 3</code></pre>
 <div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">rr</span><span class="op">$</span><span class="va">resampling</span><span class="op">$</span><span class="fu">test_set</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##  int [1:115] 3 4 13 14 15 17 19 22 25 26 ...</code></pre>
+<pre><code>##  int [1:115] 1 3 8 9 12 13 15 19 25 26 ...</code></pre>
 <div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">rr</span><span class="op">$</span><span class="va">resampling</span><span class="op">$</span><span class="fu">train_set</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##  int [1:229] 6 7 8 9 11 16 27 32 34 37 ...</code></pre>
+<pre><code>##  int [1:229] 6 11 14 17 20 23 24 27 31 32 ...</code></pre>
 </li>
 <li>
 <p>Retrieve the model trained in a specific iteration and inspect it, for example to investigate why the performance in this iteration was very different from the average:</p>
@@ -345,11 +345,13 @@ Here are a few examples:</p>
 ## node), split, n, loss, yval, (yprob)
 ##       * denotes terminal node
 ## 
-## 1) root 229 123 Adelie (0.462882 0.196507 0.340611)  
-##   2) flipper_length&lt; 206 148  43 Adelie (0.709459 0.283784 0.006757)  
-##     4) bill_length&lt; 44.65 105   3 Adelie (0.971429 0.028571 0.000000) *
-##     5) bill_length&gt;=44.65 43   4 Chinstrap (0.069767 0.906977 0.023256) *
-##   3) flipper_length&gt;=206 81   4 Gentoo (0.012346 0.037037 0.950617) *</code></pre>
+## 1) root 229 128 Adelie (0.44105 0.20087 0.35808)  
+##   2) flipper_length&lt; 206.5 141  41 Adelie (0.70922 0.29078 0.00000)  
+##     4) bill_length&lt; 44.2 101   4 Adelie (0.96040 0.03960 0.00000) *
+##     5) bill_length&gt;=44.2 40   3 Chinstrap (0.07500 0.92500 0.00000) *
+##   3) flipper_length&gt;=206.5 88   6 Gentoo (0.01136 0.05682 0.93182)  
+##     6) bill_depth&gt;=17.2 8   3 Chinstrap (0.12500 0.62500 0.25000) *
+##     7) bill_depth&lt; 17.2 80   0 Gentoo (0.00000 0.00000 1.00000) *</code></pre>
 </li>
 <li>
 <p>Extract the individual predictions:</p>
@@ -357,24 +359,24 @@ Here are a few examples:</p>
 <code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="fu">prediction</span><span class="op">(</span><span class="op">)</span> <span class="co"># all predictions merged into a single Prediction object</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 344 observations:
 ##     row_ids     truth  response prob.Adelie prob.Chinstrap prob.Gentoo
-##           3    Adelie    Adelie      0.9714        0.02857           0
-##           4    Adelie    Adelie      0.9714        0.02857           0
-##          13    Adelie    Adelie      0.9714        0.02857           0
+##           1    Adelie    Adelie     0.96040        0.03960     0.00000
+##           3    Adelie    Adelie     0.96040        0.03960     0.00000
+##           8    Adelie    Adelie     0.96040        0.03960     0.00000
 ## ---                                                                   
-##         336 Chinstrap Chinstrap      0.0750        0.92500           0
-##         339 Chinstrap Chinstrap      0.0750        0.92500           0
-##         342 Chinstrap Chinstrap      0.0750        0.92500           0</code></pre>
+##         334 Chinstrap Chinstrap     0.04545        0.93182     0.02273
+##         339 Chinstrap Chinstrap     0.04545        0.93182     0.02273
+##         343 Chinstrap    Gentoo     0.02381        0.03571     0.94048</code></pre>
 <div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">rr</span><span class="op">$</span><span class="fu">predictions</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="co"># predictions of first resampling iteration</span></code></pre></div>
 <pre><code>## &lt;PredictionClassif&gt; for 115 observations:
 ##     row_ids     truth  response prob.Adelie prob.Chinstrap prob.Gentoo
-##           3    Adelie    Adelie     0.97143        0.02857     0.00000
-##           4    Adelie    Adelie     0.97143        0.02857     0.00000
-##          13    Adelie    Adelie     0.97143        0.02857     0.00000
+##           1    Adelie    Adelie      0.9604         0.0396           0
+##           3    Adelie    Adelie      0.9604         0.0396           0
+##           8    Adelie    Adelie      0.9604         0.0396           0
 ## ---                                                                   
-##         341 Chinstrap    Adelie     0.97143        0.02857     0.00000
-##         343 Chinstrap    Gentoo     0.01235        0.03704     0.95062
-##         344 Chinstrap Chinstrap     0.06977        0.90698     0.02326</code></pre>
+##         338 Chinstrap Chinstrap      0.0750         0.9250           0
+##         341 Chinstrap    Adelie      0.9604         0.0396           0
+##         344 Chinstrap Chinstrap      0.0750         0.9250           0</code></pre>
 </li>
 <li>
 <p>Filter the result to only keep specified resampling iterations:</p>
@@ -445,7 +447,7 @@ As an example, we create a binary classification task with two features, perform
 <code class="sourceCode R"><span class="co"># learner predictions for the first fold</span>
 <span class="va">rr</span><span class="op">$</span><span class="fu">filter</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">rr</span>, type <span class="op">=</span> <span class="st">"prediction"</span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
 <div class="inline-figure"><img src="03-perf-resampling_files/figure-html/02-basics-resampling-017-1-1.svg" width="672" style="display: block; margin: auto;"></div>
 <p>All available plot types are listed on the manual page of <a href="https://mlr3viz.mlr-org.com/reference/autoplot.ResampleResult.html"><code>autoplot.ResampleResult()</code></a>.</p>
 
@@ -522,14 +524,14 @@ We create two measures to calculate the area under the curve (AUC) for the train
 ## 8:  8 &lt;ResampleResult[22]&gt;         sonar       classif.rpart            cv
 ## 9:  9 &lt;ResampleResult[22]&gt;         sonar classif.featureless            cv
 ##    iters auc_train auc_test
-## 1:     3    0.9995   0.9845
-## 2:     3    0.9062   0.8976
+## 1:     3    0.9994   0.9848
+## 2:     3    0.9094   0.8999
 ## 3:     3    0.5000   0.5000
-## 4:     3    0.9985   0.7991
-## 5:     3    0.7960   0.7287
+## 4:     3    0.9984   0.7973
+## 5:     3    0.8094   0.7198
 ## 6:     3    0.5000   0.5000
-## 7:     3    1.0000   0.9103
-## 8:     3    0.9050   0.7958
+## 7:     3    1.0000   0.9282
+## 8:     3    0.9363   0.7576
 ## 9:     3    0.5000   0.5000</code></pre>
 <p>We can aggregate the results even further.
 For example, we might be interested to know which learner performed best across all tasks.
@@ -607,7 +609,7 @@ As these are stored in a column of the aggregated <code><a href="https://Rdatata
 <code class="sourceCode R"><span class="va">measure</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">msr</a></span><span class="op">(</span><span class="st">"classif.auc"</span><span class="op">)</span>
 <span class="va">rr</span><span class="op">$</span><span class="fu">aggregate</span><span class="op">(</span><span class="va">measure</span><span class="op">)</span></code></pre></div>
 <pre><code>## classif.auc 
-##      0.7991</code></pre>
+##      0.7973</code></pre>
 <div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get the iteration with worst AUC</span>
 <span class="va">perf</span> <span class="op">=</span> <span class="va">rr</span><span class="op">$</span><span class="fu">score</span><span class="op">(</span><span class="va">measure</span><span class="op">)</span>
@@ -625,7 +627,7 @@ As these are stored in a column of the aggregated <code><a href="https://Rdatata
 ##   twoclass, weights</code></pre>
 <div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">rr</span><span class="op">$</span><span class="va">resampling</span><span class="op">$</span><span class="fu">train_set</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1]  3 10 12 16 17 20</code></pre>
+<pre><code>## [1]  2  3  7  9 16 19</code></pre>
 </div>
 <div id="converting-and-merging" class="section level3" number="3.3.5">
 <h3>
@@ -700,7 +702,7 @@ We can also merge two <a href="https://mlr3.mlr-org.com/reference/BenchmarkResul
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2021-12-22.</p>
+    <p>"<strong>mlr3 book</strong>" was written by Marc Becker, Martin Binder, Bernd Bischl, Lars Kotthoff, Michel Lang, Florian Pfisterer, Nicholas G. Reich, Jakob Richter, Patrick Schratz, Raphael Sonabend, Damir Pulatov. It was last built on 2022-01-02.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -255,7 +255,7 @@
 
 \title{mlr3 book}
 \author{Marc Becker \and Martin Binder \and Bernd Bischl \and Lars Kotthoff \and Michel Lang \and Florian Pfisterer \and Nicholas G. Reich \and Jakob Richter \and Patrick Schratz \and Raphael Sonabend \and Damir Pulatov}
-\date{2021-12-22}
+\date{2022-01-02}
 
 \begin{document}
 \maketitle
@@ -1701,11 +1701,11 @@ We can now access the stored model via the field \texttt{\$model}:
 ## node), split, n, loss, yval, (yprob)
 ##       * denotes terminal node
 ## 
-## 1) root 275 151 Adelie (0.450909 0.178182 0.370909)  
-##   2) flipper_length< 206.5 172  49 Adelie (0.715116 0.279070 0.005814)  
-##     4) bill_length< 43.35 124   5 Adelie (0.959677 0.040323 0.000000) *
-##     5) bill_length>=43.35 48   5 Chinstrap (0.083333 0.895833 0.020833) *
-##   3) flipper_length>=206.5 103   2 Gentoo (0.009709 0.009709 0.980583) *
+## 1) root 275 154 Adelie (0.440000 0.200000 0.360000)  
+##   2) flipper_length< 207 172  52 Adelie (0.697674 0.302326 0.000000)  
+##     4) bill_length< 43.35 121   4 Adelie (0.966942 0.033058 0.000000) *
+##     5) bill_length>=43.35 51   3 Chinstrap (0.058824 0.941176 0.000000) *
+##   3) flipper_length>=207 103   4 Gentoo (0.009709 0.029126 0.961165) *
 \end{verbatim}
 
 Inspecting the output, we see that the learner has identified features in the task that are predictive of the class (the type of penguin) and uses them to partition observations in the tree.
@@ -1728,13 +1728,13 @@ Remember that we \protect\hyperlink{split-data}{initially split the data} in \te
 \begin{verbatim}
 ## <PredictionClassif> for 69 observations:
 ##     row_ids     truth  response
-##           4    Adelie    Adelie
-##          12    Adelie    Adelie
-##          16    Adelie    Adelie
+##           1    Adelie    Adelie
+##           7    Adelie    Adelie
+##          15    Adelie    Adelie
 ## ---                            
-##         339 Chinstrap Chinstrap
+##         338 Chinstrap Chinstrap
 ##         340 Chinstrap    Gentoo
-##         343 Chinstrap    Gentoo
+##         344 Chinstrap Chinstrap
 \end{verbatim}
 
 The \texttt{\$predict()} method of the \href{https://mlr3.mlr-org.com/reference/Learner.html}{\texttt{Learner}} returns a \href{https://mlr3.mlr-org.com/reference/Prediction.html}{\texttt{Prediction}} object.
@@ -1751,12 +1751,12 @@ The simplest way to extract this information is by converting the \href{https://
 
 \begin{verbatim}
 ##    row_ids  truth response
-## 1:       4 Adelie   Adelie
-## 2:      12 Adelie   Adelie
-## 3:      16 Adelie   Adelie
-## 4:      23 Adelie   Adelie
-## 5:      30 Adelie   Adelie
-## 6:      31 Adelie   Adelie
+## 1:       1 Adelie   Adelie
+## 2:       7 Adelie   Adelie
+## 3:      15 Adelie   Adelie
+## 4:      37 Adelie   Adelie
+## 5:      40 Adelie   Adelie
+## 6:      42 Adelie   Adelie
 \end{verbatim}
 
 For classification, you can also extract the confusion matrix:
@@ -1770,9 +1770,9 @@ For classification, you can also extract the confusion matrix:
 \begin{verbatim}
 ##            truth
 ## response    Adelie Chinstrap Gentoo
-##   Adelie        27         0      0
-##   Chinstrap      0        15      0
-##   Gentoo         1         4     22
+##   Adelie        29         1      0
+##   Chinstrap      1        10      1
+##   Gentoo         1         2     24
 \end{verbatim}
 
 The confusion matrix shows, for each class, how many observations were predicted to be in that class and how many were actually in it (more information on \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia}).
@@ -1809,12 +1809,12 @@ The prediction object now contains probabilities for all class labels in additio
 
 \begin{verbatim}
 ##    row_ids  truth response prob.Adelie prob.Chinstrap prob.Gentoo
-## 1:       4 Adelie   Adelie      0.9597        0.04032           0
-## 2:      12 Adelie   Adelie      0.9597        0.04032           0
-## 3:      16 Adelie   Adelie      0.9597        0.04032           0
-## 4:      23 Adelie   Adelie      0.9597        0.04032           0
-## 5:      30 Adelie   Adelie      0.9597        0.04032           0
-## 6:      31 Adelie   Adelie      0.9597        0.04032           0
+## 1:       1 Adelie   Adelie      0.9669        0.03306           0
+## 2:       7 Adelie   Adelie      0.9669        0.03306           0
+## 3:      15 Adelie   Adelie      0.9669        0.03306           0
+## 4:      37 Adelie   Adelie      0.9669        0.03306           0
+## 5:      40 Adelie   Adelie      0.9669        0.03306           0
+## 6:      42 Adelie   Adelie      0.9669        0.03306           0
 \end{verbatim}
 
 \begin{Shaded}
@@ -1838,12 +1838,12 @@ The prediction object now contains probabilities for all class labels in additio
 
 \begin{verbatim}
 ##      Adelie Chinstrap Gentoo
-## [1,] 0.9597   0.04032      0
-## [2,] 0.9597   0.04032      0
-## [3,] 0.9597   0.04032      0
-## [4,] 0.9597   0.04032      0
-## [5,] 0.9597   0.04032      0
-## [6,] 0.9597   0.04032      0
+## [1,] 0.9669   0.03306      0
+## [2,] 0.9669   0.03306      0
+## [3,] 0.9669   0.03306      0
+## [4,] 0.9669   0.03306      0
+## [5,] 0.9669   0.03306      0
+## [6,] 0.9669   0.03306      0
 \end{verbatim}
 
 Similarly to predicting probabilities for classification, many \href{https://mlr3.mlr-org.com/reference/LearnerRegr.html}{\texttt{regression\ learners}} support the extraction of standard error estimates for predictions by setting the predict type to \texttt{"se"}.
@@ -2210,7 +2210,7 @@ These resulting indices are stored in the \href{https://mlr3.mlr-org.com/referen
 \end{Shaded}
 
 \begin{verbatim}
-##  int [1:275] 1 3 4 5 6 7 9 11 12 13 ...
+##  int [1:275] 2 3 4 5 7 8 9 11 12 13 ...
 \end{verbatim}
 
 \begin{Shaded}
@@ -2220,7 +2220,7 @@ These resulting indices are stored in the \href{https://mlr3.mlr-org.com/referen
 \end{Shaded}
 
 \begin{verbatim}
-##  int [1:69] 2 8 10 18 21 22 26 28 29 42 ...
+##  int [1:69] 1 6 10 27 29 37 38 40 43 45 ...
 \end{verbatim}
 
 Note that if you want to compare multiple \protect\hyperlink{learners}{Learners} in a fair manner, using the same instantiated resampling for each learner is mandatory, such that each learner gets exactly the same training data and the performance of the trained model is evaluated in exactly the same test set.
@@ -2269,7 +2269,7 @@ Here are a few examples:
 
 \begin{verbatim}
 ## classif.ce 
-##     0.0552
+##    0.05233
 \end{verbatim}
 \item
   Extract the performance for the individual resampling iterations:
@@ -2290,9 +2290,9 @@ Here are a few examples:
 ## 2: <ResamplingCV[19]>            cv         2 <PredictionClassif[20]>
 ## 3: <ResamplingCV[19]>            cv         3 <PredictionClassif[20]>
 ##    classif.ce
-## 1:    0.05217
-## 2:    0.06957
-## 3:    0.04386
+## 1:    0.04348
+## 2:    0.06087
+## 3:    0.05263
 \end{verbatim}
 
   This is useful to check if one (or more) of the iterations are very different from the average.
@@ -2350,7 +2350,7 @@ Here are a few examples:
 \end{Shaded}
 
 \begin{verbatim}
-##  int [1:115] 5 6 7 12 14 16 22 23 27 29 ...
+##  int [1:115] 2 3 9 12 15 25 27 30 35 36 ...
 \end{verbatim}
 
 \begin{Shaded}
@@ -2360,7 +2360,7 @@ Here are a few examples:
 \end{Shaded}
 
 \begin{verbatim}
-##  int [1:229] 1 2 3 4 8 9 11 13 15 18 ...
+##  int [1:229] 4 5 6 8 10 11 16 18 19 20 ...
 \end{verbatim}
 \item
   Retrieve the model trained in a specific iteration and inspect it, for example to investigate why the performance in this iteration was very different from the average:
@@ -2378,11 +2378,11 @@ Here are a few examples:
 ## node), split, n, loss, yval, (yprob)
 ##       * denotes terminal node
 ## 
-## 1) root 229 127 Adelie (0.445415 0.179039 0.375546)  
-##   2) flipper_length< 206.5 139  39 Adelie (0.719424 0.273381 0.007194)  
-##     4) bill_length< 44.2 101   3 Adelie (0.970297 0.029703 0.000000) *
-##     5) bill_length>=44.2 38   3 Chinstrap (0.052632 0.921053 0.026316) *
-##   3) flipper_length>=206.5 90   5 Gentoo (0.022222 0.033333 0.944444) *
+## 1) root 229 123 Adelie (0.462882 0.187773 0.349345)  
+##   2) flipper_length< 207 146  41 Adelie (0.719178 0.273973 0.006849)  
+##     4) bill_length< 44.75 106   4 Adelie (0.962264 0.037736 0.000000) *
+##     5) bill_length>=44.75 40   4 Chinstrap (0.075000 0.900000 0.025000) *
+##   3) flipper_length>=207 83   4 Gentoo (0.012048 0.036145 0.951807) *
 \end{verbatim}
 \item
   Extract the individual predictions:
@@ -2396,13 +2396,13 @@ Here are a few examples:
 \begin{verbatim}
 ## <PredictionClassif> for 344 observations:
 ##     row_ids     truth  response prob.Adelie prob.Chinstrap prob.Gentoo
-##           5    Adelie    Adelie     0.97030        0.02970     0.00000
-##           6    Adelie    Adelie     0.97030        0.02970     0.00000
-##           7    Adelie    Adelie     0.97030        0.02970     0.00000
+##           2    Adelie    Adelie     0.96226        0.03774     0.00000
+##           3    Adelie    Adelie     0.96226        0.03774     0.00000
+##           9    Adelie    Adelie     0.96226        0.03774     0.00000
 ## ---                                                                   
-##         340 Chinstrap    Gentoo     0.01299        0.02597     0.96104
-##         343 Chinstrap    Gentoo     0.01299        0.02597     0.96104
-##         344 Chinstrap Chinstrap     0.09756        0.87805     0.02439
+##         337 Chinstrap Chinstrap     0.28571        0.57143     0.14286
+##         339 Chinstrap Chinstrap     0.04348        0.93478     0.02174
+##         344 Chinstrap Chinstrap     0.04348        0.93478     0.02174
 \end{verbatim}
 
 \begin{Shaded}
@@ -2414,13 +2414,13 @@ Here are a few examples:
 \begin{verbatim}
 ## <PredictionClassif> for 115 observations:
 ##     row_ids     truth  response prob.Adelie prob.Chinstrap prob.Gentoo
-##           5    Adelie    Adelie     0.97030         0.0297     0.00000
-##           6    Adelie    Adelie     0.97030         0.0297     0.00000
-##           7    Adelie    Adelie     0.97030         0.0297     0.00000
+##           2    Adelie    Adelie     0.96226        0.03774      0.0000
+##           3    Adelie    Adelie     0.96226        0.03774      0.0000
+##           9    Adelie    Adelie     0.96226        0.03774      0.0000
 ## ---                                                                   
-##         338 Chinstrap Chinstrap     0.05263         0.9211     0.02632
-##         341 Chinstrap    Adelie     0.97030         0.0297     0.00000
-##         342 Chinstrap Chinstrap     0.05263         0.9211     0.02632
+##         340 Chinstrap    Gentoo     0.01205        0.03614      0.9518
+##         341 Chinstrap    Adelie     0.96226        0.03774      0.0000
+##         342 Chinstrap Chinstrap     0.07500        0.90000      0.0250
 \end{verbatim}
 \item
   Filter the result to only keep specified resampling iterations:
@@ -2532,7 +2532,7 @@ We can also plot the predictions of individual models:
 \end{Shaded}
 
 \begin{verbatim}
-## Warning: Removed 1 rows containing missing values (geom_point).
+## Warning: Removed 4 rows containing missing values (geom_point).
 \end{verbatim}
 
 \begin{center}\includegraphics{03-perf-resampling_files/figure-latex/02-basics-resampling-017-1-1} \end{center}
@@ -2629,14 +2629,14 @@ We create two measures to calculate the area under the curve (AUC) for the train
 ## 8:  8 <ResampleResult[22]>         sonar       classif.rpart            cv
 ## 9:  9 <ResampleResult[22]>         sonar classif.featureless            cv
 ##    iters auc_train auc_test
-## 1:     3    0.9995   0.9847
-## 2:     3    0.9124   0.8957
+## 1:     3    0.9995   0.9836
+## 2:     3    0.9027   0.8896
 ## 3:     3    0.5000   0.5000
-## 4:     3    0.9987   0.7919
-## 5:     3    0.8172   0.7075
+## 4:     3    0.9989   0.7856
+## 5:     3    0.8233   0.7027
 ## 6:     3    0.5000   0.5000
-## 7:     3    1.0000   0.9063
-## 8:     3    0.8759   0.6972
+## 7:     3    1.0000   0.9228
+## 8:     3    0.9186   0.7441
 ## 9:     3    0.5000   0.5000
 \end{verbatim}
 
@@ -2756,7 +2756,7 @@ We can now investigate this resampling and even single resampling iterations usi
 
 \begin{verbatim}
 ## classif.auc 
-##      0.7919
+##      0.7856
 \end{verbatim}
 
 \begin{Shaded}
@@ -2788,7 +2788,7 @@ We can now investigate this resampling and even single resampling iterations usi
 \end{Shaded}
 
 \begin{verbatim}
-## [1]  3  4  7 10 12 13
+## [1]  4  6 10 11 20 23
 \end{verbatim}
 
 \hypertarget{converting-and-merging}{%
@@ -2921,7 +2921,7 @@ We discuss the following aspects in this part:
 
 Hyperparameters are the parameters of the learners that control how a model is fit to the data.
 They are sometimes called second-level or second-order parameters of machine learning -- the parameters of the \emph{models} are the first-order parameters and ``fit'' to the data during model training.
-The hyerparameters of a learner can have a major impact on the performance of a learned model, but are often only optimized in an ad-hoc manner or not at all.
+The hyperparameters of a learner can have a major impact on the performance of a learned model, but are often only optimized in an ad-hoc manner or not at all.
 This process is often called model `tuning'.
 
 Hyperparameter tuning is supported via the \href{https://mlr3tuning.mlr-org.com}{mlr3tuning} extension package.
@@ -3157,126 +3157,128 @@ The tuner proceeds as follows:
 \end{Shaded}
 
 \begin{verbatim}
-## INFO  [23:57:44.927] [bbotk] Starting to optimize 2 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=20, k=0]' 
-## INFO  [23:57:44.960] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:45.112] [bbotk] Result of batch 1: 
-## INFO  [23:57:45.114] [bbotk]     cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:45.114] [bbotk]  0.001        3     0.2773            0.021 
-## INFO  [23:57:45.114] [bbotk]                                 uhash 
-## INFO  [23:57:45.114] [bbotk]  84d614d2-558f-4602-b600-5892ec7dcafb 
-## INFO  [23:57:45.116] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:45.195] [bbotk] Result of batch 2: 
-## INFO  [23:57:45.197] [bbotk]      cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:45.197] [bbotk]  0.0505        8     0.2578            0.013 
-## INFO  [23:57:45.197] [bbotk]                                 uhash 
-## INFO  [23:57:45.197] [bbotk]  4e0fa9e9-6c83-4807-a981-c6b435e3af90 
-## INFO  [23:57:45.198] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:45.289] [bbotk] Result of batch 3: 
-## INFO  [23:57:45.290] [bbotk]      cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:45.290] [bbotk]  0.0505       10     0.2578            0.013 
-## INFO  [23:57:45.290] [bbotk]                                 uhash 
-## INFO  [23:57:45.290] [bbotk]  660c6d6d-fa9f-4420-9f39-86aaf6855355 
-## INFO  [23:57:45.292] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:45.371] [bbotk] Result of batch 4: 
-## INFO  [23:57:45.373] [bbotk]     cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:45.373] [bbotk]  0.001        5     0.2461            0.012 
-## INFO  [23:57:45.373] [bbotk]                                 uhash 
-## INFO  [23:57:45.373] [bbotk]  981dbd4c-4df3-45bb-9e2e-71d88d806758 
-## INFO  [23:57:45.374] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:45.453] [bbotk] Result of batch 5: 
-## INFO  [23:57:45.454] [bbotk]      cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:45.454] [bbotk]  0.0505        3     0.2578            0.012 
-## INFO  [23:57:45.454] [bbotk]                                 uhash 
-## INFO  [23:57:45.454] [bbotk]  23fcec2c-671a-4222-9760-8b85c29d496a 
-## INFO  [23:57:45.456] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:45.541] [bbotk] Result of batch 6: 
-## INFO  [23:57:45.542] [bbotk]      cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:45.542] [bbotk]  0.0505        1     0.2578            0.012 
-## INFO  [23:57:45.542] [bbotk]                                 uhash 
-## INFO  [23:57:45.542] [bbotk]  a6915a5a-682a-4353-88ec-daed5e542444 
-## INFO  [23:57:45.544] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:45.621] [bbotk] Result of batch 7: 
-## INFO  [23:57:45.622] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
-## INFO  [23:57:45.622] [bbotk]  0.1        1     0.2578            0.012 810524c4-ce53-49e8-bcdb-79b70d08be44 
-## INFO  [23:57:45.624] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:45.701] [bbotk] Result of batch 8: 
-## INFO  [23:57:45.703] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:45.703] [bbotk]  0.02575        8     0.2383            0.013 
-## INFO  [23:57:45.703] [bbotk]                                 uhash 
-## INFO  [23:57:45.703] [bbotk]  86a2df95-80fc-4887-8253-dd99f54ca0ab 
-## INFO  [23:57:45.705] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:45.790] [bbotk] Result of batch 9: 
-## INFO  [23:57:45.792] [bbotk]      cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:45.792] [bbotk]  0.0505        5     0.2578            0.012 
-## INFO  [23:57:45.792] [bbotk]                                 uhash 
-## INFO  [23:57:45.792] [bbotk]  b4fa2302-743f-47a1-8590-71abe9bf33c0 
-## INFO  [23:57:45.794] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:45.871] [bbotk] Result of batch 10: 
-## INFO  [23:57:45.873] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:45.873] [bbotk]  0.02575        1     0.2383            0.011 
-## INFO  [23:57:45.873] [bbotk]                                 uhash 
-## INFO  [23:57:45.873] [bbotk]  44b60a1f-6a91-48a1-bd20-f7df2ed6d1fd 
-## INFO  [23:57:45.874] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:45.952] [bbotk] Result of batch 11: 
-## INFO  [23:57:45.954] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:45.954] [bbotk]  0.02575        5     0.2383            0.011 
-## INFO  [23:57:45.954] [bbotk]                                 uhash 
-## INFO  [23:57:45.954] [bbotk]  a1030c64-9e3a-448d-adf9-3e5b4cb2efee 
-## INFO  [23:57:45.955] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:46.043] [bbotk] Result of batch 12: 
-## INFO  [23:57:46.045] [bbotk]     cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:46.045] [bbotk]  0.001        1     0.2773            0.015 
-## INFO  [23:57:46.045] [bbotk]                                 uhash 
-## INFO  [23:57:46.045] [bbotk]  e8b747f8-6d2a-45c9-b062-816f8f2c08cb 
-## INFO  [23:57:46.047] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:46.123] [bbotk] Result of batch 13: 
-## INFO  [23:57:46.125] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:46.125] [bbotk]  0.07525        3     0.2578            0.012 
-## INFO  [23:57:46.125] [bbotk]                                 uhash 
-## INFO  [23:57:46.125] [bbotk]  e3052962-d079-4598-a20a-cb603e7dfd52 
-## INFO  [23:57:46.126] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:46.203] [bbotk] Result of batch 14: 
-## INFO  [23:57:46.205] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
-## INFO  [23:57:46.205] [bbotk]  0.1       10     0.2578            0.011 b9c1eac4-067f-4e6d-8273-b1e32d113fee 
-## INFO  [23:57:46.207] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:46.292] [bbotk] Result of batch 15: 
-## INFO  [23:57:46.294] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:46.294] [bbotk]  0.02575       10     0.2383            0.011 
-## INFO  [23:57:46.294] [bbotk]                                 uhash 
-## INFO  [23:57:46.294] [bbotk]  d1b7855c-9098-4da4-a306-1bc873ae28cf 
-## INFO  [23:57:46.295] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:46.371] [bbotk] Result of batch 16: 
-## INFO  [23:57:46.373] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
-## INFO  [23:57:46.373] [bbotk]  0.1        8     0.2578            0.012 fa8ee412-3673-4a18-8434-67c489b54abd 
-## INFO  [23:57:46.374] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:46.452] [bbotk] Result of batch 17: 
-## INFO  [23:57:46.454] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:46.454] [bbotk]  0.07525        1     0.2578            0.013 
-## INFO  [23:57:46.454] [bbotk]                                 uhash 
-## INFO  [23:57:46.454] [bbotk]  2d0950b9-dd59-46ed-9d9a-f2d5e384cf36 
-## INFO  [23:57:46.455] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:46.542] [bbotk] Result of batch 18: 
-## INFO  [23:57:46.544] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
-## INFO  [23:57:46.544] [bbotk]  0.1        5     0.2578            0.013 b3dd7bce-d18e-47ea-a075-9907999e71b8 
-## INFO  [23:57:46.546] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:46.623] [bbotk] Result of batch 19: 
-## INFO  [23:57:46.625] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:46.625] [bbotk]  0.07525        5     0.2578            0.011 
-## INFO  [23:57:46.625] [bbotk]                                 uhash 
-## INFO  [23:57:46.625] [bbotk]  e409b1b0-0bd0-4bec-a058-c70fcd746f35 
-## INFO  [23:57:46.627] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:46.707] [bbotk] Result of batch 20: 
-## INFO  [23:57:46.709] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
-## INFO  [23:57:46.709] [bbotk]  0.1        3     0.2578            0.012 840c5937-6182-4fc4-83ff-809fb58dbb55 
-## INFO  [23:57:46.715] [bbotk] Finished optimizing after 20 evaluation(s) 
-## INFO  [23:57:46.716] [bbotk] Result: 
-## INFO  [23:57:46.717] [bbotk]       cp minsplit learner_param_vals  x_domain classif.ce 
-## INFO  [23:57:46.717] [bbotk]  0.02575        8          <list[3]> <list[2]>     0.2383
+## INFO  [10:36:28.961] [bbotk] Starting to optimize 2 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=20, k=0]' 
+## INFO  [10:36:29.012] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:29.221] [bbotk] Result of batch 1: 
+## INFO  [10:36:29.223] [bbotk]      cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:29.223] [bbotk]  0.0505       10      0.293            0.025 
+## INFO  [10:36:29.223] [bbotk]                                 uhash 
+## INFO  [10:36:29.223] [bbotk]  51c2954c-1641-49ec-b1b0-3fac7da20383 
+## INFO  [10:36:29.225] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:29.328] [bbotk] Result of batch 2: 
+## INFO  [10:36:29.330] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:29.330] [bbotk]  0.07525       10      0.293            0.014 
+## INFO  [10:36:29.330] [bbotk]                                 uhash 
+## INFO  [10:36:29.330] [bbotk]  010e8710-23ac-4ba7-8e53-83559d48e8a7 
+## INFO  [10:36:29.332] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:29.444] [bbotk] Result of batch 3: 
+## INFO  [10:36:29.446] [bbotk]     cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:29.446] [bbotk]  0.001        5       0.25            0.017 
+## INFO  [10:36:29.446] [bbotk]                                 uhash 
+## INFO  [10:36:29.446] [bbotk]  a1cdcb80-d273-4601-b291-d2e2df816751 
+## INFO  [10:36:29.448] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:29.545] [bbotk] Result of batch 4: 
+## INFO  [10:36:29.547] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
+## INFO  [10:36:29.547] [bbotk]  0.1        3      0.293            0.015 0e65decd-0ab2-45dc-9fbe-71358da6f8df 
+## INFO  [10:36:29.549] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:29.655] [bbotk] Result of batch 5: 
+## INFO  [10:36:29.657] [bbotk]      cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:29.657] [bbotk]  0.0505        3      0.293            0.016 
+## INFO  [10:36:29.657] [bbotk]                                 uhash 
+## INFO  [10:36:29.657] [bbotk]  d0115a7e-43b4-49f2-958d-f8674bfe0703 
+## INFO  [10:36:29.659] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:29.770] [bbotk] Result of batch 6: 
+## INFO  [10:36:29.773] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:29.773] [bbotk]  0.07525        3      0.293            0.015 
+## INFO  [10:36:29.773] [bbotk]                                 uhash 
+## INFO  [10:36:29.773] [bbotk]  181a628f-4942-4279-a862-4adb79df7ec0 
+## INFO  [10:36:29.775] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:29.877] [bbotk] Result of batch 7: 
+## INFO  [10:36:29.879] [bbotk]      cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:29.879] [bbotk]  0.0505        8      0.293            0.015 
+## INFO  [10:36:29.879] [bbotk]                                 uhash 
+## INFO  [10:36:29.879] [bbotk]  723e05fe-d624-4ce5-a8ac-5627a1186edc 
+## INFO  [10:36:29.881] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:29.986] [bbotk] Result of batch 8: 
+## INFO  [10:36:29.989] [bbotk]     cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:29.989] [bbotk]  0.001       10     0.2422            0.017 
+## INFO  [10:36:29.989] [bbotk]                                 uhash 
+## INFO  [10:36:29.989] [bbotk]  479c5dc5-44ae-490c-a140-13a2036d81d6 
+## INFO  [10:36:29.991] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:30.107] [bbotk] Result of batch 9: 
+## INFO  [10:36:30.109] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
+## INFO  [10:36:30.109] [bbotk]  0.1        8      0.293            0.015 486220ae-61d8-4377-8e6a-2cfa3c6c7ef6 
+## INFO  [10:36:30.111] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:30.212] [bbotk] Result of batch 10: 
+## INFO  [10:36:30.215] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:30.215] [bbotk]  0.02575       10       0.25            0.016 
+## INFO  [10:36:30.215] [bbotk]                                 uhash 
+## INFO  [10:36:30.215] [bbotk]  0e5ef2c9-360b-4bc8-8fb6-1d8a88a279e8 
+## INFO  [10:36:30.217] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:30.323] [bbotk] Result of batch 11: 
+## INFO  [10:36:30.325] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:30.325] [bbotk]  0.02575        5       0.25            0.018 
+## INFO  [10:36:30.325] [bbotk]                                 uhash 
+## INFO  [10:36:30.325] [bbotk]  e7ae4d61-093e-4db5-812e-1e68632a4a86 
+## INFO  [10:36:30.327] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:30.434] [bbotk] Result of batch 12: 
+## INFO  [10:36:30.436] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:30.436] [bbotk]  0.02575        1       0.25            0.016 
+## INFO  [10:36:30.436] [bbotk]                                 uhash 
+## INFO  [10:36:30.436] [bbotk]  828975de-1117-4eca-a53c-aeb317a54146 
+## INFO  [10:36:30.438] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:30.532] [bbotk] Result of batch 13: 
+## INFO  [10:36:30.534] [bbotk]      cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:30.534] [bbotk]  0.0505        1      0.293            0.013 
+## INFO  [10:36:30.534] [bbotk]                                 uhash 
+## INFO  [10:36:30.534] [bbotk]  310e669a-3bc6-453b-8009-39c3150b039b 
+## INFO  [10:36:30.536] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:30.632] [bbotk] Result of batch 14: 
+## INFO  [10:36:30.634] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:30.634] [bbotk]  0.07525        8      0.293            0.013 
+## INFO  [10:36:30.634] [bbotk]                                 uhash 
+## INFO  [10:36:30.634] [bbotk]  3226b365-231b-4e89-96b3-fa0d79db81d8 
+## INFO  [10:36:30.635] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:30.747] [bbotk] Result of batch 15: 
+## INFO  [10:36:30.749] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
+## INFO  [10:36:30.749] [bbotk]  0.1        1      0.293            0.014 58d289d9-9117-49ce-8671-17563229c064 
+## INFO  [10:36:30.751] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:30.846] [bbotk] Result of batch 16: 
+## INFO  [10:36:30.848] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:30.848] [bbotk]  0.07525        1      0.293            0.014 
+## INFO  [10:36:30.848] [bbotk]                                 uhash 
+## INFO  [10:36:30.848] [bbotk]  2ad3effe-ea6c-4249-be0e-f3c1f6366821 
+## INFO  [10:36:30.850] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:30.946] [bbotk] Result of batch 17: 
+## INFO  [10:36:30.949] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:30.949] [bbotk]  0.02575        3       0.25            0.014 
+## INFO  [10:36:30.949] [bbotk]                                 uhash 
+## INFO  [10:36:30.949] [bbotk]  ef3b7f5e-bb67-4ff3-9dde-529899f1ab1a 
+## INFO  [10:36:30.950] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:31.067] [bbotk] Result of batch 18: 
+## INFO  [10:36:31.069] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:31.069] [bbotk]  0.02575        8       0.25            0.018 
+## INFO  [10:36:31.069] [bbotk]                                 uhash 
+## INFO  [10:36:31.069] [bbotk]  4740b28d-d109-4e2c-b592-86b7876b764b 
+## INFO  [10:36:31.071] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:31.174] [bbotk] Result of batch 19: 
+## INFO  [10:36:31.176] [bbotk]     cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:31.176] [bbotk]  0.001        8     0.2422            0.016 
+## INFO  [10:36:31.176] [bbotk]                                 uhash 
+## INFO  [10:36:31.176] [bbotk]  61bef20f-c5d2-41ff-951b-f61f320ce325 
+## INFO  [10:36:31.178] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:31.281] [bbotk] Result of batch 20: 
+## INFO  [10:36:31.283] [bbotk]   cp minsplit classif.ce runtime_learners                                uhash 
+## INFO  [10:36:31.283] [bbotk]  0.1        5      0.293            0.014 35fbe34e-9ce7-4523-b872-c1b895c8d204 
+## INFO  [10:36:31.290] [bbotk] Finished optimizing after 20 evaluation(s) 
+## INFO  [10:36:31.291] [bbotk] Result: 
+## INFO  [10:36:31.293] [bbotk]     cp minsplit learner_param_vals  x_domain classif.ce 
+## INFO  [10:36:31.293] [bbotk]  0.001       10          <list[3]> <list[2]>     0.2422
 \end{verbatim}
 
 \begin{verbatim}
-##         cp minsplit learner_param_vals  x_domain classif.ce
-## 1: 0.02575        8          <list[3]> <list[2]>     0.2383
+##       cp minsplit learner_param_vals  x_domain classif.ce
+## 1: 0.001       10          <list[3]> <list[2]>     0.2422
 \end{verbatim}
 
 \begin{Shaded}
@@ -3290,10 +3292,10 @@ The tuner proceeds as follows:
 ## [1] 0
 ## 
 ## $cp
-## [1] 0.02575
+## [1] 0.001
 ## 
 ## $minsplit
-## [1] 8
+## [1] 10
 \end{verbatim}
 
 \begin{Shaded}
@@ -3304,7 +3306,7 @@ The tuner proceeds as follows:
 
 \begin{verbatim}
 ## classif.ce 
-##     0.2383
+##     0.2422
 \end{verbatim}
 
 You can investigate all of the evaluations that were performed; they are stored in the archive of the \href{https://mlr3tuning.mlr-org.com/reference/TuningInstanceSingleCrit.html}{\texttt{TuningInstanceSingleCrit}} and can be accessed by using \texttt{as.data.table()}:
@@ -3317,47 +3319,47 @@ You can investigate all of the evaluations that were performed; they are stored 
 
 \begin{verbatim}
 ##          cp minsplit classif.ce x_domain_cp x_domain_minsplit runtime_learners
-##  1: 0.00100        3     0.2773     0.00100                 3            0.021
-##  2: 0.05050        8     0.2578     0.05050                 8            0.013
-##  3: 0.05050       10     0.2578     0.05050                10            0.013
-##  4: 0.00100        5     0.2461     0.00100                 5            0.012
-##  5: 0.05050        3     0.2578     0.05050                 3            0.012
-##  6: 0.05050        1     0.2578     0.05050                 1            0.012
-##  7: 0.10000        1     0.2578     0.10000                 1            0.012
-##  8: 0.02575        8     0.2383     0.02575                 8            0.013
-##  9: 0.05050        5     0.2578     0.05050                 5            0.012
-## 10: 0.02575        1     0.2383     0.02575                 1            0.011
-## 11: 0.02575        5     0.2383     0.02575                 5            0.011
-## 12: 0.00100        1     0.2773     0.00100                 1            0.015
-## 13: 0.07525        3     0.2578     0.07525                 3            0.012
-## 14: 0.10000       10     0.2578     0.10000                10            0.011
-## 15: 0.02575       10     0.2383     0.02575                10            0.011
-## 16: 0.10000        8     0.2578     0.10000                 8            0.012
-## 17: 0.07525        1     0.2578     0.07525                 1            0.013
-## 18: 0.10000        5     0.2578     0.10000                 5            0.013
-## 19: 0.07525        5     0.2578     0.07525                 5            0.011
-## 20: 0.10000        3     0.2578     0.10000                 3            0.012
+##  1: 0.05050       10     0.2930     0.05050                10            0.025
+##  2: 0.07525       10     0.2930     0.07525                10            0.014
+##  3: 0.00100        5     0.2500     0.00100                 5            0.017
+##  4: 0.10000        3     0.2930     0.10000                 3            0.015
+##  5: 0.05050        3     0.2930     0.05050                 3            0.016
+##  6: 0.07525        3     0.2930     0.07525                 3            0.015
+##  7: 0.05050        8     0.2930     0.05050                 8            0.015
+##  8: 0.00100       10     0.2422     0.00100                10            0.017
+##  9: 0.10000        8     0.2930     0.10000                 8            0.015
+## 10: 0.02575       10     0.2500     0.02575                10            0.016
+## 11: 0.02575        5     0.2500     0.02575                 5            0.018
+## 12: 0.02575        1     0.2500     0.02575                 1            0.016
+## 13: 0.05050        1     0.2930     0.05050                 1            0.013
+## 14: 0.07525        8     0.2930     0.07525                 8            0.013
+## 15: 0.10000        1     0.2930     0.10000                 1            0.014
+## 16: 0.07525        1     0.2930     0.07525                 1            0.014
+## 17: 0.02575        3     0.2500     0.02575                 3            0.014
+## 18: 0.02575        8     0.2500     0.02575                 8            0.018
+## 19: 0.00100        8     0.2422     0.00100                 8            0.016
+## 20: 0.10000        5     0.2930     0.10000                 5            0.014
 ##               timestamp batch_nr      resample_result
-##  1: 2021-12-22 23:57:45        1 <ResampleResult[22]>
-##  2: 2021-12-22 23:57:45        2 <ResampleResult[22]>
-##  3: 2021-12-22 23:57:45        3 <ResampleResult[22]>
-##  4: 2021-12-22 23:57:45        4 <ResampleResult[22]>
-##  5: 2021-12-22 23:57:45        5 <ResampleResult[22]>
-##  6: 2021-12-22 23:57:45        6 <ResampleResult[22]>
-##  7: 2021-12-22 23:57:45        7 <ResampleResult[22]>
-##  8: 2021-12-22 23:57:45        8 <ResampleResult[22]>
-##  9: 2021-12-22 23:57:45        9 <ResampleResult[22]>
-## 10: 2021-12-22 23:57:45       10 <ResampleResult[22]>
-## 11: 2021-12-22 23:57:45       11 <ResampleResult[22]>
-## 12: 2021-12-22 23:57:46       12 <ResampleResult[22]>
-## 13: 2021-12-22 23:57:46       13 <ResampleResult[22]>
-## 14: 2021-12-22 23:57:46       14 <ResampleResult[22]>
-## 15: 2021-12-22 23:57:46       15 <ResampleResult[22]>
-## 16: 2021-12-22 23:57:46       16 <ResampleResult[22]>
-## 17: 2021-12-22 23:57:46       17 <ResampleResult[22]>
-## 18: 2021-12-22 23:57:46       18 <ResampleResult[22]>
-## 19: 2021-12-22 23:57:46       19 <ResampleResult[22]>
-## 20: 2021-12-22 23:57:46       20 <ResampleResult[22]>
+##  1: 2022-01-02 10:36:29        1 <ResampleResult[22]>
+##  2: 2022-01-02 10:36:29        2 <ResampleResult[22]>
+##  3: 2022-01-02 10:36:29        3 <ResampleResult[22]>
+##  4: 2022-01-02 10:36:29        4 <ResampleResult[22]>
+##  5: 2022-01-02 10:36:29        5 <ResampleResult[22]>
+##  6: 2022-01-02 10:36:29        6 <ResampleResult[22]>
+##  7: 2022-01-02 10:36:29        7 <ResampleResult[22]>
+##  8: 2022-01-02 10:36:29        8 <ResampleResult[22]>
+##  9: 2022-01-02 10:36:30        9 <ResampleResult[22]>
+## 10: 2022-01-02 10:36:30       10 <ResampleResult[22]>
+## 11: 2022-01-02 10:36:30       11 <ResampleResult[22]>
+## 12: 2022-01-02 10:36:30       12 <ResampleResult[22]>
+## 13: 2022-01-02 10:36:30       13 <ResampleResult[22]>
+## 14: 2022-01-02 10:36:30       14 <ResampleResult[22]>
+## 15: 2022-01-02 10:36:30       15 <ResampleResult[22]>
+## 16: 2022-01-02 10:36:30       16 <ResampleResult[22]>
+## 17: 2022-01-02 10:36:30       17 <ResampleResult[22]>
+## 18: 2022-01-02 10:36:31       18 <ResampleResult[22]>
+## 19: 2022-01-02 10:36:31       19 <ResampleResult[22]>
+## 20: 2022-01-02 10:36:31       20 <ResampleResult[22]>
 \end{verbatim}
 
 Altogether, the grid search evaluated 20/25 different hyperparameter configurations in a random order before the \href{https://bbotk.mlr-org.com/reference/Terminator.html}{\texttt{Terminator}} stopped the tuning. In this example there were multiple configurations with the same best classification error, and without other criteria, the first one was returned. You may want to choose the configuration with the lowest classification error as well as time to train the model or some other combination of criteria for hyper parameter selection. You can do this with \href{https://mlr3tuning.mlr-org.com/reference/TuningInstanceMultiCrit.html}{\texttt{TuningInstanceMultiCrit}}, \protect\hyperlink{mult-measures-tuning}{Tuning with Multiple Performance Measures}.
@@ -3405,26 +3407,26 @@ The \texttt{uhash} column links the resampling iterations to the evaluated confi
 
 \begin{verbatim}
 ##                                    uhash nr              task task_id
-##  1: 84d614d2-558f-4602-b600-5892ec7dcafb  1 <TaskClassif[49]>    pima
-##  2: 4e0fa9e9-6c83-4807-a981-c6b435e3af90  2 <TaskClassif[49]>    pima
-##  3: 660c6d6d-fa9f-4420-9f39-86aaf6855355  3 <TaskClassif[49]>    pima
-##  4: 981dbd4c-4df3-45bb-9e2e-71d88d806758  4 <TaskClassif[49]>    pima
-##  5: 23fcec2c-671a-4222-9760-8b85c29d496a  5 <TaskClassif[49]>    pima
-##  6: a6915a5a-682a-4353-88ec-daed5e542444  6 <TaskClassif[49]>    pima
-##  7: 810524c4-ce53-49e8-bcdb-79b70d08be44  7 <TaskClassif[49]>    pima
-##  8: 86a2df95-80fc-4887-8253-dd99f54ca0ab  8 <TaskClassif[49]>    pima
-##  9: b4fa2302-743f-47a1-8590-71abe9bf33c0  9 <TaskClassif[49]>    pima
-## 10: 44b60a1f-6a91-48a1-bd20-f7df2ed6d1fd 10 <TaskClassif[49]>    pima
-## 11: a1030c64-9e3a-448d-adf9-3e5b4cb2efee 11 <TaskClassif[49]>    pima
-## 12: e8b747f8-6d2a-45c9-b062-816f8f2c08cb 12 <TaskClassif[49]>    pima
-## 13: e3052962-d079-4598-a20a-cb603e7dfd52 13 <TaskClassif[49]>    pima
-## 14: b9c1eac4-067f-4e6d-8273-b1e32d113fee 14 <TaskClassif[49]>    pima
-## 15: d1b7855c-9098-4da4-a306-1bc873ae28cf 15 <TaskClassif[49]>    pima
-## 16: fa8ee412-3673-4a18-8434-67c489b54abd 16 <TaskClassif[49]>    pima
-## 17: 2d0950b9-dd59-46ed-9d9a-f2d5e384cf36 17 <TaskClassif[49]>    pima
-## 18: b3dd7bce-d18e-47ea-a075-9907999e71b8 18 <TaskClassif[49]>    pima
-## 19: e409b1b0-0bd0-4bec-a058-c70fcd746f35 19 <TaskClassif[49]>    pima
-## 20: 840c5937-6182-4fc4-83ff-809fb58dbb55 20 <TaskClassif[49]>    pima
+##  1: 51c2954c-1641-49ec-b1b0-3fac7da20383  1 <TaskClassif[49]>    pima
+##  2: 010e8710-23ac-4ba7-8e53-83559d48e8a7  2 <TaskClassif[49]>    pima
+##  3: a1cdcb80-d273-4601-b291-d2e2df816751  3 <TaskClassif[49]>    pima
+##  4: 0e65decd-0ab2-45dc-9fbe-71358da6f8df  4 <TaskClassif[49]>    pima
+##  5: d0115a7e-43b4-49f2-958d-f8674bfe0703  5 <TaskClassif[49]>    pima
+##  6: 181a628f-4942-4279-a862-4adb79df7ec0  6 <TaskClassif[49]>    pima
+##  7: 723e05fe-d624-4ce5-a8ac-5627a1186edc  7 <TaskClassif[49]>    pima
+##  8: 479c5dc5-44ae-490c-a140-13a2036d81d6  8 <TaskClassif[49]>    pima
+##  9: 486220ae-61d8-4377-8e6a-2cfa3c6c7ef6  9 <TaskClassif[49]>    pima
+## 10: 0e5ef2c9-360b-4bc8-8fb6-1d8a88a279e8 10 <TaskClassif[49]>    pima
+## 11: e7ae4d61-093e-4db5-812e-1e68632a4a86 11 <TaskClassif[49]>    pima
+## 12: 828975de-1117-4eca-a53c-aeb317a54146 12 <TaskClassif[49]>    pima
+## 13: 310e669a-3bc6-453b-8009-39c3150b039b 13 <TaskClassif[49]>    pima
+## 14: 3226b365-231b-4e89-96b3-fa0d79db81d8 14 <TaskClassif[49]>    pima
+## 15: 58d289d9-9117-49ce-8671-17563229c064 15 <TaskClassif[49]>    pima
+## 16: 2ad3effe-ea6c-4249-be0e-f3c1f6366821 16 <TaskClassif[49]>    pima
+## 17: ef3b7f5e-bb67-4ff3-9dde-529899f1ab1a 17 <TaskClassif[49]>    pima
+## 18: 4740b28d-d109-4e2c-b592-86b7876b764b 18 <TaskClassif[49]>    pima
+## 19: 61bef20f-c5d2-41ff-951b-f61f320ce325 19 <TaskClassif[49]>    pima
+## 20: 35fbe34e-9ce7-4523-b872-c1b895c8d204 20 <TaskClassif[49]>    pima
 ##                       learner    learner_id              resampling
 ##  1: <LearnerClassifRpart[37]> classif.rpart <ResamplingHoldout[19]>
 ##  2: <LearnerClassifRpart[37]> classif.rpart <ResamplingHoldout[19]>
@@ -3447,26 +3449,26 @@ The \texttt{uhash} column links the resampling iterations to the evaluated confi
 ## 19: <LearnerClassifRpart[37]> classif.rpart <ResamplingHoldout[19]>
 ## 20: <LearnerClassifRpart[37]> classif.rpart <ResamplingHoldout[19]>
 ##     resampling_id iteration              prediction classif.acc
-##  1:       holdout         1 <PredictionClassif[20]>      0.7227
-##  2:       holdout         1 <PredictionClassif[20]>      0.7422
-##  3:       holdout         1 <PredictionClassif[20]>      0.7422
-##  4:       holdout         1 <PredictionClassif[20]>      0.7539
-##  5:       holdout         1 <PredictionClassif[20]>      0.7422
-##  6:       holdout         1 <PredictionClassif[20]>      0.7422
-##  7:       holdout         1 <PredictionClassif[20]>      0.7422
-##  8:       holdout         1 <PredictionClassif[20]>      0.7617
-##  9:       holdout         1 <PredictionClassif[20]>      0.7422
-## 10:       holdout         1 <PredictionClassif[20]>      0.7617
-## 11:       holdout         1 <PredictionClassif[20]>      0.7617
-## 12:       holdout         1 <PredictionClassif[20]>      0.7227
-## 13:       holdout         1 <PredictionClassif[20]>      0.7422
-## 14:       holdout         1 <PredictionClassif[20]>      0.7422
-## 15:       holdout         1 <PredictionClassif[20]>      0.7617
-## 16:       holdout         1 <PredictionClassif[20]>      0.7422
-## 17:       holdout         1 <PredictionClassif[20]>      0.7422
-## 18:       holdout         1 <PredictionClassif[20]>      0.7422
-## 19:       holdout         1 <PredictionClassif[20]>      0.7422
-## 20:       holdout         1 <PredictionClassif[20]>      0.7422
+##  1:       holdout         1 <PredictionClassif[20]>      0.7070
+##  2:       holdout         1 <PredictionClassif[20]>      0.7070
+##  3:       holdout         1 <PredictionClassif[20]>      0.7500
+##  4:       holdout         1 <PredictionClassif[20]>      0.7070
+##  5:       holdout         1 <PredictionClassif[20]>      0.7070
+##  6:       holdout         1 <PredictionClassif[20]>      0.7070
+##  7:       holdout         1 <PredictionClassif[20]>      0.7070
+##  8:       holdout         1 <PredictionClassif[20]>      0.7578
+##  9:       holdout         1 <PredictionClassif[20]>      0.7070
+## 10:       holdout         1 <PredictionClassif[20]>      0.7500
+## 11:       holdout         1 <PredictionClassif[20]>      0.7500
+## 12:       holdout         1 <PredictionClassif[20]>      0.7500
+## 13:       holdout         1 <PredictionClassif[20]>      0.7070
+## 14:       holdout         1 <PredictionClassif[20]>      0.7070
+## 15:       holdout         1 <PredictionClassif[20]>      0.7070
+## 16:       holdout         1 <PredictionClassif[20]>      0.7070
+## 17:       holdout         1 <PredictionClassif[20]>      0.7500
+## 18:       holdout         1 <PredictionClassif[20]>      0.7500
+## 19:       holdout         1 <PredictionClassif[20]>      0.7578
+## 20:       holdout         1 <PredictionClassif[20]>      0.7070
 \end{verbatim}
 
 Now we can take the optimized hyperparameters, set them for the previously-created \href{https://mlr3.mlr-org.com/reference/Learner.html}{\texttt{Learner}}, and train it on the full dataset.
@@ -3550,127 +3552,127 @@ After triggering the tuning, we will have the configuration with the best classi
 \end{Shaded}
 
 \begin{verbatim}
-## INFO  [23:57:47.282] [bbotk] Starting to optimize 2 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=20, k=0]' 
-## INFO  [23:57:47.285] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:47.365] [bbotk] Result of batch 1: 
-## INFO  [23:57:47.367] [bbotk]       cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:47.367] [bbotk]  0.02575        5     0.2383          0            0.012 
-## INFO  [23:57:47.367] [bbotk]                                 uhash 
-## INFO  [23:57:47.367] [bbotk]  531782d6-a242-4c01-857f-477d76561c3d 
-## INFO  [23:57:47.369] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:47.455] [bbotk] Result of batch 2: 
-## INFO  [23:57:47.456] [bbotk]     cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:47.456] [bbotk]  0.001        5     0.3281          0            0.014 
-## INFO  [23:57:47.456] [bbotk]                                 uhash 
-## INFO  [23:57:47.456] [bbotk]  9422cb91-2e30-45a8-a566-a43f5c7678d7 
-## INFO  [23:57:47.458] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:47.544] [bbotk] Result of batch 3: 
-## INFO  [23:57:47.546] [bbotk]       cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:47.546] [bbotk]  0.02575        1     0.2383          0            0.012 
-## INFO  [23:57:47.546] [bbotk]                                 uhash 
-## INFO  [23:57:47.546] [bbotk]  859978a1-6c79-4c40-bb06-1cb1159c66a6 
-## INFO  [23:57:47.547] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:47.642] [bbotk] Result of batch 4: 
-## INFO  [23:57:47.644] [bbotk]   cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:47.644] [bbotk]  0.1        3     0.2539          0            0.012 
-## INFO  [23:57:47.644] [bbotk]                                 uhash 
-## INFO  [23:57:47.644] [bbotk]  54301f91-2097-46a2-a549-663e2ce596d1 
-## INFO  [23:57:47.646] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:47.730] [bbotk] Result of batch 5: 
-## INFO  [23:57:47.732] [bbotk]   cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:47.732] [bbotk]  0.1       10     0.2539          0            0.012 
-## INFO  [23:57:47.732] [bbotk]                                 uhash 
-## INFO  [23:57:47.732] [bbotk]  1122e708-2b5e-44ea-aad9-b5445315445a 
-## INFO  [23:57:47.733] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:47.841] [bbotk] Result of batch 6: 
-## INFO  [23:57:47.842] [bbotk]   cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:47.842] [bbotk]  0.1        1     0.2539          0            0.012 
-## INFO  [23:57:47.842] [bbotk]                                 uhash 
-## INFO  [23:57:47.842] [bbotk]  db1f4722-9fc7-4ead-b8de-155556b5988d 
-## INFO  [23:57:47.844] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:47.929] [bbotk] Result of batch 7: 
-## INFO  [23:57:47.931] [bbotk]   cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:47.931] [bbotk]  0.1        8     0.2539          0            0.011 
-## INFO  [23:57:47.931] [bbotk]                                 uhash 
-## INFO  [23:57:47.931] [bbotk]  e36fc86e-d2dd-4a5a-ac67-fd72a2d28523 
-## INFO  [23:57:47.932] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:48.018] [bbotk] Result of batch 8: 
-## INFO  [23:57:48.020] [bbotk]       cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:48.020] [bbotk]  0.02575        3     0.2383          0            0.012 
-## INFO  [23:57:48.020] [bbotk]                                 uhash 
-## INFO  [23:57:48.020] [bbotk]  3ebc5a64-d029-4a28-8268-a7501b3dae14 
-## INFO  [23:57:48.022] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:48.117] [bbotk] Result of batch 9: 
-## INFO  [23:57:48.119] [bbotk]      cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:48.119] [bbotk]  0.0505        5     0.2539          0            0.012 
-## INFO  [23:57:48.119] [bbotk]                                 uhash 
-## INFO  [23:57:48.119] [bbotk]  5ada2f13-b134-4ee6-8b6f-b99a64ff6bfa 
-## INFO  [23:57:48.121] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:48.207] [bbotk] Result of batch 10: 
-## INFO  [23:57:48.209] [bbotk]      cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:48.209] [bbotk]  0.0505        8     0.2539          0            0.012 
-## INFO  [23:57:48.209] [bbotk]                                 uhash 
-## INFO  [23:57:48.209] [bbotk]  b550e1a6-b78d-4c3d-80fa-2fcd12d76bf7 
-## INFO  [23:57:48.210] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:48.295] [bbotk] Result of batch 11: 
-## INFO  [23:57:48.297] [bbotk]   cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:48.297] [bbotk]  0.1        5     0.2539          0            0.012 
-## INFO  [23:57:48.297] [bbotk]                                 uhash 
-## INFO  [23:57:48.297] [bbotk]  82888480-1143-440a-b834-f3da383823f4 
-## INFO  [23:57:48.299] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:48.393] [bbotk] Result of batch 12: 
-## INFO  [23:57:48.395] [bbotk]       cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:48.395] [bbotk]  0.07525        1     0.2539          0            0.012 
-## INFO  [23:57:48.395] [bbotk]                                 uhash 
-## INFO  [23:57:48.395] [bbotk]  0a9a7e59-48de-418b-91b8-68141d4b08f2 
-## INFO  [23:57:48.397] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:48.483] [bbotk] Result of batch 13: 
-## INFO  [23:57:48.485] [bbotk]     cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:48.485] [bbotk]  0.001        1     0.3477          0            0.014 
-## INFO  [23:57:48.485] [bbotk]                                 uhash 
-## INFO  [23:57:48.485] [bbotk]  d32430a6-1b64-47e1-b517-6dc76a4ef9ac 
-## INFO  [23:57:48.487] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:48.583] [bbotk] Result of batch 14: 
-## INFO  [23:57:48.585] [bbotk]     cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:48.585] [bbotk]  0.001       10     0.3242          0            0.013 
-## INFO  [23:57:48.585] [bbotk]                                 uhash 
-## INFO  [23:57:48.585] [bbotk]  f2083d07-df31-4473-99b9-d07c4cb202bd 
-## INFO  [23:57:48.586] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:48.672] [bbotk] Result of batch 15: 
-## INFO  [23:57:48.674] [bbotk]     cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:48.674] [bbotk]  0.001        3     0.3477          0            0.013 
-## INFO  [23:57:48.674] [bbotk]                                 uhash 
-## INFO  [23:57:48.674] [bbotk]  bf5111a5-6bb7-4d8e-85c9-8c9048445547 
-## INFO  [23:57:48.676] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:48.760] [bbotk] Result of batch 16: 
-## INFO  [23:57:48.762] [bbotk]       cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:48.762] [bbotk]  0.02575       10     0.2383          0            0.011 
-## INFO  [23:57:48.762] [bbotk]                                 uhash 
-## INFO  [23:57:48.762] [bbotk]  4ce50064-1448-4c4e-8f82-bf6d9e4cc3c3 
-## INFO  [23:57:48.771] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:48.859] [bbotk] Result of batch 17: 
-## INFO  [23:57:48.861] [bbotk]     cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:48.861] [bbotk]  0.001        8     0.3203          0            0.014 
-## INFO  [23:57:48.861] [bbotk]                                 uhash 
-## INFO  [23:57:48.861] [bbotk]  b475fcee-494d-4ec4-8bd6-db0492606d1b 
-## INFO  [23:57:48.862] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:48.949] [bbotk] Result of batch 18: 
-## INFO  [23:57:48.951] [bbotk]       cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:48.951] [bbotk]  0.02575        8     0.2383          0            0.011 
-## INFO  [23:57:48.951] [bbotk]                                 uhash 
-## INFO  [23:57:48.951] [bbotk]  cc25f198-6f62-4db5-8a83-52ab3eec3cf5 
-## INFO  [23:57:48.953] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:49.052] [bbotk] Result of batch 19: 
-## INFO  [23:57:49.054] [bbotk]       cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:49.054] [bbotk]  0.07525        8     0.2539          0            0.021 
-## INFO  [23:57:49.054] [bbotk]                                 uhash 
-## INFO  [23:57:49.054] [bbotk]  e1de3bbe-b062-4533-bdc2-ee2877ae1a94 
-## INFO  [23:57:49.055] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:49.140] [bbotk] Result of batch 20: 
-## INFO  [23:57:49.142] [bbotk]      cp minsplit classif.ce time_train runtime_learners 
-## INFO  [23:57:49.142] [bbotk]  0.0505        3     0.2539          0            0.011 
-## INFO  [23:57:49.142] [bbotk]                                 uhash 
-## INFO  [23:57:49.142] [bbotk]  936ee8d4-9f5e-4fa8-bb87-8a9f7a46c26c
+## INFO  [10:36:31.960] [bbotk] Starting to optimize 2 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=20, k=0]' 
+## INFO  [10:36:31.964] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:32.074] [bbotk] Result of batch 1: 
+## INFO  [10:36:32.076] [bbotk]      cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:32.076] [bbotk]  0.0505        8     0.2344          0            0.015 
+## INFO  [10:36:32.076] [bbotk]                                 uhash 
+## INFO  [10:36:32.076] [bbotk]  2459f7c8-ab99-4c6b-ab6a-f4fd365d555b 
+## INFO  [10:36:32.078] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:32.190] [bbotk] Result of batch 2: 
+## INFO  [10:36:32.193] [bbotk]   cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:32.193] [bbotk]  0.1        3     0.2344          0            0.014 
+## INFO  [10:36:32.193] [bbotk]                                 uhash 
+## INFO  [10:36:32.193] [bbotk]  5b1cb76d-1664-4609-9cdf-f5dfbe863140 
+## INFO  [10:36:32.195] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:32.314] [bbotk] Result of batch 3: 
+## INFO  [10:36:32.316] [bbotk]     cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:32.316] [bbotk]  0.001        1     0.2852          0            0.022 
+## INFO  [10:36:32.316] [bbotk]                                 uhash 
+## INFO  [10:36:32.316] [bbotk]  cb4a68cb-e2a8-4bc5-8db0-5c3448291b78 
+## INFO  [10:36:32.318] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:32.435] [bbotk] Result of batch 4: 
+## INFO  [10:36:32.437] [bbotk]       cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:32.437] [bbotk]  0.07525        8     0.2344          0            0.014 
+## INFO  [10:36:32.437] [bbotk]                                 uhash 
+## INFO  [10:36:32.437] [bbotk]  c3e37a05-5575-472c-80c1-5ea4b6d58c83 
+## INFO  [10:36:32.439] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:32.547] [bbotk] Result of batch 5: 
+## INFO  [10:36:32.550] [bbotk]       cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:32.550] [bbotk]  0.02575        8     0.2344          0            0.014 
+## INFO  [10:36:32.550] [bbotk]                                 uhash 
+## INFO  [10:36:32.550] [bbotk]  5707a440-6bd3-4692-9fb9-5cef797bcddb 
+## INFO  [10:36:32.552] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:32.685] [bbotk] Result of batch 6: 
+## INFO  [10:36:32.688] [bbotk]      cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:32.688] [bbotk]  0.0505        1     0.2344          0            0.014 
+## INFO  [10:36:32.688] [bbotk]                                 uhash 
+## INFO  [10:36:32.688] [bbotk]  8efeef48-7874-4a3d-ad23-16bea8105540 
+## INFO  [10:36:32.690] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:32.801] [bbotk] Result of batch 7: 
+## INFO  [10:36:32.804] [bbotk]       cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:32.804] [bbotk]  0.07525        3     0.2344          0            0.015 
+## INFO  [10:36:32.804] [bbotk]                                 uhash 
+## INFO  [10:36:32.804] [bbotk]  d860eff9-9e3e-4d8c-a3e0-8c32f4fd1007 
+## INFO  [10:36:32.805] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:32.915] [bbotk] Result of batch 8: 
+## INFO  [10:36:32.918] [bbotk]      cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:32.918] [bbotk]  0.0505        3     0.2344          0            0.014 
+## INFO  [10:36:32.918] [bbotk]                                 uhash 
+## INFO  [10:36:32.918] [bbotk]  1e1b9eb5-d082-444e-b8e7-82f2cdcf65af 
+## INFO  [10:36:32.920] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:33.045] [bbotk] Result of batch 9: 
+## INFO  [10:36:33.048] [bbotk]      cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:33.048] [bbotk]  0.0505       10     0.2344          0            0.015 
+## INFO  [10:36:33.048] [bbotk]                                 uhash 
+## INFO  [10:36:33.048] [bbotk]  a8f110e6-c539-4afe-8277-58218f35cd97 
+## INFO  [10:36:33.050] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:33.173] [bbotk] Result of batch 10: 
+## INFO  [10:36:33.176] [bbotk]     cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:33.176] [bbotk]  0.001       10       0.25          0            0.017 
+## INFO  [10:36:33.176] [bbotk]                                 uhash 
+## INFO  [10:36:33.176] [bbotk]  0467aae0-14f3-4dbb-9059-d19b0ce38188 
+## INFO  [10:36:33.177] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:33.299] [bbotk] Result of batch 11: 
+## INFO  [10:36:33.301] [bbotk]       cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:33.301] [bbotk]  0.07525        1     0.2344          0            0.015 
+## INFO  [10:36:33.301] [bbotk]                                 uhash 
+## INFO  [10:36:33.301] [bbotk]  6fe00a0f-75a8-49fe-99a1-c737d262a3ad 
+## INFO  [10:36:33.304] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:33.419] [bbotk] Result of batch 12: 
+## INFO  [10:36:33.421] [bbotk]       cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:33.421] [bbotk]  0.02575        1     0.2344          0            0.014 
+## INFO  [10:36:33.421] [bbotk]                                 uhash 
+## INFO  [10:36:33.421] [bbotk]  772f477c-8b19-4106-a8ce-d9ada3f966b1 
+## INFO  [10:36:33.423] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:33.537] [bbotk] Result of batch 13: 
+## INFO  [10:36:33.540] [bbotk]   cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:33.540] [bbotk]  0.1        8     0.2344          0            0.016 
+## INFO  [10:36:33.540] [bbotk]                                 uhash 
+## INFO  [10:36:33.540] [bbotk]  785b998b-7691-480d-8d1a-66f84adb591e 
+## INFO  [10:36:33.541] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:33.667] [bbotk] Result of batch 14: 
+## INFO  [10:36:33.669] [bbotk]   cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:33.669] [bbotk]  0.1        5     0.2344          0            0.016 
+## INFO  [10:36:33.669] [bbotk]                                 uhash 
+## INFO  [10:36:33.669] [bbotk]  03207d65-42e2-4250-b460-7c0651a13e7c 
+## INFO  [10:36:33.671] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:33.789] [bbotk] Result of batch 15: 
+## INFO  [10:36:33.791] [bbotk]     cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:33.791] [bbotk]  0.001        8     0.2344          0             0.02 
+## INFO  [10:36:33.791] [bbotk]                                 uhash 
+## INFO  [10:36:33.791] [bbotk]  83182054-974e-4df7-93d6-ea32fd2e974a 
+## INFO  [10:36:33.793] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:33.904] [bbotk] Result of batch 16: 
+## INFO  [10:36:33.907] [bbotk]   cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:33.907] [bbotk]  0.1       10     0.2344          0            0.015 
+## INFO  [10:36:33.907] [bbotk]                                 uhash 
+## INFO  [10:36:33.907] [bbotk]  766fe137-8747-4b4c-83a6-fcf94646d2d9 
+## INFO  [10:36:33.915] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:34.026] [bbotk] Result of batch 17: 
+## INFO  [10:36:34.028] [bbotk]      cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:34.028] [bbotk]  0.0505        5     0.2344          0            0.014 
+## INFO  [10:36:34.028] [bbotk]                                 uhash 
+## INFO  [10:36:34.028] [bbotk]  daadc6db-377a-43f5-9bbb-a4c640d1697a 
+## INFO  [10:36:34.030] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:34.142] [bbotk] Result of batch 18: 
+## INFO  [10:36:34.145] [bbotk]       cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:34.145] [bbotk]  0.02575        3     0.2344          0            0.016 
+## INFO  [10:36:34.145] [bbotk]                                 uhash 
+## INFO  [10:36:34.145] [bbotk]  1529d3b2-b384-4727-a857-e5a939659393 
+## INFO  [10:36:34.147] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:34.275] [bbotk] Result of batch 19: 
+## INFO  [10:36:34.278] [bbotk]     cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:34.278] [bbotk]  0.001        3     0.2773          0            0.026 
+## INFO  [10:36:34.278] [bbotk]                                 uhash 
+## INFO  [10:36:34.278] [bbotk]  c1ec4430-7c4d-4d4d-a916-690fe0d01e51 
+## INFO  [10:36:34.279] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:34.395] [bbotk] Result of batch 20: 
+## INFO  [10:36:34.398] [bbotk]   cp minsplit classif.ce time_train runtime_learners 
+## INFO  [10:36:34.398] [bbotk]  0.1        1     0.2344          0            0.016 
+## INFO  [10:36:34.398] [bbotk]                                 uhash 
+## INFO  [10:36:34.398] [bbotk]  f82d5de2-4d66-47f6-a532-2ee7d3a412f3
 \end{verbatim}
 
 \begin{verbatim}
@@ -3679,23 +3681,47 @@ After triggering the tuning, we will have the configuration with the best classi
 \end{verbatim}
 
 \begin{verbatim}
-## INFO  [23:57:49.149] [bbotk] Finished optimizing after 20 evaluation(s) 
-## INFO  [23:57:49.150] [bbotk] Result: 
-## INFO  [23:57:49.151] [bbotk]       cp minsplit learner_param_vals  x_domain classif.ce time_train 
-## INFO  [23:57:49.151] [bbotk]  0.02575        5          <list[3]> <list[2]>     0.2383          0 
-## INFO  [23:57:49.151] [bbotk]  0.02575        1          <list[3]> <list[2]>     0.2383          0 
-## INFO  [23:57:49.151] [bbotk]  0.02575        3          <list[3]> <list[2]>     0.2383          0 
-## INFO  [23:57:49.151] [bbotk]  0.02575       10          <list[3]> <list[2]>     0.2383          0 
-## INFO  [23:57:49.151] [bbotk]  0.02575        8          <list[3]> <list[2]>     0.2383          0
+## INFO  [10:36:34.407] [bbotk] Finished optimizing after 20 evaluation(s) 
+## INFO  [10:36:34.408] [bbotk] Result: 
+## INFO  [10:36:34.410] [bbotk]       cp minsplit learner_param_vals  x_domain classif.ce time_train 
+## INFO  [10:36:34.410] [bbotk]  0.05050        8          <list[3]> <list[2]>     0.2344          0 
+## INFO  [10:36:34.410] [bbotk]  0.10000        3          <list[3]> <list[2]>     0.2344          0 
+## INFO  [10:36:34.410] [bbotk]  0.07525        8          <list[3]> <list[2]>     0.2344          0 
+## INFO  [10:36:34.410] [bbotk]  0.02575        8          <list[3]> <list[2]>     0.2344          0 
+## INFO  [10:36:34.410] [bbotk]  0.05050        1          <list[3]> <list[2]>     0.2344          0 
+## INFO  [10:36:34.410] [bbotk]  0.07525        3          <list[3]> <list[2]>     0.2344          0 
+## INFO  [10:36:34.410] [bbotk]  0.05050        3          <list[3]> <list[2]>     0.2344          0 
+## INFO  [10:36:34.410] [bbotk]  0.05050       10          <list[3]> <list[2]>     0.2344          0 
+## INFO  [10:36:34.410] [bbotk]  0.07525        1          <list[3]> <list[2]>     0.2344          0 
+## INFO  [10:36:34.410] [bbotk]  0.02575        1          <list[3]> <list[2]>     0.2344          0 
+## INFO  [10:36:34.410] [bbotk]  0.10000        8          <list[3]> <list[2]>     0.2344          0 
+## INFO  [10:36:34.410] [bbotk]  0.10000        5          <list[3]> <list[2]>     0.2344          0 
+## INFO  [10:36:34.410] [bbotk]  0.00100        8          <list[3]> <list[2]>     0.2344          0 
+## INFO  [10:36:34.410] [bbotk]  0.10000       10          <list[3]> <list[2]>     0.2344          0 
+## INFO  [10:36:34.410] [bbotk]  0.05050        5          <list[3]> <list[2]>     0.2344          0 
+## INFO  [10:36:34.410] [bbotk]  0.02575        3          <list[3]> <list[2]>     0.2344          0 
+## INFO  [10:36:34.410] [bbotk]  0.10000        1          <list[3]> <list[2]>     0.2344          0
 \end{verbatim}
 
 \begin{verbatim}
-##         cp minsplit learner_param_vals  x_domain classif.ce time_train
-## 1: 0.02575        5          <list[3]> <list[2]>     0.2383          0
-## 2: 0.02575        1          <list[3]> <list[2]>     0.2383          0
-## 3: 0.02575        3          <list[3]> <list[2]>     0.2383          0
-## 4: 0.02575       10          <list[3]> <list[2]>     0.2383          0
-## 5: 0.02575        8          <list[3]> <list[2]>     0.2383          0
+##          cp minsplit learner_param_vals  x_domain classif.ce time_train
+##  1: 0.05050        8          <list[3]> <list[2]>     0.2344          0
+##  2: 0.10000        3          <list[3]> <list[2]>     0.2344          0
+##  3: 0.07525        8          <list[3]> <list[2]>     0.2344          0
+##  4: 0.02575        8          <list[3]> <list[2]>     0.2344          0
+##  5: 0.05050        1          <list[3]> <list[2]>     0.2344          0
+##  6: 0.07525        3          <list[3]> <list[2]>     0.2344          0
+##  7: 0.05050        3          <list[3]> <list[2]>     0.2344          0
+##  8: 0.05050       10          <list[3]> <list[2]>     0.2344          0
+##  9: 0.07525        1          <list[3]> <list[2]>     0.2344          0
+## 10: 0.02575        1          <list[3]> <list[2]>     0.2344          0
+## 11: 0.10000        8          <list[3]> <list[2]>     0.2344          0
+## 12: 0.10000        5          <list[3]> <list[2]>     0.2344          0
+## 13: 0.00100        8          <list[3]> <list[2]>     0.2344          0
+## 14: 0.10000       10          <list[3]> <list[2]>     0.2344          0
+## 15: 0.05050        5          <list[3]> <list[2]>     0.2344          0
+## 16: 0.02575        3          <list[3]> <list[2]>     0.2344          0
+## 17: 0.10000        1          <list[3]> <list[2]>     0.2344          0
 \end{verbatim}
 
 \begin{Shaded}
@@ -3710,10 +3736,10 @@ After triggering the tuning, we will have the configuration with the best classi
 ## [1] 0
 ## 
 ## [[1]]$cp
-## [1] 0.02575
+## [1] 0.0505
 ## 
 ## [[1]]$minsplit
-## [1] 5
+## [1] 8
 ## 
 ## 
 ## [[2]]
@@ -3721,10 +3747,10 @@ After triggering the tuning, we will have the configuration with the best classi
 ## [1] 0
 ## 
 ## [[2]]$cp
-## [1] 0.02575
+## [1] 0.1
 ## 
 ## [[2]]$minsplit
-## [1] 1
+## [1] 3
 ## 
 ## 
 ## [[3]]
@@ -3732,10 +3758,10 @@ After triggering the tuning, we will have the configuration with the best classi
 ## [1] 0
 ## 
 ## [[3]]$cp
-## [1] 0.02575
+## [1] 0.07525
 ## 
 ## [[3]]$minsplit
-## [1] 3
+## [1] 8
 ## 
 ## 
 ## [[4]]
@@ -3746,7 +3772,7 @@ After triggering the tuning, we will have the configuration with the best classi
 ## [1] 0.02575
 ## 
 ## [[4]]$minsplit
-## [1] 10
+## [1] 8
 ## 
 ## 
 ## [[5]]
@@ -3754,10 +3780,142 @@ After triggering the tuning, we will have the configuration with the best classi
 ## [1] 0
 ## 
 ## [[5]]$cp
-## [1] 0.02575
+## [1] 0.0505
 ## 
 ## [[5]]$minsplit
+## [1] 1
+## 
+## 
+## [[6]]
+## [[6]]$xval
+## [1] 0
+## 
+## [[6]]$cp
+## [1] 0.07525
+## 
+## [[6]]$minsplit
+## [1] 3
+## 
+## 
+## [[7]]
+## [[7]]$xval
+## [1] 0
+## 
+## [[7]]$cp
+## [1] 0.0505
+## 
+## [[7]]$minsplit
+## [1] 3
+## 
+## 
+## [[8]]
+## [[8]]$xval
+## [1] 0
+## 
+## [[8]]$cp
+## [1] 0.0505
+## 
+## [[8]]$minsplit
+## [1] 10
+## 
+## 
+## [[9]]
+## [[9]]$xval
+## [1] 0
+## 
+## [[9]]$cp
+## [1] 0.07525
+## 
+## [[9]]$minsplit
+## [1] 1
+## 
+## 
+## [[10]]
+## [[10]]$xval
+## [1] 0
+## 
+## [[10]]$cp
+## [1] 0.02575
+## 
+## [[10]]$minsplit
+## [1] 1
+## 
+## 
+## [[11]]
+## [[11]]$xval
+## [1] 0
+## 
+## [[11]]$cp
+## [1] 0.1
+## 
+## [[11]]$minsplit
 ## [1] 8
+## 
+## 
+## [[12]]
+## [[12]]$xval
+## [1] 0
+## 
+## [[12]]$cp
+## [1] 0.1
+## 
+## [[12]]$minsplit
+## [1] 5
+## 
+## 
+## [[13]]
+## [[13]]$xval
+## [1] 0
+## 
+## [[13]]$cp
+## [1] 0.001
+## 
+## [[13]]$minsplit
+## [1] 8
+## 
+## 
+## [[14]]
+## [[14]]$xval
+## [1] 0
+## 
+## [[14]]$cp
+## [1] 0.1
+## 
+## [[14]]$minsplit
+## [1] 10
+## 
+## 
+## [[15]]
+## [[15]]$xval
+## [1] 0
+## 
+## [[15]]$cp
+## [1] 0.0505
+## 
+## [[15]]$minsplit
+## [1] 5
+## 
+## 
+## [[16]]
+## [[16]]$xval
+## [1] 0
+## 
+## [[16]]$cp
+## [1] 0.02575
+## 
+## [[16]]$minsplit
+## [1] 3
+## 
+## 
+## [[17]]
+## [[17]]$xval
+## [1] 0
+## 
+## [[17]]$cp
+## [1] 0.1
+## 
+## [[17]]$minsplit
+## [1] 1
 \end{verbatim}
 
 \begin{Shaded}
@@ -3767,12 +3925,24 @@ After triggering the tuning, we will have the configuration with the best classi
 \end{Shaded}
 
 \begin{verbatim}
-##    classif.ce time_train
-## 1:     0.2383          0
-## 2:     0.2383          0
-## 3:     0.2383          0
-## 4:     0.2383          0
-## 5:     0.2383          0
+##     classif.ce time_train
+##  1:     0.2344          0
+##  2:     0.2344          0
+##  3:     0.2344          0
+##  4:     0.2344          0
+##  5:     0.2344          0
+##  6:     0.2344          0
+##  7:     0.2344          0
+##  8:     0.2344          0
+##  9:     0.2344          0
+## 10:     0.2344          0
+## 11:     0.2344          0
+## 12:     0.2344          0
+## 13:     0.2344          0
+## 14:     0.2344          0
+## 15:     0.2344          0
+## 16:     0.2344          0
+## 17:     0.2344          0
 \end{verbatim}
 
 \hypertarget{autotuner}{%
@@ -3831,71 +4001,71 @@ We can now use the learner like any other learner, calling the \texttt{\$train()
 \end{Shaded}
 
 \begin{verbatim}
-## INFO  [23:57:49.338] [bbotk] Starting to optimize 2 parameter(s) with '<OptimizerRandomSearch>' and '<TerminatorEvals> [n_evals=10, k=0]' 
-## INFO  [23:57:49.353] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:49.427] [bbotk] Result of batch 1: 
-## INFO  [23:57:49.429] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:49.429] [bbotk]  0.00186        6     0.3086            0.013 
-## INFO  [23:57:49.429] [bbotk]                                 uhash 
-## INFO  [23:57:49.429] [bbotk]  7f2e74ed-5b65-4e89-be20-cb72aa94d2ff 
-## INFO  [23:57:49.433] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:49.510] [bbotk] Result of batch 2: 
-## INFO  [23:57:49.511] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:49.511] [bbotk]  0.09715        9     0.2656            0.012 
-## INFO  [23:57:49.511] [bbotk]                                 uhash 
-## INFO  [23:57:49.511] [bbotk]  6b5bee1c-105a-482c-94ed-fb3d629195ad 
-## INFO  [23:57:49.515] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:49.604] [bbotk] Result of batch 3: 
-## INFO  [23:57:49.606] [bbotk]        cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:49.606] [bbotk]  0.003758        3      0.293            0.014 
-## INFO  [23:57:49.606] [bbotk]                                 uhash 
-## INFO  [23:57:49.606] [bbotk]  c036025b-f8ce-4105-a466-415a0bbd483d 
-## INFO  [23:57:49.610] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:49.685] [bbotk] Result of batch 4: 
-## INFO  [23:57:49.687] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:49.687] [bbotk]  0.09916        7     0.2656            0.012 
-## INFO  [23:57:49.687] [bbotk]                                 uhash 
-## INFO  [23:57:49.687] [bbotk]  3af218b6-efba-4117-b0c6-909cba367038 
-## INFO  [23:57:49.691] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:49.767] [bbotk] Result of batch 5: 
-## INFO  [23:57:49.769] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:49.769] [bbotk]  0.01402        4     0.2891            0.013 
-## INFO  [23:57:49.769] [bbotk]                                 uhash 
-## INFO  [23:57:49.769] [bbotk]  dd6fd93e-8bef-41b4-8c8e-9fbc78a575fc 
-## INFO  [23:57:49.772] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:49.858] [bbotk] Result of batch 6: 
-## INFO  [23:57:49.860] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:49.860] [bbotk]  0.02139        6     0.2695            0.012 
-## INFO  [23:57:49.860] [bbotk]                                 uhash 
-## INFO  [23:57:49.860] [bbotk]  607ffd93-aa64-40f4-b68f-512960d09f65 
-## INFO  [23:57:49.864] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:49.940] [bbotk] Result of batch 7: 
-## INFO  [23:57:49.942] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:49.942] [bbotk]  0.05733        7     0.2656            0.012 
-## INFO  [23:57:49.942] [bbotk]                                 uhash 
-## INFO  [23:57:49.942] [bbotk]  b80409fe-02b3-49c7-b4d6-284189103a3f 
-## INFO  [23:57:49.946] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:50.308] [bbotk] Result of batch 8: 
-## INFO  [23:57:50.310] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:50.310] [bbotk]  0.04357        8     0.2656            0.011 
-## INFO  [23:57:50.310] [bbotk]                                 uhash 
-## INFO  [23:57:50.310] [bbotk]  97461d98-2ce1-444d-ab46-0b5a39672ef6 
-## INFO  [23:57:50.314] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:50.388] [bbotk] Result of batch 9: 
-## INFO  [23:57:50.390] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:50.390] [bbotk]  0.06648        6     0.2656            0.012 
-## INFO  [23:57:50.390] [bbotk]                                 uhash 
-## INFO  [23:57:50.390] [bbotk]  d3fa2083-c4c9-41bd-a1e0-390e94966e7e 
-## INFO  [23:57:50.394] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:50.467] [bbotk] Result of batch 10: 
-## INFO  [23:57:50.469] [bbotk]       cp minsplit classif.ce runtime_learners 
-## INFO  [23:57:50.469] [bbotk]  0.05595       10     0.2656            0.011 
-## INFO  [23:57:50.469] [bbotk]                                 uhash 
-## INFO  [23:57:50.469] [bbotk]  76e68967-fb76-4844-b624-5a617362b82c 
-## INFO  [23:57:50.476] [bbotk] Finished optimizing after 10 evaluation(s) 
-## INFO  [23:57:50.477] [bbotk] Result: 
-## INFO  [23:57:50.478] [bbotk]       cp minsplit learner_param_vals  x_domain classif.ce 
-## INFO  [23:57:50.478] [bbotk]  0.09715        9          <list[3]> <list[2]>     0.2656
+## INFO  [10:36:34.637] [bbotk] Starting to optimize 2 parameter(s) with '<OptimizerRandomSearch>' and '<TerminatorEvals> [n_evals=10, k=0]' 
+## INFO  [10:36:34.657] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:34.762] [bbotk] Result of batch 1: 
+## INFO  [10:36:34.765] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:34.765] [bbotk]  0.04878        2     0.3086            0.016 
+## INFO  [10:36:34.765] [bbotk]                                 uhash 
+## INFO  [10:36:34.765] [bbotk]  60f2d528-557e-47f1-94e5-475bf4aa61aa 
+## INFO  [10:36:34.769] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:34.872] [bbotk] Result of batch 2: 
+## INFO  [10:36:34.874] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:34.874] [bbotk]  0.07218        4     0.3438            0.014 
+## INFO  [10:36:34.874] [bbotk]                                 uhash 
+## INFO  [10:36:34.874] [bbotk]  bf424b2f-0c49-442e-b1c2-86ffc254c0bf 
+## INFO  [10:36:34.878] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:34.993] [bbotk] Result of batch 3: 
+## INFO  [10:36:34.995] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:34.995] [bbotk]  0.08846        6     0.3438            0.015 
+## INFO  [10:36:34.995] [bbotk]                                 uhash 
+## INFO  [10:36:34.995] [bbotk]  35f052c1-0de8-426c-a60d-2e07cc9e5a80 
+## INFO  [10:36:34.999] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:35.106] [bbotk] Result of batch 4: 
+## INFO  [10:36:35.108] [bbotk]        cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:35.108] [bbotk]  0.001325        5     0.3047             0.02 
+## INFO  [10:36:35.108] [bbotk]                                 uhash 
+## INFO  [10:36:35.108] [bbotk]  69c7884a-7bc2-4837-841b-c78dc9902da0 
+## INFO  [10:36:35.113] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:35.215] [bbotk] Result of batch 5: 
+## INFO  [10:36:35.217] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:35.217] [bbotk]  0.09053        5     0.3438            0.015 
+## INFO  [10:36:35.217] [bbotk]                                 uhash 
+## INFO  [10:36:35.217] [bbotk]  d4ee42d4-61cf-4f97-ba27-513b809af383 
+## INFO  [10:36:35.222] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:35.335] [bbotk] Result of batch 6: 
+## INFO  [10:36:35.337] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:35.337] [bbotk]  0.06181        7     0.3438            0.013 
+## INFO  [10:36:35.337] [bbotk]                                 uhash 
+## INFO  [10:36:35.337] [bbotk]  6b4ea294-888e-4495-bad8-1b2fc8ec0d7d 
+## INFO  [10:36:35.342] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:35.443] [bbotk] Result of batch 7: 
+## INFO  [10:36:35.445] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:35.445] [bbotk]  0.06497        1     0.3438            0.015 
+## INFO  [10:36:35.445] [bbotk]                                 uhash 
+## INFO  [10:36:35.445] [bbotk]  e0dafcd4-369d-4eef-a553-4e49c8008af7 
+## INFO  [10:36:35.449] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:35.905] [bbotk] Result of batch 8: 
+## INFO  [10:36:35.908] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:35.908] [bbotk]  0.04002        7     0.3086            0.016 
+## INFO  [10:36:35.908] [bbotk]                                 uhash 
+## INFO  [10:36:35.908] [bbotk]  d8ec2778-fabc-4c02-906d-eb6a48e1daec 
+## INFO  [10:36:35.912] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:36.013] [bbotk] Result of batch 9: 
+## INFO  [10:36:36.015] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:36.015] [bbotk]  0.03059        4     0.3086            0.016 
+## INFO  [10:36:36.015] [bbotk]                                 uhash 
+## INFO  [10:36:36.015] [bbotk]  d85a45a2-8773-458f-8f0e-1e6262a5de8e 
+## INFO  [10:36:36.020] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:36.116] [bbotk] Result of batch 10: 
+## INFO  [10:36:36.118] [bbotk]       cp minsplit classif.ce runtime_learners 
+## INFO  [10:36:36.118] [bbotk]  0.08459        2     0.3438            0.014 
+## INFO  [10:36:36.118] [bbotk]                                 uhash 
+## INFO  [10:36:36.118] [bbotk]  9219f756-8b43-412a-a1a0-d8c0a927169a 
+## INFO  [10:36:36.126] [bbotk] Finished optimizing after 10 evaluation(s) 
+## INFO  [10:36:36.127] [bbotk] Result: 
+## INFO  [10:36:36.129] [bbotk]        cp minsplit learner_param_vals  x_domain classif.ce 
+## INFO  [10:36:36.129] [bbotk]  0.001325        5          <list[3]> <list[2]>     0.3047
 \end{verbatim}
 
 We can also pass it to \href{https://mlr3.mlr-org.com/reference/resample.html}{\texttt{resample()}} and \href{https://mlr3.mlr-org.com/reference/benchmark.html}{\texttt{benchmark()}}, just like any other learner. This would result in a \protect\hyperlink{nested-resampling}{nested resampling}.
@@ -4540,81 +4710,81 @@ We have to set \texttt{store\_models\ =\ TRUE} because we need the \href{https:/
 \end{Shaded}
 
 \begin{verbatim}
-## INFO  [23:57:58.913] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
-## INFO  [23:57:58.946] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:59.118] [bbotk] Result of batch 1: 
-## INFO  [23:57:59.121] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:57:59.121] [bbotk]  0.056     0.2637             0.05 58264fee-c5f5-4005-957e-5c4fb18b053f 
-## INFO  [23:57:59.123] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:59.289] [bbotk] Result of batch 2: 
-## INFO  [23:57:59.291] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:57:59.291] [bbotk]  0.023     0.2637            0.046 7c09ab28-450e-4f60-a483-fc438773de31 
-## INFO  [23:57:59.293] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:59.443] [bbotk] Result of batch 3: 
-## INFO  [23:57:59.445] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:57:59.445] [bbotk]  0.078     0.2617            0.043 ff0ad0e5-40fd-418e-844a-141301bf075b 
-## INFO  [23:57:59.446] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:59.608] [bbotk] Result of batch 4: 
-## INFO  [23:57:59.610] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:57:59.610] [bbotk]  0.089     0.2617            0.052 e2601ddd-e596-4102-a6ee-12469930529a 
-## INFO  [23:57:59.611] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:59.765] [bbotk] Result of batch 5: 
-## INFO  [23:57:59.766] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:57:59.766] [bbotk]  0.012     0.2695            0.044 3804a255-2807-4ba1-87c1-ae1d9bf0d49a 
-## INFO  [23:57:59.772] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [23:57:59.773] [bbotk] Result: 
-## INFO  [23:57:59.774] [bbotk]     cp learner_param_vals  x_domain classif.ce 
-## INFO  [23:57:59.774] [bbotk]  0.078          <list[2]> <list[1]>     0.2617 
-## INFO  [23:57:59.843] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
-## INFO  [23:57:59.846] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:57:59.992] [bbotk] Result of batch 1: 
-## INFO  [23:57:59.994] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:57:59.994] [bbotk]  0.089     0.2871            0.042 a7a966ed-d592-46e6-bf6d-ec6fe5f2894d 
-## INFO  [23:57:59.995] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:58:00.157] [bbotk] Result of batch 2: 
-## INFO  [23:58:00.158] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:58:00.158] [bbotk]  0.056     0.2871            0.054 24fbafb1-b3b1-4ebb-8722-b0e83fd4476b 
-## INFO  [23:58:00.160] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:58:00.322] [bbotk] Result of batch 3: 
-## INFO  [23:58:00.323] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:58:00.323] [bbotk]  0.045     0.2949            0.046 e9e64d62-ae37-4e26-926c-0ff3fe32d266 
-## INFO  [23:58:00.325] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:58:00.477] [bbotk] Result of batch 4: 
-## INFO  [23:58:00.479] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:58:00.479] [bbotk]  0.023     0.2891            0.043 15c5adfa-f9ab-44a9-8bc9-cea8dfa17ab2 
-## INFO  [23:58:00.480] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:58:00.641] [bbotk] Result of batch 5: 
-## INFO  [23:58:00.642] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:58:00.642] [bbotk]  0.078     0.2871            0.052 bb0f622f-497c-4769-a2c8-2875df5be9c9 
-## INFO  [23:58:00.647] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [23:58:00.648] [bbotk] Result: 
-## INFO  [23:58:00.649] [bbotk]     cp learner_param_vals  x_domain classif.ce 
-## INFO  [23:58:00.649] [bbotk]  0.089          <list[2]> <list[1]>     0.2871 
-## INFO  [23:58:00.712] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
-## INFO  [23:58:00.715] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:58:00.938] [bbotk] Result of batch 1: 
-## INFO  [23:58:00.940] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:58:00.940] [bbotk]  0.023     0.2539            0.117 b1cd4d86-5cdc-4827-9df4-1d120cbd6131 
-## INFO  [23:58:00.941] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:58:01.095] [bbotk] Result of batch 2: 
-## INFO  [23:58:01.096] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:58:01.096] [bbotk]  0.034     0.2559            0.044 638bb7d3-9e9a-4b73-8094-53281d5d2c4f 
-## INFO  [23:58:01.098] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:58:01.263] [bbotk] Result of batch 3: 
-## INFO  [23:58:01.265] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:58:01.265] [bbotk]  0.078       0.25            0.049 bf6cfa6b-1c38-4b79-8c7d-67e82411a4c3 
-## INFO  [23:58:01.266] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:58:01.430] [bbotk] Result of batch 4: 
-## INFO  [23:58:01.432] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:58:01.432] [bbotk]  0.089       0.25            0.045 b301297a-b51a-4bc5-b966-0be77455fb5e 
-## INFO  [23:58:01.433] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:58:01.586] [bbotk] Result of batch 5: 
-## INFO  [23:58:01.588] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:58:01.588] [bbotk]  0.045       0.25            0.044 91971be3-0d2b-409a-82ab-3ba7bcca014a 
-## INFO  [23:58:01.593] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [23:58:01.593] [bbotk] Result: 
-## INFO  [23:58:01.595] [bbotk]     cp learner_param_vals  x_domain classif.ce 
-## INFO  [23:58:01.595] [bbotk]  0.078          <list[2]> <list[1]>       0.25
+## INFO  [10:36:46.599] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
+## INFO  [10:36:46.648] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:46.879] [bbotk] Result of batch 1: 
+## INFO  [10:36:46.882] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:46.882] [bbotk]  0.089     0.2891            0.065 a0218f67-26c1-452d-8a35-2712d96d0067 
+## INFO  [10:36:46.884] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:47.105] [bbotk] Result of batch 2: 
+## INFO  [10:36:47.108] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:47.108] [bbotk]  0.001     0.2832            0.061 df71cd33-084e-494f-a600-87bb1c4635c0 
+## INFO  [10:36:47.110] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:47.323] [bbotk] Result of batch 3: 
+## INFO  [10:36:47.325] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:47.325] [bbotk]  0.067     0.2891            0.063 21297f8b-0a04-418e-9f7d-cd640a5c8d65 
+## INFO  [10:36:47.327] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:47.533] [bbotk] Result of batch 4: 
+## INFO  [10:36:47.535] [bbotk]   cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:47.535] [bbotk]  0.1     0.2891            0.067 1baa104e-a83f-49bd-8664-5256d8cd188b 
+## INFO  [10:36:47.536] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:47.744] [bbotk] Result of batch 5: 
+## INFO  [10:36:47.746] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:47.746] [bbotk]  0.034     0.2617            0.056 bef7a606-4d42-4477-a4cb-4cf081509fc6 
+## INFO  [10:36:47.754] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [10:36:47.754] [bbotk] Result: 
+## INFO  [10:36:47.756] [bbotk]     cp learner_param_vals  x_domain classif.ce 
+## INFO  [10:36:47.756] [bbotk]  0.034          <list[2]> <list[1]>     0.2617 
+## INFO  [10:36:47.842] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
+## INFO  [10:36:47.845] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:48.043] [bbotk] Result of batch 1: 
+## INFO  [10:36:48.046] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:48.046] [bbotk]  0.012     0.2539            0.056 42894657-cad1-4841-a977-cfa8a7993025 
+## INFO  [10:36:48.048] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:48.262] [bbotk] Result of batch 2: 
+## INFO  [10:36:48.264] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:48.264] [bbotk]  0.056     0.2422            0.059 1e0a1b96-245b-4fa4-ae1a-8be5e1c41b8d 
+## INFO  [10:36:48.266] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:48.481] [bbotk] Result of batch 3: 
+## INFO  [10:36:48.483] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:48.483] [bbotk]  0.001     0.2812            0.061 f67602d0-df72-4049-ac27-3c810e6662aa 
+## INFO  [10:36:48.485] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:48.688] [bbotk] Result of batch 4: 
+## INFO  [10:36:48.690] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:48.690] [bbotk]  0.089      0.248            0.059 e56302b8-a257-45a7-9f5e-7cf9fcbef88f 
+## INFO  [10:36:48.692] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:48.904] [bbotk] Result of batch 5: 
+## INFO  [10:36:48.906] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:48.906] [bbotk]  0.078     0.2422            0.056 cc48f81d-6260-4096-b09a-134f0b97aec5 
+## INFO  [10:36:48.912] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [10:36:48.913] [bbotk] Result: 
+## INFO  [10:36:48.915] [bbotk]     cp learner_param_vals  x_domain classif.ce 
+## INFO  [10:36:48.915] [bbotk]  0.056          <list[2]> <list[1]>     0.2422 
+## INFO  [10:36:48.994] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
+## INFO  [10:36:48.998] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:49.275] [bbotk] Result of batch 1: 
+## INFO  [10:36:49.277] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:49.277] [bbotk]  0.012     0.2773            0.064 aed5bc81-a5e5-44a0-a84f-8c2ff825b8de 
+## INFO  [10:36:49.279] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:49.479] [bbotk] Result of batch 2: 
+## INFO  [10:36:49.481] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:49.481] [bbotk]  0.056     0.2637            0.057 b84637a4-21c5-4229-9726-764bb58afb7d 
+## INFO  [10:36:49.483] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:49.703] [bbotk] Result of batch 3: 
+## INFO  [10:36:49.705] [bbotk]   cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:49.705] [bbotk]  0.1     0.2637            0.058 ca7d9b86-e664-4ec1-a235-cfc6e0b39cc1 
+## INFO  [10:36:49.707] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:49.913] [bbotk] Result of batch 4: 
+## INFO  [10:36:49.916] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:49.916] [bbotk]  0.023     0.2598            0.064 d55a5d16-1789-4b72-ae3e-493c6d789aa1 
+## INFO  [10:36:49.917] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:50.124] [bbotk] Result of batch 5: 
+## INFO  [10:36:50.126] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:50.126] [bbotk]  0.045     0.2695            0.056 652af2b5-511c-4e45-8bce-33fc420cf101 
+## INFO  [10:36:50.132] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [10:36:50.133] [bbotk] Result: 
+## INFO  [10:36:50.135] [bbotk]     cp learner_param_vals  x_domain classif.ce 
+## INFO  [10:36:50.135] [bbotk]  0.023          <list[2]> <list[1]>     0.2598
 \end{verbatim}
 
 You can freely combine different inner and outer resampling strategies.
@@ -4640,9 +4810,9 @@ Usually, we aim for the selection of stable hyperparameters for all outer traini
 
 \begin{verbatim}
 ##    iteration    cp classif.ce learner_param_vals  x_domain task_id
-## 1:         1 0.078     0.2500          <list[2]> <list[1]>    pima
-## 2:         2 0.089     0.2871          <list[2]> <list[1]>    pima
-## 3:         3 0.078     0.2617          <list[2]> <list[1]>    pima
+## 1:         1 0.023     0.2598          <list[2]> <list[1]>    pima
+## 2:         2 0.056     0.2422          <list[2]> <list[1]>    pima
+## 3:         3 0.034     0.2617          <list[2]> <list[1]>    pima
 ##             learner_id resampling_id
 ## 1: classif.rpart.tuned            cv
 ## 2: classif.rpart.tuned            cv
@@ -4668,8 +4838,8 @@ Significantly lower predictive performances on the outer resampling indicate tha
 ## 2: <ResamplingCV[19]>            cv         2 <PredictionClassif[20]>
 ## 3: <ResamplingCV[19]>            cv         3 <PredictionClassif[20]>
 ##    classif.ce
-## 1:     0.2930
-## 2:     0.2383
+## 1:     0.2227
+## 2:     0.2695
 ## 3:     0.2617
 \end{verbatim}
 
@@ -4683,7 +4853,7 @@ The aggregated performance of all outer resampling iterations is essentially the
 
 \begin{verbatim}
 ## classif.ce 
-##     0.2643
+##     0.2513
 \end{verbatim}
 
 Note that nested resampling is computationally expensive.
@@ -4703,31 +4873,31 @@ We can use the \href{https://mlr3tuning.mlr-org.com/reference/AutoTuner.html}{\t
 \end{Shaded}
 
 \begin{verbatim}
-## INFO  [23:58:01.988] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
-## INFO  [23:58:01.991] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:58:02.152] [bbotk] Result of batch 1: 
-## INFO  [23:58:02.154] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:58:02.154] [bbotk]  0.067     0.2604            0.047 ae8362e1-42f3-465e-bdf8-d6518ff4f74b 
-## INFO  [23:58:02.156] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:58:02.323] [bbotk] Result of batch 2: 
-## INFO  [23:58:02.325] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:58:02.325] [bbotk]  0.001      0.263            0.049 c5788017-9b96-40d6-99e5-e51d6629c04e 
-## INFO  [23:58:02.327] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:58:02.482] [bbotk] Result of batch 3: 
-## INFO  [23:58:02.491] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:58:02.491] [bbotk]  0.078     0.2604            0.047 123ba866-e03b-4e2d-b647-108d63ca6018 
-## INFO  [23:58:02.494] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:58:02.652] [bbotk] Result of batch 4: 
-## INFO  [23:58:02.654] [bbotk]   cp classif.ce runtime_learners                                uhash 
-## INFO  [23:58:02.654] [bbotk]  0.1     0.2721            0.045 bd9d5677-0929-4182-9345-d7602fd928ae 
-## INFO  [23:58:02.655] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [23:58:02.821] [bbotk] Result of batch 5: 
-## INFO  [23:58:02.823] [bbotk]     cp classif.ce runtime_learners                                uhash 
-## INFO  [23:58:02.823] [bbotk]  0.034     0.2487            0.054 f35ee6de-a538-45cd-8d95-7b94cc162b48 
-## INFO  [23:58:02.828] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [23:58:02.829] [bbotk] Result: 
-## INFO  [23:58:02.830] [bbotk]     cp learner_param_vals  x_domain classif.ce 
-## INFO  [23:58:02.830] [bbotk]  0.034          <list[2]> <list[1]>     0.2487
+## INFO  [10:36:50.586] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerGridSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
+## INFO  [10:36:50.589] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:50.798] [bbotk] Result of batch 1: 
+## INFO  [10:36:50.800] [bbotk]   cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:50.800] [bbotk]  0.1      0.263            0.069 f9454e83-3348-41ef-a128-3fc21134950e 
+## INFO  [10:36:50.802] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:51.016] [bbotk] Result of batch 2: 
+## INFO  [10:36:51.019] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:51.019] [bbotk]  0.045     0.2591             0.06 178f095c-5e3b-43d0-b8e8-d94c80d5d7ca 
+## INFO  [10:36:51.020] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:51.252] [bbotk] Result of batch 3: 
+## INFO  [10:36:51.254] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:51.254] [bbotk]  0.012     0.2526            0.059 65940335-11b8-4c4d-8e9b-3ee1036e64b8 
+## INFO  [10:36:51.256] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:51.458] [bbotk] Result of batch 4: 
+## INFO  [10:36:51.461] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:51.461] [bbotk]  0.089      0.263            0.061 d24c8cbd-ea32-4e0f-8df7-4d40d35b2fd8 
+## INFO  [10:36:51.463] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:36:51.682] [bbotk] Result of batch 5: 
+## INFO  [10:36:51.684] [bbotk]     cp classif.ce runtime_learners                                uhash 
+## INFO  [10:36:51.684] [bbotk]  0.034     0.2591            0.073 e7ffa1a7-e4e2-49c9-b8ff-38d1f3c2d2b0 
+## INFO  [10:36:51.691] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [10:36:51.692] [bbotk] Result: 
+## INFO  [10:36:51.693] [bbotk]     cp learner_param_vals  x_domain classif.ce 
+## INFO  [10:36:51.693] [bbotk]  0.012          <list[2]> <list[1]>     0.2526
 \end{verbatim}
 
 The trained model can now be used to make predictions on new data.
@@ -5361,10 +5531,10 @@ Now you can use the \href{https://mlr3filters.mlr-org.com/reference/mlr_filters_
 \end{Shaded}
 
 \begin{verbatim}
-##         feature score
-## 1:  Petal.Width 44.14
-## 2: Petal.Length 42.36
-## 3: Sepal.Length 10.38
+##         feature  score
+## 1:  Petal.Width 43.948
+## 2: Petal.Length 43.397
+## 3: Sepal.Length  9.528
 \end{verbatim}
 
 \hypertarget{fs-wrapper}{%
@@ -5539,9 +5709,9 @@ To start the feature selection, we simply pass the \href{https://mlr3fselect.mlr
 
 \begin{verbatim}
 ##      age glucose insulin mass pedigree pregnant pressure triceps
-## 1: FALSE    TRUE   FALSE TRUE    FALSE    FALSE    FALSE    TRUE
-##                features classif.ce
-## 1: glucose,mass,triceps     0.2578
+## 1: FALSE    TRUE   FALSE TRUE     TRUE    FALSE     TRUE    TRUE
+##                                  features classif.ce
+## 1: glucose,mass,pedigree,pressure,triceps     0.2539
 \end{verbatim}
 
 \begin{Shaded}
@@ -5551,7 +5721,7 @@ To start the feature selection, we simply pass the \href{https://mlr3fselect.mlr
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "glucose" "mass"    "triceps"
+## [1] "glucose"  "mass"     "pedigree" "pressure" "triceps"
 \end{verbatim}
 
 \begin{Shaded}
@@ -5562,7 +5732,7 @@ To start the feature selection, we simply pass the \href{https://mlr3fselect.mlr
 
 \begin{verbatim}
 ## classif.ce 
-##     0.2578
+##     0.2539
 \end{verbatim}
 
 One can investigate all resamplings which were undertaken, as they are stored in the archive of the \href{https://mlr3fselect.mlr-org.com/reference/FSelectInstanceSingleCrit.html}{\texttt{FSelectInstanceSingleCrit}} and can be accessed by using \texttt{as.data.table()}:
@@ -5576,46 +5746,46 @@ One can investigate all resamplings which were undertaken, as they are stored in
 \begin{verbatim}
 ##       age glucose insulin  mass pedigree pregnant pressure triceps classif.ce
 ##  1:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2812
-##  2:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE   FALSE     0.2812
-##  3:  TRUE   FALSE    TRUE  TRUE    FALSE    FALSE    FALSE   FALSE     0.3594
-##  4: FALSE   FALSE   FALSE  TRUE    FALSE     TRUE    FALSE    TRUE     0.3398
-##  5: FALSE   FALSE   FALSE  TRUE    FALSE    FALSE    FALSE    TRUE     0.3711
-##  6: FALSE   FALSE    TRUE  TRUE     TRUE    FALSE     TRUE   FALSE     0.3398
-##  7:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2812
-##  8: FALSE   FALSE   FALSE FALSE    FALSE     TRUE    FALSE   FALSE     0.3789
-##  9: FALSE    TRUE    TRUE FALSE     TRUE    FALSE    FALSE   FALSE     0.2812
-## 10:  TRUE   FALSE   FALSE FALSE    FALSE    FALSE     TRUE    TRUE     0.4180
-## 11:  TRUE    TRUE   FALSE FALSE    FALSE     TRUE    FALSE    TRUE     0.2812
-## 12: FALSE    TRUE   FALSE  TRUE    FALSE    FALSE    FALSE    TRUE     0.2578
-## 13: FALSE    TRUE    TRUE FALSE     TRUE     TRUE     TRUE    TRUE     0.2891
-## 14:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2812
-## 15: FALSE    TRUE   FALSE FALSE    FALSE     TRUE     TRUE   FALSE     0.2695
-## 16:  TRUE    TRUE   FALSE  TRUE     TRUE     TRUE    FALSE    TRUE     0.2695
-## 17: FALSE    TRUE   FALSE  TRUE     TRUE    FALSE    FALSE    TRUE     0.2852
-## 18:  TRUE   FALSE   FALSE FALSE    FALSE    FALSE    FALSE   FALSE     0.3672
-## 19: FALSE   FALSE   FALSE FALSE     TRUE    FALSE     TRUE   FALSE     0.3555
-## 20:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE   FALSE     0.2812
+##  2:  TRUE   FALSE   FALSE  TRUE    FALSE    FALSE     TRUE   FALSE     0.3555
+##  3:  TRUE    TRUE    TRUE  TRUE    FALSE     TRUE     TRUE   FALSE     0.2812
+##  4:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.2812
+##  5:  TRUE   FALSE    TRUE FALSE     TRUE     TRUE     TRUE    TRUE     0.4023
+##  6: FALSE    TRUE   FALSE FALSE    FALSE    FALSE     TRUE    TRUE     0.2695
+##  7: FALSE    TRUE   FALSE  TRUE     TRUE    FALSE    FALSE   FALSE     0.2578
+##  8: FALSE    TRUE   FALSE  TRUE     TRUE    FALSE     TRUE    TRUE     0.2539
+##  9:  TRUE    TRUE    TRUE FALSE     TRUE     TRUE     TRUE   FALSE     0.2773
+## 10: FALSE   FALSE   FALSE  TRUE    FALSE     TRUE     TRUE    TRUE     0.3789
+## 11:  TRUE   FALSE    TRUE  TRUE    FALSE     TRUE     TRUE    TRUE     0.2812
+## 12:  TRUE   FALSE   FALSE FALSE     TRUE    FALSE     TRUE    TRUE     0.4688
+## 13:  TRUE   FALSE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.3125
+## 14: FALSE   FALSE    TRUE  TRUE     TRUE    FALSE    FALSE    TRUE     0.3047
+## 15: FALSE    TRUE   FALSE FALSE     TRUE    FALSE    FALSE   FALSE     0.2812
+## 16: FALSE    TRUE    TRUE FALSE    FALSE    FALSE     TRUE    TRUE     0.2930
+## 17: FALSE   FALSE    TRUE  TRUE     TRUE     TRUE     TRUE    TRUE     0.3320
+## 18:  TRUE   FALSE    TRUE FALSE     TRUE    FALSE    FALSE   FALSE     0.3516
+## 19:  TRUE    TRUE    TRUE  TRUE     TRUE     TRUE    FALSE    TRUE     0.2812
+## 20:  TRUE   FALSE   FALSE  TRUE     TRUE    FALSE     TRUE   FALSE     0.3320
 ##     runtime_learners           timestamp batch_nr      resample_result
-##  1:            0.072 2021-12-22 23:58:28        1 <ResampleResult[22]>
-##  2:            0.064 2021-12-22 23:58:28        2 <ResampleResult[22]>
-##  3:            0.074 2021-12-22 23:58:28        3 <ResampleResult[22]>
-##  4:            0.065 2021-12-22 23:58:28        4 <ResampleResult[22]>
-##  5:            0.063 2021-12-22 23:58:28        5 <ResampleResult[22]>
-##  6:            0.063 2021-12-22 23:58:29        6 <ResampleResult[22]>
-##  7:            0.073 2021-12-22 23:58:29        7 <ResampleResult[22]>
-##  8:            0.073 2021-12-22 23:58:29        8 <ResampleResult[22]>
-##  9:            0.066 2021-12-22 23:58:29        9 <ResampleResult[22]>
-## 10:            0.064 2021-12-22 23:58:29       10 <ResampleResult[22]>
-## 11:            0.063 2021-12-22 23:58:30       11 <ResampleResult[22]>
-## 12:            0.074 2021-12-22 23:58:30       12 <ResampleResult[22]>
-## 13:            0.075 2021-12-22 23:58:30       13 <ResampleResult[22]>
-## 14:            0.065 2021-12-22 23:58:30       14 <ResampleResult[22]>
-## 15:            0.063 2021-12-22 23:58:31       15 <ResampleResult[22]>
-## 16:            0.062 2021-12-22 23:58:31       16 <ResampleResult[22]>
-## 17:            0.069 2021-12-22 23:58:31       17 <ResampleResult[22]>
-## 18:            0.062 2021-12-22 23:58:31       18 <ResampleResult[22]>
-## 19:            0.062 2021-12-22 23:58:31       19 <ResampleResult[22]>
-## 20:            0.063 2021-12-22 23:58:32       20 <ResampleResult[22]>
+##  1:            0.082 2022-01-02 10:37:25        1 <ResampleResult[22]>
+##  2:            0.077 2022-01-02 10:37:25        2 <ResampleResult[22]>
+##  3:            0.085 2022-01-02 10:37:25        3 <ResampleResult[22]>
+##  4:            0.084 2022-01-02 10:37:25        4 <ResampleResult[22]>
+##  5:            0.074 2022-01-02 10:37:26        5 <ResampleResult[22]>
+##  6:            0.078 2022-01-02 10:37:26        6 <ResampleResult[22]>
+##  7:            0.087 2022-01-02 10:37:26        7 <ResampleResult[22]>
+##  8:            0.091 2022-01-02 10:37:26        8 <ResampleResult[22]>
+##  9:            0.086 2022-01-02 10:37:27        9 <ResampleResult[22]>
+## 10:            0.078 2022-01-02 10:37:27       10 <ResampleResult[22]>
+## 11:            0.075 2022-01-02 10:37:27       11 <ResampleResult[22]>
+## 12:            0.085 2022-01-02 10:37:27       12 <ResampleResult[22]>
+## 13:            0.082 2022-01-02 10:37:27       13 <ResampleResult[22]>
+## 14:            0.074 2022-01-02 10:37:28       14 <ResampleResult[22]>
+## 15:            0.077 2022-01-02 10:37:28       15 <ResampleResult[22]>
+## 16:            0.072 2022-01-02 10:37:28       16 <ResampleResult[22]>
+## 17:            0.084 2022-01-02 10:37:29       17 <ResampleResult[22]>
+## 18:            0.071 2022-01-02 10:37:29       18 <ResampleResult[22]>
+## 19:            0.074 2022-01-02 10:37:29       19 <ResampleResult[22]>
+## 20:            0.073 2022-01-02 10:37:29       20 <ResampleResult[22]>
 \end{verbatim}
 
 The associated resampling iterations can be accessed in the \href{https://mlr3.mlr-org.com/reference/BenchmarkResult.html}{\texttt{BenchmarkResult}}:
@@ -5737,8 +5907,8 @@ To compare the optimized feature subset with the complete feature set, we can us
 ## 1:  1 <ResampleResult[22]>    pima classif.rpart.fselector            cv     3
 ## 2:  2 <ResampleResult[22]>    pima           classif.rpart            cv     3
 ##    classif.ce time_train
-## 1:     0.2578          0
-## 2:     0.2565          0
+## 1:     0.2500          0
+## 2:     0.2461          0
 \end{verbatim}
 
 Note that we do not expect any significant differences since we only evaluated a small fraction of the possible feature subsets.
@@ -6600,14 +6770,14 @@ This pipeline can again be used in conjunction with \href{https://mlr3pipelines.
 
 \begin{verbatim}
 ## <PredictionClassif> for 30 observations:
-##     row_ids     truth  response prob.setosa prob.versicolor prob.virginica
-##           3    setosa    setosa           1               0              0
-##           7    setosa    setosa           1               0              0
-##           8    setosa    setosa           1               0              0
-## ---                                                                       
-##         144 virginica virginica           0               0              1
-##         145 virginica virginica           0               0              1
-##         146 virginica virginica           0               0              1
+##     row_ids     truth   response prob.setosa prob.versicolor prob.virginica
+##           2    setosa     setosa           1             0.0            0.0
+##           7    setosa     setosa           1             0.0            0.0
+##          15    setosa     setosa           1             0.0            0.0
+## ---                                                                        
+##         128 virginica  virginica           0             0.0            1.0
+##         131 virginica  virginica           0             0.0            1.0
+##         135 virginica versicolor           0             0.9            0.1
 \end{verbatim}
 
 In conjunction with different \texttt{Backends}, this can be a very powerful tool.
@@ -6683,14 +6853,14 @@ Now we can train another learner on top of the combined features:
 
 \begin{verbatim}
 ## <PredictionClassif> for 30 observations:
-##     row_ids     truth  response
-##           3    setosa    setosa
-##           7    setosa    setosa
-##           8    setosa    setosa
-## ---                            
-##         144 virginica virginica
-##         145 virginica virginica
-##         146 virginica virginica
+##     row_ids     truth   response
+##           2    setosa     setosa
+##           7    setosa     setosa
+##          15    setosa     setosa
+## ---                             
+##         128 virginica  virginica
+##         131 virginica  virginica
+##         135 virginica versicolor
 \end{verbatim}
 
 In this vignette, we showed a very simple use-case for stacking.
@@ -6772,7 +6942,7 @@ And we can again call \texttt{.\$train} and \texttt{.\$predict}:
 
 \begin{verbatim}
 ## classif.ce 
-##          0
+##    0.03333
 \end{verbatim}
 
 \hypertarget{pipe-special-ops}{%
@@ -7314,21 +7484,21 @@ The return value corresponds to the output of the \texttt{PipeOp} output channel
 
 \begin{verbatim}
 ##        Species Petal.Length Petal.Width Sepal.Length Sepal.Width
-##  1:     setosa     -1.27910  -1.3110521     -0.77691     1.01560
-##  2:     setosa     -1.05251  -1.0486668     -0.89767     1.70389
-##  3: versicolor      0.42033   0.3944526      0.67225     0.32732
-##  4: versicolor      0.08044   0.2632600     -0.77691    -0.81982
-##  5: versicolor      0.59027   0.7880307      0.06843     0.32732
-##  6: versicolor      0.53362   0.0008746      0.30996    -0.59040
-##  7: versicolor      0.59027   0.2632600      1.15530    -0.59040
-##  8: versicolor     -0.03286  -0.2615107     -0.41462    -1.50811
-##  9: versicolor      0.13709   0.0008746     -0.05233    -1.04925
-## 10: versicolor      0.25038   0.1320673     -0.17309    -0.36097
-## 11:  virginica      0.64692   0.7880307      0.55149    -0.81982
-## 12:  virginica      0.64692   0.7880307      0.30996    -0.13154
-## 13:  virginica      1.04345   0.2632600      0.30996    -1.04925
-## 14:  virginica      1.04345   1.5751867      1.03454     0.09789
-## 15:  virginica      0.76021   0.7880307      0.06843    -0.13154
+##  1:     setosa      -1.2791     -1.3111     -0.53538     1.47446
+##  2:     setosa      -1.3358     -1.4422     -1.25996    -0.13154
+##  3:     setosa      -1.3358     -1.1799     -0.89767     1.01560
+##  4:     setosa      -1.2225     -1.3111     -1.01844    -0.13154
+##  5:     setosa      -1.2791     -1.3111     -0.77691     1.01560
+##  6:     setosa      -1.3358     -1.1799     -1.25996    -0.13154
+##  7: versicolor       0.5903      0.2633      1.15530    -0.59040
+##  8: versicolor      -0.1462     -0.2615     -0.17309    -1.04925
+##  9: versicolor      -0.2594     -0.2615     -1.01844    -1.73754
+## 10:  virginica       1.2134      1.1816      1.51759    -0.13154
+## 11:  virginica       0.9868      0.7880      0.79301    -0.13154
+## 12:  virginica       1.0434      1.1816      0.67225    -0.59040
+## 13:  virginica       0.9868      0.7880      0.67225     0.09789
+## 14:  virginica       0.9302      1.1816      1.27607     0.09789
+## 15:  virginica       0.7602      0.9192     -0.05233    -0.81982
 \end{verbatim}
 
 \begin{Shaded}
@@ -8072,8 +8242,8 @@ With the learner's default settings, the learner will do nothing special: The le
 \begin{verbatim}
 ##             truth
 ## response     setosa versicolor virginica
-##   setosa          0          0         0
-##   versicolor     50         50        50
+##   setosa         50         50        50
+##   versicolor      0          0         0
 ##   virginica       0          0         0
 \end{verbatim}
 
@@ -8280,8 +8450,8 @@ We re-parametrize the debug learner to fail in roughly 30\% of the resampling it
 ## 1:  1 <ResampleResult[22]>    iris classif.debug            cv    10        0
 ## 2:  2 <ResampleResult[22]>    iris classif.rpart            cv    10        0
 ##    errors classif.ce
-## 1:      2    0.71333
-## 2:      0    0.08667
+## 1:      2    0.70000
+## 2:      0    0.07333
 \end{verbatim}
 
 To further investigate the errors, we can extract the \href{https://mlr3.mlr-org.com/reference/ResampleResult.html}{\texttt{ResampleResult}}:
@@ -8295,8 +8465,8 @@ To further investigate the errors, we can extract the \href{https://mlr3.mlr-org
 
 \begin{verbatim}
 ##    iteration                               msg
-## 1:         4 Error from classif.debug->train()
-## 2:         7 Error from classif.debug->train()
+## 1:         3 Error from classif.debug->train()
+## 2:        10 Error from classif.debug->train()
 \end{verbatim}
 
 A similar yet different problem emerges when a learner predicts only a subset of the observations in the test set (and predicts \texttt{NA} for others).
@@ -8338,7 +8508,7 @@ This is illustrated in the following example:
 \begin{verbatim}
 ## 
 ##     setosa versicolor  virginica       <NA> 
-##         75          0          0         75
+##          0         75          0         75
 \end{verbatim}
 
 \begin{Shaded}
@@ -8353,7 +8523,7 @@ This is illustrated in the following example:
 \begin{verbatim}
 ## 
 ##     setosa versicolor  virginica       <NA> 
-##         75          0         75          0
+##          0         75         75          0
 \end{verbatim}
 
 Summed up, by combining encapsulation and fallback learners, it is possible to benchmark even quite unreliable or instable learning algorithms in a convenient way.
@@ -8652,7 +8822,7 @@ In each iteration, only the required subset of the data is queried from the SQLi
 
 \begin{verbatim}
 ##     regr.mse   time_train time_predict 
-##         1247            0            0
+##         1235            0            0
 \end{verbatim}
 
 \hypertarget{cleanup}{%
@@ -9338,11 +9508,11 @@ These are initialized with a single \texttt{Param}, and can then be used to samp
 \begin{verbatim}
 ## <Design> with 5 rows:
 ##        A
-## 1:  TRUE
-## 2:  TRUE
-## 3: FALSE
+## 1: FALSE
+## 2: FALSE
+## 3:  TRUE
 ## 4: FALSE
-## 5:  TRUE
+## 5: FALSE
 \end{verbatim}
 
 \hypertarget{hierarchical-sampler}{%
@@ -9372,8 +9542,8 @@ In the cases where \texttt{A} is \texttt{FALSE}, \texttt{B} is set to \texttt{NA
 \begin{verbatim}
 ##        B
 ## A         0   1   2   3   4   5   6   7   8   9  10 <NA>
-##   FALSE   0   0   0   0   0   0   0   0   0   0   0  487
-##   TRUE   46  41  47  56  50  42  49  48  45  47  42    0
+##   FALSE   0   0   0   0   0   0   0   0   0   0   0  491
+##   TRUE   36  58  57  37  58  47  43  38  39  43  53    0
 \end{verbatim}
 
 \hypertarget{joint-sampler}{%
@@ -9395,12 +9565,12 @@ However, \texttt{SamplerJointIndep} currently can not handle \texttt{ParamSet}s 
 
 \begin{verbatim}
 ## <Design> with 5 rows:
-##         x       y
-## 1: 0.3508 0.78770
-## 2: 0.2547 0.07967
-## 3: 0.6562 0.10313
-## 4: 0.9719 0.03180
-## 5: 0.6477 0.56455
+##           x      y
+## 1: 0.005187 0.8277
+## 2: 0.539949 0.4417
+## 3: 0.614436 0.6390
+## 4: 0.541162 0.1954
+## 5: 0.127268 0.5790
 \end{verbatim}
 
 \hypertarget{samplerunif}{%
@@ -9442,9 +9612,9 @@ The following, for example, creates a parameter that is exponentially distribute
 
 \begin{verbatim}
 ## <Design> with 2 rows:
-##        par
-## 1: 0.05488
-## 2: 0.37323
+##       par
+## 1: 0.2887
+## 2: 0.7283
 \end{verbatim}
 
 \begin{Shaded}
@@ -9456,12 +9626,12 @@ The following, for example, creates a parameter that is exponentially distribute
 \begin{verbatim}
 ## [[1]]
 ## [[1]]$par
-## [1] 2.903
+## [1] 1.242
 ## 
 ## 
 ## [[2]]
 ## [[2]]$par
-## [1] 0.9856
+## [1] 0.3171
 \end{verbatim}
 
 Compare this to \texttt{\$transpose()} without transformation:
@@ -9475,12 +9645,12 @@ Compare this to \texttt{\$transpose()} without transformation:
 \begin{verbatim}
 ## [[1]]
 ## [[1]]$par
-## [1] 0.05488
+## [1] 0.2887
 ## 
 ## 
 ## [[2]]
 ## [[2]]$par
-## [1] 0.3732
+## [1] 0.7283
 \end{verbatim}
 
 \hypertarget{transformation-between-types}{%
@@ -9546,8 +9716,8 @@ If one wanted to sample this method, using one of four functions, a way to do th
 \begin{verbatim}
 ## <Design> with 2 rows:
 ##       fun
-## 1: median
-## 2:    min
+## 1:   mean
+## 2: median
 \end{verbatim}
 
 Note that the \texttt{Design} only contains the column ``\texttt{fun}'' as a \texttt{character} column.
@@ -9562,10 +9732,10 @@ To get a single value as a \emph{function}, the \texttt{\$transpose} function is
 
 \begin{verbatim}
 ## $fun
-## function (x, na.rm = FALSE, ...) 
-## UseMethod("median")
-## <bytecode: 0x558bf68478a0>
-## <environment: namespace:stats>
+## function (x, ...) 
+## UseMethod("mean")
+## <bytecode: 0x55db0f7e3138>
+## <environment: namespace:base>
 \end{verbatim}
 
 We can now check that it fits the requirements set by \texttt{methodPS}, and that \texttt{fun} it is in fact a function:
@@ -9577,7 +9747,7 @@ We can now check that it fits the requirements set by \texttt{methodPS}, and tha
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "fun: Must have exactly 1 formal arguments, but has 2"
+## [1] TRUE
 \end{verbatim}
 
 \begin{Shaded}
@@ -9621,8 +9791,8 @@ For interpretability, the parameter is called ``\texttt{quantile}'' before trans
 \begin{verbatim}
 ## <Design> with 2 rows:
 ##    quantile
-## 1:   0.7855
-## 2:   0.1431
+## 1:   0.4694
+## 2:   0.3738
 \end{verbatim}
 
 The \texttt{Design} now contains the column ``\texttt{quantile}'' that will be used by the \texttt{\$transpose} function to create the \texttt{fun} parameter.
@@ -9638,7 +9808,7 @@ We also check that it fits the requirement set by \texttt{methodPS}, and that it
 \begin{verbatim}
 ## $fun
 ## function(input) quantile(input, x$quantile)
-## <environment: 0x558bfa4f4ae8>
+## <environment: 0x55db11d7d968>
 \end{verbatim}
 
 \begin{Shaded}
@@ -9658,8 +9828,8 @@ We also check that it fits the requirement set by \texttt{methodPS}, and that it
 \end{Shaded}
 
 \begin{verbatim}
-## 78.54963% 
-##     8.069
+## 46.93804% 
+##     5.224
 \end{verbatim}
 
 \hypertarget{logging}{%
@@ -11798,13 +11968,13 @@ The example below uses the \href{https://mlr3proba.mlr-org.com/reference/mlr_tas
 \begin{verbatim}
 ## <PredictionSurv> for 60 observations:
 ##     row_ids time status   crank      lp     distr
-##           1  101  FALSE  0.7082  0.7082 <list[1]>
-##           8  102  FALSE -0.3207 -0.3207 <list[1]>
-##          10   91  FALSE -2.0842 -2.0842 <list[1]>
+##           5  104  FALSE -3.1256 -3.1256 <list[1]>
+##          14  104  FALSE -0.4571 -0.4571 <list[1]>
+##          16   98  FALSE -2.2558 -2.2558 <list[1]>
 ## ---                                              
-##         291  104  FALSE  0.3221  0.3221 <list[1]>
-##         295  104  FALSE  1.3783  1.3783 <list[1]>
-##         297   79   TRUE  0.3357  0.3357 <list[1]>
+##         286  104  FALSE -1.3333 -1.3333 <list[1]>
+##         292  104  FALSE -1.3128 -1.3128 <list[1]>
+##         297   79   TRUE  0.5064  0.5064 <list[1]>
 \end{verbatim}
 
 \hypertarget{composition}{%
@@ -12046,10 +12216,10 @@ Note that in prediction the points to evaluate the pdf and cdf are determined by
 ## [1] 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0 5.5
 ## 
 ## $counts
-## [1] 41 36  4  5 25 56 48  2
+## [1] 44 33  4  4 22 59 48  3
 ## 
 ## $density
-## [1] 0.37788 0.33180 0.03687 0.04608 0.23041 0.51613 0.44240 0.01843
+## [1] 0.40553 0.30415 0.03687 0.03687 0.20276 0.54378 0.44240 0.02765
 ## 
 ## $mids
 ## [1] 1.75 2.25 2.75 3.25 3.75 4.25 4.75 5.25
@@ -12574,8 +12744,8 @@ We first create a classification task, then resample the model using a 10-fold c
 \begin{verbatim}
 ##         truth
 ## response good bad
-##     good  604 156
-##     bad    96 144
+##     good  605 150
+##     bad    95 150
 \end{verbatim}
 
 To calculate the average costs like above, we can simply multiply the elements of the confusion matrix with the elements of the previously introduced cost matrix, and sum the values of the resulting matrix:
@@ -12588,7 +12758,7 @@ To calculate the average costs like above, we can simply multiply the elements o
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -0.0554
+## [1] -0.06175
 \end{verbatim}
 
 With an average loan of \$20,000, the logistic regression yields the following costs:
@@ -12600,7 +12770,7 @@ With an average loan of \$20,000, the logistic regression yields the following c
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -1108000
+## [1] -1235000
 \end{verbatim}
 
 Instead of losing over \$1,000,000, the credit institute now can expect a profit of more than \$1,000,000.
@@ -12653,9 +12823,9 @@ We compare the logistic regression to a simple featureless learner and to a rand
 ## 2:  2 <ResampleResult[22]> german_credit classif.featureless            cv
 ## 3:  3 <ResampleResult[22]> german_credit      classif.ranger            cv
 ##    iters classif.costs
-## 1:     3      -0.06238
-## 2:     3       0.05498
-## 3:     3      -0.05405
+## 1:     3      -0.05624
+## 2:     3       0.05502
+## 3:     3      -0.04415
 \end{verbatim}
 
 As expected, the featureless learner is performing comparably bad.
@@ -12689,13 +12859,13 @@ Note that we increase the number of false positives simultaneously, or, in other
 \begin{verbatim}
 ## <PredictionClassif> for 1000 observations:
 ##     row_ids truth response prob.good prob.bad
-##           9  good     good    0.9917 0.008329
-##          36   bad      bad    0.3975 0.602460
-##          55   bad      bad    0.2393 0.760669
+##          16   bad      bad    0.4668   0.5332
+##          35  good     good    0.6862   0.3138
+##          39  good     good    0.8723   0.1277
 ## ---                                          
-##         992  good     good    0.7780 0.221951
-##         996  good     good    0.9538 0.046173
-##         997  good     good    0.5037 0.496343
+##         983  good     good    0.7256   0.2744
+##         984   bad     good    0.5370   0.4630
+##         990  good     good    0.7208   0.2792
 \end{verbatim}
 
 \begin{Shaded}
@@ -12714,12 +12884,12 @@ Note that we increase the number of false positives simultaneously, or, in other
 ## $confusion
 ##         truth
 ## response good bad
-##     good  602 143
-##     bad    98 157
+##     good  605 157
+##     bad    95 143
 ## 
 ## $costs
 ## classif.costs 
-##       -0.0677
+##      -0.05475
 \end{verbatim}
 
 \begin{Shaded}
@@ -12732,12 +12902,12 @@ Note that we increase the number of false positives simultaneously, or, in other
 ## $confusion
 ##         truth
 ## response good bad
-##     good  468  73
-##     bad   232 227
+##     good  468  83
+##     bad   232 217
 ## 
 ## $costs
 ## classif.costs 
-##       -0.0908
+##       -0.0808
 \end{verbatim}
 
 \begin{Shaded}
@@ -12780,11 +12950,11 @@ Instead of manually trying different threshold values, one uses use \href{https:
 
 \begin{verbatim}
 ## $minimum
-## [1] 0.8153
+## [1] 0.8211
 ## 
 ## $objective
 ## classif.costs 
-##       -0.0943
+##       -0.0891
 \end{verbatim}
 
 \begin{Shaded}
@@ -12797,8 +12967,8 @@ Instead of manually trying different threshold values, one uses use \href{https:
 \begin{verbatim}
 ##         truth
 ## response good bad
-##     good  418  52
-##     bad   282 248
+##     good  406  53
+##     bad   294 247
 \end{verbatim}
 
 Note that the function \href{https://www.rdocumentation.org/packages/stats/topics/optimize}{\texttt{optimize()}} is intended for unimodal functions and therefore may converge to a local optimum here.
@@ -12917,41 +13087,41 @@ We now create a \texttt{AutoTuner}, which automatically tunes the supplied learn
 \end{Shaded}
 
 \begin{verbatim}
-## INFO  [00:00:17.853] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerRandomSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
-## INFO  [00:00:17.907] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [00:00:18.320] [bbotk] Result of batch 1: 
-## INFO  [00:00:18.322] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [00:00:18.322] [bbotk]                0.1902      0.266            0.236 
-## INFO  [00:00:18.322] [bbotk]                                 uhash 
-## INFO  [00:00:18.322] [bbotk]  eea9722f-526e-474c-a8e1-ee6298e33698 
-## INFO  [00:00:18.326] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [00:00:18.658] [bbotk] Result of batch 2: 
-## INFO  [00:00:18.660] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [00:00:18.660] [bbotk]                0.6818      0.266            0.192 
-## INFO  [00:00:18.660] [bbotk]                                 uhash 
-## INFO  [00:00:18.660] [bbotk]  6119b4f8-e75d-4aea-9ed3-dd2db6cb4769 
-## INFO  [00:00:18.663] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [00:00:18.999] [bbotk] Result of batch 3: 
-## INFO  [00:00:19.001] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [00:00:19.001] [bbotk]                0.8214     0.3509            0.193 
-## INFO  [00:00:19.001] [bbotk]                                 uhash 
-## INFO  [00:00:19.001] [bbotk]  35335299-bb6d-406a-ab7a-afed1748b4be 
-## INFO  [00:00:19.004] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [00:00:19.339] [bbotk] Result of batch 4: 
-## INFO  [00:00:19.341] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [00:00:19.341] [bbotk]                0.3686      0.263            0.191 
-## INFO  [00:00:19.341] [bbotk]                                 uhash 
-## INFO  [00:00:19.341] [bbotk]  ed4fd4d1-edaa-4132-8898-1f5f3dcf62cc 
-## INFO  [00:00:19.344] [bbotk] Evaluating 1 configuration(s) 
-## INFO  [00:00:19.691] [bbotk] Result of batch 5: 
-## INFO  [00:00:19.693] [bbotk]  threshold.thresholds classif.ce runtime_learners 
-## INFO  [00:00:19.693] [bbotk]                0.3717      0.263            0.198 
-## INFO  [00:00:19.693] [bbotk]                                 uhash 
-## INFO  [00:00:19.693] [bbotk]  d6a8259b-4d4e-414f-8df1-8b60a1ed6d80 
-## INFO  [00:00:19.702] [bbotk] Finished optimizing after 5 evaluation(s) 
-## INFO  [00:00:19.703] [bbotk] Result: 
-## INFO  [00:00:19.704] [bbotk]  threshold.thresholds learner_param_vals  x_domain classif.ce 
-## INFO  [00:00:19.704] [bbotk]                0.3686          <list[2]> <list[1]>      0.263
+## INFO  [10:39:32.325] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerRandomSearch>' and '<TerminatorEvals> [n_evals=5, k=0]' 
+## INFO  [10:39:32.378] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:39:32.799] [bbotk] Result of batch 1: 
+## INFO  [10:39:32.801] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [10:39:32.801] [bbotk]                0.4294      0.275            0.251 
+## INFO  [10:39:32.801] [bbotk]                                 uhash 
+## INFO  [10:39:32.801] [bbotk]  917ad719-5b51-49cd-91e1-c040796aa5da 
+## INFO  [10:39:32.807] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:39:33.199] [bbotk] Result of batch 2: 
+## INFO  [10:39:33.201] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [10:39:33.201] [bbotk]                0.9316      0.698            0.219 
+## INFO  [10:39:33.201] [bbotk]                                 uhash 
+## INFO  [10:39:33.201] [bbotk]  9fe9ce13-f6cd-4ee2-8586-7ef6d1280b1a 
+## INFO  [10:39:33.204] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:39:33.594] [bbotk] Result of batch 3: 
+## INFO  [10:39:33.596] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [10:39:33.596] [bbotk]                0.5394      0.275            0.231 
+## INFO  [10:39:33.596] [bbotk]                                 uhash 
+## INFO  [10:39:33.596] [bbotk]  97a21992-02ca-4bf0-93ba-f3d5190fc845 
+## INFO  [10:39:33.599] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:39:33.972] [bbotk] Result of batch 4: 
+## INFO  [10:39:33.974] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [10:39:33.974] [bbotk]              0.000972      0.299            0.229 
+## INFO  [10:39:33.974] [bbotk]                                 uhash 
+## INFO  [10:39:33.974] [bbotk]  73fe5017-04fe-4305-8a11-7d5912dc6c83 
+## INFO  [10:39:33.978] [bbotk] Evaluating 1 configuration(s) 
+## INFO  [10:39:34.381] [bbotk] Result of batch 5: 
+## INFO  [10:39:34.384] [bbotk]  threshold.thresholds classif.ce runtime_learners 
+## INFO  [10:39:34.384] [bbotk]                0.4322      0.275            0.246 
+## INFO  [10:39:34.384] [bbotk]                                 uhash 
+## INFO  [10:39:34.384] [bbotk]  f0f28525-3282-47ee-b119-fe8dfe194cf1 
+## INFO  [10:39:34.395] [bbotk] Finished optimizing after 5 evaluation(s) 
+## INFO  [10:39:34.396] [bbotk] Result: 
+## INFO  [10:39:34.397] [bbotk]  threshold.thresholds learner_param_vals  x_domain classif.ce 
+## INFO  [10:39:34.397] [bbotk]                0.4294          <list[2]> <list[1]>      0.275
 \end{verbatim}
 
 Inside the \texttt{trafo}, we simply collect all set params into a named vector via \texttt{map\_dbl} and store it
@@ -13846,9 +14016,9 @@ This function performs a series of internal checks so the output is a bit verbos
 ##   -> predict function  :  yhat.LearnerRegr  will be used (  default  )
 ##   -> predicted values  :  No value for predict function target column. (  default  )
 ##   -> model_info        :  package mlr3 , ver. 0.13.0 , task regression (  default  ) 
-##   -> predicted values  :  numerical, min =  460911 , mean =  7476048 , max =  87396533  
+##   -> predicted values  :  numerical, min =  436101 , mean =  7475308 , max =  92917000  
 ##   -> residual function :  difference between y and yhat (  default  )
-##   -> residuals         :  numerical, min =  -8387553 , mean =  -2761 , max =  18103467  
+##   -> residuals         :  numerical, min =  -9222767 , mean =  -2021 , max =  18143100  
 ##   A new explainer has been created!
 \end{verbatim}
 
@@ -13866,12 +14036,12 @@ The \href{https://www.rdocumentation.org/packages/DALEX/topics/model_parts}{\tex
 
 \begin{verbatim}
 ##               variable mean_dropout_loss     label
-## 1         _full_model_           1298823 Ranger RF
-## 2            value_eur           1298823 Ranger RF
-## 3            weight_kg           1364375 Ranger RF
-## 4     movement_balance           1369542 Ranger RF
-## 5            height_cm           1371794 Ranger RF
-## 6 mentality_aggression           1372479 Ranger RF
+## 1         _full_model_           1290721 Ranger RF
+## 2            value_eur           1290721 Ranger RF
+## 3     movement_balance           1348255 Ranger RF
+## 4            weight_kg           1356662 Ranger RF
+## 5 mentality_aggression           1359412 Ranger RF
+## 6            height_cm           1366426 Ranger RF
 \end{verbatim}
 
 Results can be visualized with generic \texttt{plot()}. The chart for all 38 variables would be unreadable, so with the \texttt{max\_vars} argument, we limit the number of variables on the plot.
@@ -13900,12 +14070,12 @@ Once we know which variables are most important, we can use \href{https://pbiece
 \begin{verbatim}
 ## Top profiles    : 
 ##              _vname_   _label_ _x_  _yhat_ _ids_
-## 1 skill_ball_control Ranger RF   5 6990708     0
-## 2    skill_dribbling Ranger RF   7 7543002     0
-## 3    skill_dribbling Ranger RF  11 7541294     0
-## 4    skill_dribbling Ranger RF  12 7541151     0
-## 5    skill_dribbling Ranger RF  13 7540086     0
-## 6    skill_dribbling Ranger RF  14 7539068     0
+## 1 skill_ball_control Ranger RF   5 6991149     0
+## 2    skill_dribbling Ranger RF   7 7295100     0
+## 3    skill_dribbling Ranger RF  11 7292673     0
+## 4    skill_dribbling Ranger RF  12 7296757     0
+## 5    skill_dribbling Ranger RF  13 7294814     0
+## 6    skill_dribbling Ranger RF  14 7291000     0
 \end{verbatim}
 
 Again, the result of the explanation can be presented with the generic function \texttt{plot()}.
@@ -13941,13 +14111,13 @@ The function \texttt{predict\_parts} is an instance-level version of the \texttt
 \end{Shaded}
 
 \begin{verbatim}
-##                                         contribution
-## Ranger RF: intercept                         7476048
-## Ranger RF: movement_reactions = 96          11652990
-## Ranger RF: skill_ball_control = 92           7107702
-## Ranger RF: attacking_finishing = 94          5342518
-## Ranger RF: mentality_positioning = 95        4573740
-## Ranger RF: attacking_short_passing = 83      5089773
+##                                       contribution
+## Ranger RF: intercept                       7475308
+## Ranger RF: movement_reactions = 96        11203684
+## Ranger RF: skill_ball_control = 92         7373182
+## Ranger RF: mentality_positioning = 95      4913822
+## Ranger RF: attacking_finishing = 94        4628995
+## Ranger RF: skill_dribbling = 89            5418689
 \end{verbatim}
 
 The generic \texttt{plot()} function shows the estimated contribution of variables to the final prediction.
@@ -14732,14 +14902,14 @@ In our case, this is \textbf{mean} and \textbf{standard deviation} of each colum
 \begin{verbatim}
 ## $classif.rpart.output
 ## <PredictionClassif> for 30 observations:
-##     row_ids      truth   response
-##          28     setosa     setosa
-##          97 versicolor versicolor
-##          22     setosa     setosa
-## ---                              
-##          13     setosa     setosa
-##           8     setosa     setosa
-##          54 versicolor versicolor
+##     row_ids     truth  response
+##         110 virginica virginica
+##          39    setosa    setosa
+##          38    setosa    setosa
+## ---                            
+##          46    setosa    setosa
+##         131 virginica virginica
+##         104 virginica virginica
 \end{verbatim}
 
 \hypertarget{mlr3pipelines-vs.-mlr}{%
@@ -15015,9 +15185,9 @@ To cite this book, please use the following information:
   title = {},
   author = {},
   url = {https://mlr3book.mlr-org.com},
-  year = {2021},
-  month = {12},
-  day = {23},
+  year = {2022},
+  month = {01},
+  day = {02},
 }
 \end{verbatim}
 
